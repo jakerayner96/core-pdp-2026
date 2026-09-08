@@ -31,6 +31,12 @@ img{display:block;max-width:100%}
 img[src*="/icons/"]{object-fit:contain;object-position:center}
 a{color:inherit;text-decoration:none}
 [hidden]{display:none!important}
+/* A11y (WCAG 2.2 AA): visible focus everywhere, reduced motion honoured, ≥24px targets (44px where rows repeat) */
+:focus-visible{outline:2px solid #0D99FF;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+.cb{position:relative}.cb::before{content:"";position:absolute;inset:-10px} /* 44px hit area around the 24px box */
+.lk .dot::before{content:"";position:absolute;inset:-10px;border-radius:99px}
+.rail-head .all,.srow .rh .all,.crow .rh .all{padding:8px 0;margin:-8px 0}
 .ic{width:24px;height:24px;display:block;object-fit:contain}
 .ic-16{width:16px;height:16px}
 .ic-12{width:12px;height:12px}
@@ -170,7 +176,7 @@ a{color:inherit;text-decoration:none}
 @media(min-width:1024px){.swatches{margin-right:0;padding-right:0}}
 .sw{flex:none}
 .mode-live .swatches{display:none}
-.sw{width:60px;height:89px;border-radius:4px;border:1px solid var(--grey-1);overflow:hidden;position:relative;padding:0;background:var(--surface-media)}
+.sw{width:60px;height:90px;border-radius:4px;border:1px solid var(--grey-1);overflow:hidden;position:relative;padding:0;background:var(--surface-media)}
 .sw img{width:100%;height:100%;object-fit:cover;border-radius:3px}
 .sw.on{border-color:#000}
 .sw.on::after{content:"";position:absolute;inset:0;border:1px solid #FFF;border-radius:3px;pointer-events:none}
@@ -405,9 +411,12 @@ a{color:inherit;text-decoration:none}
 .chip-entry.round{border-radius:100px}.chip-entry.square{border-radius:4px}.chip-entry.outlined{border:1px solid #000}
 .chip-entry .hanger{width:16px;height:16px}
 .buy-set-box{display:flex;height:117px;border-radius:4px;overflow:hidden;width:100%;padding:0}
-.buy-set-box .imgs{display:flex;height:100%;flex:0 0 50%;min-width:0;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity} /* peeking image scrolls */
+.buy-set-box .imgs{display:flex;height:100%;flex:0 0 50%;min-width:0;overflow:hidden} /* slow endless marquee of the set */
+.buy-set-box .track{display:flex;height:100%;animation:mtm 16s linear infinite}
+.buy-set-box:hover .track{animation-play-state:paused}
+@keyframes mtm{to{transform:translateX(-50%)}}
 .buy-set-box .imgs::-webkit-scrollbar,.equation-strip .imgs::-webkit-scrollbar{display:none}
-.buy-set-box .imgs img{scroll-snap-align:start;flex:none}
+.buy-set-box .track img{flex:none}
 .buy-set-box .imgs img{height:100%;aspect-ratio:48/72;object-fit:cover;width:auto}
 .buy-set-box .copy{flex:0 0 50%;min-width:0;background:var(--grey-05);display:flex;flex-direction:column;justify-content:center;gap:4px;padding:16px 24px}
 .buy-set-box .copy .h{font-size:16px;font-weight:600;white-space:nowrap}
@@ -415,7 +424,7 @@ a{color:inherit;text-decoration:none}
 /* 03-3 Pairs well with — thumb row + label, under the buy buttons */
 .pairs{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:8px 0}
 .pairs .thumbs{display:flex;gap:8px}
-.pairs .thumbs img{width:48px;height:64px;object-fit:cover;background:var(--grey-05);display:block}
+.pairs .thumbs img{width:48px;height:72px;object-fit:cover;background:var(--grey-05);display:block}
 .pairs .lbl{display:flex;align-items:center;gap:4px;font-size:14px;font-weight:600;white-space:nowrap}
 .pairs .lbl .chev{width:16px;height:16px}
 @media(min-width:1024px){.pairs .thumbs img{width:64px;height:84px}}
@@ -460,8 +469,8 @@ a{color:inherit;text-decoration:none}
 .price-chip .copy{display:flex;flex-direction:column;gap:2px}
 .price-chip .copy .h{font-size:14px;font-weight:600}
 .price-chip .copy .s{font-size:12px;font-weight:400;color:var(--grey-4)}
-.trio{position:relative;width:108px;height:97px;flex:none} /* stacked images = colour-swatch size (60×89) */
-.trio img{position:absolute;width:60px;height:89px;object-fit:cover;border-radius:2px;box-shadow:var(--shadow-pill)}
+.trio{position:relative;width:108px;height:98px;flex:none} /* stacked images = colour-swatch size (60×89) */
+.trio img{position:absolute;width:60px;height:90px;object-fit:cover;border-radius:2px;box-shadow:var(--shadow-pill)}
 .trio img:nth-child(1){left:0;top:8px}.trio img:nth-child(2){left:24px;top:4px}.trio img:nth-child(3){left:48px;top:0}
 .price-banner{display:flex;align-items:center;gap:12px;width:100%}
 .price-banner.boxed{background:var(--grey-05);border-radius:4px;padding:12px}
@@ -490,11 +499,12 @@ a{color:inherit;text-decoration:none}
 .srow .rh .all{font-size:12px;font-weight:600}
 .srow .cards{display:flex;gap:4px;padding-left:24px;overflow-x:auto;scrollbar-width:none;padding-right:24px}
 .srow .cards::-webkit-scrollbar{display:none}
+.sheet .body.big .scard{flex:0 0 210px;width:210px} /* Large: cards 1.5× */
+.sheet .body.compact{gap:12px} /* Compact: rows closer, filling the space */
 .scard{flex:0 0 140px;width:140px;display:flex;flex-direction:column;gap:12px} /* Figma: image → 12 → info */
 .scard .inf{display:flex;flex-direction:column;gap:8px} /* price → 8 → size */
 .scard .im{position:relative;aspect-ratio:170/255;overflow:hidden;background:var(--surface-media);cursor:pointer;transition:opacity .15s}
 .scard .im img{width:100%;height:100%;object-fit:cover}
-.scard.dim .im{opacity:.3}
 .scard.on .im{box-shadow:var(--shadow-pill)}
 .scard .cb{position:absolute;left:8px;top:8px}
 .scard .pr{display:flex;flex-wrap:wrap;gap:4px 8px;font-size:14px;align-items:center}
@@ -506,6 +516,8 @@ a{color:inherit;text-decoration:none}
 .scard .sz-sel .v.set{color:#000}
 .scard .sz-sel .v.err{color:var(--red)}
 .scard .sz-sel img{width:12px;height:12px}
+.scard .sz-sel.nochev{cursor:default}
+.scard .sz-sel:not(.nochev){min-height:40px;margin:-8px 0;padding:8px 0} /* A11y: ≥40px touch target without changing the 8px rhythm */
 .scard .nm{font-size:12px;color:var(--grey-4);font-weight:400;margin-top:-4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sheet .foot{flex:none;background:var(--grey-05);padding:24px;display:flex;flex-direction:column;gap:16px}
 .sheet .foot .tot{display:flex;justify-content:space-between;font-size:16px;font-weight:500}
@@ -572,24 +584,23 @@ a{color:inherit;text-decoration:none}
 .cmp-hero img{width:100%;height:100%;object-fit:cover}
 .cmp-hero .cap{position:absolute;left:0;right:0;bottom:0;padding:12px 16px;background:linear-gradient(to top,rgba(255,255,255,.95),rgba(255,255,255,0));font-size:14px}
 .cmp-hero .cap b{font-weight:600;display:block}
-.crow{display:flex;flex-direction:column;gap:8px}
+.crow{display:flex;flex-direction:column;gap:6px}
 .crow .rh{display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:12px}
 .crow .rh .lbl{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--grey-5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .crow .rh .lbl b{color:#000}
 .crow .rh .sz-sel{display:flex;gap:6px;align-items:center;font-size:12px;cursor:pointer;white-space:nowrap}
 .crow .rh .sz-sel .v{color:var(--grey-4)}.crow .rh .sz-sel .v.set{color:#000;font-weight:600}.crow .rh .sz-sel .v.err{color:var(--red)}
 .crow .rh .sz-sel img{width:12px;height:12px}
-.crow .th{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 24px}
+.crow .th{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 24px}
 .crow .th::-webkit-scrollbar{display:none}
-.crow .th button{flex:0 0 68px;width:68px;height:90px;padding:0;border:1px solid var(--grey-2);background:var(--grey-05);overflow:hidden;position:relative}
+.crow .th button{flex:0 0 84px;width:84px;height:126px;padding:0;border:none;background:var(--grey-05);overflow:hidden;position:relative} /* 2:3 tiles */
 .crow .th button img{width:100%;height:100%;object-fit:cover}
-.crow .th button.on{border:2px solid #000}
-.crow .th button .tick{position:absolute;left:4px;top:4px;width:18px;height:18px;border-radius:3px;background:#000}
-.crow .th button .tick::after{content:"";position:absolute;left:6px;top:2px;width:4px;height:9px;border:solid #FFF;border-width:0 2px 2px 0;transform:rotate(45deg)}
-.crow .csel{display:flex;flex-direction:column;gap:6px;padding:0 24px}
-.crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px}
+.crow .th button.on{box-shadow:inset 0 0 0 1px #000} /* thin keyline when ticked */
+.crow .th button .cb{position:absolute;left:4px;top:4px} /* same 24px checkbox as the cards */
+.crow .csel{display:flex;flex-direction:column;gap:0;padding:0 24px}
+.crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;min-height:44px} /* A11y: 44px rows */
 .crow .cs .c{color:#000;font-weight:500}
-.crow .cs .sz-sel{display:flex;gap:6px;align-items:center;cursor:pointer;white-space:nowrap}
+.crow .cs .sz-sel{display:flex;gap:6px;align-items:center;cursor:pointer;white-space:nowrap;min-height:44px;padding:0 4px}
 .crow .cs .sz-sel .v{color:var(--grey-4)}.crow .cs .sz-sel .v.set{color:#000;font-weight:600}.crow .cs .sz-sel .v.err{color:var(--red)}
 .crow .cs .sz-sel img{width:12px;height:12px}
 .crow .rh .all{font-size:12px;font-weight:600}
@@ -923,7 +934,7 @@ body.editing{padding-bottom:48px}
 <template id="tpl-01-1"><div class="pill-row"><button class="chip-entry round entry">SHOP SETS</button></div></template>
 <template id="tpl-01-4"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">Shop The Set</button></div></template>
 <template id="tpl-01-8"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">SET BUILDER</button></div></template>
-<template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h">Made To Match</span><span class="s">Shop our range of matching sets</span></span></button></template>
+<template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><span class="track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span></span><span class="copy"><span class="h">Made To Match</span><span class="s">Shop our range of matching sets</span></span></button></template>
 <template id="tpl-03-2"><button class="equation-strip entry"><span class="imgs"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy">SHOP SETS</span></button></template>
 <template id="tpl-03-3"><button class="pairs entry"><span class="thumbs"><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="lbl">Pairs well with<img class="chev" src="assets/ds/icons/lib/icons-right.svg" alt=""></span></button></template>
 <template id="tpl-04-1"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll two-up"><img src="assets/bundling/om1-1.jpg" alt=""><img src="assets/bundling/om1-2.jpg" alt=""><img data-set="0" alt=""><img data-set="1" alt=""></div><div class="outfit-caption"><div class="l"><span class="h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta">LAUNCH SET BUILDER</span></div></div></template>
@@ -950,6 +961,7 @@ const S={
   edit:false,                          // edit-layout mode (review tooling)
   fmt:PRE.fmt||LS('pdp26-fmt')||{look:'nodata',hp:'grid',wtyl:'carousel'}, // recs module formats: nodata | carousel | grid | inline | hot | pairs | off
   gridRows:PRE.gridRows||LS('pdp26-gridrows')||{look:2,hp:2,wtyl:2}, // rows shown when a module is a grid (3 per row)
+  endpos:PRE.endpos||LS('pdp26-endpos')||5, // 06-1 gallery end card: slide position (2..5; past the last image = last)
   order:PRE.order||LS('pdp26-order')||{},         // block order per container (edit mode)
   entry:q.get('entry')||PRE.entry||'03-1',       // set-builder entry point id | none
   stock:q.get('stock')||PRE.stock||'in',         // in | size | oos
@@ -996,7 +1008,7 @@ function renderGallery(){
   const rows=ec.querySelectorAll('.row');
   setImages(6).forEach((src,i)=>rows[i<3?0:1].appendChild(el(`<img src="${src}" alt="">`)));
   ec.onclick=()=>openSheet('set');
-  gal.appendChild(ec);
+  const at=gal.children[Math.max(0,(+S.endpos||5)-1)];if(at)gal.insertBefore(ec,at);else gal.appendChild(ec); // position = the slide it becomes
   // thumbs (desktop)
   const th=$('#thumbs');th.innerHTML='';
   imgs.forEach((src,i)=>{const b=el(`<button class="${i===0?'on':''}"><img src="${src}" alt=""></button>`);b.onclick=()=>goSlide(i);th.appendChild(b);});
@@ -1218,6 +1230,7 @@ function renderEntry(){
   const node=tpl.content.cloneNode(true);
   const imgs=setImages(5);
   node.querySelectorAll('img[data-set]').forEach(im=>im.src=imgs[+im.dataset.set]||imgs[0]);
+  node.querySelectorAll('.track').forEach(t=>{t.innerHTML+=t.innerHTML;}); // duplicate for a seamless loop
   node.querySelectorAll('[data-pieces]').forEach(s=>s.textContent=`${setPieces()} matching pieces · ${fam('zip-hoodie').length} colours`);
   const sc=node.querySelector('[data-setcards]');if(sc){lookItems().forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>openSheet('set')})));}
   node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>openSheet('set')));
@@ -1266,7 +1279,7 @@ function rowCards(r,ri){
     const on=!!SH.sel[p.id];const sale=p.was&&p.was>p.price;
     const c=el(`<div class="scard ${on?'on':''} ${has&&!on?'dim':''}">
       <div class="im"><img src="${p.img}" alt="${p.name} — ${p.colour}"><button class="cb ${on?'':'off'}" aria-label="${on?'Deselect':'Select'} ${p.colour}"></button></div>
-      <div class="inf"><div class="pr"><span class="now ${sale?'sale':''}">${fmt(p.price)}</span>${sale?`<span class="was">${fmt(p.was)}</span>`:''}</div>${sizeLine(p)}<div class="nm">${p.colour}</div></div></div>`);
+      <div class="inf"><div class="pr"><span class="now ${sale?'sale':''}">${fmt(p.price)}</span>${sale?`<span class="was">${fmt(p.was)}</span>`:''}</div>${sizeLine(p)}<div class="sz-sel nochev"><span>Colour:</span><span class="v set">${p.colour}</span></div></div></div>`);
     c.querySelector('.im').onclick=()=>toggleSel(p);wireSize(c,p);cards.appendChild(c);
   });
   return row;
@@ -1276,13 +1289,14 @@ function rowThumbs(r,ri,back){
   const row=el(`<div class="crow"><div class="rh"><span class="lbl">${r.label}</span>${back?'<button class="all">View less</button>':''}</div><div class="th"></div><div class="csel"></div></div>`);
   if(back)row.querySelector('.all').onclick=()=>{delete SH.view[ri];renderSheet();};
   const th=row.querySelector('.th');
-  r.items.forEach(p=>{const on=!!SH.sel[p.id];const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt="">${on?'<i class="tick"></i>':''}</button>`);bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
+  r.items.forEach(p=>{const on=!!SH.sel[p.id];const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""><span class="cb ${on?'':'off'}" aria-hidden="true"></span></button>`);bt.setAttribute('aria-pressed',on);bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
   const cs=row.querySelector('.csel');
   r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const line=el(`<div class="cs"><span class="c">${p.colour} · ${fmt(p.price)}</span>${sizeLine(p)}</div>`);wireSize(line,p);cs.appendChild(line);});
   return row;
 }
 function renderSheet(){
   const b=$('#sheetbody');b.innerHTML='';$('#setview').hidden=true;
+  b.classList.toggle('big',SH.kind==='set'&&SETVIEW==='large');b.classList.toggle('compact',SH.kind==='set'&&SETVIEW==='compact');
   const compact=SH.kind==='set'&&SETVIEW==='compact'; // Compact = every row as thumbnails, no hero (the product you came from is already ticked in its row)
   if(SH.kind==='look') b.appendChild(el(`<div class="filters"><span>Price <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Body Fit <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Style <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span></div>`));
   SH.rows.forEach((r,ri)=>b.appendChild((compact||SH.view[ri]==='thumbs')?rowThumbs(r,ri,!compact):rowCards(r,ri)));
@@ -1369,8 +1383,9 @@ function renderAll(){
   renderEntry();renderCYP();renderSimilar();renderRecs();
   $('#nddmsg').hidden=S.stock==='oos';
   renderEdit();
+  if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1432,8 +1447,10 @@ addEventListener('message',e=>{
   S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;
   if(d.fmt){S.fmt={...S.fmt,...d.fmt};LS('pdp26-fmt',S.fmt);}
   if(d.gridRows){S.gridRows={...S.gridRows,...d.gridRows};LS('pdp26-gridrows',S.gridRows);}
+  if(d.endpos){S.endpos=+d.endpos;LS('pdp26-endpos',S.endpos);}
   if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);if(!$('#sheet').hidden&&SH.kind==='set')renderSheet();}
   if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);location.reload();return;}
+  if(d.focus)PENDING_FOCUS=d.focus;
   if(stockChanged){S.size=null;S.notified=false;}
   document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');sh.hidden=true;});document.body.style.overflow='';
   renderAll();
@@ -1441,14 +1458,16 @@ addEventListener('message',e=>{
 renderAll();
 /* panel → page focus: bring the thing being changed into view, or open its modal */
 function flash(el){if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1400);}
-addEventListener('message',e=>{const d=e.data;if(!d||!d.pdpFocus)return;const k=d.pdpFocus;
+var PENDING_FOCUS=null; // hoisted — renderAll runs before this line
+function doFocus(k){
   if(k==='setview'){if($('#sheet').hidden)openSheet('set');else renderSheet();return;}
   if(k==='entry'){if(S.entry==='06-1'){const g=$('#gal');g.scrollTo({left:g.scrollWidth,behavior:'smooth'});flash(g);return;}const slot=document.querySelector('#slot-colour .entry,#slot-rail .entry,#slot-buttons .entry');flash(slot?slot.closest('.slot'):$('.colour'));return;}
   if(k==='look'){flash(S.fmt.look==='pairs'?$('#slot-buttons'):$('#recs-look'));return;}
   if(k==='hp'){flash($('#recs-hp'));return;}
   if(k==='wtyl'){flash($('#recs-wtyl'));return;}
   if(k==='stock'){flash($('.sizes'));return;}
-});
+}
+addEventListener('message',e=>{const d=e.data;if(d&&d.pdpFocus)doFocus(d.pdpFocus);});
 parent.postMessage({pdpReady:1},'*');
 let __imgsDone=()=>[...document.images].every(i=>i.complete);
 addEventListener('message',e=>{if(e.data&&e.data.pdpPing){const t=setInterval(()=>{if(__imgsDone()){clearInterval(t);parent.postMessage({pdpPong:e.data.pdpPing,h:document.documentElement.scrollHeight},'*');}},100);}});
