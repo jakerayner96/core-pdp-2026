@@ -404,6 +404,13 @@ a{color:inherit;text-decoration:none}
 .buy-set-box .copy{flex:0 0 50%;min-width:0;background:var(--grey-05);display:flex;flex-direction:column;justify-content:center;gap:4px;padding:16px 24px}
 .buy-set-box .copy .h{font-size:16px;font-weight:600;white-space:nowrap}
 .buy-set-box .copy .s{font-size:12px;font-weight:400;color:var(--grey-4)}
+/* 03-3 Pairs well with — thumb row + label, under the buy buttons */
+.pairs{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:8px 0}
+.pairs .thumbs{display:flex;gap:8px}
+.pairs .thumbs img{width:56px;height:74px;object-fit:cover;background:var(--grey-05);display:block}
+.pairs .lbl{display:flex;align-items:center;gap:6px;font-size:16px;font-weight:600;white-space:nowrap}
+.pairs .lbl .chev{width:16px;height:16px}
+@media(min-width:1024px){.pairs .thumbs img{width:64px;height:84px}}
 .equation-strip{display:flex;height:116px;background:var(--grey-05);border-radius:4px;overflow:hidden;width:100%;padding:0}
 .equation-strip .imgs{flex:1;display:flex;height:100%;overflow-x:auto;scrollbar-width:none}
 .equation-strip .imgs img{flex:none}
@@ -495,6 +502,73 @@ a{color:inherit;text-decoration:none}
 .sheet .foot .tot{display:flex;justify-content:space-between;font-size:16px;font-weight:500}
 .sheet .foot .tot b{font-weight:600}
 .sheet .foot .btn.p:disabled{background:var(--grey-3);cursor:not-allowed}
+/* hotspot look — Nike-style 'Complete The Look': big look imagery, tap → hotspots reveal product chips, View entire look → modal */
+.recs.hot{background:#FFF;padding:16px 0}
+.recs.hot .rail-head{padding:0 var(--m)}
+.recs.hot .looks{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 var(--m);scroll-snap-type:x mandatory}
+.recs.hot .looks::-webkit-scrollbar{display:none}
+.lk{flex:0 0 82%;max-width:340px;position:relative;aspect-ratio:3/4;background:var(--surface-media);overflow:hidden;scroll-snap-align:start;cursor:pointer}
+.lk img{width:100%;height:100%;object-fit:cover}
+.lk .dot{position:absolute;width:24px;height:24px;border-radius:99px;background:rgba(255,255,255,.9);box-shadow:0 0 0 6px rgba(255,255,255,.35);display:grid;place-items:center;transform:translate(-50%,-50%);opacity:0;transition:opacity .2s}
+.lk .dot::after{content:"";width:8px;height:8px;border-radius:99px;background:#000}
+.lk.on .dot{opacity:1}
+.lk .chip{position:absolute;transform:translate(-50%,12px);background:#FFF;border-radius:4px;padding:8px 10px;box-shadow:var(--shadow-pill);display:none;flex-direction:column;gap:2px;min-width:150px;font-size:12px}
+.lk .chip b{font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+.lk .chip.on{display:flex}
+.lk .hint{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.85);border-radius:4px;padding:6px 10px;font-size:12px;font-weight:600}
+.lk.on .hint{display:none}
+.recs.hot .btn.s{margin:0 var(--m);width:auto}
+@media(min-width:1024px){.lk{flex:0 0 340px}}
+/* look modal — the pieces of the look: switch colour, pick size, add all */
+.lookm .body{padding:0 24px 24px;gap:24px}
+.lm{display:grid;grid-template-columns:99px 1fr;gap:16px}
+.lm img.main{width:99px;height:148px;object-fit:cover;background:var(--surface-media)}
+.lm .txt{display:flex;flex-direction:column;gap:8px;min-width:0}
+.lm .nm{font-size:14px;font-weight:400;line-height:1.35}
+.lm .pr{font-size:14px;font-weight:600}
+.lm .swr{display:flex;gap:6px;flex-wrap:wrap}
+.lm .swr button{width:24px;height:36px;padding:0;border:1px solid var(--grey-2);border-radius:3px;overflow:hidden;background:var(--surface-media)}
+.lm .swr button.on{border-color:#000;box-shadow:inset 0 0 0 1px #FFF}
+.lm .swr img{width:100%;height:100%;object-fit:cover}
+.lm .sz-sel{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
+.lm .sz-sel .v{color:var(--grey-4)}.lm .sz-sel .v.set{color:#000}.lm .sz-sel .v.err{color:var(--red)}
+.lm .sz-sel img{width:12px;height:12px}
+/* pairs-well-with list modal */
+.pairsm .body{padding:0 0 24px}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px 8px}
+.pg{display:flex;flex-direction:column;gap:6px;padding:0 0 0 0}
+.pg .im{position:relative;aspect-ratio:170/255;background:var(--grey-05);overflow:hidden}
+.pg .im img{width:100%;height:100%;object-fit:cover}
+.pg .plus{position:absolute;right:8px;bottom:8px;width:32px;height:32px;border-radius:99px;background:rgba(255,255,255,.85);display:grid;place-items:center;font-size:22px;line-height:1;font-weight:300}
+.pg .t{padding:0 16px}
+.pg .nm{font-size:16px;font-weight:600;line-height:1.3}
+.pg .cl{font-size:16px;font-weight:600;color:var(--grey-4)}
+.pg .cols{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--grey-4)}
+.pg .cols i{width:16px;height:16px;border-radius:99px;display:inline-block;border:1px solid var(--grey-2);background-size:cover}
+.pg .pr{font-size:16px;font-weight:600}
+.pgrid .pg:nth-child(odd) .t{padding-left:24px}.pgrid .pg:nth-child(even) .t{padding-right:24px}
+/* set builder — COMPACT view (tech board / Zara): hero image on top, one row of small thumbs per family, first row = the hero in its other colours */
+.sheet .view{display:inline-flex;flex:none;background:var(--grey-1);border-radius:99px;padding:2px;margin-right:8px;white-space:nowrap}
+.sheet .view button{font-size:11px;padding:3px 10px;border-radius:99px;color:var(--grey-4)}
+.sheet .view button.on{background:#000;color:#FFF}
+.cmp-hero{margin:0 24px;height:0;padding-bottom:calc((100% - 48px) * 1.25);background:var(--grey-05);overflow:hidden;position:relative;flex:none} /* 4:5 hero; explicit box so the flex column can size it */
+.cmp-hero img{position:absolute;inset:0}
+.cmp-hero img{width:100%;height:100%;object-fit:cover}
+.cmp-hero .cap{position:absolute;left:0;right:0;bottom:0;padding:12px 16px;background:linear-gradient(to top,rgba(255,255,255,.95),rgba(255,255,255,0));font-size:14px}
+.cmp-hero .cap b{font-weight:600;display:block}
+.crow{display:flex;flex-direction:column;gap:8px}
+.crow .rh{display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:12px}
+.crow .rh .lbl{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--grey-5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crow .rh .lbl b{color:#000}
+.crow .rh .sz-sel{display:flex;gap:6px;align-items:center;font-size:12px;cursor:pointer;white-space:nowrap}
+.crow .rh .sz-sel .v{color:var(--grey-4)}.crow .rh .sz-sel .v.set{color:#000;font-weight:600}.crow .rh .sz-sel .v.err{color:var(--red)}
+.crow .rh .sz-sel img{width:12px;height:12px}
+.crow .th{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 24px}
+.crow .th::-webkit-scrollbar{display:none}
+.crow .th button{flex:0 0 68px;width:68px;height:90px;padding:0;border:1px solid var(--grey-2);background:var(--grey-05);overflow:hidden;position:relative}
+.crow .th button img{width:100%;height:100%;object-fit:cover}
+.crow .th button.on{border:2px solid #000}
+.crow .th button .pr{position:absolute;left:0;right:0;bottom:0;font-size:10px;background:rgba(255,255,255,.85);padding:1px 4px;text-align:left}
 /* size picker popover */
 .pick{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center}
 .pick .bg{position:absolute;inset:0}
@@ -766,9 +840,28 @@ body.editing{padding-bottom:48px}
 <div class="sheet" id="sheet" hidden>
   <div class="bg" data-close></div>
   <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheettitle">
-    <div class="head"><h2 id="sheettitle">Shop The Set</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="head"><h2 id="sheettitle">Shop The Set</h2><span class="view" id="setview" title="Set builder layout (review)"><button data-v="cards">Cards</button><button data-v="compact">Compact</button></span><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
     <div class="body" id="sheetbody"></div>
     <div class="foot"><div class="tot"><span>Total</span><b id="sheettotal">£0.00</b></div><button class="btn p" id="sheetatb">Add to bag (0)</button></div>
+  </div>
+</div>
+
+<!-- Complete The Look modal (hotspot format): pieces of the look, colour switch + size, add all -->
+<div class="sheet lookm" id="lookm" hidden>
+  <div class="bg" data-close></div>
+  <div class="panel" role="dialog" aria-modal="true">
+    <div class="head"><h2>Complete The Look</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="body" id="lookmbody"></div>
+    <div class="foot"><div class="tot"><span>Total</span><b id="lookmtotal">£0.00</b></div><button class="btn p" id="lookmatb">Add all to bag</button></div>
+  </div>
+</div>
+
+<!-- Pairs well with — complete-the-look LIST modal (not the set builder): 2-col product grid, + to quick add -->
+<div class="sheet pairsm" id="pairsm" hidden>
+  <div class="bg" data-close></div>
+  <div class="panel" role="dialog" aria-modal="true">
+    <div class="head"><h2>Pairs well with</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="body"><div class="pgrid" id="pgrid"></div></div>
   </div>
 </div>
 
@@ -794,6 +887,7 @@ body.editing{padding-bottom:48px}
 <template id="tpl-01-8"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">SET BUILDER</button></div></template>
 <template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h">Made To Match</span><span class="s">Shop our range of matching sets</span></span></button></template>
 <template id="tpl-03-2"><button class="equation-strip entry"><span class="imgs"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy">SHOP SETS</span></button></template>
+<template id="tpl-03-3"><button class="pairs entry"><span class="thumbs"><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="lbl">Pairs well with<img class="chev" src="assets/ds/icons/lib/icons-right.svg" alt=""></span></button></template>
 <template id="tpl-04-1"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll two-up"><img src="assets/bundling/om1-1.jpg" alt=""><img src="assets/bundling/om1-2.jpg" alt=""><img data-set="0" alt=""><img data-set="1" alt=""></div><div class="outfit-caption"><div class="l"><span class="h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta">LAUNCH SET BUILDER</span></div></div></template>
 <template id="tpl-04-2"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-grid"><img src="assets/bundling/om2-1.jpg" alt=""><img src="assets/bundling/om2-2.jpg" alt=""><img src="assets/bundling/om2-3.jpg" alt=""><img src="assets/bundling/om2-4.jpg" alt=""></div><div class="outfit-caption"><div class="l"><span class="h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta">LAUNCH SET BUILDER</span></div></div></template>
 <template id="tpl-04-3"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll three-up"><img src="assets/bundling/om3-1.jpg" alt=""><img src="assets/bundling/om3-2.jpg" alt=""><img src="assets/bundling/om3-3.jpg" alt=""><img data-set="0" alt=""><img data-set="1" alt=""></div><div class="outfit-caption"><div class="l"><span class="h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta">LAUNCH SET BUILDER</span></div></div></template>
@@ -980,16 +1074,16 @@ const RECS={
 };
 function recsModule(key){
   const R=RECS[key],host=$('#recs-'+key);host.innerHTML='';host.className='';
-  const fmt=S.fmt[key]||'carousel';
-  const off=fmt==='off'||(R.onlyNew&&S.mode!=='new')||(key==='look'&&S.stock==='oos');
+  const f=S.fmt[key]||'carousel';
+  const off=f==='off'||(R.onlyNew&&S.mode!=='new')||(key==='look'&&S.stock==='oos');
   host.hidden=off;if(off)return;
   const items=R.items();
   const open=p=>R.bundle?openSheet('look',p&&p.id):(p&&p.id&&byId(p.id)?(S.colour=p.id,S.size=null,renderAll(),scrollTo({top:0,behavior:'smooth'})):toast(R.title+' — View All'));
-  const box=el(`<div class="recs ${fmt}"><div class="rail-head"><span class="rail-title">${R.title}</span><span class="all">View All</span></div></div>`);
-  if(fmt==='nodata'){
+  const box=el(`<div class="recs ${f}"><div class="rail-head"><span class="rail-title">${R.title}</span><span class="all">View All</span></div></div>`);
+  if(f==='nodata'){
     const imgs=el(`<div class="imgs"></div>`);items.slice(0,R.bundle?3:6).forEach(p=>imgs.appendChild(el(`<img src="${p.img}" alt="${p.name}" loading="lazy">`)));box.appendChild(imgs);
     box.onclick=()=>open();
-  }else if(fmt==='inline'){
+  }else if(f==='inline'){
     box.querySelector('.rail-title').textContent='Complete The Look';box.querySelector('.all').remove();
     const h=hero();const range=P.filter(p=>p.colour===h.colour&&p.id!==h.id).sort((a,b)=>FAM.findIndex(f=>f.id===a.fam)-FAM.findIndex(f=>f.id===b.fam));
     const sc=el(`<div class="ctl"></div>`);
@@ -1006,7 +1100,21 @@ function recsModule(key){
       sc.appendChild(c);
     });
     box.appendChild(sc);
-  }else if(fmt==='carousel'){
+  }else if(f==='hot'){
+    box.querySelector('.rail-title').textContent='Complete The Look';box.querySelector('.all').remove();
+    const h=hero();const pieces=lookItems();
+    const looks=[{img:(h.gallery||[])[1]||h.img,spots:[[50,32,pieces[0]],[52,74,pieces[1]]]},{img:h.img,spots:[[50,40,pieces[0]]]},{img:(h.gallery||[])[3]||h.img2,spots:[[50,36,pieces[0]],[50,78,pieces[1]]]}];
+    const sc=el(`<div class="looks"></div>`);
+    looks.forEach(L=>{
+      const lk=el(`<div class="lk"><img src="${L.img}" alt="Complete the look"><span class="hint">Tap to shop the look</span></div>`);
+      L.spots.forEach(([x,y,p])=>{if(!p)return;const d=el(`<button class="dot" style="left:${x}%;top:${y}%" aria-label="${p.name}"></button>`);const ch=el(`<div class="chip" style="left:${x}%;top:${y}%"><b>${p.name}</b><span>${fmt(p.price)}</span></div>`);
+        d.onclick=e=>{e.stopPropagation();const on=ch.classList.contains('on');lk.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));ch.classList.toggle('on',!on);};
+        ch.onclick=e=>{e.stopPropagation();openLookModal();};lk.appendChild(d);lk.appendChild(ch);});
+      lk.onclick=()=>{lk.classList.toggle('on');lk.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));};
+      sc.appendChild(lk);});
+    box.appendChild(sc);
+    const vb=el(`<button class="btn s">View entire look</button>`);vb.onclick=openLookModal;box.appendChild(vb);
+  }else if(f==='carousel'){
     const sc=el(`<div class="scroll"></div>`);items.forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>open(p)})));box.appendChild(sc);
     box.querySelector('.rail-head').onclick=()=>open();
   }else{
@@ -1059,13 +1167,13 @@ function renderEntry(){
   ['slot-pill','slot-price','slot-buttons','slot-colour','slot-rail'].forEach(id=>$('#'+id).innerHTML='');
   if(S.mode!=='new'||S.entry==='none'||S.entry==='06-1'||S.stock==='oos')return;
   const tpl=document.getElementById('tpl-'+S.entry);if(!tpl)return;
-  const slot=$('#'+SLOT[S.entry.slice(0,2)]);
+  const slot=$('#'+(S.entry==='03-3'?'slot-buttons':SLOT[S.entry.slice(0,2)])); // 03-3 sits under the buy buttons
   const node=tpl.content.cloneNode(true);
-  const imgs=setImages(3);
+  const imgs=setImages(5);
   node.querySelectorAll('img[data-set]').forEach(im=>im.src=imgs[+im.dataset.set]||imgs[0]);
   node.querySelectorAll('[data-pieces]').forEach(s=>s.textContent=`${setPieces()} matching pieces · ${fam('zip-hoodie').length} colours`);
   const sc=node.querySelector('[data-setcards]');if(sc){lookItems().forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>openSheet('set')})));}
-  node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>openSheet('set')));
+  node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>S.entry==='03-3'?openPairs():openSheet('set'))); // 03-3 = complete the look (list), everything else = set builder
   slot.appendChild(node);
 }
 
@@ -1094,8 +1202,27 @@ function openSheet(kind,preselectId){
   document.body.style.overflow='hidden';
 }
 function closeSheet(){const sh=$('#sheet');sh.classList.remove('open');setTimeout(()=>{sh.hidden=true;document.body.style.overflow='';},250);}
+let SETVIEW=LS('pdp26-setview')||'cards';
+document.querySelectorAll('#setview button').forEach(bt=>bt.onclick=()=>{SETVIEW=bt.dataset.v;LS('pdp26-setview',SETVIEW);renderSheet();});
+function renderSheetCompact(){
+  const b=$('#sheetbody');
+  const first=SH.sel[0]?byId(SH.sel[0].id):hero();
+  b.appendChild(el(`<div class="cmp-hero"><img src="${first.img}" alt="${first.name}"><div class="cap"><b>${first.name}</b>${first.colour} · ${fmt(first.price)}</div></div>`));
+  SH.rows.forEach((r,ri)=>{
+    const sel=SH.sel[ri];const sp=sel?byId(sel.id):null;
+    const row=el(`<div class="crow"><div class="rh"><span class="lbl">${r.label}${sp?` — <b>${sp.colour} · ${fmt(sp.price)}</b>`:''}</span>${sp?`<span class="sz-sel"><span>Size:</span><span class="v ${sel.size?'set':''} ${sel.err?'err':''}">${sel.size||'Select'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></span>`:''}</div><div class="th"></div></div>`);
+    const th=row.querySelector('.th');
+    r.items.forEach(p=>{const on=sel&&sel.id===p.id;const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""></button>`);
+      bt.onclick=()=>{if(on)delete SH.sel[ri];else SH.sel[ri]={id:p.id,size:null};renderSheet();};th.appendChild(bt);});
+    if(sp)row.querySelector('.sz-sel').onclick=()=>openPick(sp,sz=>{SH.sel[ri].size=sz;SH.sel[ri].err=false;renderSheet();});
+    b.appendChild(row);
+  });
+}
 function renderSheet(){
   const b=$('#sheetbody');b.innerHTML='';
+  const vw=$('#setview');vw.hidden=SH.kind!=='set';vw.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.v===SETVIEW));
+  if(SH.kind==='set'&&SETVIEW==='compact'){renderSheetCompact();}
+  else{
   if(SH.kind==='look') b.appendChild(el(`<div class="filters"><span>Price <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Body Fit <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Style <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span></div>`));
   SH.rows.forEach((r,ri)=>{
     const row=el(`<div class="srow"><div class="rh"><span class="lbl">${r.label}</span><span class="all">View All</span></div><div class="cards"></div></div>`);
@@ -1113,6 +1240,7 @@ function renderSheet(){
     });
     b.appendChild(row);
   });
+  }
   const picked=Object.values(SH.sel);
   const total=picked.reduce((a,s)=>a+byId(s.id).price,0);
   $('#sheettotal').textContent=fmt(total);
@@ -1124,6 +1252,36 @@ $('#sheetatb').onclick=()=>{
   const items=Object.values(SH.sel).map(s=>({p:byId(s.id),size:s.size}));
   closeSheet();setTimeout(()=>openATB(items),200);
 };
+/* Complete The Look modal (hotspot format): each piece can switch colour within its family and pick a size; Add all */
+let LM=[]; // [{id,size,err}]
+function openLookModal(){
+  LM=lookItems().map(p=>({id:p.id,size:null}));renderLookModal();
+  const m=$('#lookm');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';
+}
+function renderLookModal(){
+  const b=$('#lookmbody');b.innerHTML='';
+  LM.forEach((it,i)=>{const p=byId(it.id);const fs=fam(p.fam);
+    const row=el(`<div class="lm"><img class="main" src="${p.img}" alt=""><div class="txt"><div class="nm">${p.name}</div><div class="pr">${fmt(p.price)}</div><div class="swr"></div><div class="sz-sel"><span>Size:</span><span class="v ${it.size?'set':''} ${it.err?'err':''}">${it.size||'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div></div></div>`);
+    const swr=row.querySelector('.swr');fs.forEach(c=>{const bt=el(`<button class="${c.id===p.id?'on':''}" title="${c.colour}" aria-label="${c.colour}"><img src="${c.img}" alt=""></button>`);bt.onclick=()=>{LM[i]={id:c.id,size:null};renderLookModal();};swr.appendChild(bt);});
+    row.querySelector('.sz-sel').onclick=()=>openPick(p,sz=>{LM[i].size=sz;LM[i].err=false;renderLookModal();});
+    b.appendChild(row);});
+  $('#lookmtotal').textContent=fmt(LM.reduce((a,it)=>a+byId(it.id).price,0));
+  $('#lookmatb').textContent=`Add all to bag (${LM.length})`;
+}
+$('#lookmatb').onclick=()=>{let bad=false;LM.forEach(it=>{if(!it.size){it.err=true;bad=true;}});if(bad){renderLookModal();toast('Select a size for each piece');return;}
+  const items=LM.map(it=>({p:byId(it.id),size:it.size}));const m=$('#lookm');m.classList.remove('open');setTimeout(()=>{m.hidden=true;openATB(items);},200);};
+/* Pairs well with — list modal: the rest of the range in the hero colour; + = size pick → added to bag */
+function openPairs(){
+  const h=hero();const g=$('#pgrid');g.innerHTML='';
+  const range=P.filter(p=>p.colour===h.colour&&p.id!==h.id).sort((a,b)=>FAM.findIndex(f=>f.id===a.fam)-FAM.findIndex(f=>f.id===b.fam));
+  range.forEach(p=>{const n=fam(p.fam).length;
+    const c=el(`<div class="pg"><div class="im"><img src="${p.img}" alt="${p.name}" loading="lazy"><button class="plus" aria-label="Add ${p.name}">+</button></div>
+      <div class="t"><div class="nm">${p.name}</div><div class="cl">${p.colour}</div><div class="cols"><i style="background-image:url(${p.sw})"></i>${n} Colour${n>1?'s':''}</div><div class="pr">${fmt(p.price)}</div></div></div>`);
+    c.querySelector('.plus').onclick=e=>{e.stopPropagation();openPick(p,sz=>{const m=$('#pairsm');m.classList.remove('open');setTimeout(()=>{m.hidden=true;openATB([{p,size:sz}]);},200);});};
+    c.querySelector('.im').onclick=()=>{S.colour=p.id;S.size=null;const m=$('#pairsm');m.classList.remove('open');m.hidden=true;document.body.style.overflow='';renderAll();scrollTo({top:0,behavior:'smooth'});};
+    g.appendChild(c);});
+  const m=$('#pairsm');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';
+}
 /* size picker */
 function openPick(p,cb){
   const m=$('#pickmenu');m.innerHTML='<div class="t">Select size</div>';
@@ -1198,7 +1356,7 @@ function renderEdit(){
     const sibs=blocksOf(b.parentElement).filter(x=>!x.hidden&&x.offsetParent!==null);const i=sibs.indexOf(b);
     const ed=el(`<div class="ed"><span class="lbl">${b.dataset.label||b.dataset.block}</span></div>`);
     if(b.dataset.recs){const k=b.dataset.recs;const seg=el(`<span class="seg"></span>`);
-      [['nodata','Grey'],['carousel','Carousel'],['grid','Grid'],...(RECS[k].bundle?[['inline','Inline']]:[]),['off','Off']].forEach(([v,l])=>{const bt=el(`<button class="${S.fmt[k]===v?'on':''}">${l}</button>`);bt.onclick=e=>{e.stopPropagation();S.fmt[k]=v;LS('pdp26-fmt',S.fmt);renderAll();};seg.appendChild(bt);});
+      [['nodata','Grey'],['carousel','Carousel'],['grid','Grid'],...(RECS[k].bundle?[['inline','Inline'],['hot','Hotspot']]:[]),['off','Off']].forEach(([v,l])=>{const bt=el(`<button class="${S.fmt[k]===v?'on':''}">${l}</button>`);bt.onclick=e=>{e.stopPropagation();S.fmt[k]=v;LS('pdp26-fmt',S.fmt);renderAll();};seg.appendChild(bt);});
       ed.appendChild(seg);}
     const mv=el(`<span class="mv"><button aria-label="Move up" ${i<=0?'disabled':''}>▲</button><button aria-label="Move down" ${i>=sibs.length-1?'disabled':''}>▼</button></span>`);
     mv.children[0].onclick=e=>{e.stopPropagation();sibs[i-1].before(b);saveOrder();renderAll();};
