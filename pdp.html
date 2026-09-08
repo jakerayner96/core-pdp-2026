@@ -632,12 +632,12 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .th button img{width:100%;height:100%;object-fit:cover}
 .crow .th button.on{box-shadow:inset 0 0 0 1px #000} /* thin keyline when ticked */
 .crow .th button .cb{position:absolute;left:4px;top:4px} /* same 24px checkbox as the cards */
-.crow .csel{display:flex;flex-direction:column;gap:0;padding:0 24px}
-.crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;min-height:44px} /* A11y: 44px rows */
+.crow .csel{display:flex;flex-direction:column;gap:2px;padding:0 24px}
+.crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;min-height:28px} /* natural rhythm; targets stay ≥24px (WCAG 2.2 AA 2.5.8) */
 .crow .cs .c{color:#000;font-weight:500}
 .crow .cs .c .sale{color:var(--red);font-weight:600}
 .crow .cs .c s{color:var(--grey-4);font-weight:400}
-.crow .cs .sz-sel{display:flex;gap:6px;align-items:center;cursor:pointer;white-space:nowrap;min-height:44px;padding:0 4px}
+.crow .cs .sz-sel{display:flex;gap:6px;align-items:center;cursor:pointer;white-space:nowrap;min-height:28px;padding:0 4px}
 .crow .cs .sz-sel .v{color:var(--grey-4)}.crow .cs .sz-sel .v.set{color:#000;font-weight:600}.crow .cs .sz-sel .v.err{color:var(--red)}
 .crow .cs .sz-sel img{width:12px;height:12px}
 .crow .rh .all{font-size:12px;font-weight:600}
