@@ -75,6 +75,18 @@ a{color:var(--accent)}
 .rm{font-size:11.5px;color:var(--muted);line-height:1.5}
 .rm s{color:#FF6B6B}
 
+/* simple panel */
+.ph{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 0 14px}
+.ph h1{margin:0}
+.editbtn{padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.3);color:var(--ink);font-size:11.5px;font-weight:600;white-space:nowrap}
+.editbtn.on{background:var(--accent);border-color:var(--accent);color:#FFF}
+.card h3{margin-bottom:2px}
+.opt{padding:7px 0}
+.rows{display:flex;gap:6px;padding:6px 0 4px 26px}
+.rw{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.25);font-size:11px;color:#B0B0B0}
+.rw.on{background:var(--ink);color:#000;border-color:var(--ink);font-weight:600}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 2px}
+.foot .rm{font-size:11px}
 /* ---- stage: plain frame, drag to resize (as before) ---- */
 .stage{position:relative;overflow:hidden;display:flex;align-items:stretch;justify-content:center;padding:0}
 .win{display:flex;height:100%;max-width:100%}
@@ -115,45 +127,17 @@ body.dragging iframe{pointer-events:none}
 </header>
 
 <aside class="panel">
-  <div class="brandline"><img src="assets/boohooman.svg" alt="boohooMAN"> · Product description page</div>
-  <h1>Configure the PDP</h1>
-  <div class="brandline">Pick options, rearrange the page, then <b>Export</b></div>
-  <div class="note"><b>How this works:</b> every choice here changes the preview. <b>Edit layout</b> lets you move blocks up and down on the page itself and remove them (removed blocks are listed under the page, not lost). When you're happy, hit <b>Export</b> — you get full-page PNGs at mobile and desktop plus a zip of the code set to your configuration. Send that back to Jake.</div>
+  <div class="ph"><h1>Configure the PDP</h1><button class="editbtn" id="edittgl">Edit layout</button></div>
 
-  <div class="card" id="c-entry">
-    <h3>Set entry point <span class="tag">Advanced bundling</span></h3>
-    <p>The component that opens the <b>Shop The Set</b> builder. 03 and 07 sit under the colours; 04 large banners sit under the BNPL box; 06 is the last gallery slide. 03-3 is a complete-the-look pattern (list modal, no bundling).</p>
-    <div id="entryopts"></div>
-  </div>
+  <div class="card"><h3>Advanced bundling entry point</h3><div id="entryopts"></div></div>
+  <div class="card"><h3>Create the look</h3><div id="lookopts"></div></div>
+  <div class="card"><h3>Advanced bundling modal</h3><div id="setviewopts"></div></div>
+  <div class="card"><h3>Handpicked For You</h3><div id="hpopts"></div></div>
+  <div class="card"><h3>We Think You'll Like</h3><div id="wtylopts"></div></div>
+  <div class="card"><h3>Stock</h3><div id="stockopts"></div></div>
 
-  <div class="card" id="c-setview">
-    <h3>Set builder layout <span class="tag">Advanced bundling</span></h3>
-    <div id="setviewopts"></div>
-  </div>
-
-  <div class="card" id="c-look">
-    <h3>Shop The Look module <span class="tag alt">Complete the look</span></h3>
-    <p>Grey, Carousel and Grid open Create The Look; Inline and Hotspot buy in place.</p>
-    <div id="lookopts"></div>
-  </div>
-
-  <div class="card" id="c-hp"><h3>Handpicked For You</h3><div id="hpopts"></div></div>
-  <div class="card" id="c-wtyl"><h3>We Think You'll Like</h3><div id="wtylopts"></div></div>
-
-  <div class="card" id="c-stock">
-    <h3>Stock state</h3>
-    <div id="stockopts"></div>
-  </div>
-
-  <div class="card" id="c-layout">
-    <h3>Layout</h3>
-    <p>Edit mode puts a label, ▲▼ and ✕ on every block in the preview — including each description row. Dividers only ever sit between rows, so removing a row takes its divider with it.</p>
-    <div class="row"><div><b>Edit layout on the page</b><span>Move blocks up / down, remove them</span></div><button class="tgl" id="edittgl" aria-label="Edit layout"><i></i></button></div>
-    <div class="row"><div><b>Removed blocks</b><div class="rm" id="removedsum">None</div></div></div>
-    <div class="row"><div><b>Reset layout</b><span>Default order, nothing removed</span></div><button class="link" id="resetorder">Reset</button></div>
-  </div>
-
-  <div class="card"><h3>Current configuration</h3><div class="sum" id="cfg"></div></div>
+  <div class="foot"><span class="rm" id="removedsum"></span><button class="link" id="resetorder">Reset layout</button></div>
+  <div class="sum" id="cfg"></div>
 </aside>
 
 <main class="stage" id="stage">
@@ -170,39 +154,45 @@ body.dragging iframe{pointer-events:none}
 
 <script>
 const ENTRIES=[
-  ['03 Medium banner',[['03-1','Buy The Set box — Made To Match','Half images · half copy, under the colours',true],['03-2','Equation strip — SHOP SETS','Images + CTA strip'],['03-3','Pairs well with — thumb row','Complete the look: list modal with + to add. Sits under the buy buttons']]],
-  ['04 Large banner',[['04-1','Outfit module — 2-up scroll','Full-bleed imagery, caption + LAUNCH SET BUILDER'],['04-2','Outfit module — 2×2 grid',''],['04-3','Outfit module — 3-up scroll',''],['04-4','Content slot + product carousel','Square slot + the set as product cards']]],
-  ['06 Product image',[['06-1','Gallery set end card','Last gallery slide: 6-up mosaic + SHOP MORE SETS']]],
-  ['07 Price banner',[['07-1','Anchor link — SHOP MATCHING SETS',''],['07-2','Chip — More Sets Available',''],['07-3','Chip with trio',''],['07-4','Chip with trio — Shop The Full Set',''],['07-5','Banner with trio — Shop The Whole Set',''],['07-6','Borderless trio banner','']]],
-  ['',[['none','No entry point','']]],
+  ['Medium banner',[['03-1','Made To Match box'],['03-2','Equation strip']]],
+  ['Large banner',[['04-1','2-up scroll'],['04-2','2×2 grid'],['04-3','3-up scroll'],['04-4','Slot + carousel']]],
+  ['Product image',[['06-1','Gallery end card']]],
+  ['Price banner',[['07-1','Anchor link'],['07-2','Chip'],['07-3','Chip with trio'],['07-4','Chip trio + copy'],['07-5','Banner with trio'],['07-6','Borderless trio']]],
+  ['',[['none','None']]],
 ];
-const FMT_BUNDLE=[['nodata','Grey — images only','Grey ground, title + View All, no product data. Tap → Create The Look',true],['carousel','Carousel — with data','Product cards: brand, name, price'],['grid','Grid','3-across product grid'],['inline','Inline — Complete The Look','Grey band, white cards with size + ADD TO BAG for every other piece in this colour'],['hot','Hotspot — look imagery','Big look carousel, tap for hotspots, View entire look → modal (colour + size + Add all)'],['off','Off','']];
-const FMT_RECS=[['nodata','Grey — images only',''],['carousel','Carousel — with data',''],['grid','Grid',''],['off','Off','']];
-const SETVIEWS=[['cards','Cards','Rows of product cards with a checkbox, Size ▾ and price (Figma 1038:45022)',true],['compact','Compact — hero + thumb rows','Hero image on top, one row of small thumbnails per family; first row = this hoodie in other colours (tech board / Zara)']];
-const STOCKS=[['in','In stock','3XL+ unavailable, as live',true],['size','Some sizes out of stock','M and L show the bell — pick one to see notify me'],['oos','Product out of stock','Out of Stock label, notify me, Shop Similar Items grid']];
+const FMT_BUNDLE=[['nodata','Grey background'],['carousel','Carousel'],['grid','Grid'],['inline','Inline band'],['hot','Hotspot imagery'],['pairs','Pairs well with row'],['off','Off']];
+const FMT_RECS=[['nodata','Grey background'],['carousel','Carousel'],['grid','Grid'],['off','Off']];
+const SETVIEWS=[['cards','Cards'],['compact','Compact thumbs']];
+const STOCKS=[['in','In stock'],['size','Some sizes out'],['oos','Out of stock']];
+const ROWS=[[1,'1 row'],[2,'2 rows'],[3,'3 rows']];
 
-let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'grid',wtyl:'carousel'},setview:'cards',edit:false,removed:[]};
+let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'grid',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},setview:'cards',edit:false,removed:[]};
 const $=s=>document.querySelector(s);
 const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
 
-function radios(host,list,get,set){
+function radios(host,list,get,set,inline){
   host.innerHTML='';
-  list.forEach(([v,label,desc,sug])=>{
-    const o=document.createElement('button');o.className='opt'+(get()===v?' on':'');o.setAttribute('role','radio');o.setAttribute('aria-checked',get()===v);
-    o.innerHTML=`<span class="r"></span><span class="t"><b>${label}</b>${desc?`<span>${desc}</span>`:''}</span>${sug?'<span class="tag">Suggested</span>':''}`;
+  if(inline){host.className='rows';}
+  list.forEach(([v,label])=>{
+    const o=document.createElement('button');o.className=(inline?'rw':'opt')+(get()===v?' on':'');o.setAttribute('role','radio');o.setAttribute('aria-checked',get()===v);
+    o.innerHTML=inline?label:`<span class="r"></span><span class="t"><b>${label}</b></span>`;
     o.onclick=()=>{set(v);send();renderPanel();};host.appendChild(o);
   });
+}
+function fmtCard(host,list,key){
+  radios(host,list,()=>CFG.fmt[key],v=>CFG.fmt[key]=v);
+  if(CFG.fmt[key]==='grid'){const r=document.createElement('div');r.className='rows';host.appendChild(r);radios(r,ROWS,()=>+CFG.gridRows[key],v=>CFG.gridRows[key]=v,true);}
 }
 function renderPanel(){
   const eh=$('#entryopts');eh.innerHTML='';
   ENTRIES.forEach(([g,items])=>{if(g){const h=document.createElement('div');h.className='grp';h.textContent=g;eh.appendChild(h);}const d=document.createElement('div');eh.appendChild(d);radios(d,items,()=>CFG.entry,v=>CFG.entry=v);});
+  fmtCard($('#lookopts'),FMT_BUNDLE,'look');
   radios($('#setviewopts'),SETVIEWS,()=>CFG.setview,v=>CFG.setview=v);
-  radios($('#lookopts'),FMT_BUNDLE,()=>CFG.fmt.look,v=>CFG.fmt.look=v);
-  radios($('#hpopts'),FMT_RECS,()=>CFG.fmt.hp,v=>CFG.fmt.hp=v);
-  radios($('#wtylopts'),FMT_RECS,()=>CFG.fmt.wtyl,v=>CFG.fmt.wtyl=v);
+  fmtCard($('#hpopts'),FMT_RECS,'hp');
+  fmtCard($('#wtylopts'),FMT_RECS,'wtyl');
   radios($('#stockopts'),STOCKS,()=>CFG.stock,v=>CFG.stock=v);
-  $('#edittgl').classList.toggle('on',CFG.edit);
-  $('#removedsum').innerHTML=CFG.removed.length?CFG.removed.map(r=>`<s>${r.label}</s>`).join(', '):'None';
+  $('#edittgl').classList.toggle('on',CFG.edit);$('#edittgl').textContent=CFG.edit?'Done editing':'Edit layout';
+  $('#removedsum').innerHTML=CFG.removed.length?'Removed: '+CFG.removed.map(r=>`<s>${r.label}</s>`).join(', '):'';
   document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===CFG.mode));
 }
 function apply(){
@@ -212,11 +202,11 @@ function apply(){
   sizebox.textContent=`${Math.round(w)}px`;
   document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',(b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600)));
 }
-function send(f=frame){ f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,setview:CFG.setview,edit:CFG.edit},'*'); }
+function send(f=frame){ f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,setview:CFG.setview,edit:CFG.edit},'*'); }
 addEventListener('message',e=>{
   const d=e.data;if(!d)return;
   if(d.pdpCfg&&e.source===frame.contentWindow)cfg.textContent=d.pdpCfg;
-  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
+  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
   if(typeof d.pdpEdit==='boolean'){CFG.edit=d.pdpEdit;renderPanel();}
 });
 document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{CFG.mode=b.dataset.m;send();renderPanel();});
@@ -241,7 +231,7 @@ function loadFrame(w){
   return new Promise(res=>{
     const f=document.createElement('iframe');f.style.width=w+'px';f.style.height='900px';f.style.border='0';f.src='pdp.html?brand=boohooman&mode='+CFG.mode+'&_='+Date.now();
     $('#hidden').appendChild(f);
-    const onMsg=e=>{if(e.source!==f.contentWindow)return;if(e.data&&e.data.pdpReady){const cfgNoEdit={...CFG,edit:false};f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:cfgNoEdit.mode,entry:cfgNoEdit.entry,stock:cfgNoEdit.stock,fmt:cfgNoEdit.fmt,setview:cfgNoEdit.setview,edit:false},'*');
+    const onMsg=e=>{if(e.source!==f.contentWindow)return;if(e.data&&e.data.pdpReady){const cfgNoEdit={...CFG,edit:false};f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:cfgNoEdit.mode,entry:cfgNoEdit.entry,stock:cfgNoEdit.stock,fmt:cfgNoEdit.fmt,gridRows:cfgNoEdit.gridRows,setview:cfgNoEdit.setview,edit:false},'*');
       const id=Math.random().toString(36).slice(2);const onPong=ev=>{if(ev.source===f.contentWindow&&ev.data&&ev.data.pdpPong===id){removeEventListener('message',onPong);removeEventListener('message',onMsg);f.style.height=(ev.data.h+20)+'px';setTimeout(()=>res(f),500);}};addEventListener('message',onPong);setTimeout(()=>f.contentWindow.postMessage({pdpPing:id},'*'),300);}};
     addEventListener('message',onMsg);
   });
@@ -261,7 +251,7 @@ async function doExport(){
     exptxt.textContent='Rendering desktop (1440)…';const d=await shot(1440);
     exptxt.textContent='Packaging code…';
     const zip=new JSZip();const name=`core-pdp-2026-${stamp()}`;const root=zip.folder(name);
-    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
+    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
     root.file('config.json',JSON.stringify(state,null,2));
     root.file(`${name}-mobile-390.png`,m);root.file(`${name}-desktop-1440.png`,d);
     let html=await (await fetch('pdp.html')).text();

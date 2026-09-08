@@ -348,7 +348,7 @@ a{color:inherit;text-decoration:none}
 .drow{padding:16px 0}
 .drow+.drow{border-top:1px solid var(--grey-2)} /* DIVIDER RULE: between rows only — never above the first, never under the last; a deleted row takes its divider with it */
 .desc .h{font-size:16px;font-weight:500;text-transform:capitalize}
-.glance{display:flex;flex-direction:column;gap:16px}
+.glance{display:flex;flex-direction:column;gap:16px;margin-top:16px} /* title → ticks = same 16px as the accordion header → body */
 .glance li{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:300;list-style:none}
 .glance li i{width:24px;height:24px;border-radius:99px;border:1px solid var(--grey-25);display:grid;place-items:center;flex:none}
 .glance li i img{width:12px;height:12px}
@@ -371,7 +371,7 @@ a{color:inherit;text-decoration:none}
 
 /* rec links */
 .reclinks{padding:0 var(--m);display:flex;flex-direction:column;gap:16px}
-.reclinks .rail-title{font-size:16px;font-weight:600}
+/* section/widget titles share one style: .rail-title 18/600 */
 .chips{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center}
 .chips a{font-size:16px;font-weight:300;padding:4px 0}
 .mode-new .chips a{background:var(--grey-05);border:none;border-radius:4px;padding:8px 12px;font-size:14px;font-weight:400} /* grey boxes, regular text, no outline */
@@ -766,13 +766,12 @@ body.editing{padding-bottom:48px}
 <!-- ================= BELOW ================= -->
 <section class="below">
   <div class="inset buyside deliver" id="deliver-m" data-block="deliver" data-label="Deliver+"></div>
+  <!-- Create the look module — one component, several formats. Default position: under the Deliver+ box -->
+  <div id="recs-look" data-block="look" data-label="Create the look" data-recs="look"></div>
   <div class="inset buyside uspbox" id="uspbox-m" data-block="uspbox" data-label="Delivery &amp; returns"></div>
   <div class="inset buyside uspbox" id="student-m" data-block="student" data-label="Student"></div>
   <div class="inset buyside bnpl" id="bnpl-m" data-block="bnpl" data-label="BNPL"></div>
   <div class="slot" id="slot-rail" data-block="entry04" data-label="Set entry point — 04 large banner"></div>
-
-  <!-- Recs modules — one component, three formats (grey image carousel / data carousel / grid). 'look' is the bundle one → Create The Look -->
-  <div id="recs-look" data-block="look" data-label="Shop The Look (bundle)" data-recs="look"></div>
 
   <!-- Live: production 'Complete Your Purchase With' -->
   <div class="inset cyp" id="cyp" data-block="cyp" data-label="Complete Your Purchase With (live)"></div>
@@ -926,7 +925,8 @@ const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k))
 const S={
   mode:q.get('mode')||PRE.mode||'new',          // live | new
   edit:false,                          // edit-layout mode (review tooling)
-  fmt:PRE.fmt||LS('pdp26-fmt')||{look:'nodata',hp:'grid',wtyl:'carousel'}, // recs module formats: nodata | carousel | grid | inline | hot | off
+  fmt:PRE.fmt||LS('pdp26-fmt')||{look:'nodata',hp:'grid',wtyl:'carousel'}, // recs module formats: nodata | carousel | grid | inline | hot | pairs | off
+  gridRows:PRE.gridRows||LS('pdp26-gridrows')||{look:2,hp:2,wtyl:2}, // rows shown when a module is a grid (3 per row)
   order:PRE.order||LS('pdp26-order')||{},         // block order per container (edit mode)
   entry:q.get('entry')||PRE.entry||'03-1',       // set-builder entry point id | none
   stock:q.get('stock')||PRE.stock||'in',         // in | size | oos
@@ -1082,26 +1082,27 @@ function setPieces(){return S.rows.length||3;}
    Shop The Look module (new) / Complete Your Purchase With (live) / Similar (OOS)
    ============================================================ */
 function lookItems(){const h=hero();return [h,partner('wide-jogger',h.colour),partner('tee',h.colour)].filter(Boolean);}
-function lookMore(){const c=hero().colour;return [partner('sweatshirt',c),partner('quarter-zip',c),partner('straight-jogger',c)].filter(Boolean);}
+function lookMore(){const c=hero().colour;const h=hero();const same=P.filter(p=>p.colour===c&&p.id!==h.id&&!['wide-jogger','tee'].includes(p.fam));const rest=P.filter(p=>p.colour!==c&&p.fam!=='zip-hoodie');return [...same,...rest].slice(0,9);}
 /* Recs module — one component, three formats. bundle:true = the Create The Look one (always opens the sheet). */
 const RECS={
   look:{title:'Shop The Look',bundle:true,items:()=>[...lookItems(),...lookMore()],onlyNew:true},
-  hp:{title:'Handpicked For You',items:()=>HP},
-  wtyl:{title:"We Think You'll Like",items:()=>WTYL},
+  hp:{title:'Handpicked For You',items:()=>[...HP,...P.filter(p=>p.fam==='quarter-zip').slice(0,3)]},
+  wtyl:{title:"We Think You'll Like",items:()=>[...WTYL,...P.filter(p=>p.fam==='oth-hoodie'||p.fam==='sweatshirt').slice(0,4)]},
+  // hp pads the same way when 3 rows are asked for
 };
 function recsModule(key){
   const R=RECS[key],host=$('#recs-'+key);host.innerHTML='';host.className='';
   const f=S.fmt[key]||'carousel';
-  const off=f==='off'||(R.onlyNew&&S.mode!=='new')||(key==='look'&&S.stock==='oos');
+  const off=f==='off'||f==='pairs'||(R.onlyNew&&S.mode!=='new')||(key==='look'&&S.stock==='oos'); // 'pairs' renders under the buy buttons instead (renderEntry)
   host.hidden=off;if(off)return;
   const items=R.items();
   const open=p=>R.bundle?openSheet('look',p&&p.id):(p&&p.id&&byId(p.id)?(S.colour=p.id,S.size=null,renderAll(),scrollTo({top:0,behavior:'smooth'})):toast(R.title+' — View All'));
-  const box=el(`<div class="recs ${f}"><div class="rail-head"><span class="rail-title">${R.title}</span><span class="all">View All</span></div></div>`);
+  const box=el(`<div class="recs ${f}"><div class="rail-head"><span class="rail-title">${R.title}</span>${f==='nodata'?'<span class="all">View All</span>':''}</div></div>`); // View All belongs to the visual (no data) carousel only
   if(f==='nodata'){
     const imgs=el(`<div class="imgs"></div>`);items.slice(0,R.bundle?3:6).forEach(p=>imgs.appendChild(el(`<img src="${p.img}" alt="${p.name}" loading="lazy">`)));box.appendChild(imgs);
     box.onclick=()=>open();
   }else if(f==='inline'){
-    box.querySelector('.rail-title').textContent='Complete The Look';box.querySelector('.all').remove();
+    box.querySelector('.rail-title').textContent='Complete The Look';
     const h=hero();const range=P.filter(p=>p.colour===h.colour&&p.id!==h.id).sort((a,b)=>FAM.findIndex(f=>f.id===a.fam)-FAM.findIndex(f=>f.id===b.fam));
     const sc=el(`<div class="ctl"></div>`);
     range.forEach(p=>{
@@ -1118,7 +1119,7 @@ function recsModule(key){
     });
     box.appendChild(sc);
   }else if(f==='hot'){
-    box.querySelector('.rail-title').textContent='Complete The Look';box.querySelector('.all').remove();
+    box.querySelector('.rail-title').textContent='Complete The Look';
     const h=hero();const pieces=lookItems();
     const looks=[{img:(h.gallery||[])[1]||h.img,spots:[[50,32,pieces[0]],[52,74,pieces[1]]]},{img:h.img,spots:[[50,40,pieces[0]]]},{img:(h.gallery||[])[3]||h.img2,spots:[[50,36,pieces[0]],[50,78,pieces[1]]]}];
     const sc=el(`<div class="looks"></div>`);
@@ -1135,7 +1136,7 @@ function recsModule(key){
     const sc=el(`<div class="scroll"></div>`);items.forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>open(p)})));box.appendChild(sc);
     box.querySelector('.rail-head').onclick=()=>open();
   }else{
-    const g=el(`<div class="grid3"></div>`);items.slice(0,6).forEach(p=>g.appendChild(card(p,{pct:S.mode==='new',onclick:()=>open(p)})));box.appendChild(g);
+    const rows=+(S.gridRows[key]||2);const g=el(`<div class="grid3"></div>`);items.slice(0,3*rows).forEach(p=>g.appendChild(card(p,{pct:S.mode==='new',onclick:()=>open(p)})));box.appendChild(g);
     box.querySelector('.rail-head').onclick=()=>open();
   }
   host.appendChild(box);
@@ -1182,15 +1183,17 @@ const WTYL=[
 const SLOT={'01':'slot-colour','03':'slot-colour','04':'slot-rail','07':'slot-colour'}; // Jake 08 Sep: 03/07 sit directly under the colours; 04 large banners sit under the BNPL box
 function renderEntry(){
   ['slot-pill','slot-price','slot-buttons','slot-colour','slot-rail'].forEach(id=>$('#'+id).innerHTML='');
-  if(S.mode!=='new'||S.entry==='none'||S.entry==='06-1'||S.stock==='oos')return;
+  if(S.mode!=='new'||S.stock==='oos')return;
+  if(S.fmt.look==='pairs'){const t=document.getElementById('tpl-03-3').content.cloneNode(true);const imgs=setImages(5);t.querySelectorAll('img[data-set]').forEach(im=>im.src=imgs[+im.dataset.set]||imgs[0]);t.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',openPairs));$('#slot-buttons').appendChild(t);}
+  if(S.entry==='none'||S.entry==='06-1')return;
   const tpl=document.getElementById('tpl-'+S.entry);if(!tpl)return;
-  const slot=$('#'+(S.entry==='03-3'?'slot-buttons':SLOT[S.entry.slice(0,2)])); // 03-3 sits under the buy buttons
+  const slot=$('#'+SLOT[S.entry.slice(0,2)]);
   const node=tpl.content.cloneNode(true);
   const imgs=setImages(5);
   node.querySelectorAll('img[data-set]').forEach(im=>im.src=imgs[+im.dataset.set]||imgs[0]);
   node.querySelectorAll('[data-pieces]').forEach(s=>s.textContent=`${setPieces()} matching pieces · ${fam('zip-hoodie').length} colours`);
   const sc=node.querySelector('[data-setcards]');if(sc){lookItems().forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>openSheet('set')})));}
-  node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>S.entry==='03-3'?openPairs():openSheet('set'))); // 03-3 = complete the look (list), everything else = set builder
+  node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>openSheet('set')));
   slot.appendChild(node);
 }
 
@@ -1342,8 +1345,8 @@ function renderAll(){
   renderEntry();renderCYP();renderSimilar();renderRecs();
   $('#nddmsg').hidden=S.stock==='oos';
   renderEdit();
-  parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · recs: look=${S.fmt.look} hp=${S.fmt.hp} wtyl=${S.fmt.wtyl} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,edit:S.edit,hero:hero().id}},'*');
+  parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1404,6 +1407,7 @@ addEventListener('message',e=>{
   const stockChanged=d.stock!==S.stock;
   S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;
   if(d.fmt){S.fmt={...S.fmt,...d.fmt};LS('pdp26-fmt',S.fmt);}
+  if(d.gridRows){S.gridRows={...S.gridRows,...d.gridRows};LS('pdp26-gridrows',S.gridRows);}
   if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);}
   if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);location.reload();return;}
   if(stockChanged){S.size=null;S.notified=false;}
