@@ -26,6 +26,9 @@ html{background:#FFF}
 body{font-family:var(--font-family-base);color:var(--black);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;background:#FFF}
 button{font:inherit;cursor:pointer;background:none;border:none;color:inherit;text-align:left}
 img{display:block;max-width:100%}
+/* ICON RULE (DS): library SVGs are exported trimmed to the glyph (chevron 23×12, share 17×20…). Every icon sits in a
+   fixed SQUARE box — 12 / 16 / 24 — and is contained, never stretched. 1pt stroke at every scale. */
+img[src*="/icons/"]{object-fit:contain;object-position:center}
 a{color:inherit;text-decoration:none}
 [hidden]{display:none!important}
 .ic{width:24px;height:24px;display:block;object-fit:contain}
@@ -200,9 +203,10 @@ a{color:inherit;text-decoration:none}
 .notify .consent{display:flex;gap:12px;align-items:flex-start;font-size:12px;font-weight:400;line-height:1.35}
 .notify .consent a{font-weight:600}
 .cb{width:24px;height:24px;min-width:24px;border-radius:3px;background:#000;display:grid;place-items:center;border:none}
-.cb img{width:14px;height:14px}
+.cb img{display:none}
+.cb::after{content:"";display:block;width:6px;height:11px;border:solid #FFF;border-width:0 2px 2px 0;transform:translateY(-1px) rotate(45deg)} /* 1:1 24px box, crisp tick (Figma Checkbox 5915:6387) */
 .cb.off{background:#FFF;border:1px solid var(--grey-3)}
-.cb.off img{display:none}
+.cb.off::after{display:none}
 .notify .done{background:var(--grey-05);border-radius:4px;padding:12px 16px;font-size:14px;display:flex;gap:8px;align-items:center}
 
 /* premier (live) */
@@ -233,9 +237,8 @@ a{color:inherit;text-decoration:none}
 .uspbox .cap{font-size:16px;font-weight:400}
 .uspbox .strong{font-size:16px;font-weight:600}
 .bnpl{background:#FFF;border:1px solid var(--grey-2);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:12px}
-.bnpl .badges{display:flex;gap:8px}
-.bnpl .badges span{height:28px;padding:0 10px;border-radius:4px;display:flex;align-items:center;font-size:11px;font-weight:700}
-.bnpl .pp{background:#F5F8FC;color:#003087}.bnpl .kl{background:#FFB3C7;color:#000}.bnpl .cp{background:#B2FCE4;color:#000}
+.bnpl .badges{display:flex;gap:8px;align-items:center}
+.bnpl .badges img{height:24px;width:auto} /* DS payment badges (assets/ds/icons/pay — footer import 165380) */
 .bnpl .terms{font-size:14px;font-weight:300;color:var(--grey-4);line-height:21px}
 .bnpl .more{font-size:14px;font-weight:400;text-decoration:underline;text-underline-position:from-font}
 @media(min-width:1024px){
@@ -272,15 +275,15 @@ a{color:inherit;text-decoration:none}
 @media(min-width:1024px){.grid3{grid-template-columns:repeat(6,1fr);gap:24px 16px}.scroll .card{flex:0 0 220px}}
 
 /* ---------- Shop The Look module (Figma 638:56822 / 57804 / 57872) ---------- */
-.look{cursor:pointer}
-.look.nodata{background:var(--grey-05);padding:16px;display:flex;flex-direction:column;gap:16px}
+.look{cursor:pointer} /* FULL-BLEED: the module (and its grey ground) runs edge to edge; content keeps the page margin */
+.look.nodata{background:var(--grey-05);padding:16px var(--m);display:flex;flex-direction:column;gap:16px}
 .look.nodata .imgs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
 .look.nodata .imgs::-webkit-scrollbar{display:none}
 .look.nodata .imgs img{flex:0 0 150px;width:150px;height:225px;object-fit:cover}
 .look.data{background:#FFF;padding:16px 0;display:flex;flex-direction:column;gap:16px}
-.look.data .rail-head{padding:0 16px}
-.look.data .scroll{padding-left:16px}
-.look.grid{background:#FFF;padding:16px;display:flex;flex-direction:column;gap:16px}
+.look.data .rail-head{padding:0 var(--m)}
+.look.data .scroll{padding-left:var(--m)}
+.look.grid{background:#FFF;padding:16px var(--m);display:flex;flex-direction:column;gap:16px}
 @media(min-width:1024px){
   .look.nodata .imgs img{flex:0 0 220px;width:220px;height:330px}
   .look.grid .grid3{grid-template-columns:repeat(6,1fr)}
@@ -395,7 +398,7 @@ a{color:inherit;text-decoration:none}
 .anchor-link{display:flex;align-items:center;gap:8px;padding:0}
 .anchor-link .bi{width:20px;height:20px}
 .anchor-link .txt{font-size:14px;font-weight:600}
-.anchor-link .chev{width:7px;height:12px}
+.anchor-link .chev{width:12px;height:12px}
 .price-chip{background:var(--grey-05);border-radius:4px;display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px}
 .price-chip.with-trio{padding:8px 12px 8px 8px}
 .price-chip .lead{display:flex;align-items:center;gap:8px}
@@ -415,7 +418,7 @@ a{color:inherit;text-decoration:none}
 .price-banner .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .price-banner .copy .h{font-size:14px;font-weight:600}
 .price-banner .copy .s{font-size:12px;font-weight:400;color:var(--grey-4)}
-.price-banner .chev{width:7px;height:12px;flex:none}
+.price-banner .chev{width:12px;height:12px;flex:none}
 
 /* ---------- Sheet modal: Create The Look / Shop The Set (Figma 1038:45022) ---------- */
 .sheet{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center}
@@ -487,8 +490,8 @@ a{color:inherit;text-decoration:none}
   .below>.inset{margin:0}
   .desc{padding:16px 0}
   .reclinks{padding:0}
-  .look.data .rail-head,.look.data .scroll{padding-left:0}
-  .look.nodata{padding:24px}
+  .look{margin-left:calc(var(--m) * -1);margin-right:calc(var(--m) * -1)} /* .below carries the margin on desktop — pull the module back to the edges */
+  .look.nodata{padding:24px var(--m)}
 }
 </style>
 </head>
@@ -886,7 +889,7 @@ const DELIVER=`<img class="dp" src="assets/bundling/icons/deliverplus-logo.svg" 
 const USPBOX=`<div class="r"><img src="assets/ds/icons/lib/icons-order.svg" alt=""><div class="txt"><span class="t14">Delivery from £3.99 or Next Day from £5.99</span></div></div>
 <div class="r"><img src="assets/bundling/icons/calendar.png" alt=""><div class="txt"><span class="t14">Eligible for return within 21 days</span><span class="t12">Exclusions apply. Please see our <u>returns policy</u></span></div></div>`;
 const STUDENT=`<div class="r"><img src="assets/ds/icons/lib/icons-university.svg" alt=""><div class="txt"><span class="cap">Student Exclusive</span><span class="strong">Save 20% with student discount</span></div></div>`;
-const BNPL=`<div class="badges"><span class="pp">PayPal</span><span class="kl">Klarna</span><span class="cp">clearpay</span></div><span class="terms">18+, T&amp;C apply. Credit subject to status.</span><span class="more">See more</span>`;
+const BNPL=`<div class="badges"><img src="assets/ds/icons/pay/paypal.png" alt="PayPal"><img src="assets/ds/icons/pay/klarna.png" alt="Klarna"><img src="assets/ds/icons/pay/clearpay.png" alt="Clearpay"></div><span class="terms">18+, T&amp;C apply. Credit subject to status.</span><span class="more">See more</span>`;
 function renderBoxes(){
   ['deliver','uspbox','student','bnpl'].forEach(k=>{const html={deliver:DELIVER,uspbox:USPBOX,student:STUDENT,bnpl:BNPL}[k];$('#'+k+'-m').innerHTML=html;$('#'+k+'-d').innerHTML=html;});
 }
@@ -921,16 +924,16 @@ function renderLook(){
   if(S.look==='nodata'){
     const box=el(`<div class="look nodata"><div class="rail-head"><span class="rail-title">Shop The Look</span><span class="all">View All</span></div><div class="imgs"></div></div>`);
     items.forEach(p=>box.querySelector('.imgs').appendChild(el(`<img src="${p.img}" alt="${p.name}">`)));
-    box.onclick=()=>openSheet('look');m.appendChild(box);m.className='inset';
+    box.onclick=()=>openSheet('look');m.appendChild(box);
   }else if(S.look==='data'){
     const box=el(`<div class="look data"><div class="rail-head"><span class="rail-title">Shop The Look</span><span class="all">View All</span></div><div class="scroll"></div></div>`);
     items.forEach(p=>box.querySelector('.scroll').appendChild(card(p,{pct:true,onclick:()=>openSheet('look',p.id)})));
-    box.querySelector('.rail-head').onclick=()=>openSheet('look');m.appendChild(box);m.className='inset';
+    box.querySelector('.rail-head').onclick=()=>openSheet('look');m.appendChild(box);
   }else{
     const box=el(`<div class="look grid"><div class="rail-head"><span class="rail-title">Shop The Look</span><span class="all">View All</span></div><div class="grid3"></div></div>`);
     const more=[partner('sweatshirt',hero().colour),partner('quarter-zip',hero().colour),partner('straight-jogger',hero().colour)].filter(Boolean);
     [...items,...more].slice(0,6).forEach(p=>box.querySelector('.grid3').appendChild(card(p,{onclick:()=>openSheet('look',p.id)})));
-    box.querySelector('.rail-head').onclick=()=>openSheet('look');m.appendChild(box);m.className='inset';
+    box.querySelector('.rail-head').onclick=()=>openSheet('look');m.appendChild(box);
   }
 }
 function renderCYP(){
