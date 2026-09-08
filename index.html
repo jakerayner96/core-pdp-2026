@@ -2,146 +2,230 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Core PDP 2026 · review — boohooMAN</title>
+<title>Core PDP 2026 · configurator — boohooMAN</title>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
+/* ============================================================
+   Review shell v2 — configurator. Dark Group-UX chrome (Google Sans, black & white).
+   Layout/logic model: PayPal Checkout demo — WINDOW controls on top (viewport, live⇄new, export), PAGE controls down the left.
+   ============================================================ */
+:root{--bg:#161616;--bar:#000;--panel:#0A0A0A;--line:rgba(255,255,255,.14);--ink:#F7F7F7;--muted:#9A9A9A;--dim:#707070;--accent:#0D99FF;--ok:#1FA971}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{background:#161616;font-family:'Google Sans','Montserrat',system-ui,sans-serif;color:#B0B0B0;display:flex;flex-direction:column;overflow:hidden}
+body{background:var(--bg);font-family:'Google Sans','Montserrat',system-ui,sans-serif;color:var(--muted);display:grid;grid-template-rows:48px 1fr;grid-template-columns:380px 1fr;height:100%;overflow:hidden;font-size:12px}
 button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
+a{color:var(--accent)}
 
-.strip{display:flex;align-items:center;gap:6px;padding:8px 14px;background:#000;font-size:11.5px;overflow-x:auto;flex:none;font-family:'Google Sans','Montserrat',system-ui,sans-serif}
-.strip::-webkit-scrollbar{display:none}
-.strip b{color:#F7F7F7;font-weight:600;margin-right:2px;white-space:nowrap}
-.strip .chip{flex:none;padding:5px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.2);font-size:11.5px;color:#B0B0B0}
-.strip .chip.on{background:#F7F7F7;color:#000;border-color:#F7F7F7;font-weight:600}
-.strip .chip[disabled]{opacity:.35;cursor:not-allowed}
-#brands{display:inline-flex;gap:6px;flex:none}
-.seg{display:inline-flex;flex:none;border:1px solid rgba(255,255,255,.25);border-radius:99px;overflow:hidden}
-.seg button{border:none;border-radius:0;padding:5px 12px;color:#B0B0B0;white-space:nowrap}
-.seg button.on{background:#F7F7F7;color:#000;font-weight:700}
-.strip select{background:#161616;color:#F7F7F7;border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:4px 8px;font:inherit;font-size:11.5px;max-width:230px}
-.strip .div{width:1px;height:20px;background:rgba(255,255,255,.15);margin:0 6px;flex:none}
-.sizebox{font-size:10.5px;color:#707070;white-space:nowrap;font-variant-numeric:tabular-nums}
-.cfg{margin-left:auto;font-size:10.5px;color:#707070;white-space:nowrap;padding-left:12px}
-.gear{flex:none;padding:4px 10px;border:1px solid rgba(255,255,255,.25);border-radius:7px;color:#F7F7F7;white-space:nowrap}
-.gear.on{background:#0D99FF;border-color:#0D99FF;color:#FFF;font-weight:600}
+/* ---- top bar: window controls ---- */
+.top{grid-column:1/3;display:flex;align-items:center;gap:14px;padding:0 14px;background:var(--bar);border-bottom:1px solid var(--line)}
+.top .export{display:flex;align-items:center;gap:8px;background:var(--ink);color:#000;padding:6px 12px;border-radius:99px;font-weight:600;font-size:12px}
+.top .export:disabled{opacity:.5;cursor:progress}
+.top .export svg{width:13px;height:13px}
+.top .mid{margin:0 auto;display:flex;align-items:center;gap:10px}
+.seg{display:inline-flex;border:1px solid rgba(255,255,255,.25);border-radius:99px;overflow:hidden}
+.seg button{padding:5px 12px;color:#B0B0B0;font-size:11.5px;white-space:nowrap}
+.seg button.on{background:var(--ink);color:#000;font-weight:700}
+.top select{background:#161616;color:var(--ink);border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:4px 8px;font:inherit;font-size:11.5px}
+.top .ttl{font-weight:600;font-size:12px;color:var(--ink);white-space:nowrap}
+.top .w{font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums;min-width:48px;text-align:right}
+.top .status{font-size:11px;color:var(--muted);white-space:nowrap}
 
-.stage{flex:1;display:flex;align-items:stretch;justify-content:center;overflow:hidden;padding:0;position:relative}
-.holder{display:flex;align-items:stretch;height:100%}
+/* ---- left panel: page controls ---- */
+.panel{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:16px 14px 40px}
+.panel h1{font-size:17px;font-weight:700;letter-spacing:-.01em;margin:4px 0 2px;color:var(--ink)}
+.panel .brandline{display:flex;align-items:center;gap:8px;color:var(--dim);font-size:11.5px;margin-bottom:12px}
+.panel .brandline img{height:11px;width:auto;filter:invert(1)}
+.panel .brandline b{color:var(--ink)}
+.note{background:rgba(13,153,255,.12);border-left:3px solid var(--accent);padding:10px 12px;font-size:11.5px;line-height:1.5;margin:0 -14px 16px;color:#D8D8D8}
+.note b{font-weight:600;color:var(--ink)}
+.card{border:1px solid var(--line);border-radius:10px;padding:12px 12px 10px;margin-bottom:10px;background:#111}
+.card h3{font-size:12.5px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;gap:8px}
+.card h3 .tag{font-size:9.5px;font-weight:600;color:#000;background:var(--ok);padding:2px 7px;border-radius:99px;white-space:nowrap}
+.card h3 .tag.alt{background:#A78BFA}
+.card p{font-size:11px;color:var(--dim);line-height:1.45;margin-bottom:8px}
+.card p b{color:var(--muted);font-weight:600}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:6px 0;cursor:pointer;border-top:1px solid rgba(255,255,255,.07);width:100%;text-align:left}
+.opt:first-child{border-top:none}
+.opt .r{flex:none;width:16px;height:16px;border-radius:99px;border:1.5px solid #6A6A6A;margin-top:1px;position:relative}
+.opt.on .r{border-color:var(--accent);background:var(--accent)}
+.opt.on .r::after{content:"";position:absolute;inset:4px;border-radius:99px;background:#0A0A0A}
+.opt .t{flex:1;min-width:0}
+.opt .t b{display:block;font-size:12px;font-weight:500;color:#D8D8D8}
+.opt.on .t b{font-weight:600;color:var(--ink)}
+.opt .t span{display:block;font-size:10.5px;color:var(--dim);line-height:1.4}
+.opt .tag{font-size:9.5px;font-weight:600;color:#000;background:var(--ok);padding:2px 7px;border-radius:99px;align-self:center;white-space:nowrap}
+.grp{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin:8px 0 2px;font-weight:600}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid rgba(255,255,255,.07)}
+.row b{font-size:12px;font-weight:500;color:#D8D8D8}
+.row span{font-size:10.5px;color:var(--dim);display:block}
+.tgl{flex:none;width:34px;height:20px;border-radius:99px;background:#3A3A3A;position:relative;transition:background .15s}
+.tgl i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:99px;background:#B0B0B0;transition:left .15s}
+.tgl.on{background:var(--accent)}
+.tgl.on i{left:16px;background:#FFF}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:5px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.2);font-size:11.5px;color:#B0B0B0}
+.chip.on{background:var(--ink);color:#000;border-color:var(--ink);font-weight:600}
+.chip[disabled]{opacity:.35;cursor:not-allowed}
+.link{color:var(--accent);font-size:11.5px;text-decoration:underline;padding:0}
+.sum{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;color:var(--dim);line-height:1.5;word-break:break-all;margin-top:4px}
+.rm{font-size:11.5px;color:var(--muted);line-height:1.5}
+.rm s{color:#FF6B6B}
+
+/* ---- stage: plain frame, drag to resize (as before) ---- */
+.stage{position:relative;overflow:hidden;display:flex;align-items:stretch;justify-content:center;padding:0}
+.win{display:flex;height:100%;max-width:100%}
+.holder{display:flex;flex:1;min-height:0}
 iframe{border:none;display:block;height:100%;background:#FFF;box-shadow:0 0 60px rgba(0,0,0,.5)}
 .handle{width:16px;display:flex;align-items:center;justify-content:center;cursor:col-resize;flex:none}
 .handle i{width:5px;height:56px;border-radius:99px;background:#3A3A3A}
 .handle:hover i,.dragging .handle i{background:#6A6A6A}
 body.dragging{user-select:none;cursor:col-resize}
 body.dragging iframe{pointer-events:none}
-
+#exp{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;z-index:50}
+#exp[hidden]{display:none}
+#exp .box{background:#0A0A0A;border:1px solid var(--line);color:#FFF;padding:16px 22px;border-radius:12px;font-size:13px;display:flex;gap:12px;align-items:center;max-width:420px}
+#exp .sp{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#FFF;border-radius:99px;animation:sp .8s linear infinite;flex:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+#hidden{position:fixed;left:-20000px;top:0;width:1px;height:1px;overflow:hidden}
 </style>
 </head>
 <body>
 
-<div class="strip">
-  <b>PDP 2026</b>
-  <span class="seg" id="mode"><button data-m="live">Live now</button><button data-m="new" class="on">New format</button></span>
-  <span id="brands">
-    <button class="chip on" data-b="boohooman">boohooMAN</button>
-    <button class="chip" data-b="debenhams" disabled title="Not built yet — boohooMAN first">Debenhams</button>
-    <button class="chip" data-b="boohoo" disabled title="Not built yet">boohoo</button>
-    <button class="chip" data-b="plt" disabled title="Not built yet">PLT</button>
-    <button class="chip" data-b="karenmillen" disabled title="Not built yet">Karen Millen</button>
-  </span>
-  <span class="div"></span>
-  <select id="entry" aria-label="Set builder entry point" title="Advanced bundling entry point (opens Shop The Set)">
-    <optgroup label="03 Medium banner">
-      <option value="03-1" selected>03-1 Buy The Set box — Made To Match</option>
-      <option value="03-2">03-2 Equation strip — SHOP SETS</option>
-      <option value="03-3">03-3 Pairs well with — thumb row → list modal (complete the look, not bundling)</option>
-    </optgroup>
-    <optgroup label="04 Large banner">
-      <option value="04-1">04-1 Outfit module — 2-up scroll</option>
-      <option value="04-2">04-2 Outfit module — 2×2 grid</option>
-      <option value="04-3">04-3 Outfit module — 3-up scroll</option>
-      <option value="04-4">04-4 Content slot + product carousel</option>
-    </optgroup>
-    <optgroup label="06 Product image">
-      <option value="06-1">06-1 Gallery set end card</option>
-    </optgroup>
-    <optgroup label="07 Price banner">
-      <option value="07-1">07-1 Anchor link — SHOP MATCHING SETS</option>
-      <option value="07-2">07-2 Chip — More Sets Available</option>
-      <option value="07-3">07-3 Chip with trio</option>
-      <option value="07-4">07-4 Chip with trio — Shop The Full Set</option>
-      <option value="07-5">07-5 Banner with trio</option>
-      <option value="07-6">07-6 Borderless trio banner</option>
-    </optgroup>
-    <optgroup label="01 Pills (parked)">
-      <option value="01-1">01-1 Pill — SHOP SETS</option>
-      <option value="01-4">01-4 Hanger pill — Shop The Set</option>
-      <option value="01-8">01-8 Hanger pill — SET BUILDER</option>
-    </optgroup>
-    <option value="none">Entry point: none</option>
-  </select>
-  <select id="stock" aria-label="Stock state">
-    <option value="in" selected>Stock: in stock</option>
-    <option value="size">Stock: some sizes OOS (notify me)</option>
-    <option value="oos">Stock: product OOS (similar items)</option>
-  </select>
-  <button class="gear" id="editbtn" title="Rearrange blocks and pick recs formats on the page">✎ Edit layout</button>
-  <span class="div"></span>
-  <select id="preset" aria-label="Width preset">
-    <option value="390" selected>390 — mobile</option>
-    <option value="402">402</option>
-    <option value="440">440</option>
-    <option value="768">768 — tablet</option>
-    <option value="1024">1024</option>
-    <option value="1280">1280</option>
-    <option value="1440">1440 — desktop</option>
-    <option value="0">Fit window</option>
-  </select>
-  <span class="sizebox" id="sizebox"></span>
-  <span class="cfg" id="cfg"></span>
-</div>
-
-<div class="stage" id="stage">
-  <div class="holder">
-    <iframe id="frame" src="pdp.html?brand=boohooman&mode=new" title="PDP preview"></iframe>
-    <div class="handle" id="hr" title="Drag to resize width"><i></i></div>
+<header class="top">
+  <button class="export" id="exportbtn" title="Export full-page PNGs (mobile + desktop) and a zip of the code with this configuration"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 12.5h11"/></svg>Export</button>
+  <span class="status" id="status"></span>
+  <div class="mid">
+    <span class="seg" id="mode"><button data-m="live">Live now</button><button data-m="new" class="on">New format</button></span>
+    <span class="seg" id="dev"><button data-w="0">Desktop</button><button data-w="390" class="on">Mobile</button></span>
+    <select id="preset" aria-label="Width preset" title="Exact width — or drag the handle on the preview">
+      <option value="390" selected>390</option><option value="402">402</option><option value="440">440</option><option value="768">768</option><option value="1024">1024</option><option value="1280">1280</option><option value="1440">1440</option><option value="0">Fit</option>
+    </select>
+    <span class="w" id="sizebox"></span>
   </div>
-</div>
+  <span class="ttl">PDP 2026 · boohooMAN</span>
+</header>
+
+<aside class="panel">
+  <div class="brandline"><img src="assets/boohooman.svg" alt="boohooMAN"> · Product description page</div>
+  <h1>Configure the PDP</h1>
+  <div class="brandline">Pick options, rearrange the page, then <b style="color:#111;margin-left:4px">Export</b></div>
+  <div class="note"><b>How this works:</b> every choice here changes the preview. <b>Edit layout</b> lets you move blocks up and down on the page itself and remove them (removed blocks are listed under the page, not lost). When you're happy, hit <b>Export</b> — you get full-page PNGs at mobile and desktop plus a zip of the code set to your configuration. Send that back to Jake.</div>
+
+  <div class="card">
+    <h3>Brand</h3>
+    <div class="chips" id="brands">
+      <button class="chip on" data-b="boohooman">boohooMAN</button>
+      <button class="chip" disabled title="Not built yet">Debenhams</button><button class="chip" disabled title="Not built yet">boohoo</button><button class="chip" disabled title="Not built yet">PLT</button><button class="chip" disabled title="Not built yet">Karen Millen</button>
+    </div>
+  </div>
+
+  <div class="card" id="c-entry">
+    <h3>Set entry point <span class="tag">Advanced bundling</span></h3>
+    <p>The component that opens the <b>Shop The Set</b> builder. 03 and 07 sit under the colours; 04 large banners sit under the BNPL box; 06 is the last gallery slide. 03-3 is a complete-the-look pattern (list modal, no bundling).</p>
+    <div id="entryopts"></div>
+  </div>
+
+  <div class="card" id="c-setview">
+    <h3>Set builder layout <span class="tag">Advanced bundling</span></h3>
+    <div id="setviewopts"></div>
+  </div>
+
+  <div class="card" id="c-look">
+    <h3>Shop The Look module <span class="tag alt">Complete the look</span></h3>
+    <p>Grey, Carousel and Grid open Create The Look; Inline and Hotspot buy in place.</p>
+    <div id="lookopts"></div>
+  </div>
+
+  <div class="card" id="c-hp"><h3>Handpicked For You</h3><div id="hpopts"></div></div>
+  <div class="card" id="c-wtyl"><h3>We Think You'll Like</h3><div id="wtylopts"></div></div>
+
+  <div class="card" id="c-stock">
+    <h3>Stock state</h3>
+    <div id="stockopts"></div>
+  </div>
+
+  <div class="card" id="c-layout">
+    <h3>Layout</h3>
+    <p>Edit mode puts a label, ▲▼ and ✕ on every block in the preview — including each description row. Dividers only ever sit between rows, so removing a row takes its divider with it.</p>
+    <div class="row"><div><b>Edit layout on the page</b><span>Move blocks up / down, remove them</span></div><button class="tgl" id="edittgl" aria-label="Edit layout"><i></i></button></div>
+    <div class="row"><div><b>Removed blocks</b><div class="rm" id="removedsum">None</div></div></div>
+    <div class="row"><div><b>Reset layout</b><span>Default order, nothing removed</span></div><button class="link" id="resetorder">Reset</button></div>
+  </div>
+
+  <div class="card"><h3>Current configuration</h3><div class="sum" id="cfg"></div></div>
+</aside>
+
+<main class="stage" id="stage">
+  <div class="win" id="win">
+    <div class="holder">
+      <iframe id="frame" src="pdp.html?brand=boohooman&mode=new" title="PDP preview"></iframe>
+      <div class="handle" id="hr" title="Drag to resize width"><i></i></div>
+    </div>
+  </div>
+</main>
+
+<div id="exp" hidden><div class="box"><span class="sp"></span><span id="exptxt">Exporting…</span></div></div>
+<div id="hidden"></div>
 
 <script>
-let W=390, BRAND='boohooman', MODE='new', ENTRY='03-1', STOCK='in', EDIT=false;
-let ROWS=['zip-hoodie','sweatshirt','tee','wide-jogger']; // set builder families (fixed for review — config lives in the page, not the strip)
-const frame=document.getElementById('frame'),stage=document.getElementById('stage'),
-      preset=document.getElementById('preset'),sizebox=document.getElementById('sizebox'),
-      cfg=document.getElementById('cfg');
+const ENTRIES=[
+  ['03 Medium banner',[['03-1','Buy The Set box — Made To Match','Half images · half copy, under the colours',true],['03-2','Equation strip — SHOP SETS','Images + CTA strip'],['03-3','Pairs well with — thumb row','Complete the look: list modal with + to add. Sits under the buy buttons']]],
+  ['04 Large banner',[['04-1','Outfit module — 2-up scroll','Full-bleed imagery, caption + LAUNCH SET BUILDER'],['04-2','Outfit module — 2×2 grid',''],['04-3','Outfit module — 3-up scroll',''],['04-4','Content slot + product carousel','Square slot + the set as product cards']]],
+  ['06 Product image',[['06-1','Gallery set end card','Last gallery slide: 6-up mosaic + SHOP MORE SETS']]],
+  ['07 Price banner',[['07-1','Anchor link — SHOP MATCHING SETS',''],['07-2','Chip — More Sets Available',''],['07-3','Chip with trio',''],['07-4','Chip with trio — Shop The Full Set',''],['07-5','Banner with trio — Shop The Whole Set',''],['07-6','Borderless trio banner','']]],
+  ['',[['none','No entry point','']]],
+];
+const FMT_BUNDLE=[['nodata','Grey — images only','Grey ground, title + View All, no product data. Tap → Create The Look',true],['carousel','Carousel — with data','Product cards: brand, name, price'],['grid','Grid','3-across product grid'],['inline','Inline — Complete The Look','Grey band, white cards with size + ADD TO BAG for every other piece in this colour'],['hot','Hotspot — look imagery','Big look carousel, tap for hotspots, View entire look → modal (colour + size + Add all)'],['off','Off','']];
+const FMT_RECS=[['nodata','Grey — images only',''],['carousel','Carousel — with data',''],['grid','Grid',''],['off','Off','']];
+const SETVIEWS=[['cards','Cards','Rows of product cards with a checkbox, Size ▾ and price (Figma 1038:45022)',true],['compact','Compact — hero + thumb rows','Hero image on top, one row of small thumbnails per family; first row = this hoodie in other colours (tech board / Zara)']];
+const STOCKS=[['in','In stock','3XL+ unavailable, as live',true],['size','Some sizes out of stock','M and L show the bell — pick one to see notify me'],['oos','Product out of stock','Out of Stock label, notify me, Shop Similar Items grid']];
 
+let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'grid',wtyl:'carousel'},setview:'cards',edit:false,removed:[]};
+const $=s=>document.querySelector(s);
+const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
+
+function radios(host,list,get,set){
+  host.innerHTML='';
+  list.forEach(([v,label,desc,sug])=>{
+    const o=document.createElement('button');o.className='opt'+(get()===v?' on':'');o.setAttribute('role','radio');o.setAttribute('aria-checked',get()===v);
+    o.innerHTML=`<span class="r"></span><span class="t"><b>${label}</b>${desc?`<span>${desc}</span>`:''}</span>${sug?'<span class="tag">Suggested</span>':''}`;
+    o.onclick=()=>{set(v);send();renderPanel();};host.appendChild(o);
+  });
+}
+function renderPanel(){
+  const eh=$('#entryopts');eh.innerHTML='';
+  ENTRIES.forEach(([g,items])=>{if(g){const h=document.createElement('div');h.className='grp';h.textContent=g;eh.appendChild(h);}const d=document.createElement('div');eh.appendChild(d);radios(d,items,()=>CFG.entry,v=>CFG.entry=v);});
+  radios($('#setviewopts'),SETVIEWS,()=>CFG.setview,v=>CFG.setview=v);
+  radios($('#lookopts'),FMT_BUNDLE,()=>CFG.fmt.look,v=>CFG.fmt.look=v);
+  radios($('#hpopts'),FMT_RECS,()=>CFG.fmt.hp,v=>CFG.fmt.hp=v);
+  radios($('#wtylopts'),FMT_RECS,()=>CFG.fmt.wtyl,v=>CFG.fmt.wtyl=v);
+  radios($('#stockopts'),STOCKS,()=>CFG.stock,v=>CFG.stock=v);
+  $('#edittgl').classList.toggle('on',CFG.edit);
+  $('#removedsum').innerHTML=CFG.removed.length?CFG.removed.map(r=>`<s>${r.label}</s>`).join(', '):'None';
+  document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===CFG.mode));
+}
 function apply(){
   const avail=stage.clientWidth-16;
   const w=Math.min(W||avail,avail);
-  frame.style.width=w+'px';
+  frame.style.width=w+'px';win.style.width=(w+16)+'px';
   sizebox.textContent=`${Math.round(w)}px`;
+  document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',(b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600)));
 }
-function send(){ frame.contentWindow.postMessage({pdpSet:1,brand:BRAND,mode:MODE,entry:ENTRY,stock:STOCK,rows:ROWS,edit:EDIT},'*'); }
-addEventListener('message',e=>{ if(e.data&&e.data.pdpCfg){cfg.textContent=e.data.pdpCfg;} if(e.data&&typeof e.data.pdpEdit==='boolean'){EDIT=e.data.pdpEdit;editbtn.classList.toggle('on',EDIT);} });
-const editbtn=document.getElementById('editbtn');editbtn.onclick=()=>{EDIT=!EDIT;editbtn.classList.toggle('on',EDIT);send();};
-
-document.querySelectorAll('#brands .chip:not([disabled])').forEach(b=>b.onclick=()=>{
-  BRAND=b.dataset.b;
-  document.querySelectorAll('#brands .chip').forEach(x=>x.classList.toggle('on',x===b));
-  send();apply();
+function send(f=frame){ f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,setview:CFG.setview,edit:CFG.edit},'*'); }
+addEventListener('message',e=>{
+  const d=e.data;if(!d)return;
+  if(d.pdpCfg&&e.source===frame.contentWindow)cfg.textContent=d.pdpCfg;
+  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
+  if(typeof d.pdpEdit==='boolean'){CFG.edit=d.pdpEdit;renderPanel();}
 });
-document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{
-  MODE=b.dataset.m;
-  document.querySelectorAll('#mode button').forEach(x=>x.classList.toggle('on',x===b));
-  send();apply();
-});
+document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{CFG.mode=b.dataset.m;send();renderPanel();});
+document.querySelectorAll('#dev button').forEach(b=>b.onclick=()=>{W=+b.dataset.w;preset.value=String(W);apply();});
 preset.onchange=()=>{W=+preset.value;apply();};
-document.getElementById('entry').onchange=e=>{ENTRY=e.target.value;send();};
-document.getElementById('stock').onchange=e=>{STOCK=e.target.value;send();};
-
-
-document.getElementById('hr').addEventListener('pointerdown',e=>{
+$('#edittgl').onclick=()=>{CFG.edit=!CFG.edit;send();renderPanel();};
+$('#resetorder').onclick=()=>{frame.contentWindow.postMessage({pdpSet:1,resetOrder:1},'*');};
+$('#hr').addEventListener('pointerdown',e=>{
   e.preventDefault();document.body.classList.add('dragging');
   const sx=e.clientX, sw=frame.offsetWidth;
   const move=ev=>{W=Math.max(320,sw+(ev.clientX-sx));preset.value='0';apply();};
@@ -149,8 +233,57 @@ document.getElementById('hr').addEventListener('pointerdown',e=>{
   addEventListener('pointermove',move);addEventListener('pointerup',up);
 });
 addEventListener('resize',apply);
-frame.addEventListener('load',send);
-apply();
+frame.addEventListener('load',()=>send());
+renderPanel();apply();
+
+/* ---------- Export: full-page PNGs (390 + 1440) + zip of the code with this configuration baked in ---------- */
+const status=$('#status'),exp=$('#exp'),exptxt=$('#exptxt');
+function loadFrame(w){
+  return new Promise(res=>{
+    const f=document.createElement('iframe');f.style.width=w+'px';f.style.height='900px';f.style.border='0';f.src='pdp.html?brand=boohooman&mode='+CFG.mode+'&_='+Date.now();
+    $('#hidden').appendChild(f);
+    const onMsg=e=>{if(e.source!==f.contentWindow)return;if(e.data&&e.data.pdpReady){const cfgNoEdit={...CFG,edit:false};f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:cfgNoEdit.mode,entry:cfgNoEdit.entry,stock:cfgNoEdit.stock,fmt:cfgNoEdit.fmt,setview:cfgNoEdit.setview,edit:false},'*');
+      const id=Math.random().toString(36).slice(2);const onPong=ev=>{if(ev.source===f.contentWindow&&ev.data&&ev.data.pdpPong===id){removeEventListener('message',onPong);removeEventListener('message',onMsg);f.style.height=(ev.data.h+20)+'px';setTimeout(()=>res(f),500);}};addEventListener('message',onPong);setTimeout(()=>f.contentWindow.postMessage({pdpPing:id},'*'),300);}};
+    addEventListener('message',onMsg);
+  });
+}
+async function shot(w){
+  const f=await loadFrame(w);const doc=f.contentDocument;
+  const h=doc.documentElement.scrollHeight;
+  const canvas=await html2canvas(doc.documentElement,{width:w,height:h,windowWidth:w,windowHeight:h,scale:2,useCORS:true,backgroundColor:'#FFFFFF',logging:false});
+  f.remove();
+  return new Promise(r=>canvas.toBlob(b=>r(b),'image/png'));
+}
+function stamp(){const d=new Date();return d.toISOString().slice(0,16).replace('T','-').replace(':','');}
+async function doExport(){
+  const btn=$('#exportbtn');btn.disabled=true;exp.hidden=false;
+  try{
+    exptxt.textContent='Rendering mobile (390)…';const m=await shot(390);
+    exptxt.textContent='Rendering desktop (1440)…';const d=await shot(1440);
+    exptxt.textContent='Packaging code…';
+    const zip=new JSZip();const name=`core-pdp-2026-${stamp()}`;const root=zip.folder(name);
+    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
+    root.file('config.json',JSON.stringify(state,null,2));
+    root.file(`${name}-mobile-390.png`,m);root.file(`${name}-desktop-1440.png`,d);
+    let html=await (await fetch('pdp.html')).text();
+    const SC='scr'+'ipt'; // never write a literal closing script tag inside this inline script
+    html=html.replace(`<${SC} src="data.js"></${SC}>`,`<${SC}>window.PDP_PRESET=${JSON.stringify(state)};</${SC}>\n<${SC} src="data.js"></${SC}>`);
+    root.file('pdp.html',html);root.file('data.js',await (await fetch('data.js')).text());
+    const removedTxt=CFG.removed.length?CFG.removed.map(r=>' - '+r.label).join('\n'):' (none)';
+    root.file('README.txt',`Core PDP 2026 — boohooMAN\nExported ${state.exportedAt}\n\nOpen pdp.html over HTTP (e.g. python3 -m http.server) to see this exact configuration.\nconfig.json is the decision record: mode, entry point, stock state, recs module formats, set builder layout, block order, removed blocks.\n\nConfiguration: ${cfg.textContent}\n\nRemoved from the layout:\n${removedTxt}\n`);
+    const files=await (await fetch('assets-manifest.json')).json();
+    let n=0;for(const fpath of files){exptxt.textContent=`Packaging assets… ${++n}/${files.length}`;const r=await fetch(fpath);if(r.ok)root.file(fpath,await r.blob());}
+    exptxt.textContent='Zipping…';
+    const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}});
+    const save=(b,fn)=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},4000);};
+    save(m,`${name}-mobile-390.png`);await new Promise(r=>setTimeout(r,500));
+    save(d,`${name}-desktop-1440.png`);await new Promise(r=>setTimeout(r,500));
+    save(blob,`${name}.zip`);
+    status.textContent='Exported ✓ 2 PNGs + zip';
+  }catch(err){console.error(err);status.textContent='Export failed: '+err.message;}
+  finally{btn.disabled=false;exp.hidden=true;setTimeout(()=>status.textContent='',8000);}
+}
+$('#exportbtn').onclick=doExport;
 </script>
 </body>
 </html>

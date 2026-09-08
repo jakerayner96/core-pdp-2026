@@ -186,10 +186,10 @@ a{color:inherit;text-decoration:none}
 .mode-live .fit .lbl{font-weight:300}
 .sz.fitb{width:auto;min-width:60px;padding:0 16px}
 .mode-live .sz.fitb{width:auto;min-width:53px}
-.mode-live .sz.fitb.on{border:1px solid #000;font-weight:400}
+
 .sz{width:60px;min-width:60px;height:50px;background:#FFF;border:1px solid var(--grey-3);border-radius:4px;font-size:16px;font-weight:400;display:flex;align-items:center;justify-content:center;position:relative;color:#000}
 .mode-live .sz{width:53px;min-width:53px;border-color:#E5E7EB}
-.sz.on{border:2px solid #000;font-weight:700}
+.sz.on{border:1px solid #000;font-weight:400} /* selected = 1px black keyline, weight unchanged (production) */
 .sz.oos{color:var(--grey-4)}
 .mode-new .sz.oos{color:#000}
 .sz .bell{position:absolute;right:3px;top:3px;width:14px;height:14px}
@@ -344,7 +344,9 @@ a{color:inherit;text-decoration:none}
 .mode-live .cyp .btn.s{width:auto}
 
 /* ---------- Description ---------- */
-.desc{padding:16px var(--m);display:flex;flex-direction:column;gap:16px}
+.desc{padding:0 var(--m);display:flex;flex-direction:column;gap:0}
+.drow{padding:16px 0}
+.drow+.drow{border-top:1px solid var(--grey-2)} /* DIVIDER RULE: between rows only — never above the first, never under the last; a deleted row takes its divider with it */
 .desc .h{font-size:16px;font-weight:500;text-transform:capitalize}
 .glance{display:flex;flex-direction:column;gap:16px}
 .glance li{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:300;list-style:none}
@@ -354,6 +356,8 @@ a{color:inherit;text-decoration:none}
 .mode-new .glance li{font-size:14px}
 .divider{height:1px;background:var(--grey-2);width:100%}
 .acc{display:flex;flex-direction:column;gap:16px}
+.drow.acc{gap:0}
+.drow.acc.open{gap:16px}
 .acc-h{display:flex;align-items:center;justify-content:space-between;width:100%}
 .acc-h img{width:16px;height:16px;transition:transform .2s}
 .acc.open .acc-h img{transform:rotate(180deg)}
@@ -370,7 +374,7 @@ a{color:inherit;text-decoration:none}
 .reclinks .rail-title{font-size:16px;font-weight:600}
 .chips{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center}
 .chips a{font-size:16px;font-weight:300;padding:4px 0}
-.mode-new .chips a{background:var(--grey-05);border:1px solid var(--grey-2);border-radius:4px;padding:8px 12px;font-size:14px}
+.mode-new .chips a{background:var(--grey-05);border:none;border-radius:4px;padding:8px 12px;font-size:14px;font-weight:400} /* grey boxes, regular text, no outline */
 
 /* ---------- Footer (live boohooman.com) ---------- */
 .ft{border-top:1px solid var(--grey-2);margin-top:16px}
@@ -452,9 +456,9 @@ a{color:inherit;text-decoration:none}
 .price-chip .copy{display:flex;flex-direction:column;gap:2px}
 .price-chip .copy .h{font-size:14px;font-weight:600}
 .price-chip .copy .s{font-size:12px;font-weight:400;color:var(--grey-4)}
-.trio{position:relative;width:84px;height:74px;flex:none}
-.trio img{position:absolute;width:44px;height:66px;object-fit:cover;border-radius:2px;box-shadow:var(--shadow-pill)}
-.trio img:nth-child(1){left:0;top:8px}.trio img:nth-child(2){left:20px;top:4px}.trio img:nth-child(3){left:40px;top:0}
+.trio{position:relative;width:108px;height:97px;flex:none} /* stacked images = colour-swatch size (60×89) */
+.trio img{position:absolute;width:60px;height:89px;object-fit:cover;border-radius:2px;box-shadow:var(--shadow-pill)}
+.trio img:nth-child(1){left:0;top:8px}.trio img:nth-child(2){left:24px;top:4px}.trio img:nth-child(3){left:48px;top:0}
 .price-banner{display:flex;align-items:center;gap:12px;width:100%}
 .price-banner.boxed{background:var(--grey-05);border-radius:4px;padding:12px}
 .price-banner.bare{padding:8px 0}
@@ -606,6 +610,17 @@ body.editing [data-block][hidden]{display:none!important}
 .ed .mv{margin-left:auto;display:inline-flex;gap:4px}
 .ed .mv button{width:24px;height:24px;border-radius:99px;background:#0A0A0A;color:#FFF;display:grid;place-items:center;font-size:12px;line-height:1}
 .ed .mv button:disabled{opacity:.3}
+.ed .mv button.del{background:#D33F3F}
+/* removed tray — sits under the page so removals are visible (and exported) rather than silently gone */
+.removed{background:#F4F5F7;border-top:1px dashed #B5B5B5;padding:20px var(--m) 28px;font-family:'Google Sans',system-ui,sans-serif}
+.removed[hidden]{display:none}
+.removed h4{font-size:13px;font-weight:600;color:#444;margin-bottom:10px}
+.removed h4 b{color:#D33F3F}
+.removed .list{display:flex;flex-wrap:wrap;gap:8px}
+.removed .it{display:flex;align-items:center;gap:8px;background:#FFF;border:1px solid #DDD;border-radius:99px;padding:6px 6px 6px 12px;font-size:12px}
+.removed .it s{color:#666}
+.removed .it button{font-size:11px;font-weight:600;color:#0D99FF;padding:3px 8px;border-radius:99px;background:#EAF6FF}
+.removed .it button[hidden]{display:none}
 #edbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:#0A0A0A;color:#F7F7F7;font-family:'Google Sans',system-ui,sans-serif;font-size:12px;display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid rgba(255,255,255,.2)}
 #edbar[hidden]{display:none}
 #edbar b{color:#0D99FF}
@@ -769,7 +784,8 @@ body.editing{padding-bottom:48px}
 
   <div id="recs-hp" data-block="hp" data-label="Handpicked For You" data-recs="hp"></div>
 
-  <div class="desc" data-block="desc" data-label="Description">
+  <div class="desc" data-block="desc" data-label="Description area">
+    <div class="drow" data-block="glance" data-label="At a Glance">
     <span class="h">At a Glance</span>
     <ul class="glance">
       <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Premium heavyweight 480GSM fabric</li>
@@ -778,8 +794,8 @@ body.editing{padding-bottom:48px}
       <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Versatile zip-through design</li>
       <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Soft 80% cotton blend</li>
     </ul>
-    <div class="divider"></div>
-    <div class="acc open">
+    </div>
+    <div class="drow acc open" data-block="acc-desc" data-label="Description">
       <button class="acc-h"><span class="h">Description</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button>
       <div class="acc-b">
         <ul>
@@ -793,12 +809,9 @@ body.editing{padding-bottom:48px}
         <p class="sku">SKU: CMM29598-10070-37</p>
       </div>
     </div>
-    <div class="divider"></div>
-    <div class="acc"><button class="acc-h"><span class="h">Product Details &amp; Care</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>80% Cotton, 20% Polyester. Model is 6'1 &amp; wears UK size M/32. Machine wash at 30°C.</p></div></div>
-    <div class="divider"></div>
-    <div class="acc"><button class="acc-h"><span class="h">Delivery</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Standard delivery from £3.99 (3–5 working days). Next Day from £5.99 — order by midnight. Premier: unlimited delivery for a year from £9.99.</p></div></div>
-    <div class="divider"></div>
-    <div class="acc"><button class="acc-h"><span class="h">Returns</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Eligible for return within 21 days. Exclusions apply — see our returns policy.</p></div></div>
+    <div class="drow acc" data-block="acc-care" data-label="Product Details &amp; Care"><button class="acc-h"><span class="h">Product Details &amp; Care</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>80% Cotton, 20% Polyester. Model is 6'1 &amp; wears UK size M/32. Machine wash at 30°C.</p></div></div>
+    <div class="drow acc" data-block="acc-delivery" data-label="Delivery"><button class="acc-h"><span class="h">Delivery</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Standard delivery from £3.99 (3–5 working days). Next Day from £5.99 — order by midnight. Premier: unlimited delivery for a year from £9.99.</p></div></div>
+    <div class="drow acc" data-block="acc-returns" data-label="Returns"><button class="acc-h"><span class="h">Returns</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Eligible for return within 21 days. Exclusions apply — see our returns policy.</p></div></div>
   </div>
 
   <div id="recs-wtyl" data-block="wtyl" data-label="We Think You'll Like" data-recs="wtyl"></div>
@@ -835,6 +848,9 @@ body.editing{padding-bottom:48px}
     </div>
   </div>
 </footer>
+
+<!-- Removed tray — every block deleted in edit mode is listed here (restore in edit mode). Exports include it. -->
+<section class="removed" id="removed" hidden><h4><b>Removed from this layout</b> · <span id="removedn">0</span> block(s)</h4><div class="list" id="removedlist"></div><div id="removedstore" hidden></div></section>
 
 <!-- ================= MODALS ================= -->
 <div class="sheet" id="sheet" hidden>
@@ -905,14 +921,15 @@ body.editing{padding-bottom:48px}
    State
    ============================================================ */
 const q=new URLSearchParams(location.search);
+const PRE=window.PDP_PRESET||{}; // exported configuration (see index.html → Export)
 const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}};
 const S={
-  mode:q.get('mode')||'new',          // live | new
+  mode:q.get('mode')||PRE.mode||'new',          // live | new
   edit:false,                          // edit-layout mode (review tooling)
-  fmt:LS('pdp26-fmt')||{look:'nodata',hp:'grid',wtyl:'carousel'}, // recs module formats: nodata | carousel | grid | off
-  order:LS('pdp26-order')||{},         // block order per container (edit mode)
-  entry:q.get('entry')||'03-1',       // set-builder entry point id | none
-  stock:q.get('stock')||'in',         // in | size | oos
+  fmt:PRE.fmt||LS('pdp26-fmt')||{look:'nodata',hp:'grid',wtyl:'carousel'}, // recs module formats: nodata | carousel | grid | inline | hot | off
+  order:PRE.order||LS('pdp26-order')||{},         // block order per container (edit mode)
+  entry:q.get('entry')||PRE.entry||'03-1',       // set-builder entry point id | none
+  stock:q.get('stock')||PRE.stock||'in',         // in | size | oos
   rows:(q.get('rows')||'zip-hoodie,sweatshirt,tee,wide-jogger').split(',').filter(Boolean),
   colour:'CMM29598',                  // hero SKU (washed navy zip hoodie)
   size:null, notified:false, consent:true,
@@ -1202,8 +1219,8 @@ function openSheet(kind,preselectId){
   document.body.style.overflow='hidden';
 }
 function closeSheet(){const sh=$('#sheet');sh.classList.remove('open');setTimeout(()=>{sh.hidden=true;document.body.style.overflow='';},250);}
-let SETVIEW=LS('pdp26-setview')||'cards';
-document.querySelectorAll('#setview button').forEach(bt=>bt.onclick=()=>{SETVIEW=bt.dataset.v;LS('pdp26-setview',SETVIEW);renderSheet();});
+let SETVIEW=PRE.setview||LS('pdp26-setview')||'cards';
+document.querySelectorAll('#setview button').forEach(bt=>bt.onclick=()=>{SETVIEW=bt.dataset.v;LS('pdp26-setview',SETVIEW);renderSheet();parent.postMessage({pdpState:{setview:SETVIEW}},'*');});
 function renderSheetCompact(){
   const b=$('#sheetbody');
   const first=SH.sel[0]?byId(SH.sel[0].id):hero();
@@ -1320,12 +1337,13 @@ tick();setInterval(tick,1000);
 
 function renderAll(){
   document.body.className='mode-'+S.mode;
-  applyOrder();
+  applyRemoved();applyOrder();
   renderGallery();renderSwatches();renderPrice();renderSizes();renderBuy();renderBoxes();
   renderEntry();renderCYP();renderSimilar();renderRecs();
   $('#nddmsg').hidden=S.stock==='oos';
   renderEdit();
-  parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · recs: look=${S.fmt.look} hp=${S.fmt.hp} wtyl=${S.fmt.wtyl} · ${hero().id} ${hero().colour}`},'*');
+  parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · recs: look=${S.fmt.look} hp=${S.fmt.hp} wtyl=${S.fmt.wtyl} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1342,12 +1360,31 @@ function applyOrder(){
     let ref=anchor;names.forEach((n,i)=>{const b=byName[n];if(!b)return;if(i===0){parent.insertBefore(b,anchor);ref=b;}else{ref.after(b);ref=b;}});
   });
 }
+/* removed blocks: nodes are physically moved into #removedstore (so sibling dividers collapse) and listed in the tray */
+S.removed=PRE.removed||LS('pdp26-removed')||[]; // [{name,container,label}]
+function removeBlock(b){
+  saveOrder(); // keep its slot in the order so restore puts it back where it was
+  const k=containerKey(b.parentElement);
+  S.removed.push({name:b.dataset.block,container:k,label:b.dataset.label||b.dataset.block});LS('pdp26-removed',S.removed);
+  $('#removedstore').appendChild(b);renderAll();
+}
+function restoreBlock(name){
+  const it=S.removed.find(r=>r.name===name);if(!it)return;
+  const b=$('#removedstore').querySelector(`[data-block="${name}"]`);const parent=document.getElementById(it.container)||document.querySelector('.'+it.container);
+  if(b&&parent)parent.appendChild(b);
+  S.removed=S.removed.filter(r=>r.name!==name);LS('pdp26-removed',S.removed);renderAll();
+}
+function applyRemoved(){ // on load (or preset): move listed blocks into the store
+  S.removed.forEach(it=>{const b=document.querySelector(`[data-block="${it.name}"]`);if(b&&b.parentElement.id!=='removedstore')$('#removedstore').appendChild(b);});
+  const tray=$('#removed');tray.hidden=!S.removed.length;$('#removedn').textContent=S.removed.length;
+  const l=$('#removedlist');l.innerHTML='';S.removed.forEach(it=>{const c=el(`<span class="it"><s>${it.label}</s><button ${S.edit?'':'hidden'}>Restore</button></span>`);c.querySelector('button').onclick=()=>restoreBlock(it.name);l.appendChild(c);});
+}
 function renderEdit(){
   document.body.classList.toggle('editing',S.edit);
   document.querySelectorAll('.ed').forEach(e=>e.remove());
   let bar=$('#edbar');
-  if(!bar){bar=el(`<div id="edbar"><b>Edit layout</b><span>▲▼ move a block · pick a recs format</span><button id="edreset">Reset</button><button class="done" id="eddone">Done</button></div>`);document.body.appendChild(bar);
-    bar.querySelector('#edreset').onclick=()=>{S.order={};S.fmt={look:'nodata',hp:'grid',wtyl:'carousel'};LS('pdp26-order',{});LS('pdp26-fmt',S.fmt);location.reload();};
+  if(!bar){bar=el(`<div id="edbar"><b>Edit layout</b><span>▲▼ move a block · ✕ remove it (listed under the page)</span><button id="edreset">Reset</button><button class="done" id="eddone">Done</button></div>`);document.body.appendChild(bar);
+    bar.querySelector('#edreset').onclick=()=>{S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);location.reload();};
     bar.querySelector('#eddone').onclick=()=>{S.edit=false;renderAll();parent.postMessage({pdpEdit:false},'*');};}
   bar.hidden=!S.edit;
   if(!S.edit)return;
@@ -1355,12 +1392,10 @@ function renderEdit(){
     if(b.hidden||b.offsetParent===null)return;
     const sibs=blocksOf(b.parentElement).filter(x=>!x.hidden&&x.offsetParent!==null);const i=sibs.indexOf(b);
     const ed=el(`<div class="ed"><span class="lbl">${b.dataset.label||b.dataset.block}</span></div>`);
-    if(b.dataset.recs){const k=b.dataset.recs;const seg=el(`<span class="seg"></span>`);
-      [['nodata','Grey'],['carousel','Carousel'],['grid','Grid'],...(RECS[k].bundle?[['inline','Inline'],['hot','Hotspot']]:[]),['off','Off']].forEach(([v,l])=>{const bt=el(`<button class="${S.fmt[k]===v?'on':''}">${l}</button>`);bt.onclick=e=>{e.stopPropagation();S.fmt[k]=v;LS('pdp26-fmt',S.fmt);renderAll();};seg.appendChild(bt);});
-      ed.appendChild(seg);}
-    const mv=el(`<span class="mv"><button aria-label="Move up" ${i<=0?'disabled':''}>▲</button><button aria-label="Move down" ${i>=sibs.length-1?'disabled':''}>▼</button></span>`);
+    const mv=el(`<span class="mv"><button aria-label="Move up" ${i<=0?'disabled':''}>▲</button><button aria-label="Move down" ${i>=sibs.length-1?'disabled':''}>▼</button><button class="del" aria-label="Remove from layout" title="Remove from this layout">✕</button></span>`);
     mv.children[0].onclick=e=>{e.stopPropagation();sibs[i-1].before(b);saveOrder();renderAll();};
     mv.children[1].onclick=e=>{e.stopPropagation();sibs[i+1].after(b);saveOrder();renderAll();};
+    mv.children[2].onclick=e=>{e.stopPropagation();removeBlock(b);};
     ed.appendChild(mv);b.prepend(ed);
   });
 }
@@ -1368,11 +1403,17 @@ addEventListener('message',e=>{
   const d=e.data;if(!d||!d.pdpSet)return;
   const stockChanged=d.stock!==S.stock;
   S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;
+  if(d.fmt){S.fmt={...S.fmt,...d.fmt};LS('pdp26-fmt',S.fmt);}
+  if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);}
+  if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);location.reload();return;}
   if(stockChanged){S.size=null;S.notified=false;}
   document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');sh.hidden=true;});document.body.style.overflow='';
   renderAll();
 });
 renderAll();
+parent.postMessage({pdpReady:1},'*');
+let __imgsDone=()=>[...document.images].every(i=>i.complete);
+addEventListener('message',e=>{if(e.data&&e.data.pdpPing){const t=setInterval(()=>{if(__imgsDone()){clearInterval(t);parent.postMessage({pdpPong:e.data.pdpPing,h:document.documentElement.scrollHeight},'*');}},100);}});
 </script>
 </body>
 </html>
