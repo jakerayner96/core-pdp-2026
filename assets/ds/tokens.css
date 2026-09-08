@@ -1,0 +1,152 @@
+/* ============================================================
+   DEBENHAMS GROUP DESIGN SYSTEM — TOKENS (canonical)
+   Single source of truth. The site (index.html) and every project
+   prototype link this file — never copy values out of it.
+   Brand values: signed-off Colour Alignment set (post-KM, 26 Aug 2026).
+   Full 12-slot families: Debenhams + boohoo. Others land per audit.
+   Provenance note: to be re-wired to the extract-tokens.mjs chain
+   when plt-app-prototype is ingested (see .context/13).
+   ============================================================ */
+
+/* Layer 1: mode-invariant semantic tokens + scales. Same across every fascia. */
+:root{
+  /* text — body floor is Grey 5 (AA); Grey 4 and below never used for body text */
+  --text-primary:#0F0F0F;--text-secondary:#6B6B6B;--text-disabled:#B5B5B5;--text-inverse:#FFF;
+  --text-error:#D33F3F;--text-success:#1F7A25;--text-warning:#7A5800;
+  /* surface */
+  --surface-sunken:#FAFAFA;--surface-raised:#FFF;--surface-inverse:#0F0F0F;--surface-overlay:rgba(0,0,0,.6);
+  --surface-action-disabled:#E7E7E7;--surface-error:#FFF2F2;--surface-success:#EAF6EA;--surface-warning:#FFFBE6;
+  /* border */
+  --border-subtle:#E7E7E7;--border-default:#D6D6D6;--border-strong:#767676;--border-error:#D33F3F;
+  /* icon — may use Grey 4 (not text-contrast bound) */
+  --icon-primary:#0F0F0F;--icon-secondary:#767676;--icon-disabled:#B5B5B5;--icon-inverse:#FFF;--icon-on-action:#FFF;
+  /* media + callout surfaces (product imagery placeholder Grey 1 · Taggstar bar Grey 6) */
+  --surface-media:#F2F2F2;--surface-callout:#323232;
+  /* spacing — 4pt base */
+  --space-2:2px;--space-4:4px;--space-8:8px;--space-12:12px;--space-16:16px;--space-20:20px;--space-24:24px;
+  --space-32:32px;--space-40:40px;--space-48:48px;--space-64:64px;--space-80:80px;--space-96:96px;--space-128:128px;
+  /* border width */
+  --border-w:1px;--border-w-emphasis:2px;--border-w-focus:2px;
+  /* motion */
+  --dur-fast:100ms;--dur-base:200ms;--dur-slow:300ms;
+  --ease-standard:cubic-bezier(.2,0,0,1);--ease-emphasised:cubic-bezier(.3,0,.8,.15);
+  /* z-index */
+  --z-base:0;--z-raised:10;--z-dropdown:100;--z-sticky:200;--z-banner:300;--z-overlay:400;--z-modal:500;--z-popover:600;--z-toast:700;--z-tooltip:800;
+
+  /* Layer 2 defaults: Debenhams (the default mode). Brand blocks below override. */
+  --brand-name:'Debenhams';
+  --font-family-base:'Geologica',ui-sans-serif,-apple-system,system-ui,sans-serif;
+  --w-regular:300;--w-mid:400;--w-strong:600;--cta-case:none;
+  /* USP banner slots (a = message strip, b = code strip) — from the Header Figma component */
+  --usp-a-bg:#F8F8F8;--usp-a-bg2:#F8F8F8;--usp-a-fg:#0F0F0F;--usp-b-bg:#000;--usp-b-fg:#FFF;
+  /* category nav strip — Debenhams aqua tint; most fascias run it white */
+  --nav-bg:var(--brand-light-2);--nav-fg:var(--text-primary);
+  /* card overlay chrome (badges, AI banner, sale price) — PLT overrides with its cream/red set */
+  --badge-bg:rgba(255,255,255,.9);--badge-fg:var(--text-primary);--badge-border:var(--border-subtle);
+  --ai-bg:var(--badge-bg);--ai-fg:var(--badge-fg);--price-sale:var(--text-error); /* AI banner matches the badge */
+  /* footer newsletter band */
+  --ft-band:var(--surface-sunken);
+  --radius-default:4px;--radius-lg:8px;--radius-pill:9999px;
+  --surface-page:#FFF;
+  /* signed-off buttons (colour-alignment brand-colours): Debenhams primary = Primary Aqua + black ink;
+     CTA Aqua teal carries links, checks, focus — not the button fill */
+  --brand-primary:#7BE7D8;--surface-action:#7BE7D8;--surface-action-hover:#9DEDE2;--surface-action-pressed:#76DECF;--text-on-action:#000;
+  --w-btn:var(--w-strong);
+  --brand-neutral:#E8F4F2;--brand-light-4:#E6FFFC;--brand-light-3:#D6FFF9;--brand-light-2:#B8FDF4;--brand-light-1:#9DEDE2;
+  --brand-dark-1:#76DECF;--brand-dark-2:#70BEB3;--brand-dark-3:#529C92;--brand-primary-dark:#1E6F63;
+  /* link/check/focus colour (Debenhams: CTA Aqua teal) — other fascias re-derive from their action */
+  --border-action:#00787D;--border-focus:#00787D;
+  --text-link:#00787D;--text-link-hover:#00565A;--icon-action:#00787D;
+  /* button component — signed-off golden truth (colour-alignment brand-colours):
+     SemiBold 600 · primary UPPERCASE · secondary sentence case · 4px radius every fascia ·
+     secondary = white + 1px brand outline + black label. KM alone: 400, sentence case both. */
+  --btn-outline:#70BEB3;--case-btn1:uppercase;--case-btn2:none;
+}
+/* Layer 2: per-fascia overrides. CTA/pressed/on/light-1/light-3/paper/type/radius/case are the
+   signed-off Colour Alignment set (post-KM review, Aug 26). Full 12-slot families exist for
+   Debenhams + boohoo; remaining slots for the other fascias land as each is audited. */
+[data-brand="debenhams"]{/* default — no overrides */}
+[data-brand="boohoo"]{
+  --text-on-action:#FFF; /* golden: primary ink is white */
+  --w-btn:600;--btn-outline:#000; /* golden button truth */
+  --brand-name:'boohoo';--font-family-base:'Montserrat',ui-sans-serif,-apple-system,system-ui,sans-serif;
+  --w-regular:500;--w-mid:400;--w-strong:700;
+  --usp-a-bg:#000;--usp-a-bg2:#000;--usp-a-fg:#FFF;--usp-b-bg:#FFE0EB;--usp-b-fg:#0F0F0F;
+  --brand-primary:#F8B5CC;--surface-action:#000;--surface-action-hover:#242424;--surface-action-pressed:#242424;
+  --border-action:var(--surface-action);--border-focus:var(--surface-action);--text-link:var(--surface-action);--text-link-hover:#242424;--icon-action:var(--surface-action);
+  --brand-neutral:#F1DCE3;--brand-light-4:#FFE9F0;--brand-light-3:#FEE0EA;--brand-light-2:#FCD3E1;--brand-light-1:#FBC7D8;
+  --brand-dark-1:#EEA5BE;--brand-dark-2:#EA92B0;--brand-dark-3:#DD789B;--brand-primary-dark:#CB4870;
+  --nav-bg:#FFF;
+}
+[data-brand="boohooman"]{
+  --text-on-action:#FFF; /* golden: primary ink is white */
+  --w-btn:600;--btn-outline:#000; /* golden button truth */
+  --brand-name:'boohooMAN';--font-family-base:'Montserrat',ui-sans-serif,-apple-system,system-ui,sans-serif;
+  --w-regular:500;--w-mid:400;--w-strong:700;
+  --usp-a-bg:#000;--usp-a-bg2:#000;--usp-a-fg:#FFF;--usp-b-bg:#D3D3D3;--usp-b-fg:#0F0F0F; /* grey bar = production #D3D3D3 */
+  --badge-bg:rgba(255,255,255,.85);--badge-border:transparent; /* MAN: white 85% badges + wishlist chip, 4px radius */
+  --usp-cd-live:#FF0000; /* MAN live countdown runs red */
+  --usp-cd:#D33F3F; /* new-format banner = Black/Red variant — countdown digits DS red */
+  --brand-primary:#01FE8A;/* MAN accent green — signed-off 'new' + card button */--surface-action:#000;--surface-action-hover:#242424;--surface-action-pressed:#242424;
+  --border-action:#000;--border-focus:#000;--text-link:#000;--text-link-hover:#242424;--icon-action:#000;
+  --brand-light-3:#E7E7E7;--brand-light-2:#F2F2F2;--brand-light-1:#B5B5B5;--brand-primary-dark:#242424;
+  --nav-bg:#FFF;
+}
+[data-brand="plt"]{
+  --w-btn:600;--btn-outline:#360502; /* golden button truth */
+  /* PLT sand rule (03 Sep): anything grey or white on other fascias renders in the sand family here —
+     white → warm white, Grey 05 → sand, Grey 1 → darker sand (darker hex DRAFT pending sign-off) */
+  --surface-raised:#FFFDF7;--surface-sunken:#FAF5E7;--surface-media:#FAF5E7;
+  --hd-icon:16px;--hd-favic:15px;--hd-count:12px;--hd-count-fs:9px; /* PLT header icon set — PLP-Grid-View 158-8458 */
+  --brand-name:'PrettyLittleThing';--font-family-base:'Roboto',ui-sans-serif,-apple-system,system-ui,sans-serif;
+  --w-regular:400;--w-mid:400;--w-strong:700;--cta-case:uppercase;
+  --usp-top-bg:#F1C59E;--usp-a-bg:#FFE4D2;--usp-a-bg2:#F2D8C8;--usp-a-fg:#0F0F0F;--usp-b-bg:#FFE4D2;--usp-b-fg:#0F0F0F; /* production: peach countdown banner over cream cells (alt cell ~5% darker) */
+  --nav-bg:#000;--nav-fg:#FFF; /* PLT runs a black nav strip */
+  /* PLT card chrome — AI-Watermark Figma 3-574: cream 85% chips, #333 text, PLT sale red */
+  --badge-bg:rgba(250,245,231,.85);--badge-fg:#333;--badge-border:transparent;--price-sale:#C90000;
+  --ft-band:#FBF3EC;
+  --radius-default:0px;--radius-lg:0px;--radius-pill:0px; /* square-radius mode */
+  --surface-page:#FFFDF7;--text-on-action:#FFF;
+  --brand-primary:#550503;--surface-action:#550503;--surface-action-hover:#360502;--surface-action-pressed:#360502;
+  --border-action:#360502;--border-focus:#360502;--text-link:#550503;--text-link-hover:#360502;--icon-action:#550503;
+  --brand-light-3:#FFD5CD;--brand-light-2:#FFE4D2;--brand-light-1:#C77E75;--brand-primary-dark:#360502;
+}
+[data-brand="karenmillen"]{
+  --text-on-action:#FFF; /* golden: primary ink is white */
+  --brand-name:'Karen Millen';--font-family-base:'Jost',ui-sans-serif,-apple-system,system-ui,sans-serif;
+  --w-regular:400;--w-strong:600;--w-btn:400;--case-btn1:none;--btn-outline:#000; /* KM buttons: lighter, sentence case both, black outline (signed-off) */
+  --usp-a-bg:#000;--usp-a-bg2:#000;--usp-a-fg:#FFF;--usp-b-bg:#000;--usp-b-fg:#FFF;
+  --brand-primary:#D24508;--surface-action:#D24508;--surface-action-hover:#892D05;--surface-action-pressed:#892D05;
+  --border-action:#892D05;--border-focus:#892D05;--text-link:#892D05;--text-link-hover:#000;--icon-action:#892D05;
+  --brand-light-3:#F3C1A7;--brand-light-2:#F0B597;--brand-light-1:#E88A5B;--brand-primary-dark:#892D05;
+  --nav-bg:#FFF;
+}
+/* DRAFT modes (P-05) — Warehouse from the live relaunch direction (03 Sep capture),
+   The Brand Room from its Figma (NRsu568JGzwCDq4egvkUbn). Confirm palettes at audit sign-off. */
+[data-brand="warehouse"]{
+  --text-on-action:#FFF; /* golden: primary ink is white */
+  --w-btn:600;--btn-outline:#000; /* golden button truth */
+  --brand-name:'Warehouse';
+  --font-family-base:'Helvetica Neue',Helvetica,Arial,ui-sans-serif,sans-serif;
+  --w-regular:400;--w-mid:400;--w-strong:700;
+  --brand-primary:#0A0A0A;--surface-action:#000;--surface-action-hover:#242424;--surface-action-pressed:#242424;
+  --brand-light-3:#E7E7E7;--brand-light-2:#F2F2F2;--brand-light-1:#B5B5B5;--brand-primary-dark:#242424;
+  --usp-a-bg:#323232;--usp-a-fg:#FFF;--usp-b-bg:#323232;--usp-b-fg:#FFF;
+  --border-action:#000;--border-focus:#000;--text-link:#000;--text-link-hover:#242424;--icon-action:#000;
+  --nav-bg:#FFF;
+}
+[data-brand="brandroom"]{
+  --text-on-action:#FFF; /* golden: primary ink is white */
+  --w-btn:600;--btn-outline:#000; /* golden button truth */
+  --brand-name:'The Brand Room';
+  --font-family-base:'Helvetica Neue',Helvetica,Arial,ui-sans-serif,sans-serif;
+  --w-regular:400;--w-mid:400;--w-strong:700;--cta-case:uppercase;
+  --radius-default:0px;--radius-lg:0px;--radius-pill:0px; /* square-radius mode — confirmed */
+  --brand-primary:#0A0A0A;--surface-action:#000;--surface-action-hover:#242424;--surface-action-pressed:#242424;
+  --brand-light-3:#E7E7E7;--brand-light-2:#F2F2F2;--brand-light-1:#B5B5B5;--brand-primary-dark:#242424;
+  --usp-a-bg:#000;--usp-a-fg:#FFF;--usp-b-bg:#000;--usp-b-fg:#FFF;
+  --border-action:#000;--border-focus:#000;--text-link:#000;--text-link-hover:#242424;--icon-action:#000;
+  --nav-bg:#FFF;
+}
+/* Accessibility: all motion collapses under prefers-reduced-motion */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}

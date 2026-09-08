@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en" data-brand="boohooman">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Core PDP 2026 — boohooMAN</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- DS snapshot (copied from debenhamsgroup.design/assets/ds on 08 Sep 2026) -->
+<link rel="stylesheet" href="assets/ds/tokens.css">
+<link rel="stylesheet" href="assets/ds/components.css">
+<style>
+/* ============================================================
+   Core PDP 2026 — boohooMAN. Single file, no build.
+   body.mode-live  = today's boohooman.com PDP (captured 08 Sep 2026)
+   body.mode-new   = new format: Figma Core-PDP-2026 (vVJJ1bgaTGCbGd68bsNiVT)
+   ============================================================ */
+:root{
+  --black:#000;--soft-black:#242424;--white:#fff;--red:#D33F3F;
+  --grey-05:#FAFAFA;--grey-1:#F2F2F2;--grey-2:#E7E7E7;--grey-25:#D6D6D6;--grey-3:#B5B5B5;--grey-4:#767676;--grey-5:#6B6B6B;
+  --sale-badge-bg:#FDE8E8;--sale-badge-text:#D00000;--paypal:#FFC439;--deliver-bg:#000;--deliver-green:#01FE8A;
+  --shadow-pill:0 0 14px -4px rgba(0,0,0,.25);
+  --m:16px; /* page side margin */
+}
+@media(min-width:1024px){:root{--m:48px}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#FFF}
+body{font-family:var(--font-family-base);color:var(--black);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;background:#FFF}
+button{font:inherit;cursor:pointer;background:none;border:none;color:inherit;text-align:left}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+[hidden]{display:none!important}
+.ic{width:24px;height:24px;display:block;object-fit:contain}
+.ic-16{width:16px;height:16px}
+.ic-12{width:12px;height:12px}
+.inv{filter:invert(1)}
+.wrap{max-width:1440px;margin:0 auto}
+.m{padding-left:var(--m);padding-right:var(--m)}
+
+/* ---------- Header ---------- */
+.hdr{background:#FFF}
+.hdr-row{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;gap:16px}
+.hdr-left{display:flex;align-items:center;gap:16px;min-width:0}
+.hdr-logo{height:16px;width:auto}
+.hdr-icons{display:flex;align-items:center}
+.hdr-icons button{width:38px;height:36px;display:grid;place-items:center}
+.hdr-search{display:none}
+.hdr-nav{display:none}
+@media(min-width:1024px){
+  .hdr-row{height:88px;padding:0 var(--m);gap:40px}
+  .hdr-logo{height:20px}
+  .hdr-search{display:flex;flex:1;max-width:800px;height:56px;background:var(--grey-1);border-radius:99px;align-items:center;padding:0 28px;gap:16px;color:var(--grey-4);font-size:16px;font-weight:400}
+  .hdr-search span{flex:1}
+  .hdr-search .ic{opacity:.9}
+  .hdr-icons button{width:40px}
+  .hdr-menu{display:none}
+  .hdr-nav{display:flex;gap:16px;justify-content:center;padding:6px var(--m) 12px;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.01em;flex-wrap:wrap}
+  .hdr-nav .sale{color:#E30000}
+}
+/* USP — live: black 3-cell bar (red countdown) + grey code bar. new: single DS strip */
+.usp-live{display:none}
+.mode-live .usp-live{display:block}
+.usp-live .bar{background:#000;color:#FFF;display:flex;overflow-x:auto;scrollbar-width:none;text-align:center}
+.usp-live .bar::-webkit-scrollbar{display:none}
+.usp-live .cell{flex:0 0 100%;padding:8px 16px}
+.usp-live .cell b{display:block;font-size:14px;line-height:21px;font-weight:700}
+.usp-live .cell span{display:block;font-size:14px;line-height:12px;padding-bottom:3px;font-weight:400}
+.usp-live .cell .cd{color:#FF0000}
+.usp-live .grey{background:#D3D3D3;color:#000;text-align:center;padding:8px 16px}
+.usp-live .grey b{display:block;font-size:14px;line-height:21px}
+.usp-live .grey span{display:block;font-size:14px;line-height:12px;padding-bottom:3px}
+@media(min-width:1024px){.usp-live .cell{flex:1 1 0}}
+.usp-new{display:none}
+.mode-new .usp-new{display:block}
+.usp-new .usp-strip{padding:0}
+.usp-new .usp-cell{font-size:12px;min-height:0;padding:6px 16px;gap:2px;font-weight:var(--w-regular)}
+.usp-new .usp-cell b{font-weight:var(--w-strong)}
+.usp-new .usp-cell:not(:first-child){display:none}
+@media(min-width:768px){.usp-new .usp-cell:not(:first-child){display:flex}}
+
+/* ---------- Breadcrumb ---------- */
+.crumb{display:flex;align-items:center;gap:8px;padding:16px var(--m);font-size:12px;line-height:18px;white-space:nowrap;overflow:hidden}
+.crumb a{text-transform:capitalize;font-weight:300}
+.mode-new .crumb a{font-weight:var(--w-regular)}
+.crumb .sep{padding:0 0}
+.crumb .share{margin-left:auto;flex:none}
+.crumb .desk{display:none}
+@media(min-width:1024px){.crumb .desk{display:inline}.crumb .share{display:none}}
+
+/* ---------- Hero (gallery + buy) ---------- */
+.hero{display:block}
+@media(min-width:1024px){
+  .hero{display:grid;grid-template-columns:minmax(0,1fr) 450px;gap:64px;padding:0 var(--m);align-items:start}
+  .buy{padding:0!important}
+}
+.gal{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;position:relative}
+.gal::-webkit-scrollbar{display:none}
+.gal .slide{flex:0 0 233px;width:233px;height:350px;scroll-snap-align:start;position:relative;background:var(--surface-media)}
+.mode-live .gal .slide{flex:0 0 66%;width:66%;height:auto;aspect-ratio:2/3}
+.mode-live .gal{gap:16px}
+.gal .slide img{width:100%;height:100%;object-fit:cover}
+.gal .tags{position:absolute;left:24px;top:24px;display:flex;flex-direction:column;gap:12px}
+.gal .tag{background:rgba(231,231,231,.9);color:#000;font-size:12px;font-weight:300;padding:6px 8px;border-radius:4px;white-space:nowrap}
+.mode-live .gal .tag{font-size:16px;padding:12px 8px}
+.mode-new .gal .tag{background:var(--badge-bg);font-size:12px;font-weight:var(--w-regular);padding:4px 8px}
+.gal .tags.hide{display:none}
+.pag{padding:16px 16px 0}
+.pag .track{height:4px;background:var(--grey-25);border-radius:100px;position:relative;overflow:hidden}
+.pag .fill{position:absolute;top:0;left:0;bottom:0;width:25%;background:#000;border-radius:100px;transition:width .2s}
+.thumbs{display:none}
+@media(min-width:1024px){
+  .galwrap{display:grid;grid-template-columns:100px minmax(0,1fr);gap:24px;align-items:start}
+  .thumbs{display:flex;flex-direction:column;gap:8px}
+  .thumbs button{width:100px;aspect-ratio:2/3;background:var(--surface-media);overflow:hidden;border:2px solid transparent}
+  .thumbs button.on{border-color:#000}
+  .thumbs img{width:100%;height:100%;object-fit:cover}
+  .gal{scroll-snap-type:none;overflow:hidden}
+  .gal .slide,.mode-live .gal .slide{flex:0 0 100%;width:100%;height:auto;aspect-ratio:2/3}
+  .pag{display:none}
+  .galmain{position:relative}
+  .arrow{position:absolute;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:99px;background:#FFF;box-shadow:0 2px 8px rgba(0,0,0,.15);display:grid;place-items:center}
+  .arrow.l{left:12px}.arrow.r{right:12px}
+}
+.arrow{display:none}
+@media(min-width:1024px){.arrow{display:grid}}
+
+/* gallery set end card (entry 06) */
+.slide.endcard{background:var(--grey-05);display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;cursor:pointer}
+.slide.endcard.on{display:flex}
+.endcard .stack{display:flex;flex-direction:column;gap:16px;align-items:center;width:100%}
+.endcard .rows{display:flex;flex-direction:column;gap:2px;width:100%}
+.endcard .row{display:flex;gap:2px}
+.endcard .row img{flex:1;min-width:0;aspect-ratio:64/96;object-fit:cover;height:auto}
+.endcard .cta{font-size:12px;font-weight:700}
+
+/* buy block */
+.buy{padding:16px;display:flex;flex-direction:column;gap:16px}
+.slot:empty{display:none}
+.brand-product{display:flex;flex-direction:column;gap:8px}
+.title-row{display:flex;gap:8px;align-items:flex-start}
+.title-text{flex:1;display:flex;flex-direction:column;gap:4px}
+.brand{font-size:16px;font-weight:600}
+.pname{font-size:16px;font-weight:400}
+.mode-live .pname{font-weight:300}
+.wish{position:relative;width:44px;height:44px;flex:none;border-radius:99px;border:1px solid var(--grey-2);display:grid;place-items:center;background:#FFF}
+.wish img{width:16px;height:16px}
+.price-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.price-vals{display:flex;align-items:flex-end;gap:8px;white-space:nowrap}
+.price-now{font-size:24px;font-weight:600;line-height:normal}
+.price-now.sale{color:var(--red)}
+.price-was{font-size:20px;font-weight:400;color:var(--grey-5);text-decoration:line-through;line-height:normal}
+.save{background:var(--sale-badge-bg);color:var(--sale-badge-text);font-size:14px;font-weight:500;padding:4px 8px;border-radius:4px}
+.oos-lbl{color:var(--red);font-size:16px;font-weight:500;letter-spacing:.02em}
+.icon-msg{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
+.mode-live .icon-msg{font-weight:400}
+.icon-msg img{width:20px;height:20px}
+.icon-msg b{font-weight:600}
+.options{display:flex;flex-direction:column;gap:16px}
+.colour{display:flex;flex-direction:column;gap:8px}
+.colour-lbl{font-size:16px;font-weight:300}
+.colour-lbl b{font-weight:500}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.mode-live .swatches{display:none}
+.sw{width:60px;height:89px;border-radius:4px;border:1px solid var(--grey-1);overflow:hidden;position:relative;padding:0;background:var(--surface-media)}
+.sw img{width:100%;height:100%;object-fit:cover;border-radius:3px}
+.sw.on{border-color:#000}
+.sw.on::after{content:"";position:absolute;inset:0;border:1px solid #FFF;border-radius:3px;pointer-events:none}
+.sizes{display:flex;flex-direction:column;gap:12px}
+.size-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.size-head .lbl{font-size:16px;font-weight:400;flex:1}
+.mode-live .size-head .lbl{font-weight:300}
+.size-head .lbl b{font-weight:500}
+.size-head .lbl .oos{color:var(--red);font-weight:500;letter-spacing:.02em}
+.size-guide{display:flex;align-items:center;gap:4px;font-size:14px;font-weight:400;white-space:nowrap}
+.size-guide img{width:16px;height:16px}
+.size-btns{display:flex;gap:8px;flex-wrap:wrap}
+.sz{width:60px;min-width:60px;height:50px;background:#FFF;border:1px solid var(--grey-3);border-radius:4px;font-size:16px;font-weight:400;display:flex;align-items:center;justify-content:center;position:relative;color:#000}
+.mode-live .sz{width:53px;min-width:53px;border-color:#E5E7EB}
+.sz.on{border:2px solid #000;font-weight:700}
+.sz.oos{color:var(--grey-4)}
+.mode-new .sz.oos{color:#000}
+.sz .bell{position:absolute;right:3px;top:3px;width:14px;height:14px}
+.mode-live .sz.oos .bell{display:none}
+.mode-live .sz.oos.bellable .bell{display:block}
+.buy-btns{display:flex;flex-direction:column;gap:8px}
+.btn{height:50px;border-radius:4px;font-size:16px;font-weight:600;line-height:24px;display:flex;align-items:center;justify-content:center;width:100%;text-transform:uppercase;gap:8px}
+.btn.p{background:#000;color:#FFF}
+.btn.s{background:#FFF;color:#000;border:1px solid var(--grey-3)}
+.btn.paypal{background:var(--paypal)}
+.btn.paypal img{height:20px;width:auto}
+.btn.apple{background:#000}
+.btn.apple img{height:22px;width:auto}
+.mode-live .btn.paypal{display:none}
+
+/* notify me (Figma 1042-66804) */
+.notify{display:flex;flex-direction:column;gap:16px}
+.notify h4{font-size:16px;font-weight:600}
+.notify .inp{height:50px;border:1px solid var(--grey-3);border-radius:4px;padding:8px 16px;display:flex;align-items:center;background:#FFF}
+.notify .inp input{border:none;outline:none;font:inherit;font-size:14px;width:100%;color:#000;background:none}
+.notify .inp input::placeholder{color:var(--grey-5)}
+.notify .btn .bell{width:16px;height:16px;filter:invert(1)}
+.notify .consent{display:flex;gap:12px;align-items:flex-start;font-size:12px;font-weight:400;line-height:1.35}
+.notify .consent a{font-weight:600}
+.cb{width:24px;height:24px;min-width:24px;border-radius:3px;background:#000;display:grid;place-items:center;border:none}
+.cb img{width:14px;height:14px}
+.cb.off{background:#FFF;border:1px solid var(--grey-3)}
+.cb.off img{display:none}
+.notify .done{background:var(--grey-05);border-radius:4px;padding:12px 16px;font-size:14px;display:flex;gap:8px;align-items:center}
+
+/* premier (live) */
+.premier{background:#D3D3D3;border-radius:4px;padding:16px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.premier .t{font-size:14px;font-weight:400;line-height:21px}
+.premier .t b{display:block;font-size:22px;font-weight:800;font-style:italic;letter-spacing:-.02em;margin-bottom:4px}
+.premier .add{background:#000;color:#FFF;font-size:14px;text-transform:uppercase;padding:8px 16px;border-radius:4px;flex:none}
+.mode-new .premier{display:none}
+
+/* ---------- below-fold boxes ---------- */
+.below{display:flex;flex-direction:column;gap:16px;padding-bottom:32px}
+.below>.inset{margin:0 var(--m)}
+.deliver{background:var(--deliver-bg);border-radius:4px;padding:16px 20px;display:flex;flex-direction:column;gap:12px;color:#FFF}
+.deliver .dp{width:121px;height:15px}
+.deliver .h{font-size:14px;font-weight:600}
+.deliver ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.deliver li{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:18px;font-weight:400}
+.deliver li img{width:16px;height:16px;flex:none;filter:invert(1);margin-top:1px}
+.deliver .more{font-size:14px;font-weight:600}
+.deliver .quote{font-size:12px;font-weight:300;font-style:italic;border-top:1px solid rgba(255,255,255,.25);padding-top:12px}
+.uspbox{background:#FFF;border:1px solid var(--grey-2);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.uspbox .r{display:flex;gap:16px;align-items:flex-start}
+.uspbox .r img{width:24px;height:24px;flex:none}
+.uspbox .txt{flex:1;display:flex;flex-direction:column;gap:2px}
+.uspbox .t14{font-size:14px;font-weight:400;line-height:21px}
+.uspbox .t12{font-size:12px;font-weight:400;line-height:18px}
+.uspbox .t12 u{text-underline-position:from-font}
+.uspbox .cap{font-size:16px;font-weight:400}
+.uspbox .strong{font-size:16px;font-weight:600}
+.bnpl{background:#FFF;border:1px solid var(--grey-2);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.bnpl .badges{display:flex;gap:8px}
+.bnpl .badges span{height:28px;padding:0 10px;border-radius:4px;display:flex;align-items:center;font-size:11px;font-weight:700}
+.bnpl .pp{background:#F5F8FC;color:#003087}.bnpl .kl{background:#FFB3C7;color:#000}.bnpl .cp{background:#B2FCE4;color:#000}
+.bnpl .terms{font-size:14px;font-weight:300;color:var(--grey-4);line-height:21px}
+.bnpl .more{font-size:14px;font-weight:400;text-decoration:underline;text-underline-position:from-font}
+@media(min-width:1024px){
+  .below>.inset.buyside{display:none} /* on desktop these live inside the buy panel */
+}
+.buy .deskonly{display:none}
+@media(min-width:1024px){.buy .deskonly{display:flex}}
+
+/* ---------- Product cards (Figma 569:24467 / DS C-02 anatomy) ---------- */
+.card{display:flex;flex-direction:column;gap:12px;min-width:0;cursor:pointer}
+.card .img{position:relative;aspect-ratio:170/255;overflow:hidden;background:var(--surface-media)}
+.card .img img{width:100%;height:100%;object-fit:cover}
+.card .cw{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:99px;background:#FFF;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.card .cw img{width:12px;height:12px}
+.card .info{display:flex;flex-direction:column;gap:8px}
+.card .titles{display:flex;flex-direction:column;gap:4px;font-size:14px}
+.card .cb-brand{font-weight:600}
+.card .cb-name{font-weight:400;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;height:2.7em;line-height:1.35}
+.mode-live .card .cb-name{font-weight:400}
+.card .cp{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:14px}
+.card .cp .now{font-weight:600}
+.card .cp .now.sale{color:var(--red)}
+.card .cp .was{font-weight:400;text-decoration:line-through}
+.card .cp .pct{color:var(--red);font-weight:300}
+.rail{display:flex;flex-direction:column;gap:16px}
+.rail-title{font-size:18px;font-weight:600;line-height:1.5}
+.rail-head{display:flex;justify-content:space-between;align-items:center}
+.rail-head .all{font-size:12px;font-weight:600}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 4px}
+.mode-live .grid3{gap:24px 16px}
+.scroll{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-right:var(--m)}
+.scroll::-webkit-scrollbar{display:none}
+.scroll .card{flex:0 0 165px}
+@media(min-width:1024px){.grid3{grid-template-columns:repeat(6,1fr);gap:24px 16px}.scroll .card{flex:0 0 220px}}
+
+/* ---------- Shop The Look module (Figma 638:56822 / 57804 / 57872) ---------- */
+.look{cursor:pointer}
+.look.nodata{background:var(--grey-05);padding:16px;display:flex;flex-direction:column;gap:16px}
+.look.nodata .imgs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.look.nodata .imgs::-webkit-scrollbar{display:none}
+.look.nodata .imgs img{flex:0 0 150px;width:150px;height:225px;object-fit:cover}
+.look.data{background:#FFF;padding:16px 0;display:flex;flex-direction:column;gap:16px}
+.look.data .rail-head{padding:0 16px}
+.look.data .scroll{padding-left:16px}
+.look.grid{background:#FFF;padding:16px;display:flex;flex-direction:column;gap:16px}
+@media(min-width:1024px){
+  .look.nodata .imgs img{flex:0 0 220px;width:220px;height:330px}
+  .look.grid .grid3{grid-template-columns:repeat(6,1fr)}
+}
+.mode-live .look{display:none}
+
+/* Complete Your Purchase With — live production module */
+.cyp{display:none;flex-direction:column;gap:12px}
+.mode-live .cyp{display:flex}
+.cyp .box{border:1px solid var(--grey-2);border-radius:4px;padding:16px 16px 24px;display:flex;flex-direction:column;gap:24px}
+.cyp .it{display:grid;grid-template-columns:100px 1fr;gap:20px}
+.cyp .it .im{position:relative;aspect-ratio:2/3;background:var(--surface-media)}
+.cyp .it .im img{width:100%;height:100%;object-fit:cover}
+.cyp .it .cb{position:absolute;left:12px;top:12px}
+.cyp .it .cur{font-size:12px;font-weight:300;color:#777;padding-bottom:4px}
+.cyp .it .b{font-size:14px;font-weight:500}
+.cyp .it .n{font-size:14px;font-weight:300;padding-top:4px}
+.cyp .it .p{font-size:16px;font-weight:600;padding-top:8px}
+.cyp .it .c{font-size:16px;font-weight:300;padding:8px 0}
+.cyp .it .c b{font-size:14px;font-weight:600}
+.cyp .it .sl{font-size:16px;font-weight:300}
+.cyp .sel{margin-top:8px;height:50px;border:1px solid var(--grey-2);border-radius:4px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:var(--grey-4);font-size:16px}
+.cyp .tot{text-align:center;font-size:16px;font-weight:500}
+.cyp .tot span{font-weight:300}
+.cyp .btn.s{margin:0 12px}
+.mode-live .cyp .btn.s{width:auto}
+
+/* ---------- Description ---------- */
+.desc{padding:16px var(--m);display:flex;flex-direction:column;gap:16px}
+.desc .h{font-size:16px;font-weight:500;text-transform:capitalize}
+.glance{display:flex;flex-direction:column;gap:16px}
+.glance li{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:300;list-style:none}
+.glance li i{width:24px;height:24px;border-radius:99px;border:1px solid var(--grey-25);display:grid;place-items:center;flex:none}
+.glance li i img{width:12px;height:12px}
+.mode-new .glance{flex-direction:row;flex-wrap:wrap;gap:12px 16px}
+.mode-new .glance li{font-size:14px}
+.divider{height:1px;background:var(--grey-2);width:100%}
+.acc{display:flex;flex-direction:column;gap:16px}
+.acc-h{display:flex;align-items:center;justify-content:space-between;width:100%}
+.acc-h img{width:16px;height:16px;transition:transform .2s}
+.acc.open .acc-h img{transform:rotate(180deg)}
+.acc-b{display:none;font-size:16px;font-weight:300;line-height:28px}
+.acc.open .acc-b{display:block}
+.acc-b ul{padding-left:24px;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.acc-b p{margin-bottom:16px}
+.acc-b .sku{font-size:14px;text-transform:uppercase}
+.share-row{display:flex;justify-content:space-between;align-items:center;font-size:16px;font-weight:500}
+.share-row img{width:16px;height:16px}
+
+/* rec links */
+.reclinks{padding:0 var(--m);display:flex;flex-direction:column;gap:16px}
+.reclinks .rail-title{font-size:16px;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center}
+.chips a{font-size:16px;font-weight:300;padding:4px 0}
+.mode-new .chips a{background:var(--grey-05);border:1px solid var(--grey-2);border-radius:4px;padding:8px 12px;font-size:14px}
+
+/* ---------- Footer (live boohooman.com) ---------- */
+.ft{border-top:1px solid var(--grey-2);margin-top:16px}
+.ft .news{padding:32px var(--m);display:flex;flex-direction:column;gap:12px;text-align:center}
+.ft .news h3{font-size:24px;font-weight:600;line-height:1.5}
+.ft .news p{font-size:16px}
+.ft .news .row{display:flex;gap:0;max-width:520px;width:100%;margin:0 auto}
+.ft .news input{flex:1;height:50px;border:1px solid var(--grey-3);border-right:none;border-radius:4px 0 0 4px;padding:0 16px;font:inherit;font-size:14px}
+.ft .news button{height:50px;background:#000;color:#FFF;padding:0 24px;border-radius:0 4px 4px 0;text-transform:uppercase;font-weight:600}
+.ft .news small{font-size:14px;color:#000;display:block;max-width:520px;margin:0 auto}
+.ft .cols{display:grid;grid-template-columns:1fr;gap:0;padding:0 var(--m)}
+.ft .col{border-top:1px solid var(--grey-2);padding:16px 0;font-size:16px;font-weight:600;display:flex;justify-content:space-between}
+.ft .col img{width:16px;height:16px}
+.ft .misc{padding:24px var(--m);display:flex;flex-direction:column;gap:24px;align-items:center;text-align:center}
+.ft .misc .h{font-size:16px;font-weight:600}
+.ft .social{display:flex;gap:24px}
+.ft .social img{width:24px;height:24px}
+.ft .copy{font-size:14px;font-weight:300;padding:16px 0 24px}
+@media(min-width:1024px){.ft .cols{grid-template-columns:repeat(3,1fr);gap:24px}.ft .col{border:none;display:block}.ft .col img{display:none}}
+
+/* ---------- Entry-point templates (advanced-bundling prototype, Aug 2026 + Figma 839/840) ---------- */
+.pill-row{display:flex;justify-content:center}
+.chip-entry{display:flex;align-items:center;gap:6px;background:#FFF;padding:9px 14px;box-shadow:var(--shadow-pill);font-size:12px;font-weight:600;color:#000}
+.chip-entry.round{border-radius:100px}.chip-entry.square{border-radius:4px}.chip-entry.outlined{border:1px solid #000}
+.chip-entry .hanger{width:16px;height:16px}
+.buy-set-box{display:flex;height:117px;border-radius:4px;overflow:hidden;width:100%;padding:0}
+.buy-set-box .imgs{display:flex;height:100%;flex:0 0 50%;min-width:0;overflow:hidden}
+.buy-set-box .imgs img{height:100%;aspect-ratio:48/72;object-fit:cover;width:auto}
+.buy-set-box .copy{flex:0 0 50%;min-width:0;background:var(--grey-05);display:flex;flex-direction:column;justify-content:center;gap:4px;padding:16px 24px}
+.buy-set-box .copy .h{font-size:16px;font-weight:600;white-space:nowrap}
+.buy-set-box .copy .s{font-size:12px;font-weight:400;color:var(--grey-4)}
+.equation-strip{display:flex;height:116px;background:var(--grey-05);border-radius:4px;overflow:hidden;width:100%;padding:0}
+.equation-strip .imgs{flex:1;display:flex;height:100%;overflow:hidden}
+.equation-strip .imgs img{height:100%;aspect-ratio:48/72;object-fit:cover;width:auto}
+.equation-strip .copy{width:127px;flex:none;display:flex;align-items:center;justify-content:center;padding:0 16px;font-size:14px;font-weight:600;text-align:center}
+.outfit-module{background:var(--grey-05);cursor:pointer}
+.outfit-scroll{display:flex;overflow-x:auto;scrollbar-width:none}
+.outfit-scroll::-webkit-scrollbar{display:none}
+.outfit-scroll img{flex:0 0 auto;aspect-ratio:390/585;object-fit:cover;height:auto}
+.outfit-scroll.two-up img{width:64.7%}
+.outfit-scroll.three-up img{width:40.2%}
+.outfit-grid{display:grid;grid-template-columns:1fr 1fr}
+.outfit-grid img{width:100%;aspect-ratio:390/585;object-fit:cover}
+@media(min-width:1024px){.outfit-scroll.two-up img{width:25%}.outfit-scroll.three-up img{width:20%}.outfit-grid{grid-template-columns:repeat(4,1fr)}}
+.outfit-caption{display:flex;align-items:center;justify-content:space-between;padding:16px;white-space:nowrap}
+.outfit-caption .l{display:flex;flex-direction:column;gap:2px}
+.outfit-caption .h{font-size:16px;font-weight:600;text-transform:capitalize}
+.outfit-caption .s{font-size:12px;font-weight:400;color:var(--grey-4)}
+.outfit-caption .cta{font-size:12px;font-weight:600}
+.content-slot{background:#FFF;padding-bottom:12px;display:flex;flex-direction:column;gap:16px;cursor:pointer}
+.plp-slot{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden}
+@media(min-width:1024px){.plp-slot{aspect-ratio:3/1}}
+.plp-slot>img{width:100%;height:100%;object-fit:cover}
+.plp-slot .cap{position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(to bottom,rgba(255,255,255,0),#fff 86.6%);display:flex;align-items:flex-end;justify-content:space-between;padding:16px}
+.plp-slot .cap .h{font-size:16px;font-weight:600}
+.plp-slot .cap .cta{font-size:12px;font-weight:600}
+.anchor-link{display:flex;align-items:center;gap:8px;padding:0}
+.anchor-link .bi{width:20px;height:20px}
+.anchor-link .txt{font-size:14px;font-weight:600}
+.anchor-link .chev{width:7px;height:12px}
+.price-chip{background:var(--grey-05);border-radius:4px;display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px}
+.price-chip.with-trio{padding:8px 12px 8px 8px}
+.price-chip .lead{display:flex;align-items:center;gap:8px}
+.price-chip.with-trio .lead{gap:12px}
+.price-chip .bi{width:20px;height:20px}
+.price-chip .label{font-size:14px;font-weight:500}
+.price-chip .shop{font-size:12px;font-weight:600}
+.price-chip .copy{display:flex;flex-direction:column;gap:2px}
+.price-chip .copy .h{font-size:14px;font-weight:600}
+.price-chip .copy .s{font-size:12px;font-weight:400;color:var(--grey-4)}
+.trio{position:relative;width:84px;height:74px;flex:none}
+.trio img{position:absolute;width:44px;height:66px;object-fit:cover;border-radius:2px;box-shadow:var(--shadow-pill)}
+.trio img:nth-child(1){left:0;top:8px}.trio img:nth-child(2){left:20px;top:4px}.trio img:nth-child(3){left:40px;top:0}
+.price-banner{display:flex;align-items:center;gap:12px;width:100%}
+.price-banner.boxed{background:var(--grey-05);border-radius:4px;padding:12px}
+.price-banner.bare{padding:8px 0}
+.price-banner .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.price-banner .copy .h{font-size:14px;font-weight:600}
+.price-banner .copy .s{font-size:12px;font-weight:400;color:var(--grey-4)}
+.price-banner .chev{width:7px;height:12px;flex:none}
+
+/* ---------- Sheet modal: Create The Look / Shop The Set (Figma 1038:45022) ---------- */
+.sheet{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet .bg{position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.sheet .panel{position:relative;width:100%;max-width:100%;height:calc(100% - 56px);background:#FFF;border-radius:4px 4px 0 0;display:flex;flex-direction:column;padding-top:24px;transform:translateY(100%);transition:transform .25s ease}
+.sheet.open .panel{transform:translateY(0)}
+@media(min-width:768px){.sheet{align-items:center}.sheet .panel{max-width:480px;height:min(838px,calc(100% - 48px));border-radius:4px}}
+.sheet .head{display:flex;gap:12px;align-items:center;padding:0 24px 24px;flex:none}
+.sheet .head h2{flex:1;font-size:20px;font-weight:600;color:var(--soft-black);line-height:1}
+.sheet .head button{width:24px;height:24px;display:grid;place-items:center;margin-right:-4px}
+.sheet .body{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:20px;padding-bottom:24px}
+.sheet .filters{display:flex;gap:8px;padding:0 24px;overflow-x:auto;scrollbar-width:none;flex:none}
+.sheet .filters span{border:1px solid var(--grey-3);border-radius:99px;padding:6px 12px;font-size:12px;display:flex;gap:6px;align-items:center;white-space:nowrap}
+.sheet .filters img{width:10px;height:10px}
+.srow{display:flex;flex-direction:column;gap:12px}
+.srow .rh{display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.srow .rh .lbl{font-size:16px;font-weight:500;text-transform:capitalize}
+.srow .rh .all{font-size:12px;font-weight:600}
+.srow .cards{display:flex;gap:4px;padding-left:24px;overflow-x:auto;scrollbar-width:none;padding-right:24px}
+.srow .cards::-webkit-scrollbar{display:none}
+.scard{flex:0 0 140px;width:140px;display:flex;flex-direction:column;gap:12px}
+.scard .im{position:relative;aspect-ratio:170/255;overflow:hidden;background:var(--surface-media);cursor:pointer;transition:opacity .15s}
+.scard .im img{width:100%;height:100%;object-fit:cover}
+.scard.dim .im{opacity:.3}
+.scard.on .im{box-shadow:var(--shadow-pill)}
+.scard .cb{position:absolute;left:8px;top:8px}
+.scard .pr{display:flex;flex-wrap:wrap;gap:4px 8px;font-size:14px;align-items:center}
+.scard .pr .now{font-weight:600}
+.scard .pr .now.sale{color:var(--red)}
+.scard .pr .was{font-weight:500;text-decoration:line-through}
+.scard .sz-sel{display:flex;gap:8px;align-items:center;font-size:14px;font-weight:400;cursor:pointer}
+.scard .sz-sel .v{color:var(--grey-4)}
+.scard .sz-sel .v.set{color:#000}
+.scard .sz-sel .v.err{color:var(--red)}
+.scard .sz-sel img{width:12px;height:12px}
+.scard .nm{font-size:12px;color:var(--grey-4);font-weight:400;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.sheet .foot{flex:none;background:var(--grey-05);padding:16px 24px 24px;display:flex;flex-direction:column;gap:16px}
+.sheet .foot .tot{display:flex;justify-content:space-between;font-size:16px;font-weight:500}
+.sheet .foot .tot b{font-weight:600}
+.sheet .foot .btn.p:disabled{background:var(--grey-3);cursor:not-allowed}
+/* size picker popover */
+.pick{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center}
+.pick .bg{position:absolute;inset:0}
+.pick .menu{position:relative;width:223px;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,.25);padding:8px 0;overflow:hidden}
+.pick .menu .t{padding:8px 16px;font-size:12px;color:var(--grey-4)}
+.pick .menu button{display:block;width:100%;padding:12px 16px;font-size:16px;font-weight:400;border-top:1px solid rgba(0,0,0,.08)}
+.pick .menu button.oos{color:var(--grey-3);text-decoration:line-through}
+.pick .menu button:hover{background:rgba(0,0,0,.04)}
+/* Added to Bag (Figma 603:11959) */
+.atb .panel{height:auto;padding:24px}
+.atb .head{padding:0 0 24px}
+.atb .items{display:flex;flex-direction:column;gap:24px;padding-bottom:24px}
+.atb .it{display:grid;grid-template-columns:99px 1fr;gap:16px;height:148px}
+.atb .it img{width:99px;height:148px;object-fit:cover}
+.atb .it .b{font-size:16px;font-weight:600}
+.atb .it .n{font-size:16px;font-weight:400;line-height:23px}
+.atb .it .v{font-size:16px;font-weight:500;margin-top:auto}
+.atb .it .p{font-size:12px;font-weight:500}
+.atb .it .p .sale{color:var(--red)}
+.atb .it .p s{margin-left:4px}
+.atb .it .txt{display:flex;flex-direction:column}
+.atb .btns{display:flex;flex-direction:column;gap:8px}
+/* toast */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:#000;color:#FFF;font-size:14px;font-weight:500;padding:12px 20px;border-radius:4px;opacity:0;pointer-events:none;transition:.2s;z-index:70;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* below sections on desktop */
+@media(min-width:1024px){
+  .below{padding:32px var(--m) 32px}
+  .below>.inset{margin:0}
+  .desc{padding:16px 0}
+  .reclinks{padding:0}
+  .look.data .rail-head,.look.data .scroll{padding-left:0}
+  .look.nodata{padding:24px}
+}
+</style>
+</head>
+<body class="mode-new">
+
+<!-- ================= HEADER ================= -->
+<header class="hdr">
+  <div class="wrap">
+    <div class="hdr-row">
+      <div class="hdr-left">
+        <button class="hdr-menu" aria-label="Menu"><img class="ic" src="assets/ds/icons/lib/icons-hamburger-menu.svg" alt=""></button>
+        <a href="#" aria-label="boohooMAN home"><img class="hdr-logo" src="assets/boohooman.svg" alt="boohooMAN"></a>
+      </div>
+      <div class="hdr-search"><span>Search Products and Brands</span><img class="ic" src="assets/ds/icons/lib/icons-camera.svg" alt=""><img class="ic" src="assets/ds/icons/lib/icons-search.svg" alt=""></div>
+      <div class="hdr-icons">
+        <button class="hdr-menu" aria-label="Search"><img class="ic" src="assets/ds/icons/lib/icons-search.svg" alt=""></button>
+        <button aria-label="Account"><img class="ic" src="assets/ds/icons/lib/icons-account.svg" alt=""></button>
+        <button aria-label="Wishlist"><img class="ic" src="assets/ds/icons/lib/icon-bookmark.svg" alt=""></button>
+        <button aria-label="Bag"><img class="ic" src="assets/ds/icons/lib/icons-bag.svg" alt=""></button>
+      </div>
+    </div>
+    <nav class="hdr-nav"><a class="sale" href="#">Sale</a><a href="#">New</a><a href="#">Clothing</a><a href="#">Brands</a><a href="#">Active</a><a href="#">Plus</a><a href="#">Tall</a><a href="#">Essentials</a><a href="#">Going out</a><a href="#">Summer</a><a href="#">Sets</a><a href="#">Shoes &amp; Accessories</a></nav>
+  </div>
+  <!-- live USP: production markup — black 3-cell bar with red countdown + grey code bar -->
+  <div class="usp-live">
+    <div class="bar">
+      <div class="cell"><b>ORDER BY MIDNIGHT TO GET IT TOMORROW</b><span class="cd" id="cd1">00:12:29:12</span></div>
+      <div class="cell"><b>STUDENT DISCOUNT!</b><span>Extra 20% Off!</span></div>
+      <div class="cell"><b>BRANDS AT MAN</b><span>Up To 70% Off!</span></div>
+    </div>
+    <div class="grey"><b>20% OFF* + EXTRA 15% OFF*</b><span>Use Code: TAKE15</span></div>
+  </div>
+  <!-- new USP: single DS strip (P-05 decision: new format runs the strip only) -->
+  <div class="usp-new">
+    <div class="usp-strip">
+      <div class="usp-cell"><span><b>Order by midnight to get it tomorrow</b><span class="usp-sep"></span>Code: <b>TAKE15</b></span></div>
+      <div class="usp-cell"><span><b>Student discount</b><span class="usp-sep"></span>Extra 20% off</span></div>
+      <div class="usp-cell"><span><b>Brands at MAN</b><span class="usp-sep"></span>Up to 70% off</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<!-- ================= BREADCRUMB ================= -->
+<nav class="crumb" aria-label="Breadcrumb">
+  <a class="desk" href="#">Mens</a><span class="sep desk">/</span>
+  <a class="desk" href="#">Shop By Collection</a><span class="sep desk">/</span>
+  <a class="desk" href="#">Mens Activewear</a><span class="sep desk">/</span>
+  <a href="#">Gym Clothing</a><span class="sep">/</span><a href="#">Gym Tracksuits</a>
+  <button class="share" aria-label="Share"><img class="ic" src="assets/ds/icons/lib/icons-share.svg" alt=""></button>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="galwrap">
+    <div class="thumbs" id="thumbs"></div>
+    <div class="galmain">
+      <div class="gal" id="gal"></div>
+      <button class="arrow l" id="arrL" aria-label="Previous"><img class="ic-16" src="assets/ds/icons/lib/icons-left.svg" alt=""></button>
+      <button class="arrow r" id="arrR" aria-label="Next"><img class="ic-16" src="assets/ds/icons/lib/icons-right.svg" alt=""></button>
+    </div>
+    <div class="pag"><div class="track"><div class="fill" id="pagfill"></div></div></div>
+  </div>
+
+  <div class="buy">
+    <div class="brand-product">
+      <div class="slot" id="slot-pill"></div>
+      <div class="title-row">
+        <div class="title-text">
+          <span class="brand">boohooMAN</span>
+          <h1 class="pname" id="pname">Oversized Boxy Premium 480gsm Washed Zip Through Hoodie</h1>
+        </div>
+        <button class="wish" aria-label="Add to wishlist"><img src="assets/ds/icons/lib/icon-bookmark.svg" alt=""></button>
+      </div>
+    </div>
+
+    <div class="price-row" id="pricerow"></div>
+    <div class="slot" id="slot-price"></div>
+
+    <div class="icon-msg" id="nddmsg"><img src="assets/bundling/icons/badge-nextday.svg" alt=""><span>Order in <b id="ndd">12 hrs 28 mins</b> for Next Day Delivery</span></div>
+
+    <div class="options">
+      <div class="colour">
+        <span class="colour-lbl">Colour: <b id="colourname">Washed Navy</b></span>
+        <div class="swatches" id="swatches"></div>
+      </div>
+
+      <div class="sizes">
+        <div class="size-head">
+          <span class="lbl" id="sizelbl">Select a size:</span>
+          <span class="size-guide"><img src="assets/ds/icons/lib/icons-measure.svg" alt="">Size Guide</span>
+        </div>
+        <div class="size-btns" id="sizebtns"></div>
+      </div>
+
+      <div class="buy-btns" id="buybtns">
+        <button class="btn p" id="atbbtn">Add to bag</button>
+        <button class="btn paypal"><img src="assets/bundling/icons/paypal-logo.png" alt="PayPal"></button>
+        <button class="btn apple"><img src="assets/bundling/icons/applepay.svg" alt="Apple Pay"></button>
+      </div>
+
+      <!-- Notify me — Figma 1042:66804 / Back-in-stock UX -->
+      <div class="notify" id="notify" hidden>
+        <h4>Get notified when it’s back in stock?</h4>
+        <div class="inp"><input type="email" id="nemail" placeholder="Email Address" autocomplete="email"></div>
+        <button class="btn p" id="nbtn"><img class="bell" src="assets/ds/icons/lib/icons-notification.svg" alt="">Notify me</button>
+        <div class="consent"><button class="cb" id="ncb" aria-label="Consent"><img src="assets/bundling/icons/tick-white.svg" alt=""></button><span>By ticking the box you confirm that you are aged 16 or over &amp; consent to receiving email alerts about products, offers &amp; marketing communications. Please see our <a href="#">Privacy Policy</a> for more information.</span></div>
+      </div>
+
+      <div class="premier"><div class="t"><b>PREMIER</b>Enjoy unlimited delivery for an entire year from just £9.99</div><button class="add">Add</button></div>
+
+      <div class="slot" id="slot-buttons"></div>
+    </div>
+
+    <!-- desktop: these boxes sit in the buy column -->
+    <div class="deliver deskonly" id="deliver-d"></div>
+    <div class="uspbox deskonly" id="uspbox-d"></div>
+    <div class="uspbox deskonly" id="student-d"></div>
+    <div class="bnpl deskonly" id="bnpl-d"></div>
+  </div>
+</section>
+
+<!-- ================= BELOW ================= -->
+<section class="below">
+  <div class="inset buyside deliver" id="deliver-m"></div>
+  <div class="inset buyside uspbox" id="uspbox-m"></div>
+  <div class="inset buyside uspbox" id="student-m"></div>
+  <div class="inset buyside bnpl" id="bnpl-m"></div>
+
+  <div class="slot" id="slot-rail"></div>
+
+  <!-- New format: Shop The Look module → Create The Look -->
+  <div id="lookmod"></div>
+
+  <!-- Live: production 'Complete Your Purchase With' -->
+  <div class="inset cyp" id="cyp"></div>
+
+  <div class="inset rail" id="similar" hidden>
+    <span class="rail-title">Shop Similar Items</span>
+    <div class="grid3" id="similargrid"></div>
+  </div>
+
+  <div class="inset rail">
+    <span class="rail-title">Handpicked For You</span>
+    <div class="grid3" id="handpicked"></div>
+  </div>
+
+  <div class="desc">
+    <span class="h">At a Glance</span>
+    <ul class="glance">
+      <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Premium heavyweight 480GSM fabric</li>
+      <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Trendy oversized boxy fit</li>
+      <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Distinctive washed finish</li>
+      <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Versatile zip-through design</li>
+      <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Soft 80% cotton blend</li>
+    </ul>
+    <div class="divider"></div>
+    <div class="acc open">
+      <button class="acc-h"><span class="h">Description</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button>
+      <div class="acc-b">
+        <ul>
+          <li>Heavyweight loopback fabric construction delivers a substantial, structured feel with a satisfyingly thick weight that holds its shape wear after wear</li>
+          <li>Oversized boxy fit sits wide across the shoulders and chest, dropping into a relaxed, square silhouette that's built for effortless street-ready layering</li>
+          <li>Washed finish gives the fabric a lived-in, broken-in character that adds depth and dimension to the overall look</li>
+          <li>Full zip-through hooded design offers versatile wear options - zip it up for a clean, streamlined look or layer it open over your favourite tees and shirts</li>
+          <li>80% cotton-rich composition ensures breathability and comfort, making it a reliable go-to through the seasons</li>
+        </ul>
+        <p>This heavyweight zip-through hoodie is the kind of piece that anchors a wardrobe without trying too hard. The 480gsm loopback build gives it real presence, while the oversized boxy cut keeps it relaxed. Pair it with the matching Premium Essentials joggers for the full set.</p>
+        <p class="sku">SKU: CMM29598-10070-37</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="acc"><button class="acc-h"><span class="h">Product Details &amp; Care</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>80% Cotton, 20% Polyester. Model is 6'1 &amp; wears UK size M/32. Machine wash at 30°C.</p></div></div>
+    <div class="divider"></div>
+    <div class="acc"><button class="acc-h"><span class="h">Delivery</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Standard delivery from £3.99 (3–5 working days). Next Day from £5.99 — order by midnight. Premier: unlimited delivery for a year from £9.99.</p></div></div>
+    <div class="divider"></div>
+    <div class="acc"><button class="acc-h"><span class="h">Returns</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Eligible for return within 21 days. Exclusions apply — see our returns policy.</p></div></div>
+    <div class="divider"></div>
+    <div class="share-row"><span>Share</span><img src="assets/ds/icons/lib/icons-share.svg" alt=""></div>
+  </div>
+
+  <div class="rail" style="padding-left:var(--m)">
+    <span class="rail-title">We Think You'll Like</span>
+    <div class="scroll" id="wtyl"></div>
+  </div>
+
+  <div class="reclinks">
+    <span class="rail-title">Recommendations</span>
+    <div class="chips">
+      <a href="#">Black zip up hoodies</a><a href="#">Oversized jumpers</a><a href="#">Grey zip up hoodies</a><a href="#">Boxy t shirts</a><a href="#">Dark wash jeans</a><a href="#">Black washed jeans</a><a href="#">Zip-Up Cardigan for Men</a><a href="#">Zip t shirts</a><a href="#">Dark Grey Washed Hoodie for Men</a><a href="#">Plus Size Quarter Zip</a>
+    </div>
+  </div>
+</section>
+</div><!-- /wrap -->
+
+<!-- ================= FOOTER (live boohooman.com) ================= -->
+<footer class="ft">
+  <div class="wrap">
+    <div class="news">
+      <h3>Let's get to know each other</h3>
+      <p>Sign up to receive emails from us, so you never miss out on the good stuff.</p>
+      <div class="row"><input type="email" placeholder="Email address"><button>Subscribe</button></div>
+      <small>By submitting your details, you agree to receive marketing communications from BOOHOOMAN &amp; our <u>family of brands</u> by email. You can unsubscribe at any time. See our <u>Privacy Policy</u>.</small>
+    </div>
+    <div class="cols">
+      <div class="col">HOW CAN WE HELP?<img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
+      <div class="col">INFORMATION<img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
+      <div class="col">ABOUT US<img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
+    </div>
+    <div class="misc">
+      <span class="h">Download Our App</span>
+      <div style="display:flex;gap:12px"><img style="height:40px" src="assets/ds/icons/apps/app-store.svg" alt="App Store" onerror="this.remove()"><img style="height:40px" src="assets/ds/icons/apps/google-play.png" alt="Google Play" onerror="this.remove()"></div>
+      <span class="h">Follow Us On Social Media</span>
+      <div class="social"><img src="assets/ds/icons/lib/social-instagram.svg" alt="Instagram"><img src="assets/ds/icons/lib/social-tik-tok.svg" alt="TikTok"><img src="assets/ds/icons/lib/social-facebook.svg" alt="Facebook"><img src="assets/ds/icons/lib/social-x.svg" alt="X"><img src="assets/ds/icons/lib/you-tube.svg" alt="YouTube"></div>
+      <span class="copy">COPYRIGHT © 2026 BOOHOOMAN</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= MODALS ================= -->
+<div class="sheet" id="sheet" hidden>
+  <div class="bg" data-close></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheettitle">
+    <div class="head"><h2 id="sheettitle">Shop The Set</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="body" id="sheetbody"></div>
+    <div class="foot"><div class="tot"><span>Total</span><b id="sheettotal">£0.00</b></div><button class="btn p" id="sheetatb">Add to bag (0)</button></div>
+  </div>
+</div>
+
+<div class="pick" id="pick" hidden>
+  <div class="bg" data-close></div>
+  <div class="menu" id="pickmenu"></div>
+</div>
+
+<div class="sheet atb" id="atb" hidden>
+  <div class="bg" data-close></div>
+  <div class="panel" role="dialog" aria-modal="true">
+    <div class="head"><h2>Added to Bag</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="items" id="atbitems"></div>
+    <div class="btns"><button class="btn s" data-close>Continue shopping</button><button class="btn p" id="viewbag">View bag</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ================= ENTRY-POINT TEMPLATES ================= -->
+<template id="tpl-01-1"><div class="pill-row"><button class="chip-entry round entry">SHOP SETS</button></div></template>
+<template id="tpl-01-4"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">Shop The Set</button></div></template>
+<template id="tpl-01-8"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">SET BUILDER</button></div></template>
+<template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h">Made To Match</span><span class="s">Shop our range of matching sets</span></span></button></template>
+<template id="tpl-03-2"><button class="equation-strip entry"><span class="imgs"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy">SHOP SETS</span></button></template>
+<template id="tpl-04-1"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll two-up"><img src="assets/bundling/om1-1.jpg" alt=""><img src="assets/bundling/om1-2.jpg" alt=""><img data-set="0" alt=""><img data-set="1" alt=""></div><div class="outfit-caption"><div class="l"><span class="h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta">LAUNCH SET BUILDER</span></div></div></template>
+<template id="tpl-04-2"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-grid"><img src="assets/bundling/om2-1.jpg" alt=""><img src="assets/bundling/om2-2.jpg" alt=""><img src="assets/bundling/om2-3.jpg" alt=""><img src="assets/bundling/om2-4.jpg" alt=""></div><div class="outfit-caption"><div class="l"><span class="h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta">LAUNCH SET BUILDER</span></div></div></template>
+<template id="tpl-04-3"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll three-up"><img src="assets/bundling/om3-1.jpg" alt=""><img src="assets/bundling/om3-2.jpg" alt=""><img src="assets/bundling/om3-3.jpg" alt=""><img data-set="0" alt=""><img data-set="1" alt=""></div><div class="outfit-caption"><div class="l"><span class="h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta">LAUNCH SET BUILDER</span></div></div></template>
+<template id="tpl-04-4"><div class="content-slot entry" role="button" tabindex="0"><div class="plp-slot"><img src="assets/bundling/plp-slot.jpg" alt=""><div class="cap"><span class="h">Shop Matching Sets</span><span class="cta">VIEW ALL</span></div></div><div class="scroll" style="padding-left:16px" data-setcards></div></div></template>
+<template id="tpl-07-1"><button class="anchor-link entry"><img class="bi" src="assets/bundling/icons/badge-sets.svg" alt=""><span class="txt">SHOP MATCHING SETS</span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
+<template id="tpl-07-2"><button class="price-chip entry"><span class="lead"><img class="bi" src="assets/bundling/icons/badge-sets.svg" alt=""><span class="label">More Sets Available</span></span><span class="shop">SHOP NOW</span></button></template>
+<template id="tpl-07-3"><button class="price-chip with-trio entry"><span class="lead"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="label">More Sets Available</span></span><span class="shop">SHOP NOW</span></button></template>
+<template id="tpl-07-4"><button class="price-chip with-trio entry"><span class="lead"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h">Shop The Full Set</span><span class="s" data-pieces></span></span></span><span class="shop">SHOP NOW</span></button></template>
+<template id="tpl-07-5"><button class="price-banner boxed entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
+<template id="tpl-07-6"><button class="price-banner bare entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
+
+<script src="data.js"></script>
+<script>
+/* ============================================================
+   State
+   ============================================================ */
+const q=new URLSearchParams(location.search);
+const S={
+  mode:q.get('mode')||'new',          // live | new
+  look:q.get('look')||'nodata',       // nodata | data | grid | none
+  entry:q.get('entry')||'03-1',       // set-builder entry point id | none
+  stock:q.get('stock')||'in',         // in | size | oos
+  rows:(q.get('rows')||'zip-hoodie,sweatshirt,tee,wide-jogger').split(',').filter(Boolean),
+  colour:'CMM29598',                  // hero SKU (washed navy zip hoodie)
+  size:null, notified:false, consent:true,
+};
+const P=window.PE_PRODUCTS, FAM=window.PE_FAMILIES;
+const byId=id=>P.find(p=>p.id===id);
+const fam=f=>P.filter(p=>p.fam===f);
+const ALL_SIZES=['XS','S','M','L','XL','2XL','3XL','4XL','5XL'];
+const fmt=n=>'£'+Number(n).toFixed(2);
+const $=s=>document.querySelector(s);
+const el=(h)=>{const t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstElementChild;};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),1800);};
+
+function hero(){return byId(S.colour);}
+// colour-matched partner: same colour in another family, else first of that family
+function partner(f,colour){const fs=fam(f);return fs.find(p=>p.colour===colour)||fs[0];}
+function sortByColour(list,colour){return [...list].sort((a,b)=>(a.colour===colour?-1:0)-(b.colour===colour?-1:0));}
+
+/* Stock model. in: 3XL+ unavailable (live truth). size: M + L also OOS. oos: everything OOS. */
+function sizeState(sz){
+  if(S.stock==='oos') return 'oos';
+  if(['3XL','4XL','5XL'].includes(sz)) return 'oos';
+  if(S.stock==='size'&&['M','L'].includes(sz)) return 'oos';
+  return 'in';
+}
+
+/* ============================================================
+   Render: gallery + swatches
+   ============================================================ */
+function renderGallery(){
+  const h=hero();
+  const imgs=h.gallery||[h.img,h.img2];
+  const gal=$('#gal');gal.innerHTML='';
+  imgs.forEach((src,i)=>{
+    const s=el(`<div class="slide"><img src="${src}" alt="${h.name} — image ${i+1}"></div>`);
+    if(i===0) s.appendChild(el(`<div class="tags ${S.mode==='live'?'':'hide'}"><span class="tag">Plus Sizes Available</span><span class="tag">480GSM</span></div>`));
+    gal.appendChild(s);
+  });
+  // 06-1 gallery set end card
+  const ec=el(`<div class="slide endcard ${S.mode==='new'&&S.entry==='06-1'&&S.stock!=='oos'?'on':''}" role="button" tabindex="0"><div class="stack"><div class="rows"><div class="row"></div><div class="row"></div></div><span class="cta">SHOP MORE SETS</span></div></div>`);
+  const rows=ec.querySelectorAll('.row');
+  setImages(6).forEach((src,i)=>rows[i<3?0:1].appendChild(el(`<img src="${src}" alt="">`)));
+  ec.onclick=()=>openSheet('set');
+  gal.appendChild(ec);
+  // thumbs (desktop)
+  const th=$('#thumbs');th.innerHTML='';
+  imgs.forEach((src,i)=>{const b=el(`<button class="${i===0?'on':''}"><img src="${src}" alt=""></button>`);b.onclick=()=>goSlide(i);th.appendChild(b);});
+  gal.scrollLeft=0;updatePag();
+}
+function visibleSlides(){return [...$('#gal').querySelectorAll('.slide')].filter(s=>!s.classList.contains('endcard')||s.classList.contains('on'));}
+function updatePag(){
+  const gal=$('#gal'),slides=visibleSlides();if(!slides.length)return;
+  const w=slides[0].offsetWidth+(parseFloat(getComputedStyle(gal).gap)||0);
+  let idx=Math.round(gal.scrollLeft/w);idx=Math.min(idx,slides.length-1);
+  $('#pagfill').style.width=((idx+1)/slides.length*100)+'%';
+  [...$('#thumbs').children].forEach((b,i)=>b.classList.toggle('on',i===idx));
+}
+function goSlide(i){const gal=$('#gal'),slides=visibleSlides();const s=slides[Math.max(0,Math.min(i,slides.length-1))];if(s)gal.scrollTo({left:s.offsetLeft,behavior:'smooth'});}
+$('#gal').addEventListener('scroll',()=>requestAnimationFrame(updatePag));
+$('#arrL').onclick=()=>{const gal=$('#gal'),slides=visibleSlides();const w=slides[0].offsetWidth+8;goSlide(Math.round(gal.scrollLeft/w)-1);};
+$('#arrR').onclick=()=>{const gal=$('#gal'),slides=visibleSlides();const w=slides[0].offsetWidth+8;goSlide(Math.round(gal.scrollLeft/w)+1);};
+
+function renderSwatches(){
+  const h=hero();const sw=$('#swatches');sw.innerHTML='';
+  fam(h.fam).forEach(p=>{
+    const b=el(`<button class="sw ${p.id===h.id?'on':''}" title="${p.colour}" aria-label="${p.colour}"><img src="${p.img}" alt=""></button>`);
+    b.onclick=()=>{S.colour=p.id;S.size=null;S.notified=false;renderAll();};
+    sw.appendChild(b);
+  });
+  $('#colourname').textContent=h.colour;
+  $('#pname').textContent=h.name;
+}
+
+/* ============================================================
+   Render: price, sizes, notify, buy
+   ============================================================ */
+function renderPrice(){
+  const h=hero();const r=$('#pricerow');r.innerHTML='';
+  const sale=h.was&&h.was>h.price;
+  r.appendChild(el(`<div class="price-vals"><span class="price-now ${sale?'sale':''}">${fmt(h.price)}</span>${sale?`<span class="price-was">${fmt(h.was)}</span>`:''}</div>`));
+  if(sale) r.appendChild(el(`<span class="save">Save ${Math.round((1-h.price/h.was)*100)}%</span>`));
+  if(S.stock==='oos'&&S.mode==='live') r.appendChild(el(`<span class="oos-lbl">Out of Stock</span>`));
+}
+function renderSizes(){
+  const wrap=$('#sizebtns');wrap.innerHTML='';
+  const lbl=$('#sizelbl');
+  const selOOS=S.size&&sizeState(S.size)==='oos';
+  if(S.stock==='oos'||selOOS) lbl.innerHTML=`Size: <span class="oos">Out of Stock</span>`;
+  else if(S.size) lbl.innerHTML=`Size: <b>${S.size}</b>`;
+  else lbl.innerHTML=S.mode==='live'?'Size : <b>Select a Size</b>':'Select a size:';
+  ALL_SIZES.forEach(sz=>{
+    const st=sizeState(sz);
+    const b=el(`<button class="sz ${st} ${S.size===sz?'on':''} ${['3XL','4XL','5XL'].includes(sz)&&S.stock==='in'?'':'bellable'}">${sz}${st==='oos'?'<img class="bell" src="assets/ds/icons/lib/icons-notification.svg" alt="">':''}</button>`);
+    b.onclick=()=>{S.size=sz;S.notified=false;renderSizes();renderBuy();};
+    wrap.appendChild(b);
+  });
+}
+function renderBuy(){
+  const showNotify=(S.size&&sizeState(S.size)==='oos')||(S.stock==='oos'&&S.mode==='new'&&!S.size);
+  $('#buybtns').hidden=!!showNotify||(S.stock==='oos'&&S.mode==='live');
+  const n=$('#notify');n.hidden=!showNotify;
+  if(S.stock==='oos'&&S.mode==='live'&&!showNotify){n.hidden=false;}
+  n.querySelector('h4').textContent=S.notified?'You’ll be notified when it’s back in stock':'Get notified when it’s back in stock?';
+  n.querySelector('.inp').hidden=S.notified;n.querySelector('#nbtn').hidden=S.notified;n.querySelector('.consent').hidden=S.notified;
+  let done=n.querySelector('.done');if(done)done.remove();
+  if(S.notified) n.appendChild(el(`<div class="done"><img class="ic-16" src="assets/ds/icons/lib/icons-tick-circle-fill.svg" alt="">Stock alert enabled for size ${S.size||'—'}</div>`));
+  $('#ncb').classList.toggle('off',!S.consent);
+}
+$('#ncb').onclick=()=>{S.consent=!S.consent;renderBuy();};
+$('#nbtn').onclick=()=>{const v=$('#nemail').value.trim();if(!/.+@.+\..+/.test(v)){toast('Enter a valid email address');$('#nemail').focus();return;}if(!S.consent){toast('Tick the box to consent');return;}S.notified=true;renderBuy();toast('Stock Alert Enabled');};
+$('#atbbtn').onclick=()=>{if(!S.size){toast('Select a size');return;}openATB([{p:hero(),size:S.size}]);};
+
+/* ============================================================
+   Render: boxes (Deliver+, USP, Student, BNPL) — live copy, production
+   ============================================================ */
+const DELIVER=`<img class="dp" src="assets/bundling/icons/deliverplus-logo.svg" alt="Deliver+"><span class="h">Peace of mind, guaranteed</span><ul>
+<li><img src="assets/ds/icons/lib/icons-tick.svg" alt="">Free &amp; simple resale - recover value and give your items a second life</li>
+<li><img src="assets/ds/icons/lib/icons-tick.svg" alt="">+14-day return extension</li>
+<li><img src="assets/ds/icons/lib/icons-tick.svg" alt="">£5/day late delivery compensation</li>
+<li><img src="assets/ds/icons/lib/icons-tick.svg" alt="">Full order coverage (lost, stolen, damaged) with instant payout on eligible claims</li></ul>
+<span class="more">Learn More</span><p class="quote">“Refund was approved and back in my account the same day.” — Deliver+ customer</p>`;
+const USPBOX=`<div class="r"><img src="assets/ds/icons/lib/icons-order.svg" alt=""><div class="txt"><span class="t14">Delivery from £3.99 or Next Day from £5.99</span></div></div>
+<div class="r"><img src="assets/bundling/icons/calendar.png" alt=""><div class="txt"><span class="t14">Eligible for return within 21 days</span><span class="t12">Exclusions apply. Please see our <u>returns policy</u></span></div></div>`;
+const STUDENT=`<div class="r"><img src="assets/ds/icons/lib/icons-university.svg" alt=""><div class="txt"><span class="cap">Student Exclusive</span><span class="strong">Save 20% with student discount</span></div></div>`;
+const BNPL=`<div class="badges"><span class="pp">PayPal</span><span class="kl">Klarna</span><span class="cp">clearpay</span></div><span class="terms">18+, T&amp;C apply. Credit subject to status.</span><span class="more">See more</span>`;
+function renderBoxes(){
+  ['deliver','uspbox','student','bnpl'].forEach(k=>{const html={deliver:DELIVER,uspbox:USPBOX,student:STUDENT,bnpl:BNPL}[k];$('#'+k+'-m').innerHTML=html;$('#'+k+'-d').innerHTML=html;});
+}
+
+/* ============================================================
+   Product card
+   ============================================================ */
+function card(p,opts={}){
+  const sale=p.was&&p.was>p.price;
+  const c=el(`<div class="card"><div class="img"><img src="${p.img}" alt="${p.name}" loading="lazy"><span class="cw"><img src="assets/ds/icons/lib/icon-bookmark.svg" alt=""></span></div>
+  <div class="info"><div class="titles"><span class="cb-brand">${p.brand||'boohooMAN'}</span><span class="cb-name">${p.name}</span></div>
+  <div class="cp"><span class="now ${sale?'sale':''}">${fmt(p.price)}</span>${sale?`<span class="was">${fmt(p.was)}</span>${opts.pct?`<span class="pct">-${Math.round((1-p.price/p.was)*100)}%</span>`:''}`:''}</div></div></div>`);
+  c.onclick=opts.onclick||(()=>{if(p.id&&byId(p.id)){S.colour=p.id;S.size=null;renderAll();scrollTo({top:0,behavior:'smooth'});}});
+  return c;
+}
+// set imagery: the hero + colour-matched partners (jogger, tee, sweat…)
+function setImages(n){
+  const h=hero();const out=[h.img];
+  ['wide-jogger','tee','sweatshirt','quarter-zip','ls-tee','oth-hoodie','straight-jogger'].forEach(f=>{const p=partner(f,h.colour);if(p&&out.length<n)out.push(p.img);});
+  return out.slice(0,n);
+}
+function setPieces(){return S.rows.length||3;}
+
+/* ============================================================
+   Shop The Look module (new) / Complete Your Purchase With (live) / Similar (OOS)
+   ============================================================ */
+function lookItems(){const h=hero();return [h,partner('wide-jogger',h.colour),partner('tee',h.colour)].filter(Boolean);}
+function renderLook(){
+  const m=$('#lookmod');m.innerHTML='';m.className='';
+  if(S.mode!=='new'||S.look==='none'||S.stock==='oos')return;
+  const items=lookItems();
+  if(S.look==='nodata'){
+    const box=el(`<div class="look nodata"><div class="rail-head"><span class="rail-title">Shop The Look</span><span class="all">View All</span></div><div class="imgs"></div></div>`);
+    items.forEach(p=>box.querySelector('.imgs').appendChild(el(`<img src="${p.img}" alt="${p.name}">`)));
+    box.onclick=()=>openSheet('look');m.appendChild(box);m.className='inset';
+  }else if(S.look==='data'){
+    const box=el(`<div class="look data"><div class="rail-head"><span class="rail-title">Shop The Look</span><span class="all">View All</span></div><div class="scroll"></div></div>`);
+    items.forEach(p=>box.querySelector('.scroll').appendChild(card(p,{pct:true,onclick:()=>openSheet('look',p.id)})));
+    box.querySelector('.rail-head').onclick=()=>openSheet('look');m.appendChild(box);m.className='inset';
+  }else{
+    const box=el(`<div class="look grid"><div class="rail-head"><span class="rail-title">Shop The Look</span><span class="all">View All</span></div><div class="grid3"></div></div>`);
+    const more=[partner('sweatshirt',hero().colour),partner('quarter-zip',hero().colour),partner('straight-jogger',hero().colour)].filter(Boolean);
+    [...items,...more].slice(0,6).forEach(p=>box.querySelector('.grid3').appendChild(card(p,{onclick:()=>openSheet('look',p.id)})));
+    box.querySelector('.rail-head').onclick=()=>openSheet('look');m.appendChild(box);m.className='inset';
+  }
+}
+function renderCYP(){
+  const c=$('#cyp');c.innerHTML='';if(S.mode!=='live'||S.stock==='oos')return;
+  const h=hero();const items=[h,partner('tee',h.colour),partner('wide-jogger',h.colour),partner('wide-jogger',h.colour)];
+  c.appendChild(el(`<span class="rail-title">Complete Your Purchase With</span>`));
+  const box=el(`<div class="box"></div>`);
+  items.forEach((p,i)=>box.appendChild(el(`<div class="it"><div class="im"><img src="${p.img}" alt=""><button class="cb"><img src="assets/bundling/icons/tick-white.svg" alt=""></button></div><div>${i===0?'<div class="cur">Currently viewing</div>':''}<div class="b">boohooMAN</div><div class="n">${p.name}</div><div class="p">${fmt(p.price)}</div><div class="c">Colour: <b>${p.colour}</b></div><div class="sl">Select a size</div><div class="sel"><span>Select a size</span><img class="ic-16" src="assets/ds/icons/lib/icons-down.svg" alt=""></div></div></div>`)));
+  box.appendChild(el(`<div class="tot">Total: <span>£${items.reduce((a,p)=>a+p.price,0)}</span></div>`));
+  const b=el(`<button class="btn s">Add to Bag (${items.length})</button>`);b.onclick=()=>toast('Select sizes first');box.appendChild(b);
+  c.appendChild(box);
+}
+function renderSimilar(){
+  const s=$('#similar');const on=S.stock==='oos';s.hidden=!on;if(!on)return;
+  const g=$('#similargrid');g.innerHTML='';
+  const h=hero();[...fam(h.fam).filter(p=>p.id!==h.id),...fam('oth-hoodie'),...fam('sweatshirt')].slice(0,12).forEach(p=>g.appendChild(card(p)));
+}
+
+/* Handpicked (live names/prices from the 08 Sep capture) + We Think You'll Like */
+const HP=[
+  {img:'img/products/cmm29596.jpg',name:'Oversized Boxy Premium 480gsm Zip Through Hoodie',price:35,id:'CMM29596'},
+  {img:'assets/bundling/hp-1.jpg',name:'Boxy Zip Through Hoodie',price:17.6,was:22},
+  {img:'assets/bundling/hp-3.jpg',name:'Oversized Boxy Zip Through Denim Wash Hoodie',price:11,was:28},
+  {img:'assets/bundling/hp-2.jpg',name:'Essential Regular Zip Through Hoodie',price:16,was:20},
+  {img:'assets/bundling/hp-4.jpg',name:'Oversized Boxy Ombre Wash M Star Zip Through Hooded Jort Tracksuit',price:18,was:45},
+  {img:'assets/bundling/hp-6.jpg',name:'Heavyweight Oversized Contrast Stitch Waffle Zip Through Hoodie',price:24,was:30},
+];
+const WTYL=[
+  {img:'assets/bundling/wtyl-1.jpg',name:'Tall Oversized Bonded Scuba Hoodie',price:14,was:20},
+  {img:'assets/bundling/wtyl-2.jpg',name:'Oversized Boxy Bonded Scuba Zip Through Hoodie',price:24,was:35},
+  {img:'assets/bundling/wtyl-3.jpg',name:'Oversized Bonded Scuba Hoodie',price:11,was:16},
+  {img:'assets/bundling/rv-1.jpg',name:'Oversized Boxy Man Sport Washed Zip Through Hoodie',price:28,was:40},
+  {img:'assets/bundling/rv-3.jpg',name:'Oversized Boxy Official Zip Through Hoodie',price:22.4,was:32},
+];
+function renderRecs(){
+  const hp=$('#handpicked');hp.innerHTML='';HP.forEach(p=>hp.appendChild(card(p,{pct:S.mode==='new'})));
+  const w=$('#wtyl');w.innerHTML='';WTYL.forEach(p=>w.appendChild(card(p,{pct:true})));
+}
+
+/* ============================================================
+   Entry points (new format only)
+   ============================================================ */
+const SLOT={'01':'slot-pill','03':'slot-buttons','04':'slot-rail','07':'slot-price'};
+function renderEntry(){
+  ['slot-pill','slot-price','slot-buttons','slot-rail'].forEach(id=>$('#'+id).innerHTML='');
+  if(S.mode!=='new'||S.entry==='none'||S.entry==='06-1'||S.stock==='oos')return;
+  const tpl=document.getElementById('tpl-'+S.entry);if(!tpl)return;
+  const slot=$('#'+SLOT[S.entry.slice(0,2)]);
+  const node=tpl.content.cloneNode(true);
+  const imgs=setImages(3);
+  node.querySelectorAll('img[data-set]').forEach(im=>im.src=imgs[+im.dataset.set]||imgs[0]);
+  node.querySelectorAll('[data-pieces]').forEach(s=>s.textContent=`${setPieces()} matching pieces · ${fam('zip-hoodie').length} colours`);
+  const sc=node.querySelector('[data-setcards]');if(sc){lookItems().forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>openSheet('set')})));}
+  node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>openSheet('set')));
+  slot.appendChild(node);
+}
+
+/* ============================================================
+   Sheet: Create The Look ('look') / Shop The Set ('set')  — Figma 1038:45022
+   ============================================================ */
+let SH={kind:'set',rows:[],sel:{}}; // sel[rowIdx] = {id,size}
+function sheetRows(kind){
+  const h=hero();
+  if(kind==='look'){
+    return [
+      {label:'Hoodies',items:sortByColour(fam('zip-hoodie'),h.colour)},
+      {label:'Joggers',items:sortByColour(fam('wide-jogger'),h.colour)},
+      {label:'T-Shirts',items:sortByColour(fam('tee'),h.colour)},
+    ];
+  }
+  return S.rows.map(f=>{const F=FAM.find(x=>x.id===f);return F?{label:F.label,items:sortByColour(fam(f),h.colour)}:null;}).filter(Boolean);
+}
+function openSheet(kind,preselectId){
+  SH={kind,rows:sheetRows(kind),sel:{}};
+  // the current product is ticked on open (Figma: first card checked)
+  SH.rows.forEach((r,i)=>{const hit=r.items.find(p=>p.id===hero().id)||(preselectId&&r.items.find(p=>p.id===preselectId));if(hit)SH.sel[i]={id:hit.id,size:null};});
+  $('#sheettitle').textContent=kind==='look'?'Shop The Look':'Shop The Set';
+  renderSheet();
+  const sh=$('#sheet');sh.hidden=false;requestAnimationFrame(()=>sh.classList.add('open'));
+  document.body.style.overflow='hidden';
+}
+function closeSheet(){const sh=$('#sheet');sh.classList.remove('open');setTimeout(()=>{sh.hidden=true;document.body.style.overflow='';},250);}
+function renderSheet(){
+  const b=$('#sheetbody');b.innerHTML='';
+  if(SH.kind==='look') b.appendChild(el(`<div class="filters"><span>Price <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Body Fit <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Style <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span></div>`));
+  SH.rows.forEach((r,ri)=>{
+    const row=el(`<div class="srow"><div class="rh"><span class="lbl">${r.label}</span><span class="all">View All</span></div><div class="cards"></div></div>`);
+    const cards=row.querySelector('.cards');const sel=SH.sel[ri];
+    r.items.forEach(p=>{
+      const on=sel&&sel.id===p.id;const dim=sel&&!on;const sale=p.was&&p.was>p.price;
+      const c=el(`<div class="scard ${on?'on':''} ${dim?'dim':''}">
+        <div class="im"><img src="${p.img}" alt="${p.name} — ${p.colour}"><button class="cb ${on?'':'off'}" aria-label="${on?'Deselect':'Select'} ${p.colour}"><img src="assets/bundling/icons/tick-white.svg" alt=""></button></div>
+        <div class="pr"><span class="now ${sale?'sale':''}">${fmt(p.price)}</span>${sale?`<span class="was">${fmt(p.was)}</span>`:''}</div>
+        <div class="sz-sel"><span>Size:</span><span class="v ${on&&sel.size?'set':''} ${on&&sel.err?'err':''}">${on&&sel.size?sel.size:'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
+        <div class="nm">${p.colour}</div></div>`);
+      c.querySelector('.im').onclick=e=>{ if(on){delete SH.sel[ri];} else {SH.sel[ri]={id:p.id,size:null};} renderSheet(); };
+      c.querySelector('.sz-sel').onclick=e=>{e.stopPropagation();openPick(p,sz=>{SH.sel[ri]={id:p.id,size:sz};renderSheet();});};
+      cards.appendChild(c);
+    });
+    b.appendChild(row);
+  });
+  const picked=Object.values(SH.sel);
+  const total=picked.reduce((a,s)=>a+byId(s.id).price,0);
+  $('#sheettotal').textContent=fmt(total);
+  const btn=$('#sheetatb');btn.textContent=`Add to bag (${picked.length})`;btn.disabled=!picked.length;
+}
+$('#sheetatb').onclick=()=>{
+  let bad=false;Object.keys(SH.sel).forEach(k=>{if(!SH.sel[k].size){SH.sel[k].err=true;bad=true;}});
+  if(bad){renderSheet();toast('Select a size for each item');return;}
+  const items=Object.values(SH.sel).map(s=>({p:byId(s.id),size:s.size}));
+  closeSheet();setTimeout(()=>openATB(items),200);
+};
+/* size picker */
+function openPick(p,cb){
+  const m=$('#pickmenu');m.innerHTML='<div class="t">Select size</div>';
+  const sizes=p.sizes&&p.sizes.length?p.sizes:['XS','S','M','L','XL'];
+  ['XS','S','M','L','XL','2XL'].forEach(sz=>{const b=el(`<button class="${sizes.includes(sz)?'':'oos'}">${sz}</button>`);b.onclick=()=>{if(!sizes.includes(sz)){toast('Size unavailable');return;}$('#pick').hidden=true;cb(sz);};m.appendChild(b);});
+  $('#pick').hidden=false;
+}
+/* Added to bag — Figma 603:11959 */
+function openATB(items){
+  const w=$('#atbitems');w.innerHTML='';
+  items.forEach(({p,size})=>{const sale=p.was&&p.was>p.price;w.appendChild(el(`<div class="it"><img src="${p.img}" alt=""><div class="txt"><span class="b">boohooMAN</span><span class="n">${p.name}</span><span class="v">${size} / ${p.colour}</span><span class="p"><span class="${sale?'sale':''}">${fmt(p.price)}</span>${sale?`<s>${fmt(p.was)}</s>`:''}</span></div></div>`));});
+  const a=$('#atb');a.hidden=false;requestAnimationFrame(()=>a.classList.add('open'));document.body.style.overflow='hidden';
+}
+$('#viewbag').onclick=()=>toast('Bag — out of scope for this prototype');
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{
+  const sh=b.closest('.sheet');if(sh){sh.classList.remove('open');setTimeout(()=>{sh.hidden=true;document.body.style.overflow='';},250);}
+  const pk=b.closest('.pick');if(pk)pk.hidden=true;
+}));
+addEventListener('keydown',e=>{if(e.key==='Escape'){$('#pick').hidden=true;document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');setTimeout(()=>{sh.hidden=true;document.body.style.overflow='';},250);});}});
+
+/* ============================================================
+   Misc: accordions, NDD countdown, mode plumbing
+   ============================================================ */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+function tick(){
+  const now=new Date(),mid=new Date(now);mid.setHours(24,0,0,0);
+  const s=Math.floor((mid-now)/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60),sec=s%60;
+  $('#ndd').textContent=`${h} hrs ${m} mins`;
+  $('#cd1').textContent=`00:${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+tick();setInterval(tick,1000);
+/* new-format USP strip: mobile rotates one message at a time (DS rule, 4s) */
+let uspI=0;const uspCells=[...document.querySelectorAll('.usp-new .usp-cell')];
+function uspRot(){uspCells.forEach((c,i)=>c.classList.toggle('rot-on',i===uspI));uspI=(uspI+1)%uspCells.length;}
+uspRot();setInterval(uspRot,4000);
+
+function renderAll(){
+  document.body.className='mode-'+S.mode;
+  renderGallery();renderSwatches();renderPrice();renderSizes();renderBuy();renderBoxes();
+  renderEntry();renderLook();renderCYP();renderSimilar();renderRecs();
+  $('#nddmsg').hidden=S.stock==='oos';
+  parent.postMessage({pdpCfg:`${S.mode} · look:${S.look} · entry:${S.entry} · stock:${S.stock} · rows:${S.rows.join('+')} · ${hero().id} ${hero().colour}`},'*');
+}
+addEventListener('message',e=>{
+  const d=e.data;if(!d||!d.pdpSet)return;
+  const stockChanged=d.stock!==S.stock;
+  S.mode=d.mode||S.mode;S.look=d.look||S.look;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;
+  if(stockChanged){S.size=null;S.notified=false;}
+  document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');sh.hidden=true;});document.body.style.overflow='';
+  renderAll();
+});
+renderAll();
+</script>
+</body>
+</html>

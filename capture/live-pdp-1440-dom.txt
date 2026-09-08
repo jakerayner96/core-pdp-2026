@@ -1,0 +1,820 @@
+body.max-w-full.!overflow-x-clip.overflow-x-hidden.text-default-text-colour.text-base [1440x5690 @0,0]
+ div.cky-modal [845x711 @-422,1161]
+  div.cky-preference-center [845x711 @-422,1161]
+   div.cky-preference-header [845x69 @-422,1161]
+    span.cky-preference-title "Customise Consent Preferences" [301x24 @-398,1183] fs=18px fw=700
+    button.cky-btn-close [24x24 @375,1183]
+     img [10x10 @375,1190]
+   div.cky-preference-body-wrapper [845x517 @-422,1230]
+    div.cky-preference-content-wrapper [797x120 @-398,1230]
+     p "We use cookies to help you navigate efficiently and perform certain functions. You will fi" [797x48 @-398,1242] fs=14px fw=400
+     p "The cookies that are categorised as "Necessary" are stored on your browser as they are ess" [797x48 @-398,1290] fs=14px fw=400
+      button.cky-show-desc-btn "Show more" [80x24 @-167,1314] fs=14px fw=400
+    div.cky-accordion-wrapper [797x534 @-398,1361]
+     div.cky-accordion [797x99 @-398,1361]
+      div.cky-accordion-item [797x98 @-398,1361]
+       div.cky-accordion-header-wrapper [775x98 @-376,1361]
+        div.cky-accordion-header [775x24 @-376,1361]
+         button.cky-accordion-btn "Necessary" [86x24 @-376,1361] fs=16px fw=700
+         span.cky-always-active "Always Active" [100x24 @299,1361] fs=14px fw=600
+        div.cky-accordion-header-des [775x48 @-376,1395]
+         p "Necessary cookies are required to enable the basic features of this site, such as providin" [775x48 @-376,1395] fs=14px fw=400
+     div.cky-accordion [797x99 @-398,1470]
+      div.cky-accordion-item [797x98 @-398,1470]
+       div.cky-accordion-header-wrapper [775x98 @-376,1470]
+        div.cky-accordion-header [775x24 @-376,1470]
+         button.cky-accordion-btn "Functional" [90x24 @-376,1470] fs=16px fw=700
+         div.cky-switch [44x24 @355,1470]
+          input [44x24 @355,1470]
+        div.cky-accordion-header-des [775x48 @-376,1504]
+         p "Functional cookies help perform certain functionalities like sharing the content of the we" [775x48 @-376,1504] fs=14px fw=400
+     div.cky-accordion [797x99 @-398,1579]
+      div.cky-accordion-item [797x98 @-398,1579]
+       div.cky-accordion-header-wrapper [775x98 @-376,1579]
+        div.cky-accordion-header [775x24 @-376,1579]
+         button.cky-accordion-btn "Analytics" [78x24 @-376,1579] fs=16px fw=700
+         div.cky-switch [44x24 @355,1579]
+          input [44x24 @355,1579]
+        div.cky-accordion-header-des [775x48 @-376,1613]
+         p "Analytical cookies are used to understand how visitors interact with the website. These co" [775x48 @-376,1613] fs=14px fw=400
+     div.cky-accordion [797x99 @-398,1688]
+      div.cky-accordion-item [797x98 @-398,1688]
+       div.cky-accordion-header-wrapper [775x98 @-376,1688]
+        div.cky-accordion-header [775x24 @-376,1688]
+         button.cky-accordion-btn "Advertisement" [125x24 @-376,1688] fs=16px fw=700
+         div.cky-switch [44x24 @355,1688]
+          input [44x24 @355,1688]
+        div.cky-accordion-header-des [775x48 @-376,1722]
+         p "Advertisement cookies are used to provide visitors with customised advertisements based on" [775x48 @-376,1722] fs=14px fw=400
+     div.cky-accordion [797x98 @-398,1797]
+      div.cky-accordion-item [797x98 @-398,1797]
+       div.cky-accordion-header-wrapper [775x98 @-376,1797]
+        div.cky-accordion-header [775x24 @-376,1797]
+         button.cky-accordion-btn "Uncategorised" [123x24 @-376,1797] fs=16px fw=700
+        div.cky-accordion-header-des [775x48 @-376,1831]
+         p "Other uncategorised cookies are those that are being analysed and have not been classified" [775x48 @-376,1831] fs=14px fw=400
+   div.cky-footer-wrapper [845x125 @-422,1747]
+    span.cky-footer-shadow [845x40 @-422,1708]
+    div.cky-prefrence-btn-wrapper [845x89 @-422,1747]
+     button.cky-btn.cky-btn-reject "Reject All" [232x44 @-398,1770] fs=14px fw=500
+     button.cky-btn.cky-btn-preferences "Save My Preferences" [312x44 @-158,1770] fs=14px fw=500
+     button.cky-btn.cky-btn-accept "Accept All" [237x44 @162,1770] fs=14px fw=500
+    div "Powered by" [845x36 @-422,1836] fs=12px fw=400
+     a [78x13 @321,1848]
+      img [78x13 @321,1848]
+ div [1440x5690 @0,0]
+  div.w-full.z-40.transition-all.duration-100.ease-in-out [1440x128 @0,0]
+   header.bg-header-bg [1440x128 @0,0]
+    div.border-bg-grey [1440x88 @0,0]
+     div.flex.mx-auto.max-w-screen-2xl.py-2.px-4 [1366x88 @37,0]
+      div.flex.flex-row.flex-wrap [141x40 @53,24]
+       div.flex.flex-row.gap-4.items-center.z-20 [141x40 @53,24]
+        a [141x14 @53,37]
+         div.max-w-[106px].xl:max-w-[141px] [141x14 @53,37]
+          img.w-full.h-full.object-contain.xl:max-h-[40px].max-h-[35px] [141x14 @53,37]
+      div.grow [1041x40 @194,24]
+      div.flex.flex-row.justify-end.items-center.z-25 [152x40 @1235,24]
+       div [40x52 @1235,18]
+        div.relative.inline-block.rounded.mt-[5px].mr-2 [40x40 @1235,26]
+         div.flex.items-center [24x24 @1243,34]
+          img.h-6.w-6.object-cover.rounded [24x24 @1243,34]
+         div.absolute.inset-0.z-[41].cursor-pointer [40x40 @1235,26]
+       div.relative.group.py-2.px-[7px].md:px-2 [40x40 @1275,24]
+        div.flex.items-center [24x24 @1283,32]
+         a [24x24 @1283,32]
+          div.flex.items-center [24x24 @1283,32]
+       div.py-2.px-[7px].md:px-2 [40x40 @1315,24]
+        a [24x24 @1323,32]
+         div.flex.items-center [24x24 @1323,32]
+       div.py-2.pl-[7px].md:pl-2 [32x40 @1355,24]
+        a [24x24 @1363,32]
+         div.flex.items-center [24x24 @1363,32]
+          div.relative.inline-block [24x24 @1363,32]
+    div.transition-[max-height].duration-300.ease-in-out [1440x40 @0,88]
+     div.hidden.xl:block.text-nav [1440x40 @0,88]
+      div.bg-primary-nav.h-10.relative.z-[25] [1440x40 @0,88]
+       nav.h-full [1440x40 @0,88]
+        ul.max-w-screen-2xl.mx-auto.flex.justify-center.h-full [1366x40 @37,88]
+         li [59x40 @172,88]
+          a.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [59x40 @172,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [43x24 @180,96]
+            span.break-words "SALE" [43x24 @180,96] fs=16px fw=700
+         li [58x40 @231,88]
+          div.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [58x40 @231,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [42x24 @239,96]
+            span.break-words "NEW" [42x24 @239,96] fs=16px fw=700
+         li [104x40 @289,88]
+          a.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [104x40 @289,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [88x24 @297,96]
+            span.break-words "CLOTHING" [88x24 @297,96] fs=16px fw=700
+         li [89x40 @393,88]
+          a.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [89x40 @393,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [73x24 @401,96]
+            span.break-words "BRANDS" [73x24 @401,96] fs=16px fw=700
+         li [77x40 @482,88]
+          a.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [77x40 @482,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [61x24 @490,96]
+            span.break-words "ACTIVE" [61x24 @490,96] fs=16px fw=700
+         li [60x40 @559,88]
+          div.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [60x40 @559,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [44x24 @567,96]
+            span.break-words "PLUS" [44x24 @567,96] fs=16px fw=700
+         li [57x40 @619,88]
+          a.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [57x40 @619,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [41x24 @627,96]
+            span.break-words "TALL" [41x24 @627,96] fs=16px fw=700
+         li [118x40 @676,88]
+          a.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [118x40 @676,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [102x24 @684,96]
+            span.break-words "ESSENTIALS" [102x24 @684,96] fs=16px fw=700
+         li [113x40 @794,88]
+          a.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [113x40 @794,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [97x24 @802,96]
+            span.break-words "GOING OUT" [97x24 @802,96] fs=16px fw=700
+         li [92x40 @907,88]
+          a.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [92x40 @907,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [76x24 @915,96]
+            span.break-words "SUMMER" [76x24 @915,96] fs=16px fw=700
+         li [57x40 @998,88]
+          a.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [57x40 @998,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [41x24 @1006,96]
+            span.break-words "SETS" [41x24 @1006,96] fs=16px fw=700
+         li [212x40 @1055,88]
+          a.text-primary-nav-text.text-base.inline-flex.items-center.px-2 [212x40 @1055,88]
+           span.inline-flex.items-center.gap-2.min-w-0 [196x24 @1063,96]
+            span.break-words "SHOES & ACCESSORIES" [196x24 @1063,96] fs=16px fw=700
+  div.relative [1440x5562 @0,128]
+   div.sticky.top-0.w-full.z-[29].xl:z-[24] [1440x116 @0,128]
+    div.grid.grid-cols-1.overflow-x-hidden [1440x116 @0,128]
+     div.w-full [1440x58 @0,128]
+      div.md:py-0.py-1 [1440x58 @0,128]
+       div.mx-auto.hidden.md:grid.gap-2.justify-center [1366x58 @37,128]
+        div.h-full.py-2 [450x58 @37,128]
+         a.flex.justify-center.h-full.w-full [450x42 @37,136]
+          div.text-center.flex.flex-row.items-center.relative [338x42 @93,136]
+           div.pl-2.flex.flex-col [338x42 @93,136]
+            div.text-sm.font-bold "ORDER BY MIDNIGHT TO GET IT TOMORROW" [330x21 @101,136] fs=14px fw=700
+            span.text-sm.justify-center.gap-1 [330x21 @101,157]
+             span.w-[84px].inline-block.leading-3 [84x12 @224,161]
+              span [69x18 @231,158]
+               span "00:12:25:13" [69x18 @231,158] fs=14px fw=400
+        div.backdrop-brightness-95.h-full.py-2 [450x58 @495,128]
+         a.flex.justify-center.h-full.w-full [450x42 @495,136]
+          div.text-center.flex.flex-row.items-center.relative [163x42 @638,136]
+           div.pl-2.flex.flex-col [163x42 @638,136]
+            div.text-sm.font-bold "STUDENT DISCOUNT!" [155x21 @646,136] fs=14px fw=700
+            span.text-sm.justify-center.gap-1 [155x21 @646,157]
+             span.relative [113x18 @668,158]
+              span.leading-3.mx-2 "Extra 20% Off!" [97x18 @676,158] fs=14px fw=400
+        div.h-full.py-2 [450x58 @953,128]
+         a.flex.justify-center.h-full.w-full [450x42 @953,136]
+          div.text-center.flex.flex-row.items-center.relative [134x42 @1111,136]
+           div.pl-2.flex.flex-col [134x42 @1111,136]
+            div.text-sm.font-bold "BRANDS AT MAN" [126x21 @1119,136] fs=14px fw=700
+            span.text-sm.justify-center.gap-1 [126x21 @1119,157]
+             span.relative [117x18 @1123,158]
+              span.leading-3.mx-2 "Up To 70% Off!" [101x18 @1131,158] fs=14px fw=400
+     div.w-full [1440x58 @0,186]
+      div.md:py-0.py-1 [1440x58 @0,186]
+       div.mx-auto.hidden.md:grid.gap-2.justify-center [1366x58 @37,186]
+        div.h-full.py-2 [1366x58 @37,186]
+         a.flex.justify-center.h-full.w-full [1366x42 @37,194]
+          div.text-center.flex.flex-row.items-center.relative [213x42 @614,194]
+           div.pl-2.flex.flex-col [213x42 @614,194]
+            div.text-sm.font-bold "20% OFF* + EXTRA 15% OFF*" [205x21 @622,194] fs=14px fw=700
+            span.text-sm.justify-center.gap-1 [205x21 @622,215]
+             span.relative [139x18 @654,216]
+              span.leading-3.mx-2 "Use Code: TAKE15" [123x18 @662,216] fs=14px fw=400
+   div.max-w-screen-2xl.mx-auto [1366x4043 @37,244]
+    div [1366x50 @37,244]
+     div.flex.items-center.justify-between [1366x50 @37,244]
+      div.flex-1.min-w-0 [1366x50 @37,244]
+       div [1366x50 @37,244]
+        div.md:flex.p-4.hidden.md:justify-start.overflow-hidden [1366x50 @37,244]
+         div [37x18 @53,260]
+          a.capitalize.hover:underline.font-light "home" [37x15 @53,261] fs=12px fw=300
+         div [52x18 @90,260]
+          span.px-2 "/" [20x15 @90,261] fs=12px fw=400
+          a.capitalize.hover:underline.font-light "Mens" [32x15 @110,261] fs=12px fw=300
+         div [132x18 @143,260]
+          span.px-2 "/" [20x15 @143,261] fs=12px fw=400
+          a.capitalize.hover:underline.font-light "Shop By Collection" [112x15 @163,261] fs=12px fw=300
+         div [121x18 @274,260]
+          span.px-2 "/" [20x15 @274,261] fs=12px fw=400
+          a.capitalize.hover:underline.font-light "Mens Activewear" [101x15 @294,261] fs=12px fw=300
+         div [103x18 @395,260]
+          span.px-2 "/" [20x15 @395,261] fs=12px fw=400
+          a.capitalize.hover:underline.font-light "Gym Clothing" [83x15 @415,261] fs=12px fw=300
+         div [110x18 @498,260]
+          span.px-2 "/" [20x15 @498,261] fs=12px fw=400
+          a.capitalize.hover:underline.font-light "Gym Tracksuits" [90x15 @518,261] fs=12px fw=300
+    div.hidden.md:block [1366x3993 @37,294]
+     div.flex.flex-col.md:flex-row [1366x3387 @37,294]
+      div.flex.flex-col.md:w-[65%] [888x3387 @37,294]
+       div.relative.flex.md:flex-row-reverse.flex-col [888x768 @37,294]
+        div.relative.w-full.h-fit.md:order-2 [888x768 @37,294]
+         div.relative [888x768 @37,294]
+          div.hidden.md:block [888x768 @37,294]
+           div.blaze-container.relative.flex.flex-row-reverse.items-stretch [888x768 @37,294]
+            div.blaze-slider-container.relative.max-w-lg.w-full.mx-auto [512x768 @287,294]
+             div.blaze-slider.overflow-x-hidden.overflow-y-hidden.product-image-gallery-desktop.product-image-gallery-desktop-911888574 [512x768 @287,294]
+              div.blaze-track [512x768 @287,294]
+               div.blaze-slide [512x768 @287,294]
+                div.relative.overflow-hidden.z-1 [512x768 @287,294]
+                 div.absolute.top-0.left-0.right-0.bottom-0 [512x768 @287,294]
+                  picture.w-full.h-full [512x768 @287,294]
+                 div.w-full.pb-[150%].h-0.relative [512x768 @287,294]
+               div.blaze-slide [512x768 @799,294]
+                div.relative.overflow-hidden.z-1 [512x768 @799,294]
+                 div.absolute.top-0.left-0.right-0.bottom-0 [512x768 @799,294]
+                  picture.w-full.h-full [512x768 @799,294]
+                 div.w-full.pb-[150%].h-0.relative [512x768 @799,294]
+               div.blaze-slide [512x768 @1311,294]
+                div.relative.overflow-hidden.z-1 [512x768 @1311,294]
+                 div.absolute.top-0.left-0.right-0.bottom-0 [512x768 @1311,294]
+                  picture.w-full.h-full [512x768 @1311,294]
+                 div.w-full.pb-[150%].h-0.relative [512x768 @1311,294]
+               div.blaze-slide [512x768 @1823,294]
+                div.relative.overflow-hidden.z-1 [512x768 @1823,294]
+                 div.absolute.top-0.left-0.right-0.bottom-0 [512x768 @1823,294]
+                  picture.w-full.h-full [512x768 @1823,294]
+                 div.w-full.pb-[150%].h-0.relative [512x768 @1823,294]
+            div.w-[124px].relative [124x768 @37,294]
+             div.absolute.top-0.left-0.w-full.h-full [124x768 @37,294]
+              div.flex.flex-col.max-h-full [124x624 @37,294]
+               div.overflow-x-hidden.flex.flex-col.overflow-y-auto.scrollbar-hide [116x624 @37,294]
+                div.hidden.md:block.cursor-pointer [100x150 @45,294]
+                 div.flex.justify-center.content-center.relative.opacity-100 [100x150 @45,294]
+                  div.md:w-[100px].flex.items-center.justify-center.overflow-hidden [100x150 @45,294]
+                div.hidden.md:block.cursor-pointer [100x150 @45,452]
+                 div.flex.justify-center.content-center.relative.opacity-50 [100x150 @45,452]
+                  div.md:w-[100px].flex.items-center.justify-center.overflow-hidden [100x150 @45,452]
+                div.hidden.md:block.cursor-pointer [100x150 @45,610]
+                 div.flex.justify-center.content-center.relative.opacity-50 [100x150 @45,610]
+                  div.md:w-[100px].flex.items-center.justify-center.overflow-hidden [100x150 @45,610]
+                div.hidden.md:block.cursor-pointer [100x150 @45,768]
+                 div.flex.justify-center.content-center.relative.opacity-50 [100x150 @45,768]
+                  div.md:w-[100px].flex.items-center.justify-center.overflow-hidden [100x150 @45,768]
+       div.md:grid.md:grid-rows-[fit-content(0)].md:grid-cols-[125px_auto] [888x1161 @37,1062]
+        div [125x1161 @37,1062]
+        div.grid.divide-grey.divide-y.boarder-grey.mx-0 [699x1121 @194,1082]
+         div.pb-4 [699x160 @194,1082]
+          div.font-medium.pb-4 "At a Glance" [699x40 @194,1082] fs=16px fw=500
+          div.flex.flex-wrap.gap-4 [699x104 @194,1122]
+           div.flex.gap-2 [334x24 @194,1122]
+            div.font-light "Premium heavyweight 480GSM fabric" [302x24 @226,1122] fs=16px fw=300
+           div.flex.gap-2 [225x24 @544,1122]
+            div.font-light "Trendy oversized boxy fit" [193x24 @576,1122] fs=16px fw=300
+           div.flex.gap-2 [228x24 @194,1162]
+            div.font-light "Distinctive washed finish" [196x24 @226,1162] fs=16px fw=300
+           div.flex.gap-2 [256x24 @438,1162]
+            div.font-light "Versatile zip-through design" [224x24 @470,1162] fs=16px fw=300
+           div.flex.gap-2 [207x24 @194,1202]
+            div.font-light "Soft 80% cotton blend" [175x24 @226,1202] fs=16px fw=300
+         div [699x738 @194,1242]
+          div.py-4.font-medium.flex.justify-between [699x56 @194,1243]
+           div "Description" [94x24 @194,1259] fs=16px fw=500
+           div.flex.flex-col.justify-center [16x24 @877,1259]
+          div.overflow-hidden [699x737 @194,1299]
+           div [699x661 @194,1319]
+            div [699x624 @194,1319]
+             div.prose.prose-plain.max-w-full.prose-h1:font-heading.text-left [699x624 @194,1319]
+              div [699x584 @194,1319]
+               ul [699x312 @194,1319]
+                li "Heavyweight loopback fabric construction delivers a substantial, structured feel with a sa" [673x56 @220,1319] fs=16px fw=300
+                li "Oversized boxy fit sits wide across the shoulders and chest, dropping into a relaxed, squa" [673x56 @220,1383] fs=16px fw=300
+                li "Washed finish gives the fabric a lived-in, broken-in character that adds depth and dimensi" [673x56 @220,1447] fs=16px fw=300
+                li "Full zip-through hooded design offers versatile wear options - zip it up for a clean, stre" [673x56 @220,1511] fs=16px fw=300
+                li "80% cotton-rich composition ensures breathability and comfort, making it a reliable go-to " [673x56 @220,1575] fs=16px fw=300
+               p "This heavyweight zip-through hoodie is the kind of piece that anchors a wardrobe without t" [699x252 @194,1651] fs=16px fw=300
+            span.flex.items-center.uppercase.pb-4.font-light "SKU: CMM29598-10070-37" [699x37 @194,1943] fs=14px fw=300
+         div [699x57 @194,1980]
+          div.py-4.font-medium.flex.justify-between [699x56 @194,1981]
+           div "Product Details & Care" [183x24 @194,1997] fs=16px fw=500
+           div.flex.flex-col.justify-center [16x24 @877,1997]
+         div [699x57 @194,2037]
+          div.py-4.font-medium.flex.justify-between.flex [699x56 @194,2038]
+           div "Delivery" [66x24 @194,2054] fs=16px fw=500
+           div.flex.flex-col.justify-center [16x24 @877,2054]
+         div [699x57 @194,2094]
+          div.py-4.font-medium.flex.justify-between [699x56 @194,2095]
+           div "Returns" [64x24 @194,2111] fs=16px fw=500
+           div.flex.flex-col.justify-center [16x24 @877,2111]
+         div.hidden.md:block [699x52 @194,2151]
+          button.align-middle.text-center.text-default-text-colour.cursor-pointer.leading-4 [699x51 @194,2152]
+           div.relative.undefined [699x51 @194,2152]
+            div.relative.flex.items-center.w-full.h-full [699x51 @194,2152]
+             div.w-full.py-4.flex.items-center.justify-between [699x51 @194,2152]
+              div.flex.font-medium "Share" [47x16 @194,2170] fs=16px fw=500
+              div.rounded-full.bg-site-background.inline-flex.items-center.justify-center [19x19 @874,2168]
+      div.flex.flex-col.py-4.px-4.md:w-[35%] [478x3387 @925,294]
+       div.flex.flex-col.gap-4 [446x607 @941,310]
+        div.flex.flex-col.gap-2 [446x76 @941,310]
+         div.flex.justify-between.items-center.gap-2 [446x76 @941,310]
+          div.flex.flex-col.gap-1 [394x76 @941,310]
+           h2.font-semibold.text-base.font-heading [394x24 @941,310]
+            a "boohooMAN" [103x19 @941,312] fs=16px fw=600
+           h1.text-base.grow.font-light.font-heading "Oversized Boxy Premium 480gsm Washed Zip Through Hoodie" [394x48 @941,338] fs=16px fw=300
+          button.align-middle.text-center.text-default-text-colour.cursor-pointer.leading-4 [44x44 @1343,326]
+           div.relative.undefined [20x20 @1355,338]
+            div.relative.flex.items-center.w-full.h-full [20x20 @1355,338]
+             span.inline-block [20x20 @1355,338]
+        div.flex.flex-col.gap-3 [446x24 @941,402]
+         div.flex.flex-row.text-2xl.relative.leading-[30px] [446x24 @941,402]
+          div.sm:flex.sm:flex-col.md:flex.md:flex-row.flex-wrap [81x24 @941,402]
+           div.flex.flex-wrap.min-w-0.gap-1.items-center [81x24 @941,402]
+            span.font-semibold "£35.00" [81x24 @941,402] fs=24px fw=600
+        div.flex.flex-col.gap-2 [446x21 @941,442]
+         div [446x21 @941,442]
+          div.text-sm [446x21 @941,442]
+           div.flex.gap-2.text-sm.rounded [446x21 @941,442]
+            div.flex.items-center [20x21 @941,442]
+            div [313x21 @969,442]
+             div.text-sm "Order in for Next Day Delivery" [313x21 @969,442] fs=14px fw=400
+              span.font-semibold "12 hrs 24 mins" [101x18 @1030,443] fs=14px fw=600
+        div.flex.flex-col.gap-4 [446x180 @941,479]
+         div.flex.flex-col.gap-3 [446x24 @941,479]
+          span.text-base.font-light "Colour :" [446x24 @941,479] fs=16px fw=300
+           span.font-medium "Washed Navy" [111x19 @1000,481] fs=16px fw=500
+         div.flex.flex-col.gap-2 [446x140 @941,519]
+          div.flex.justify-between.items-center [446x24 @941,519]
+           span.font-light "Size :" [139x24 @941,519] fs=16px fw=300
+            span.font-medium "Select a Size" [100x19 @980,521] fs=16px fw=500
+           button.flex.items-center.gap-1 [104x24 @1283,519]
+            span "Size Guide" [84x24 @1303,519] fs=16px fw=400
+          div.flex.flex-row.gap-2.flex-wrap [446x108 @941,551]
+           div.relative.min-w-[53px].h-[50px] [53x50 @941,551]
+            button.px-1.border.rounded.text-center.w-full "XS" [53x50 @941,551] fs=16px fw=400
+           div.relative.min-w-[53px].h-[50px] [53x50 @1002,551]
+            button.px-1.border.rounded.text-center.w-full "S" [53x50 @1002,551] fs=16px fw=400
+           div.relative.min-w-[53px].h-[50px] [53x50 @1063,551]
+            button.px-1.border.rounded.text-center.w-full "M" [53x50 @1063,551] fs=16px fw=400
+           div.relative.min-w-[53px].h-[50px] [53x50 @1124,551]
+            button.px-1.border.rounded.text-center.w-full "L" [53x50 @1124,551] fs=16px fw=400
+           div.relative.min-w-[53px].h-[50px] [53x50 @1185,551]
+            button.px-1.border.rounded.text-center.w-full "XL" [53x50 @1185,551] fs=16px fw=400
+           div.relative.min-w-[53px].h-[50px] [53x50 @1246,551]
+            button.px-1.border.rounded.text-center.w-full "2XL" [53x50 @1246,551] fs=16px fw=400
+           div.relative.min-w-[53px].h-[50px] [53x50 @1307,551]
+            span.z-20.pointer-events-none.leading-none [12x12 @1345,554]
+            button.px-1.border.rounded.text-center.w-full "3XL" [53x50 @1307,551] fs=16px fw=400
+           div.relative.min-w-[53px].h-[50px] [53x50 @941,609]
+            span.z-20.pointer-events-none.leading-none [12x12 @979,612]
+            button.px-1.border.rounded.text-center.w-full "4XL" [53x50 @941,609] fs=16px fw=400
+           div.relative.min-w-[53px].h-[50px] [53x50 @1002,609]
+            span.z-20.pointer-events-none.leading-none [12x12 @1040,612]
+            button.px-1.border.rounded.text-center.w-full "5XL" [53x50 @1002,609] fs=16px fw=400
+        div [446x242 @941,675]
+         div.bg-site-background.flex.flex-col.gap-2 [446x116 @941,675]
+          button.align-middle.text-center.text-default-text-colour.cursor-pointer.leading-4 [446x50 @941,675]
+           div.relative.undefined [406x16 @961,692]
+            div.relative.flex.items-center.w-full.h-full "Add to Bag" [406x16 @961,692] fs=16px fw=600
+          div [446x50 @941,741]
+           div.max-h-[50px] [446x50 @941,741]
+            button.align-middle.text-center.text-default-text-colour.cursor-pointer.leading-4 [446x50 @941,741]
+             div.relative.undefined [406x22 @961,755]
+              div.relative.flex.items-center.w-full.h-full [406x22 @961,755]
+               div.flex.justify-center.items-center.gap-2 [54x22 @1137,755]
+         div.mt-4 [446x110 @941,807]
+          div.relative [446x110 @941,807]
+           div.rounded.flex.flex-row.gap-6.py-4 [446x110 @941,807]
+            div.w-full [317x78 @961,823]
+             img [88x24 @961,823]
+             div.text-unlimited-bag-text.mt-3.font-normal.text-sm "Enjoy unlimited delivery for an entire year from just £9.99" [317x42 @961,859] fs=14px fw=400
+            div [65x32 @1302,846]
+             button.align-middle.text-center.text-default-text-colour.cursor-pointer.leading-4 [65x32 @1302,846]
+              div.relative.undefined [33x16 @1318,854]
+               div.relative.flex.items-center.w-full.h-full "Add" [33x16 @1318,854] fs=14px fw=400
+       div.flex.flex-col.gap-3.px-5.py-4 [446x323 @941,933]
+        div.flex.flex-col.gap-3 [406x291 @961,949]
+         img.h-auto.w-auto.object-contain.max-h-8.max-w-[160px] [160x20 @961,949]
+         div.flex.flex-col.gap-2.text-xs.font-normal [406x165 @961,981]
+          span.text-sm.font-semibold.pb-1 "Peace of mind, guaranteed" [406x25 @961,981] fs=14px fw=600
+          div.flex.flex-row.items-center.gap-2 [406x36 @961,1014]
+           span "Free & simple resale - recover value and give your items a second life" [382x36 @985,1014] fs=12px fw=400
+          div.flex.flex-row.items-center.gap-2 [406x18 @961,1058]
+           span "+14-day return extension" [148x18 @985,1058] fs=12px fw=400
+          div.flex.flex-row.items-center.gap-2 [406x18 @961,1084]
+           span "£5/day late delivery compensation" [205x18 @985,1084] fs=12px fw=400
+          div.flex.flex-row.items-center.gap-2 [406x36 @961,1110]
+           span "Full order coverage (lost, stolen, damaged) with instant payout on eligible claims" [382x36 @985,1110] fs=12px fw=400
+         span.text-sm.font-semibold.cursor-pointer "Learn More" [406x21 @961,1158] fs=14px fw=600
+         p.font-light.italic.text-xs "“Refund was approved and back in my account the same day.” — Deliver+ customer" [406x36 @961,1204] fs=12px fw=300
+       div.flex.flex-col.border.rounded.border-grey-2 [446x113 @941,1272]
+        div.flex.items-center.text-left [412x24 @958,1289]
+         span.text-sm "Delivery from £3.99 or Next Day from £5.99" [298x21 @998,1290] fs=14px fw=400
+        div.flex.items-center.text-left [412x39 @958,1329]
+         div.flex.items-center [40x24 @958,1336]
+         div.flex.flex-col [275x39 @998,1329]
+          span.text-sm "Eligible for return within 21 days" [275x21 @998,1329] fs=14px fw=400
+          span.text-xs "Exclusions apply. Please see our" [275x18 @998,1350] fs=12px fw=400
+           a.underline.hover:no-underline "returns policy" [82x15 @1191,1351] fs=12px fw=400
+       div [446x98 @941,1401]
+        gocertify-placement [446x80 @941,1401]
+       div.fixed.inset-0.bg-site-background.transition-opacity.!z-[99] [1440x900 @0,0]
+       div.flex.flex-col.border.rounded.border-grey-2 [446x115 @941,1520]
+        div.flex.gap-1 [412x23 @958,1537]
+        div.text-sm.text-grey-4.font-light "18+, T&C apply. Credit subject to status." [412x21 @958,1568] fs=14px fw=300
+        div.cursor-pointer.text-default-text-colour.text-sm.underline "See more" [412x21 @958,1597] fs=14px fw=400
+       div [446x1289 @941,1651]
+        div [446x1289 @941,1651]
+         div.mx-auto.relative.max-w-screen-2xl [446x1289 @941,1651]
+          div [446x1289 @941,1651]
+           div.mt-0 [446x27 @941,1651]
+            h2.my-0.tracking-wide.text-left.text-lg.font-semibold "Complete Your Purchase With" [446x27 @941,1651] fs=18px fw=600
+           div.pt-4 [446x1262 @941,1678]
+            div.border.rounded.border-grey-2.p-4 [446x1246 @941,1694]
+             div.flex.flex-col.gap-5.justify-center [412x1094 @958,1711]
+              div.flex.flex-row.gap-5 [412x275 @958,1711]
+               div.relative.w-[100px].md:max-w-52.block.cursor-pointer [100x275 @958,1711]
+                div.w-[100px].md:max-w-52.block [100x150 @958,1711]
+                 a [100x150 @958,1711]
+                  picture [100x150 @958,1711]
+                div.absolute.top-0.left-0.m-3.flex [36x24 @970,1723]
+                 div.mr-3 [24x24 @970,1723]
+                  div.flex.bg-ctaPrimary.rounded.w-6.h-6 [24x24 @970,1723]
+               div.flex-grow [292x275 @1078,1711]
+                div.text-xs.text-[#777777].font-light.pb-1 "Currently viewing" [292x22 @1078,1711] fs=12px fw=300
+                div.text-sm.font-medium.tracking-[.0.0175em].leading-normal "boohooMAN" [292x21 @1078,1733] fs=14px fw=500
+                a [292x46 @1078,1754]
+                 div.text-sm.font-light.pt-1 "Oversized Boxy Premium 480gsm Washed Zip Through Hoodie" [292x46 @1078,1754] fs=14px fw=300
+                div.flex.flex-row.pt-4.text-base [292x40 @1078,1800]
+                 div.sm:flex.sm:flex-col.md:flex.md:flex-row.flex-wrap [54x24 @1078,1816]
+                  div [54x24 @1078,1816]
+                div.flex.flex-row.items-baseline.text-sm.md:text-l [292x44 @1078,1840]
+                 span.text-base.md:text-l.py-2.md:pt-3.font-light "Colour:" [55x44 @1078,1840] fs=16px fw=300
+                 span.font-semibold.ml-1 [99x21 @1137,1854]
+                  div "Washed Navy" [99x21 @1137,1854] fs=14px fw=600
+                div.flex.flex-col.gap-2.pb-2 [292x102 @1078,1884]
+                 div.flex.flex-col.gap-3.justify-between.mt-2 [292x86 @1078,1892]
+                  span.text-base.font-light "Select a size" [292x24 @1078,1892] fs=16px fw=300
+                  div.relative.inline-block.text-input [292x50 @1078,1928]
+              div.flex.flex-row.gap-5 [412x253 @958,2006]
+               div.relative.w-[100px].md:max-w-52.block.cursor-pointer [100x253 @958,2006]
+                div.w-[100px].md:max-w-52.block [100x150 @958,2006]
+                 a [100x150 @958,2006]
+                  picture [100x150 @958,2006]
+                div.absolute.top-0.left-0.m-3.flex [36x24 @970,2018]
+                 div.mr-3 [24x24 @970,2018]
+                  div.flex.bg-ctaPrimary.rounded.w-6.h-6 [24x24 @970,2018]
+               div.flex-grow [292x253 @1078,2006]
+                div.text-sm.font-medium.tracking-[.0.0175em].leading-normal "boohooMAN" [292x21 @1078,2006] fs=14px fw=500
+                a [292x46 @1078,2027]
+                 div.text-sm.font-light.pt-1 "Oversized Premium 280gsm Washed T-Shirt" [292x46 @1078,2027] fs=14px fw=300
+                div.flex.flex-row.pt-4.text-base [292x40 @1078,2073]
+                 div.sm:flex.sm:flex-col.md:flex.md:flex-row.flex-wrap [52x24 @1078,2089]
+                  div [52x24 @1078,2089]
+                div.flex.flex-row.items-baseline.text-sm.md:text-l [292x44 @1078,2113]
+                 span.text-base.md:text-l.py-2.md:pt-3.font-light "Colour:" [55x44 @1078,2113] fs=16px fw=300
+                 span.font-semibold.ml-1 [99x21 @1137,2127]
+                  div "Washed Navy" [99x21 @1137,2127] fs=14px fw=600
+                div.flex.flex-col.gap-2.pb-2 [292x102 @1078,2157]
+                 div.flex.flex-col.gap-3.justify-between.mt-2 [292x86 @1078,2165]
+                  span.text-base.font-light "Select a size" [292x24 @1078,2165] fs=16px fw=300
+                  div.relative.inline-block.text-input [292x50 @1078,2201]
+              div.flex.flex-row.gap-5 [412x253 @958,2279]
+               div.relative.w-[100px].md:max-w-52.block.cursor-pointer [100x253 @958,2279]
+                div.w-[100px].md:max-w-52.block [100x150 @958,2279]
+                 a [100x150 @958,2279]
+                  picture [100x150 @958,2279]
+                div.absolute.top-0.left-0.m-3.flex [36x24 @970,2291]
+                 div.mr-3 [24x24 @970,2291]
+                  div.flex.bg-ctaPrimary.rounded.w-6.h-6 [24x24 @970,2291]
+               div.flex-grow [292x253 @1078,2279]
+                div.text-sm.font-medium.tracking-[.0.0175em].leading-normal "boohooMAN" [292x21 @1078,2279] fs=14px fw=500
+                a [292x46 @1078,2300]
+                 div.text-sm.font-light.pt-1 "Wide Leg Premium 480gsm Washed Jogger" [292x46 @1078,2300] fs=14px fw=300
+                div.flex.flex-row.pt-4.text-base [292x40 @1078,2346]
+                 div.sm:flex.sm:flex-col.md:flex.md:flex-row.flex-wrap [56x24 @1078,2362]
+                  div [56x24 @1078,2362]
+                div.flex.flex-row.items-baseline.text-sm.md:text-l [292x44 @1078,2386]
+                 span.text-base.md:text-l.py-2.md:pt-3.font-light "Colour:" [55x44 @1078,2386] fs=16px fw=300
+                 span.font-semibold.ml-1 [99x21 @1137,2400]
+                  div "Washed Navy" [99x21 @1137,2400] fs=14px fw=600
+                div.flex.flex-col.gap-2.pb-2 [292x102 @1078,2430]
+                 div.flex.flex-col.gap-3.justify-between.mt-2 [292x86 @1078,2438]
+                  span.text-base.font-light "Select a size" [292x24 @1078,2438] fs=16px fw=300
+                  div.relative.inline-block.text-input [292x50 @1078,2474]
+              div.flex.flex-row.gap-5 [412x253 @958,2552]
+               div.relative.w-[100px].md:max-w-52.block.cursor-pointer [100x253 @958,2552]
+                div.w-[100px].md:max-w-52.block [100x150 @958,2552]
+                 a [100x150 @958,2552]
+                  picture [100x150 @958,2552]
+                div.absolute.top-0.left-0.m-3.flex [36x24 @970,2564]
+                 div.mr-3 [24x24 @970,2564]
+                  div.flex.bg-ctaPrimary.rounded.w-6.h-6 [24x24 @970,2564]
+               div.flex-grow [292x253 @1078,2552]
+                div.text-sm.font-medium.tracking-[.0.0175em].leading-normal "boohooMAN" [292x21 @1078,2552] fs=14px fw=500
+                a [292x46 @1078,2573]
+                 div.text-sm.font-light.pt-1 "Wide Leg Premium 480gsm Washed Jogger" [292x46 @1078,2573] fs=14px fw=300
+                div.flex.flex-row.pt-4.text-base [292x40 @1078,2619]
+                 div.sm:flex.sm:flex-col.md:flex.md:flex-row.flex-wrap [56x24 @1078,2635]
+                  div [56x24 @1078,2635]
+                div.flex.flex-row.items-baseline.text-sm.md:text-l [292x44 @1078,2659]
+                 span.text-base.md:text-l.py-2.md:pt-3.font-light "Colour:" [55x44 @1078,2659] fs=16px fw=300
+                 span.font-semibold.ml-1 [99x21 @1137,2673]
+                  div "Washed Navy" [99x21 @1137,2673] fs=14px fw=600
+                div.flex.flex-col.gap-2.pb-2 [292x102 @1078,2703]
+                 div.flex.flex-col.gap-3.justify-between.mt-2 [292x86 @1078,2711]
+                  span.text-base.font-light "Select a size" [292x24 @1078,2711] fs=16px fw=300
+                  div.relative.inline-block.text-input [292x50 @1078,2747]
+             div.flex.flex-col.items-center.mx-auto.pt-8 [412x118 @958,2805]
+              span.text-base.font-medium.-mb-1 "Total :" [75x24 @1127,2837] fs=16px fw=500
+               span.font-light "£111" [27x19 @1174,2839] fs=16px fw=300
+              button.align-middle.text-center.text-default-text-colour.cursor-pointer.leading-4 [412x50 @958,2873]
+               div.relative.undefined [370x16 @979,2890]
+                div.relative.flex.items-center.w-full.h-full "Add to Bag (3)" [370x16 @979,2890] fs=16px fw=600
+       div [446x709 @941,2956]
+        div [446x709 @941,2956]
+         p.pb-3.font-semibold.text-lg "Handpicked For You" [446x39 @941,2956] fs=18px fw=600
+         div.grid.gap-4.grid-cols-3.md:grid-cols-3 [446x670 @941,2995]
+          div [138x327 @941,2995]
+           div.undefined.md:grid.pb-2.grid-cols-1 [138x327 @941,2995]
+            a.flex.flex-col.gap-3 [138x319 @941,2995]
+             div.relative [138x207 @941,2995]
+              div.relative [138x207 @941,2995]
+               div.md:block.block [138x207 @941,2995]
+                picture.w-full [138x207 @941,2995]
+                 img.w-full.h-full.object-cover [138x207 @941,2995]
+             div.flex.flex-col.gap-2 [138x100 @941,3214]
+              span.text-sm.font-semibold "boohooMAN" [138x21 @941,3214] fs=14px fw=600
+              span.text-sm.line-clamp-2.min-h-product-card-title "Oversized Boxy Premium 480gsm Zip Through Hoodie" [138x42 @941,3243] fs=14px fw=400
+              div [138x21 @941,3293]
+               div.sm:flex.sm:flex-col.md:flex.md:flex-row.flex-wrap [138x21 @941,3293]
+                div [47x21 @941,3293]
+                 span.font-semibold.text-sm "£35.00" [47x18 @941,3294] fs=14px fw=600
+          div [138x327 @1095,2995]
+           div.undefined.md:grid.pb-2.grid-cols-1 [138x327 @1095,2995]
+            a.flex.flex-col.gap-3 [138x319 @1095,2995]
+             div.relative [138x207 @1095,2995]
+              div.relative [138x207 @1095,2995]
+               div.md:block.block [138x207 @1095,2995]
+                picture.w-full [138x207 @1095,2995]
+                 img.w-full.h-full.object-cover [138x207 @1095,2995]
+             div.flex.flex-col.gap-2 [138x100 @1095,3214]
+              span.text-sm.font-semibold "boohooMAN" [138x21 @1095,3214] fs=14px fw=600
+              span.text-sm.line-clamp-2.min-h-product-card-title "Boxy Zip Through Hoodie" [138x42 @1095,3243] fs=14px fw=400
+              div [138x21 @1095,3293]
+               div.sm:flex.sm:flex-col.md:flex.md:flex-row.flex-wrap [138x21 @1095,3293]
+                div [106x21 @1095,3293]
+                 span.font-semibold.text-sm.mr-2.text-markdown-colour "£17.60" [44x18 @1095,3294] fs=14px fw=600
+                 span.text-sm.mr-2.line-through "£22.00" [46x18 @1147,3294] fs=14px fw=400
+          div [138x327 @1249,2995]
+           div.undefined.md:grid.pb-2.grid-cols-1 [138x327 @1249,2995]
+            a.flex.flex-col.gap-3 [138x319 @1249,2995]
+             div.relative [138x207 @1249,2995]
+              div.relative [138x207 @1249,2995]
+               div.md:block.block [138x207 @1249,2995]
+                picture.w-full [138x207 @1249,2995]
+                 img.w-full.h-full.object-cover [138x207 @1249,2995]
+             div.flex.flex-col.gap-2 [138x100 @1249,3214]
+              span.text-sm.font-semibold "boohooMAN" [138x21 @1249,3214] fs=14px fw=600
+              span.text-sm.line-clamp-2.min-h-product-card-title "Oversized Boxy Zip Through Denim Wash Hoodie" [138x42 @1249,3243] fs=14px fw=400
+              div [138x21 @1249,3293]
+               div.sm:flex.sm:flex-col.md:flex.md:flex-row.flex-wrap [138x21 @1249,3293]
+                div [105x21 @1249,3293]
+                 span.font-semibold.text-sm.mr-2.text-markdown-colour "£11.00" [42x18 @1249,3294] fs=14px fw=600
+                 span.text-sm.mr-2.line-through "£28.00" [47x18 @1299,3294] fs=14px fw=400
+          div [138x327 @941,3338]
+           div.undefined.md:grid.pb-2.grid-cols-1 [138x327 @941,3338]
+            a.flex.flex-col.gap-3 [138x319 @941,3338]
+             div.relative [138x207 @941,3338]
+              div.relative [138x207 @941,3338]
+               div.md:block.block [138x207 @941,3338]
+                picture.w-full [138x207 @941,3338]
+                 img.w-full.h-full.object-cover [138x207 @941,3338]
+             div.flex.flex-col.gap-2 [138x100 @941,3557]
+              span.text-sm.font-semibold "boohooMAN" [138x21 @941,3557] fs=14px fw=600
+              span.text-sm.line-clamp-2.min-h-product-card-title "Essential Regular Zip Through Hoodie" [138x42 @941,3586] fs=14px fw=400
+              div [138x21 @941,3636]
+               div.sm:flex.sm:flex-col.md:flex.md:flex-row.flex-wrap [138x21 @941,3636]
+                div [109x21 @941,3636]
+                 span.font-semibold.text-sm.mr-2.text-markdown-colour "£16.00" [46x18 @941,3637] fs=14px fw=600
+                 span.text-sm.mr-2.line-through "£20.00" [47x18 @995,3637] fs=14px fw=400
+          div [138x327 @1095,3338]
+           div.undefined.md:grid.pb-2.grid-cols-1 [138x327 @1095,3338]
+            a.flex.flex-col.gap-3 [138x319 @1095,3338]
+             div.relative [138x207 @1095,3338]
+              div.relative [138x207 @1095,3338]
+               div.md:block.block [138x207 @1095,3338]
+                picture.w-full [138x207 @1095,3338]
+                 img.w-full.h-full.object-cover [138x207 @1095,3338]
+             div.flex.flex-col.gap-2 [138x100 @1095,3557]
+              span.text-sm.font-semibold "boohooMAN" [138x21 @1095,3557] fs=14px fw=600
+              span.text-sm.line-clamp-2.min-h-product-card-title "Oversized Boxy Ombre Wash M Star Zip Through Hooded Jort Tracksuit" [138x42 @1095,3586] fs=14px fw=400
+              div [138x21 @1095,3636]
+               div.sm:flex.sm:flex-col.md:flex.md:flex-row.flex-wrap [138x21 @1095,3636]
+                div [109x21 @1095,3636]
+                 span.font-semibold.text-sm.mr-2.text-markdown-colour "£18.00" [46x18 @1095,3637] fs=14px fw=600
+                 span.text-sm.mr-2.line-through "£45.00" [47x18 @1149,3637] fs=14px fw=400
+          div [138x327 @1249,3338]
+           div.undefined.md:grid.pb-2.grid-cols-1 [138x327 @1249,3338]
+            a.flex.flex-col.gap-3 [138x319 @1249,3338]
+             div.relative [138x207 @1249,3338]
+              div.relative [138x207 @1249,3338]
+               div.md:block.block [138x207 @1249,3338]
+                picture.w-full [138x207 @1249,3338]
+                 img.w-full.h-full.object-cover [138x207 @1249,3338]
+             div.flex.flex-col.gap-2 [138x100 @1249,3557]
+              span.text-sm.font-semibold "boohooMAN" [138x21 @1249,3557] fs=14px fw=600
+              span.text-sm.line-clamp-2.min-h-product-card-title "Heavyweight Oversized Contrast Stitch Waffle Zip Through Hoodie" [138x42 @1249,3586] fs=14px fw=400
+              div [138x21 @1249,3636]
+               div.sm:flex.sm:flex-col.md:flex.md:flex-row.flex-wrap [138x21 @1249,3636]
+                div [112x21 @1249,3636]
+                 span.font-semibold.text-sm.mr-2.text-markdown-colour "£24.00" [49x18 @1249,3637] fs=14px fw=600
+                 span.text-sm.mr-2.line-through "£30.00" [47x18 @1306,3637] fs=14px fw=400
+     div [1366x606 @37,3681]
+      div [1366x606 @37,3681]
+       div.grid.transition-[grid-template-rows].duration-300.ease-out.grid-rows-[1fr] [1366x606 @37,3681]
+        div.overflow-hidden [1366x606 @37,3681]
+         div.bg-site-background.flex.flex-col.gap-x-6 [1366x606 @37,3681]
+          div.pl-4.md:px-4 [1366x606 @37,3681]
+           div.mt-5 [1334x27 @53,3701]
+            h2.text-lg.font-semibold.font-heading "We Think You'll Like" [1334x27 @53,3701] fs=18px fw=600
+           div.pt-4 [1334x559 @53,3728]
+            div.blaze-container.relative [1334x543 @53,3744]
+             div.blaze-slider-container [1334x543 @53,3744]
+              div.blaze-slider.overflow-x-hidden.overflow-y-hidden.we_think_youll_like_pdp.we_think_youll_like_pdp--258466217 [1334x543 @53,3744]
+               div.blaze-track [1334x543 @53,3744]
+                div.blaze-slide [290x543 @53,3744]
+                 div [290x543 @53,3744]
+                  div.undefined.md:grid.pb-2.pr-2.grid-cols-1 [290x543 @53,3744]
+                div.blaze-slide [290x543 @351,3744]
+                 div [290x543 @351,3744]
+                  div.undefined.md:grid.pb-2.pr-2.grid-cols-1 [290x543 @351,3744]
+                div.blaze-slide [290x543 @649,3744]
+                 div [290x543 @649,3744]
+                  div.undefined.md:grid.pb-2.pr-2.grid-cols-1 [290x543 @649,3744]
+                div.blaze-slide [290x543 @948,3744]
+                 div [290x543 @948,3744]
+                  div.undefined.md:grid.pb-2.pr-2.grid-cols-1 [290x543 @948,3744]
+                div.blaze-slide [290x543 @1246,3744]
+                 div [290x543 @1246,3744]
+                  div.undefined.md:grid.pb-2.pr-2.grid-cols-1 [290x543 @1246,3744]
+                div.blaze-slide [290x543 @1544,3744]
+                 div [290x543 @1544,3744]
+                  div.undefined.md:grid.pb-2.pr-2.grid-cols-1 [290x543 @1544,3744]
+                div.blaze-slide [290x543 @1842,3744]
+                 div [290x543 @1842,3744]
+                  div.undefined.md:grid.pb-2.pr-2.grid-cols-1 [290x543 @1842,3744]
+                div.blaze-slide [290x543 @2141,3744]
+                 div [290x543 @2141,3744]
+                  div.undefined.md:grid.pb-2.pr-2.grid-cols-1 [290x543 @2141,3744]
+                div.blaze-slide [290x543 @2439,3744]
+                 div [290x543 @2439,3744]
+                  div.undefined.md:grid.pb-2.pr-2.grid-cols-1 [290x543 @2439,3744]
+                div.blaze-slide [290x543 @2737,3744]
+                 div [290x543 @2737,3744]
+                  div.undefined.md:grid.pb-2.pr-2.grid-cols-1 [290x543 @2737,3744]
+    div.fixed.inset-0.bg-site-background.transition-opacity.!z-[99] [1440x900 @0,0]
+   div [1408x104 @16,4351]
+    div.verbolia-links-container [1408x104 @16,4351]
+     h2.verbolia-links-header "Recommendations" [1408x40 @16,4351] fs=16px fw=600
+     div.verbolia-links-list [1408x64 @16,4391]
+      a.verbolia-link-item "Black zip up hoodies" [163x24 @101,4391] fs=16px fw=300
+      a.verbolia-link-item "Oversized jumpers" [148x24 @280,4391] fs=16px fw=300
+      a.verbolia-link-item "Grey zip up hoodies" [156x24 @444,4391] fs=16px fw=300
+      a.verbolia-link-item "Boxy t shirts" [96x24 @616,4391] fs=16px fw=300
+      a.verbolia-link-item "Dark wash jeans" [129x24 @727,4391] fs=16px fw=300
+      a.verbolia-link-item "Black washed jeans" [155x24 @872,4391] fs=16px fw=300
+      a.verbolia-link-item "Zip-Up Cardigan for Men" [197x24 @1043,4391] fs=16px fw=300
+      a.verbolia-link-item "Zip t shirts" [83x24 @1256,4391] fs=16px fw=300
+      a.verbolia-link-item "Dark Grey Washed Hoodie for Men" [274x24 @493,4431] fs=16px fw=300
+      a.verbolia-link-item "Plus Size Quarter Zip" [165x24 @783,4431] fs=16px fw=300
+   footer.md:mt-16.mt-6.w-full [1440x1171 @0,4519]
+    div.flex.justify-center.bg-bg-grey.md:pb-2.w-full [1440x236 @0,4519]
+     div.md:block.w-full.xl:px-16.2xl:px-50.px-4 [1440x228 @0,4519]
+      div.flex.flex-col.lg:flex-row.mx-4.justify-between [1280x172 @80,4555]
+       div.w-full.md:mb-8.md:text-center.lg:text-left.lg:w-[40%] [512x140 @80,4555]
+        h3.text-2xl.md:text-3xl.lg:text-2xl.xl:text-3xl.2xl:text-4xl "Let's get to know each other" [512x60 @80,4555] fs=40px fw=600
+        span.text-emailTagLine.md:text-center.lg:text-justify.lg:text-xl.xl:text-lg "Sign up to receive emails from us, so you never miss out on the good stuff." [467x54 @80,4638] fs=20px fw=400
+       div.w-full.lg:w-1/2.text-center.pt-4.md:pt-0 [640x172 @720,4555]
+        div.flex.flex-col.md:w-full.lg:pr-5.xl:pr-0 [640x133 @720,4555]
+         div.md:flex.w-full.md:justify-center.mt-5.md:mt-0 [640x50 @720,4555]
+          div.w-full.flex.flex-col.gap-2 [448x50 @720,4555]
+           div.flex.flex-col.gap-2.relative.md:mx-4 [416x50 @736,4555]
+            input.px-4.text-input.py-2.h-[50px].w-full [416x50 @736,4555]
+          button.align-middle.text-center.text-default-text-colour.cursor-pointer.leading-4 [192x50 @1168,4555]
+           div.relative.undefined [96x40 @1216,4560]
+            div.relative.flex.items-center.w-full.h-full "Subscribe" [96x40 @1216,4560] fs=16px fw=600
+         div [640x83 @720,4605]
+          div.text-sm.md:text-left.text-center.md:ml-4.pt-5 "By submitting your details, you agree to receive marketing communications from BOOHOOMAN &" [640x83 @736,4605] fs=14px fw=400
+           a.underline.hover:no-underline "family of brands" [112x18 @884,4647] fs=14px fw=400
+           a.underline.hover:no-underline "Privacy Policy." [98x18 @1136,4668] fs=14px fw=400
+    div.md:mx-8.lg:mx-12 [1344x935 @48,4755]
+     div.lg:flex.lg:flex-row.lg:pb-8.lg:justify-between.pt-5 [1344x730 @48,4755]
+      div.border-t.border-b.border-gray-300.sm:border-none [1103x696 @56,4755]
+       section.lg:mr-8.gap-x-5.md:gap-x-8	md:divide-y-0.divide-y.mx-3 [1071x696 @56,4755]
+        div.lg:mr-8.gap-x-5.md:gap-x-8	md:divide-y-0.divide-y.mx-3 [1039x668 @56,4783]
+         div [325x640 @56,4811]
+          div.py-4.text-base.font-semibold.flex.justify-between [325x56 @56,4811]
+           div "HOW CAN WE HELP?" [177x24 @56,4827] fs=16px fw=600
+          div.overflow-hidden.md:!h-auto [325x240 @56,4867]
+           div [325x240 @56,4867]
+            div.pb-4 [325x240 @56,4867]
+             div.hover:underline.py-1.text-base.font-light [325x32 @56,4867]
+              a "Frequently Asked Questions" [223x19 @56,4873] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @56,4899]
+              a "Contact Us" [87x19 @56,4905] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @56,4931]
+              a "Track & Return My Order" [194x19 @56,4937] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @56,4963]
+              a "Delivery Options" [131x19 @56,4969] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @56,4995]
+              a "Returns Policy - Updated May 2026" [277x19 @56,5001] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @56,5027]
+              a "Size Guide" [83x19 @56,5033] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @56,5059]
+              a "Premier Delivery" [132x19 @56,5065] fs=16px fw=300
+         div [325x640 @413,4811]
+          div.py-4.text-base.font-semibold.flex.justify-between [325x56 @413,4811]
+           div "INFORMATION" [121x24 @413,4827] fs=16px fw=600
+          div.overflow-hidden.md:!h-auto [325x584 @413,4867]
+           div [325x584 @413,4867]
+            div.pb-4 [325x584 @413,4867]
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,4867]
+              a "T&C's - Updated August 2026" [229x19 @413,4873] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,4899]
+              a "Terms of Use" [102x19 @413,4905] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,4931]
+              a "Gift Cards" [77x19 @413,4937] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,4963]
+              a "Gift Card Balance" [138x19 @413,4969] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,4995]
+              a "Klarna" [51x19 @413,5001] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,5027]
+              a "Clearpay" [69x19 @413,5033] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,5059]
+              a "PayPal" [54x19 @413,5065] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,5091]
+              a "Deliver+" [64x19 @413,5097] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,5123]
+              a "Privacy Notice - Updated June 2026" [282x19 @413,5129] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,5155]
+              a "About Cookies" [115x19 @413,5161] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,5187]
+              a "Student Discount" [140x19 @413,5193] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,5219]
+              a "Key Worker Discount" [166x19 @413,5225] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,5251]
+              a "BOOHOOMAN App" [155x19 @413,5257] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,5283]
+              a "Refer A Friend" [113x19 @413,5289] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,5315]
+              a "Ambassador Programme" [201x19 @413,5321] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @413,5347]
+              a "Rewards" [68x19 @413,5353] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x56 @413,5379]
+              a "Ultimate Tech Bundle Competition August 2026" [277x43 @413,5385] fs=16px fw=300
+         div [325x640 @770,4811]
+          div.py-4.text-base.font-semibold.flex.justify-between [325x56 @770,4811]
+           div "ABOUT US" [87x24 @770,4827] fs=16px fw=600
+          div.overflow-hidden.md:!h-auto [325x112 @770,4867]
+           div [325x112 @770,4867]
+            div.pb-4 [325x112 @770,4867]
+             div.hover:underline.py-1.text-base.font-light [325x32 @770,4867]
+              a "Investor Relations" [141x19 @770,4873] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @770,4899]
+              a "Modern Slavery Statement" [211x19 @770,4905] fs=16px fw=300
+             div.hover:underline.py-1.text-base.font-light [325x32 @770,4931]
+              a "Careers" [60x19 @770,4937] fs=16px fw=300
+      div.flex.flex-col.w-full.lg:w-1/5.pt-5 [233x696 @1159,4755]
+       span.text-base.font-semibold.lg:pt-14.pb-4.md:mt-3 "Follow Us On Social Media" [225x96 @1167,4767] fs=16px fw=600
+       div.w-full.flex.flex-row.gap-[26px].justify-center [225x114 @1167,4863]
+        a [24x24 @1167,4863]
+        a [24x24 @1217,4863]
+        a [24x24 @1267,4863]
+        a [24x24 @1317,4863]
+        a [24x24 @1367,4863]
+        a [24x24 @1167,4913]
+       div.hidden.lg:block.w-full.min-w-[216px].md:pb-10 [225x126 @1167,4977]
+        div.relative.w-auto.mx-6.md:mx-0.mb-5 [225x86 @1167,4977]
+         div.flex.flex-col.gap-3.w-full [225x86 @1167,4977]
+          label.text-base.font-semibold.text-center.md:text-left "Country" [225x24 @1167,4977] fs=16px fw=600
+          div.relative.h-[3.125rem] [225x50 @1167,5013]
+           select.border.border-grey-3.rounded.py-2.px-4 [225x50 @1167,5013]
+           div.absolute.top-0.right-0.flex.items-center [26x50 @1366,5013]
+         img.absolute.bottom-[11px].left-7.transform.-translate-x-1/2 [39x28 @1175,5024]
+       div.hidden.md:flex.md:items-center.md:justify-center.md:content-center [225x135 @1167,5103]
+        div.text-lg.font-semibold "Download Our App" [178x27 @1167,5103] fs=18px fw=600
+        button.flex.flex-col.gap-3.md:items-center.lg:items-start [135x92 @1167,5146]
+         div.max-h-[40px] [135x40 @1167,5146]
+          img.h-[40px] [135x40 @1167,5146]
+         div.max-h-[40px] [119x40 @1167,5198]
+          img.h-[40px] [119x40 @1167,5198]
+     div.hidden.lg:flex.flex-row.w-full.flex-wrap [1344x64 @48,5485]
+      div.flex.flex-row.flex-wrap.justify-center.mx-3 [448x24 @932,5525]
+       img.payment-icon.h-6 [35x24 @932,5525]
+       img.payment-icon.h-6 [34x24 @978,5525]
+       img.payment-icon.h-6 [33x24 @1025,5525]
+       img.payment-icon.h-6 [34x24 @1070,5525]
+       img.payment-icon.h-6 [35x24 @1116,5525]
+       img.payment-icon.h-6 [33x24 @1163,5525]
+       img.payment-icon.h-6 [33x24 @1208,5525]
+       img.payment-icon.h-6 [34x24 @1254,5525]
+       img.payment-icon.h-6 [33x24 @1300,5525]
+       img.payment-icon.h-6 [35x24 @1345,5525]
+     div.flex.flex-col.items-center.p-6.pt-8 [1344x141 @48,5549]
+      picture.inline.w-36.md:w-auto.md:h-10.md:p-2 [263x40 @589,5581]
+       img.w-full.h-full.object-contain [247x24 @597,5589]
+      span.font-light.md:font-regular.text-sm.text-center.pb-4 "COPYRIGHT © 2026 BOOHOOMAN" [243x21 @598,5621] fs=14px fw=300

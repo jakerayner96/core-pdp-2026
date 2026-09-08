@@ -1,0 +1,3764 @@
+[
+ {
+  "name": "Regular Fit Premium 480gsm Washed Over the Head Hoodie",
+  "slug": "boohooman-regular-fit-premium-480gsm-washed-over-the-head-hoodie_cmm29606",
+  "productKey": "CMM29606",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "washed chocolate",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 31,
+  "sizes": [
+   "M",
+   "XS",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29606_washed%20chocolate_xl_s",
+  "objectID": "CMM29606#washed chocolate",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29606_washed%20chocolate_xl",
+   "https://mediahub.boohooman.com/cmm29606_washed%20chocolate_xl_1",
+   "https://mediahub.boohooman.com/cmm29606_washed%20chocolate_xl_2",
+   "https://mediahub.boohooman.com/cmm29606_washed%20chocolate_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed chocolate",
+    "colourFacet": "washed chocolate",
+    "image": "https://mediahub.boohooman.com/cmm29606_washed%20chocolate_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29606-10071-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29606_washed%20chocolate_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed chocolate",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback construction delivers a satisfyingly thick, substantial feel that holds its shape wash after wash</li>\n        <li>Regular fit cut through the shoulders and body for a relaxed, easy-wearing silhouette that works across a range of builds</li>\n        <l",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Premium 280gsm Washed T-Shirt",
+  "slug": "boohooman-oversized-premium-280gsm-washed-t-shirt_cmm29621",
+  "productKey": "CMM29621",
+  "price": 16,
+  "wasPrice": 16,
+  "colour": "washed chocolate",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 18,
+  "sizes": [
+   "M",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29621_washed%20chocolate_xl_s",
+  "objectID": "CMM29621#washed chocolate",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29621_washed%20chocolate_xl",
+   "https://mediahub.boohooman.com/cmm29621_washed%20chocolate_xl_1",
+   "https://mediahub.boohooman.com/cmm29621_washed%20chocolate_xl_2",
+   "https://mediahub.boohooman.com/cmm29621_washed%20chocolate_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed chocolate",
+    "colourFacet": "washed chocolate",
+    "image": "https://mediahub.boohooman.com/cmm29621_washed%20chocolate_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "S"
+    ],
+    "sku": "CMM29621-10071-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29621_washed%20chocolate_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed chocolate",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight single jersey cotton construction delivers a substantial, quality feel with a lived-in, washed finish that adds instant character</li>\n        <li>Oversized fit offers a relaxed, dropped shoulder silhouette for that effortlessly cool, laid-back aesthetic</li>\n ",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Premium 480gsm Washed Sweatshirt",
+  "slug": "boohooman-oversized-premium-480gsm-washed-sweatshirt_cmm29612",
+  "productKey": "CMM29612",
+  "price": 28,
+  "wasPrice": 28,
+  "colour": "washed chocolate",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 30,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29612_washed%20chocolate_xl_s",
+  "objectID": "CMM29612#washed chocolate",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29612_washed%20chocolate_xl",
+   "https://mediahub.boohooman.com/cmm29612_washed%20chocolate_xl_1",
+   "https://mediahub.boohooman.com/cmm29612_washed%20chocolate_xl_2",
+   "https://mediahub.boohooman.com/cmm29612_washed%20chocolate_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed chocolate",
+    "colourFacet": "washed chocolate",
+    "image": "https://mediahub.boohooman.com/cmm29612_washed%20chocolate_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29612-10071-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29612_washed%20chocolate_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed chocolate",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback construction delivers a substantial, structured feel that holds its shape wear after wear</li>\n        <li>Washed finish gives the sweatshirt an effortlessly worn-in, lived-in aesthetic straight out of the bag</li>\n        <li>Oversized regular fit thr",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Boxy Premium 480gsm Washed Zip Through Hoodie",
+  "slug": "boohooman-oversized-boxy-premium-480gsm-washed-zip-through-hoodie_cmm29598",
+  "productKey": "CMM29598",
+  "price": 35,
+  "wasPrice": 35,
+  "colour": "washed navy",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 21,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S",
+   "2XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29598_washed%20navy_xl_s",
+  "objectID": "CMM29598#washed navy",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29598_washed%20navy_xl",
+   "https://mediahub.boohooman.com/cmm29598_washed%20navy_xl_1",
+   "https://mediahub.boohooman.com/cmm29598_washed%20navy_xl_2",
+   "https://mediahub.boohooman.com/cmm29598_washed%20navy_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed navy",
+    "colourFacet": "washed navy",
+    "image": "https://mediahub.boohooman.com/cmm29598_washed%20navy_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S",
+     "2XL"
+    ],
+    "sku": "CMM29598-10070-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29598_washed%20navy_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed navy",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "2XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel with a satisfyingly thick weight that holds its shape wear after wear</li>\n        <li>Oversized boxy fit sits wide across the shoulders and chest, dropping into a relaxed, square silhouette t",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Straight Leg Premium 480gsm Washed Jogger",
+  "slug": "boohooman-straight-leg-premium-480gsm-washed-jogger_cmm29652",
+  "productKey": "CMM29652",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "washed navy",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 62,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S",
+   "5XL",
+   "4XL",
+   "3XL",
+   "2XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29652_washed%20navy_xl_s",
+  "objectID": "CMM29652#washed navy",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29652_washed%20navy_xl",
+   "https://mediahub.boohooman.com/cmm29652_washed%20navy_xl_1",
+   "https://mediahub.boohooman.com/cmm29652_washed%20navy_xl_2",
+   "https://mediahub.boohooman.com/cmm29652_washed%20navy_xl_3"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed navy",
+    "colourFacet": "washed navy",
+    "image": "https://mediahub.boohooman.com/cmm29652_washed%20navy_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S",
+     "5XL",
+     "4XL",
+     "3XL",
+     "2XL"
+    ],
+    "sku": "CMM29652-10070-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29652_washed%20navy_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed navy",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "5XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "4XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "3XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "2XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel that holds its shape wear after wear</li>\n        <li>Straight leg cut offers a clean, modern silhouette that sits comfortably through the thigh and falls evenly to the ankle</li>\n        <li>",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Premium 280gsm Washed T-Shirt",
+  "slug": "boohooman-oversized-premium-280gsm-washed-t-shirt_cmm29620",
+  "productKey": "CMM29620",
+  "price": 16,
+  "wasPrice": 16,
+  "colour": "washed navy",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 42,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S",
+   "5XL",
+   "3XL",
+   "2XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29620_washed%20navy_xl_s",
+  "objectID": "CMM29620#washed navy",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29620_washed%20navy_xl",
+   "https://mediahub.boohooman.com/cmm29620_washed%20navy_xl_1",
+   "https://mediahub.boohooman.com/cmm29620_washed%20navy_xl_2",
+   "https://mediahub.boohooman.com/cmm29620_washed%20navy_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed navy",
+    "colourFacet": "washed navy",
+    "image": "https://mediahub.boohooman.com/cmm29620_washed%20navy_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S",
+     "5XL",
+     "3XL",
+     "2XL"
+    ],
+    "sku": "CMM29620-10070-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29620_washed%20navy_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed navy",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "5XL"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "3XL"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "2XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight single jersey cotton construction delivers a substantial, quality feel with a satisfying weight that holds its shape wear after wear</li>\n        <li>Oversized fit offers a relaxed, roomy silhouette through the shoulders and body for that effortlessly laid-back",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 480gsm 1/4 Zip Funnel Neck Washed Sweatshirt",
+  "slug": "boohooman-regular-fit-premium-480gsm-1-4-zip-funnel-neck-washed-sweatshirt_cmm29645",
+  "productKey": "CMM29645",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "washed navy",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 83,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S",
+   "5XL",
+   "4XL",
+   "3XL",
+   "2XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29645_washed%20navy_xl_s",
+  "objectID": "CMM29645#washed navy",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29645_washed%20navy_xl",
+   "https://mediahub.boohooman.com/cmm29645_washed%20navy_xl_1",
+   "https://mediahub.boohooman.com/cmm29645_washed%20navy_xl_2",
+   "https://mediahub.boohooman.com/cmm29645_washed%20navy_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed navy",
+    "colourFacet": "washed navy",
+    "image": "https://mediahub.boohooman.com/cmm29645_washed%20navy_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S",
+     "5XL",
+     "4XL",
+     "3XL",
+     "2XL"
+    ],
+    "sku": "CMM29645-10070-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29645_washed%20navy_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed navy",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "5XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "4XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "3XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "2XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel that holds its shape wear after wear</li>\n        <li>Quarter-zip funnel neck design adds a distinctive utilitarian edge, offering adjustable coverage and a standout silhouette</li>\n        <l",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Boxy Premium 480gsm Zip Through Hoodie",
+  "slug": "boohooman-oversized-boxy-premium-480gsm-zip-through-hoodie_cmm29592",
+  "productKey": "CMM29592",
+  "price": 35,
+  "wasPrice": 35,
+  "colour": "stone",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 17,
+  "sizes": [
+   "M",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29592_stone_xl_s",
+  "objectID": "CMM29592#stone",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29592_stone_xl",
+   "https://mediahub.boohooman.com/cmm29592_stone_xl_1",
+   "https://mediahub.boohooman.com/cmm29592_stone_xl_2",
+   "https://mediahub.boohooman.com/cmm29592_stone_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "stone",
+    "colourFacet": "Beige",
+    "enrichedVideos": [
+     {
+      "desktop": {
+       "baseVideoUrl": "https://mediahub.debenhams.com/video/cmm29592_stone_xl_v"
+      }
+     }
+    ],
+    "image": "https://mediahub.boohooman.com/cmm29592_stone_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29592-165-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29592_stone_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "stone",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel with a satisfying weight that holds its shape wear after wear</li>\n        <li>Oversized boxy fit sits wide across the shoulders and chest, dropping into a relaxed, square silhouette that defi",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Wide Leg Premium 480gsm Jogger",
+  "slug": "boohooman-wide-leg-premium-480gsm-jogger_cmm29656",
+  "productKey": "CMM29656",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "stone",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 11,
+  "sizes": [
+   "M",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29656_stone_xl_s",
+  "objectID": "CMM29656#stone",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29656_stone_xl",
+   "https://mediahub.boohooman.com/cmm29656_stone_xl_1",
+   "https://mediahub.boohooman.com/cmm29656_stone_xl_2",
+   "https://mediahub.boohooman.com/cmm29656_stone_xl_3"
+  ],
+  "colourVariants": [
+   {
+    "colour": "stone",
+    "colourFacet": "Beige",
+    "image": "https://mediahub.boohooman.com/cmm29656_stone_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29656-165-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29656_stone_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "stone",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Wide leg silhouette offering a relaxed, contemporary fit that sits comfortably through the seat and thigh</li>\n        <li>Crafted from loopback fabric for a satisfyingly weighty feel with a smooth outer finish and soft interior</li>\n        <li>Heavyweight construction th",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Mens Clothing",
+   "Trousers",
+   "Joggers",
+   "Wide Leg Joggers"
+  ]
+ },
+ {
+  "name": "Oversized Premium 280gsm T-Shirt",
+  "slug": "boohooman-oversized-premium-280gsm-t-shirt_cmm29622",
+  "productKey": "CMM29622",
+  "price": 16,
+  "wasPrice": 16,
+  "colour": "stone",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 21,
+  "sizes": [
+   "M",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29622_stone_xl_s",
+  "objectID": "CMM29622#stone",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29622_stone_xl",
+   "https://mediahub.boohooman.com/cmm29622_stone_xl_1",
+   "https://mediahub.boohooman.com/cmm29622_stone_xl_2",
+   "https://mediahub.boohooman.com/cmm29622_stone_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "stone",
+    "colourFacet": "Beige",
+    "image": "https://mediahub.boohooman.com/cmm29622_stone_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29622-165-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29622_stone_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "stone",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight single jersey cotton construction delivers a substantial, quality feel with a structured drape that holds its shape wear after wear</li>\n        <li>Oversized fit offers a relaxed, roomy silhouette through the shoulders and body for that effortlessly laid-back ",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 480gsm 1/4 Zip Funnel Neck Sweatshirt",
+  "slug": "boohooman-regular-fit-premium-480gsm-1-4-zip-funnel-neck-sweatshirt_cmm29639",
+  "productKey": "CMM29639",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "stone",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 20,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29639_stone_xl_s",
+  "objectID": "CMM29639#stone",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29639_stone_xl",
+   "https://mediahub.boohooman.com/cmm29639_stone_xl_1",
+   "https://mediahub.boohooman.com/cmm29639_stone_xl_2",
+   "https://mediahub.boohooman.com/cmm29639_stone_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "stone",
+    "colourFacet": "Beige",
+    "image": "https://mediahub.boohooman.com/cmm29639_stone_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29639-165-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29639_stone_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "stone",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel with a satisfying weight that holds its shape wear after wear</li>\n        <li>Quarter-zip funnel neck design adds a refined edge to casual dressing, offering adjustable coverage and a distinc",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Boxy Premium 480gsm Zip Through Hoodie",
+  "slug": "boohooman-oversized-boxy-premium-480gsm-zip-through-hoodie_cmm29596",
+  "productKey": "CMM29596",
+  "price": 35,
+  "wasPrice": 35,
+  "colour": "light blue",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 38,
+  "sizes": [
+   "M",
+   "XS",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29596_light%20blue_xl_s",
+  "objectID": "CMM29596#light blue",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29596_light%20blue_xl",
+   "https://mediahub.boohooman.com/cmm29596_light%20blue_xl_1",
+   "https://mediahub.boohooman.com/cmm29596_light%20blue_xl_2",
+   "https://mediahub.boohooman.com/cmm29596_light%20blue_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "light blue",
+    "colourFacet": "Blue",
+    "image": "https://mediahub.boohooman.com/cmm29596_light%20blue_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29596-564-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29596_light%20blue_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "light blue",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel with a satisfying weight that holds its shape wear after wear</li>\n        <li>Oversized boxy fit sits wide across the shoulders and chest, creating that sought-after dropped-shoulder silhouet",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Straight Leg Premium 480gsm Jogger",
+  "slug": "boohooman-straight-leg-premium-480gsm-jogger_cmm29647",
+  "productKey": "CMM29647",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "light blue",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 31,
+  "sizes": [
+   "M",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29647_light%20blue_xl_s",
+  "objectID": "CMM29647#light blue",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29647_light%20blue_xl",
+   "https://mediahub.boohooman.com/cmm29647_light%20blue_xl_1",
+   "https://mediahub.boohooman.com/cmm29647_light%20blue_xl_2",
+   "https://mediahub.boohooman.com/cmm29647_light%20blue_xl_3"
+  ],
+  "colourVariants": [
+   {
+    "colour": "light blue",
+    "colourFacet": "Blue",
+    "image": "https://mediahub.boohooman.com/cmm29647_light%20blue_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29647-564-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29647_light%20blue_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "light blue",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a satisfyingly dense, structured feel that holds its shape wear after wear</li>\n        <li>Straight leg cut offers a clean, unfussy silhouette that sits comfortably through the thigh and falls evenly to the ankle</li>\n    ",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 480gsm 1/4 Zip Funnel Neck Sweatshirt",
+  "slug": "boohooman-regular-fit-premium-480gsm-1-4-zip-funnel-neck-sweatshirt_cmm29640",
+  "productKey": "CMM29640",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "light blue",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 46,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29640_light%20blue_xl_s",
+  "objectID": "CMM29640#light blue",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29640_light%20blue_xl",
+   "https://mediahub.boohooman.com/cmm29640_light%20blue_xl_1",
+   "https://mediahub.boohooman.com/cmm29640_light%20blue_xl_2",
+   "https://mediahub.boohooman.com/cmm29640_light%20blue_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "light blue",
+    "colourFacet": "Blue",
+    "image": "https://mediahub.boohooman.com/cmm29640_light%20blue_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29640-564-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29640_light%20blue_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "light blue",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel with a satisfying weight that holds its shape wear after wear</li>\n        <li>Quarter-zip funnel neck design adds a sharp, utilitarian edge - zip up fully for a sleek, streamlined silhouette ",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Premium 280gsm T-Shirt",
+  "slug": "boohooman-oversized-premium-280gsm-t-shirt_cmm29625",
+  "productKey": "CMM29625",
+  "price": 16,
+  "wasPrice": 16,
+  "colour": "light blue",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 43,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29625_light%20blue_xl_s",
+  "objectID": "CMM29625#light blue",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29625_light%20blue_xl",
+   "https://mediahub.boohooman.com/cmm29625_light%20blue_xl_1",
+   "https://mediahub.boohooman.com/cmm29625_light%20blue_xl_2",
+   "https://mediahub.boohooman.com/cmm29625_light%20blue_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "light blue",
+    "colourFacet": "Blue",
+    "image": "https://mediahub.boohooman.com/cmm29625_light%20blue_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29625-564-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29625_light%20blue_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "light blue",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight single jersey cotton construction delivers a substantial, structured feel that holds its shape wear after wear</li>\n        <li>Oversized fit offers a relaxed, roomy silhouette with dropped shoulders and an extended body length for that effortless street-ready ",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Boxy Premium 480gsm Washed Zip Through Hoodie",
+  "slug": "boohooman-oversized-boxy-premium-480gsm-washed-zip-through-hoodie_cmm29597",
+  "productKey": "CMM29597",
+  "price": 35,
+  "wasPrice": 35,
+  "colour": "washed chocolate",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 2,
+  "sizes": [
+   "M"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29597_washed%20chocolate_xl_s",
+  "objectID": "CMM29597#washed chocolate",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29597_washed%20chocolate_xl",
+   "https://mediahub.boohooman.com/cmm29597_washed%20chocolate_xl_1",
+   "https://mediahub.boohooman.com/cmm29597_washed%20chocolate_xl_2",
+   "https://mediahub.boohooman.com/cmm29597_washed%20chocolate_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed chocolate",
+    "colourFacet": "washed chocolate",
+    "enrichedVideos": [
+     {
+      "desktop": {
+       "baseVideoUrl": "https://mediahub.debenhams.com/video/cmm29597_washed%20chocolate_xl_v"
+      }
+     }
+    ],
+    "image": "https://mediahub.boohooman.com/cmm29597_washed%20chocolate_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M"
+    ],
+    "sku": "CMM29597-10071-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29597_washed%20chocolate_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed chocolate",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "M"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel with a lived-in washed finish that adds instant character</li>\n        <li>Oversized boxy fit sits wide across the shoulders and chest, creating a relaxed, dropped silhouette that's built for ",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Wide Leg Premium 480gsm Washed Jogger",
+  "slug": "boohooman-wide-leg-premium-480gsm-washed-jogger_cmm29654",
+  "productKey": "CMM29654",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "washed chocolate",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 9,
+  "sizes": [
+   "M",
+   "XS",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29654_washed%20chocolate_xl_s",
+  "objectID": "CMM29654#washed chocolate",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29654_washed%20chocolate_xl",
+   "https://mediahub.boohooman.com/cmm29654_washed%20chocolate_xl_1",
+   "https://mediahub.boohooman.com/cmm29654_washed%20chocolate_xl_2",
+   "https://mediahub.boohooman.com/cmm29654_washed%20chocolate_xl_3"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed chocolate",
+    "colourFacet": "washed chocolate",
+    "image": "https://mediahub.boohooman.com/cmm29654_washed%20chocolate_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "S"
+    ],
+    "sku": "CMM29654-10071-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29654_washed%20chocolate_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed chocolate",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Wide leg silhouette crafted in a loopback fabric for a relaxed, street-ready drape</li>\n        <li>Heavyweight construction offering substantial weight and structure for a premium-feel finish</li>\n        <li>Washed finish lending an effortlessly worn-in aesthetic straigh",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Mens Clothing",
+   "Trousers",
+   "Joggers",
+   "Wide Leg Joggers"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 480gsm 1/4 Zip Funnel Neck Washed Sweatshirt",
+  "slug": "boohooman-regular-fit-premium-480gsm-1-4-zip-funnel-neck-washed-sweatshirt_cmm29641",
+  "productKey": "CMM29641",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "washed chocolate",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 34,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29641_washed%20chocolate_xl_s",
+  "objectID": "CMM29641#washed chocolate",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29641_washed%20chocolate_xl",
+   "https://mediahub.boohooman.com/cmm29641_washed%20chocolate_xl_1",
+   "https://mediahub.boohooman.com/cmm29641_washed%20chocolate_xl_2",
+   "https://mediahub.boohooman.com/cmm29641_washed%20chocolate_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed chocolate",
+    "colourFacet": "washed chocolate",
+    "image": "https://mediahub.boohooman.com/cmm29641_washed%20chocolate_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29641-10071-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29641_washed%20chocolate_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed chocolate",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "Heavyweight 480GSM Regular Fit 1/4 Zip Washed Funnel Neck Sweater",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 280gm Washed Long Sleeve T-Shirt",
+  "slug": "boohooman-regular-fit-premium-280gm-washed-long-sleeve-t-shirt_cmm29630",
+  "productKey": "CMM29630",
+  "price": 20,
+  "wasPrice": 20,
+  "colour": "washed chocolate",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 29,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S",
+   "5XL",
+   "4XL",
+   "3XL",
+   "2XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29630_washed%20chocolate_xl_s",
+  "objectID": "CMM29630#washed chocolate",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29630_washed%20chocolate_xl",
+   "https://mediahub.boohooman.com/cmm29630_washed%20chocolate_xl_1",
+   "https://mediahub.boohooman.com/cmm29630_washed%20chocolate_xl_2",
+   "https://mediahub.boohooman.com/cmm29630_washed%20chocolate_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed chocolate",
+    "colourFacet": "washed chocolate",
+    "image": "https://mediahub.boohooman.com/cmm29630_washed%20chocolate_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S",
+     "5XL",
+     "4XL",
+     "3XL",
+     "2XL"
+    ],
+    "sku": "CMM29630-10071-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29630_washed%20chocolate_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed chocolate",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "5XL"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "4XL"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "3XL"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "2XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight single jersey cotton construction delivers a satisfying weight and structure that holds its shape wear after wear</li>\n        <li>Washed finish gives the fabric a lived-in, broken-in character straight out of the bag - no waiting required</li>\n        <li>Clas",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 480gsm Over the Head Hoodie",
+  "slug": "boohooman-regular-fit-premium-480gsm-over-the-head-hoodie_cmm29603",
+  "productKey": "CMM29603",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "stone",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 67,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29603_stone_xl_s",
+  "objectID": "CMM29603#stone",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29603_stone_xl",
+   "https://mediahub.boohooman.com/cmm29603_stone_xl_1",
+   "https://mediahub.boohooman.com/cmm29603_stone_xl_2",
+   "https://mediahub.boohooman.com/cmm29603_stone_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "stone",
+    "colourFacet": "Beige",
+    "image": "https://mediahub.boohooman.com/cmm29603_stone_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L"
+    ],
+    "sku": "CMM29603-165-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29603_stone_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "stone",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel that holds its shape wear after wear</li>\n        <li>Classic over-the-head silhouette with a generous hood for an effortlessly laid-back finish</li>\n        <li>Regular fit cut through the sh",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Straight Leg Premium 480gsm Jogger",
+  "slug": "boohooman-straight-leg-premium-480gsm-jogger_cmm29648",
+  "productKey": "CMM29648",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "stone",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 12,
+  "sizes": [
+   "S",
+   "M"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29648_stone_xl_s",
+  "objectID": "CMM29648#stone",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29648_stone_xl",
+   "https://mediahub.boohooman.com/cmm29648_stone_xl_1",
+   "https://mediahub.boohooman.com/cmm29648_stone_xl_2",
+   "https://mediahub.boohooman.com/cmm29648_stone_xl_3"
+  ],
+  "colourVariants": [
+   {
+    "colour": "stone",
+    "image": "https://mediahub.boohooman.com/cmm29648_stone_xl",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29648_stone_xl_s",
+    "isOnStock": true,
+    "sku": "CMM29648-165-30",
+    "colourFacet": "Beige",
+    "sizesInStock": [
+     "S",
+     "M"
+    ],
+    "video": ""
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "stone",
+    "sizePrices": [
+     {
+      "size": "S",
+      "price": {
+       "centamount": 3000
+      }
+     },
+     {
+      "size": "M",
+      "price": {
+       "centamount": 3000
+      }
+     }
+    ]
+   }
+  ],
+  "description": "<div>    <ul>        <li>Heavyweight loopback fabric construction delivers a satisfying weight and durability that holds its shape wear after wear</li>        <li>Straight leg cut offers a clean, modern silhouette that sits comfortably through the thigh and falls evenly to the ankle</li>        <li>",
+  "detail": [
+   "Plain"
+  ],
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": [
+   "Plain"
+  ],
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Premium 480gsm Sweatshirt",
+  "slug": "boohooman-oversized-premium-480gsm-sweatshirt_cmm29616",
+  "productKey": "CMM29616",
+  "price": 28,
+  "wasPrice": 28,
+  "colour": "stone",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 43,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29616_stone_xl_s",
+  "objectID": "CMM29616#stone",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29616_stone_xl",
+   "https://mediahub.boohooman.com/cmm29616_stone_xl_1",
+   "https://mediahub.boohooman.com/cmm29616_stone_xl_2",
+   "https://mediahub.boohooman.com/cmm29616_stone_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "stone",
+    "colourFacet": "Beige",
+    "image": "https://mediahub.boohooman.com/cmm29616_stone_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29616-165-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29616_stone_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "stone",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback construction delivers a substantial, structured feel that holds its shape wear after wear</li>\n        <li>Oversized regular fit through the shoulders and body for that effortlessly relaxed, street-ready silhouette</li>\n        <li>Classic crew necklin",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 280GSM Long Sleeve T-Shirt",
+  "slug": "boohooman-regular-fit-premium-280gsm-long-sleeve-t-shirt_cmm29631",
+  "productKey": "CMM29631",
+  "price": 20,
+  "wasPrice": 20,
+  "colour": "stone",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 26,
+  "sizes": [
+   "S",
+   "M",
+   "L",
+   "XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29631_stone_xl_s",
+  "objectID": "CMM29631#stone",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29631_stone_xl",
+   "https://mediahub.boohooman.com/cmm29631_stone_xl_1",
+   "https://mediahub.boohooman.com/cmm29631_stone_xl_2",
+   "https://mediahub.boohooman.com/cmm29631_stone_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "stone",
+    "image": "https://mediahub.boohooman.com/cmm29631_stone_xl",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29631_stone_xl_s",
+    "isOnStock": true,
+    "sku": "CMM29631-165-30",
+    "colourFacet": "Beige",
+    "sizesInStock": [
+     "S",
+     "M",
+     "L",
+     "XL"
+    ],
+    "video": ""
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "stone",
+    "sizePrices": [
+     {
+      "size": "S",
+      "price": {
+       "centamount": 2000
+      }
+     },
+     {
+      "size": "M",
+      "price": {
+       "centamount": 2000
+      }
+     },
+     {
+      "size": "L",
+      "price": {
+       "centamount": 2000
+      }
+     },
+     {
+      "size": "XL",
+      "price": {
+       "centamount": 2000
+      }
+     }
+    ]
+   }
+  ],
+  "description": "<div>    <ul>        <li>Heavyweight single jersey cotton construction delivers a satisfying weight and structure that holds its shape wear after wear</li>        <li>Regular fit cut offers a relaxed, easy silhouette through the chest and shoulders without feeling oversized</li>        <li>Classic c",
+  "detail": [
+   "Plain"
+  ],
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": [
+   "Plain"
+  ],
+  "breadcrumbs": [
+   "Mens",
+   "Mens Clothing",
+   "Tops",
+   "T-Shirts",
+   "Regular Fit T-Shirts"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 480gsm Washed Over the Head Hoodie",
+  "slug": "boohooman-regular-fit-premium-480gsm-washed-over-the-head-hoodie_cmm29605",
+  "productKey": "CMM29605",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "washed navy",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 33,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S",
+   "5XL",
+   "4XL",
+   "3XL",
+   "2XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29605_washed%20navy_xl_s",
+  "objectID": "CMM29605#washed navy",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29605_washed%20navy_xl",
+   "https://mediahub.boohooman.com/cmm29605_washed%20navy_xl_1",
+   "https://mediahub.boohooman.com/cmm29605_washed%20navy_xl_2",
+   "https://mediahub.boohooman.com/cmm29605_washed%20navy_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed navy",
+    "colourFacet": "washed navy",
+    "image": "https://mediahub.boohooman.com/cmm29605_washed%20navy_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S",
+     "5XL",
+     "4XL",
+     "3XL",
+     "2XL"
+    ],
+    "sku": "CMM29605-10070-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29605_washed%20navy_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed navy",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "5XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "4XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "3XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "2XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback construction delivers a substantial, structured feel that holds its shape wear after wear</li>\n        <li>Washed finish gives the hoodie a lived-in, broken-in aesthetic straight out of the bag</li>\n        <li>Over-the-head design with a classic hood ",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Wide Leg Premium 480gsm Washed Jogger",
+  "slug": "boohooman-wide-leg-premium-480gsm-washed-jogger_cmm29657",
+  "productKey": "CMM29657",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "washed navy",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 21,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S",
+   "3XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29657_washed%20navy_xl_s",
+  "objectID": "CMM29657#washed navy",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29657_washed%20navy_xl",
+   "https://mediahub.boohooman.com/cmm29657_washed%20navy_xl_1",
+   "https://mediahub.boohooman.com/cmm29657_washed%20navy_xl_2",
+   "https://mediahub.boohooman.com/cmm29657_washed%20navy_xl_3"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed navy",
+    "colourFacet": "washed navy",
+    "image": "https://mediahub.boohooman.com/cmm29657_washed%20navy_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S",
+     "3XL"
+    ],
+    "sku": "CMM29657-10070-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29657_washed%20navy_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed navy",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "3XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Wide leg silhouette crafted in a heavyweight loopback fabric for a substantial, structured drape</li>\n        <li>Washed finish gives these joggers a lived-in, worn-in aesthetic that sets them apart from standard sweats</li>\n        <li>Relaxed through the seat and thigh w",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Mens Clothing",
+   "Trousers",
+   "Joggers",
+   "Wide Leg Joggers"
+  ]
+ },
+ {
+  "name": "Oversized Premium 480gsm Washed Sweatshirt",
+  "slug": "boohooman-oversized-premium-480gsm-washed-sweatshirt_cmm29618",
+  "productKey": "CMM29618",
+  "price": 28,
+  "wasPrice": 28,
+  "colour": "washed navy",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 35,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "3XL",
+   "2XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29618_washed%20navy_xl_s",
+  "objectID": "CMM29618#washed navy",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29618_washed%20navy_xl",
+   "https://mediahub.boohooman.com/cmm29618_washed%20navy_xl_1",
+   "https://mediahub.boohooman.com/cmm29618_washed%20navy_xl_2",
+   "https://mediahub.boohooman.com/cmm29618_washed%20navy_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed navy",
+    "colourFacet": "washed navy",
+    "image": "https://mediahub.boohooman.com/cmm29618_washed%20navy_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "3XL",
+     "2XL"
+    ],
+    "sku": "CMM29618-10070-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29618_washed%20navy_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed navy",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "3XL"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "2XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback construction delivers a satisfying weight and structure that holds its shape wear after wear</li>\n        <li>Washed finish gives the sweatshirt an effortlessly worn-in, lived-in character straight out of the bag</li>\n        <li>Oversized regular fit ",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 280gm Washed Long Sleeve T-Shirt",
+  "slug": "boohooman-regular-fit-premium-280gm-washed-long-sleeve-t-shirt_cmm29629",
+  "productKey": "CMM29629",
+  "price": 20,
+  "wasPrice": 20,
+  "colour": "washed navy",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 34,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29629_washed%20navy_xl_s",
+  "objectID": "CMM29629#washed navy",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29629_washed%20navy_xl",
+   "https://mediahub.boohooman.com/cmm29629_washed%20navy_xl_1",
+   "https://mediahub.boohooman.com/cmm29629_washed%20navy_xl_2",
+   "https://mediahub.boohooman.com/cmm29629_washed%20navy_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed navy",
+    "colourFacet": "washed navy",
+    "image": "https://mediahub.boohooman.com/cmm29629_washed%20navy_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "S"
+    ],
+    "sku": "CMM29629-10070-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29629_washed%20navy_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed navy",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "Heavyweight Regular Fit Washed Long Sleeve T-Shirt",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Boxy Premium 480gsm Washed Zip Through Hoodie",
+  "slug": "boohooman-oversized-boxy-premium-480gsm-washed-zip-through-hoodie_cmm29595",
+  "productKey": "CMM29595",
+  "price": 35,
+  "wasPrice": 35,
+  "colour": "washed charcoal",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 12,
+  "sizes": [
+   "M",
+   "L",
+   "S",
+   "3XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29595_washed%20charcoal_xl_s",
+  "objectID": "CMM29595#washed charcoal",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29595_washed%20charcoal_xl",
+   "https://mediahub.boohooman.com/cmm29595_washed%20charcoal_xl_1",
+   "https://mediahub.boohooman.com/cmm29595_washed%20charcoal_xl_2",
+   "https://mediahub.boohooman.com/cmm29595_washed%20charcoal_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed charcoal",
+    "colourFacet": "washed charcoal",
+    "image": "https://mediahub.boohooman.com/cmm29595_washed%20charcoal_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "L",
+     "S",
+     "3XL"
+    ],
+    "sku": "CMM29595-9065-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29595_washed%20charcoal_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed charcoal",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "3XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, quality feel with a satisfyingly thick weight that holds its shape wear after wear</li>\n        <li>Oversized boxy fit offers a relaxed, roomy silhouette through the shoulders and body for that effortlessly l",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Wide Leg Premium 480gsm Washed Jogger",
+  "slug": "boohooman-wide-leg-premium-480gsm-washed-jogger_cmm29658",
+  "productKey": "CMM29658",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "washed charcoal",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 54,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S",
+   "5XL",
+   "4XL",
+   "3XL",
+   "2XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29658_washed%20charcoal_xl_s",
+  "objectID": "CMM29658#washed charcoal",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29658_washed%20charcoal_xl",
+   "https://mediahub.boohooman.com/cmm29658_washed%20charcoal_xl_1",
+   "https://mediahub.boohooman.com/cmm29658_washed%20charcoal_xl_2",
+   "https://mediahub.boohooman.com/cmm29658_washed%20charcoal_xl_3"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed charcoal",
+    "colourFacet": "washed charcoal",
+    "image": "https://mediahub.boohooman.com/cmm29658_washed%20charcoal_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S",
+     "5XL",
+     "4XL",
+     "3XL",
+     "2XL"
+    ],
+    "sku": "CMM29658-9065-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29658_washed%20charcoal_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed charcoal",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "5XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "4XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "3XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "2XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Wide leg silhouette crafted in a substantial loopback fabric for a relaxed, oversized drape through the leg</li>\n        <li>Washed finish gives these joggers a lived-in, worn-in aesthetic that adds instant character and depth to the look</li>\n        <li>Heavyweight const",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Mens Clothing",
+   "Trousers",
+   "Joggers",
+   "Wide Leg Joggers"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 280gm Washed Long Sleeve T-Shirt",
+  "slug": "boohooman-regular-fit-premium-280gm-washed-long-sleeve-t-shirt_cmm29634",
+  "productKey": "CMM29634",
+  "price": 20,
+  "wasPrice": 20,
+  "colour": "washed charcoal",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 31,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S",
+   "4XL",
+   "3XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29634_washed%20charcoal_xl_s",
+  "objectID": "CMM29634#washed charcoal",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29634_washed%20charcoal_xl",
+   "https://mediahub.boohooman.com/cmm29634_washed%20charcoal_xl_1",
+   "https://mediahub.boohooman.com/cmm29634_washed%20charcoal_xl_2",
+   "https://mediahub.boohooman.com/cmm29634_washed%20charcoal_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed charcoal",
+    "colourFacet": "washed charcoal",
+    "image": "https://mediahub.boohooman.com/cmm29634_washed%20charcoal_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S",
+     "4XL",
+     "3XL"
+    ],
+    "sku": "CMM29634-9065-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29634_washed%20charcoal_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed charcoal",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "4XL"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "3XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight single jersey cotton construction delivers a satisfying weight and structure that holds its shape wear after wear</li>\n        <li>Washed finish gives the fabric a lived-in, broken-in character straight out of the bag</li>\n        <li>Classic crew neckline keep",
+  "detail": "Washed",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Premium 280gsm Washed T-Shirt",
+  "slug": "boohooman-oversized-premium-280gsm-washed-t-shirt_cmm29623",
+  "productKey": "CMM29623",
+  "price": 16,
+  "wasPrice": 16,
+  "colour": "washed charcoal",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 14,
+  "sizes": [
+   "M",
+   "XS",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29623_washed%20charcoal_xl_s",
+  "objectID": "CMM29623#washed charcoal",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29623_washed%20charcoal_xl",
+   "https://mediahub.boohooman.com/cmm29623_washed%20charcoal_xl_1",
+   "https://mediahub.boohooman.com/cmm29623_washed%20charcoal_xl_2",
+   "https://mediahub.boohooman.com/cmm29623_washed%20charcoal_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "washed charcoal",
+    "colourFacet": "washed charcoal",
+    "image": "https://mediahub.boohooman.com/cmm29623_washed%20charcoal_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29623-9065-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29623_washed%20charcoal_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "washed charcoal",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 16
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight single jersey cotton construction delivers a substantial, structured feel that holds its shape wear after wear</li>\n        <li>Oversized fit drops through the shoulders and chest for that relaxed, roomy silhouette that's central to contemporary streetwear</li>",
+  "detail": "Washed",
+  "detailsAndCare": "100% Cotton. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 480gsm Over the Head Hoodie",
+  "slug": "boohooman-regular-fit-premium-480gsm-over-the-head-hoodie_cmm29602",
+  "productKey": "CMM29602",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "light blue",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 48,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29602_light%20blue_xl_s",
+  "objectID": "CMM29602#light blue",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29602_light%20blue_xl",
+   "https://mediahub.boohooman.com/cmm29602_light%20blue_xl_1",
+   "https://mediahub.boohooman.com/cmm29602_light%20blue_xl_2",
+   "https://mediahub.boohooman.com/cmm29602_light%20blue_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "light blue",
+    "colourFacet": "Blue",
+    "image": "https://mediahub.boohooman.com/cmm29602_light%20blue_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29602-564-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29602_light%20blue_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "light blue",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel that holds its shape wear after wear</li>\n        <li>Classic over-the-head silhouette with a generous hood for an effortlessly laid-back finish</li>\n        <li>Regular fit cut through the sh",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Wide Leg Premium 480gsm Jogger",
+  "slug": "boohooman-wide-leg-premium-480gsm-jogger_cmm29659",
+  "productKey": "CMM29659",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "light blue",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 38,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29659_light%20blue_xl_s",
+  "objectID": "CMM29659#light blue",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29659_light%20blue_xl",
+   "https://mediahub.boohooman.com/cmm29659_light%20blue_xl_1",
+   "https://mediahub.boohooman.com/cmm29659_light%20blue_xl_2",
+   "https://mediahub.boohooman.com/cmm29659_light%20blue_xl_3"
+  ],
+  "colourVariants": [
+   {
+    "colour": "light blue",
+    "colourFacet": "Blue",
+    "image": "https://mediahub.boohooman.com/cmm29659_light%20blue_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29659-564-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29659_light%20blue_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "light blue",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Wide leg silhouette cut for a relaxed, street-ready fit that sits comfortably through the seat and thigh</li>\n        <li>Crafted from a loopback fabric construction for a substantial, structured feel with a soft interior finish</li>\n        <li>Heavyweight build that hold",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Mens Clothing",
+   "Trousers",
+   "Joggers",
+   "Wide Leg Joggers"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 280gsm Long Sleeve T-Shirt",
+  "slug": "boohooman-regular-fit-premium-280gsm-long-sleeve-t-shirt_cmm29632",
+  "productKey": "CMM29632",
+  "price": 20,
+  "wasPrice": 20,
+  "colour": "light blue",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 44,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29632_light%20blue_xl_s",
+  "objectID": "CMM29632#light blue",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29632_light%20blue_xl",
+   "https://mediahub.boohooman.com/cmm29632_light%20blue_xl_1",
+   "https://mediahub.boohooman.com/cmm29632_light%20blue_xl_2",
+   "https://mediahub.boohooman.com/cmm29632_light%20blue_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "light blue",
+    "colourFacet": "Blue",
+    "image": "https://mediahub.boohooman.com/cmm29632_light%20blue_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29632-564-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29632_light%20blue_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "light blue",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 20
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight single jersey cotton construction delivers a satisfying weight and structure that holds its shape wear after wear</li>\n        <li>Regular fit cut offers a relaxed, easy silhouette through the chest and shoulders without feeling oversized</li>\n        <li>Class",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Premium 480gsm Sweatshirt",
+  "slug": "boohooman-oversized-premium-480gsm-sweatshirt_cmm29615",
+  "productKey": "CMM29615",
+  "price": 28,
+  "wasPrice": 28,
+  "colour": "light blue",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 48,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29615_light%20blue_xl_s",
+  "objectID": "CMM29615#light blue",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29615_light%20blue_xl",
+   "https://mediahub.boohooman.com/cmm29615_light%20blue_xl_1",
+   "https://mediahub.boohooman.com/cmm29615_light%20blue_xl_2",
+   "https://mediahub.boohooman.com/cmm29615_light%20blue_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "light blue",
+    "colourFacet": "Blue",
+    "image": "https://mediahub.boohooman.com/cmm29615_light%20blue_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S"
+    ],
+    "sku": "CMM29615-564-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29615_light%20blue_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "light blue",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "S"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback construction delivers a substantial, structured feel with a satisfyingly thick weight that holds its shape wear after wear</li>\n        <li>Oversized regular fit through the shoulders and body creates that effortlessly relaxed silhouette that's central",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Boxy Premium 480gsm Zip Through Hoodie",
+  "slug": "boohooman-oversized-boxy-premium-480gsm-zip-through-hoodie_cmm29591",
+  "productKey": "CMM29591",
+  "price": 35,
+  "wasPrice": 35,
+  "colour": "black",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 58,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S",
+   "3XL",
+   "2XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29591_black_xl_s",
+  "objectID": "CMM29591#black",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29591_black_xl",
+   "https://mediahub.boohooman.com/cmm29591_black_xl_1",
+   "https://mediahub.boohooman.com/cmm29591_black_xl_2",
+   "https://mediahub.boohooman.com/cmm29591_black_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "black",
+    "colourFacet": "Black",
+    "image": "https://mediahub.boohooman.com/cmm29591_black_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S",
+     "3XL",
+     "2XL"
+    ],
+    "sku": "CMM29591-105-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29591_black_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "black",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "3XL"
+     },
+     {
+      "price": {
+       "centamount": 35
+      },
+      "size": "2XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel with a satisfying weight that holds its shape wear after wear</li>\n        <li>Oversized boxy fit sits wide across the shoulders and chest, creating that sought-after relaxed silhouette that d",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Wide Leg Premium 480gsm Jogger",
+  "slug": "boohooman-wide-leg-premium-480gsm-jogger_cmm29660",
+  "productKey": "CMM29660",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "black",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 56,
+  "sizes": [
+   "M",
+   "XS",
+   "XL",
+   "L",
+   "S",
+   "3XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29660_black_xl_s",
+  "objectID": "CMM29660#black",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29660_black_xl",
+   "https://mediahub.boohooman.com/cmm29660_black_xl_1",
+   "https://mediahub.boohooman.com/cmm29660_black_xl_2",
+   "https://mediahub.boohooman.com/cmm29660_black_xl_3"
+  ],
+  "colourVariants": [
+   {
+    "colour": "black",
+    "colourFacet": "Black",
+    "image": "https://mediahub.boohooman.com/cmm29660_black_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "XL",
+     "L",
+     "S",
+     "3XL"
+    ],
+    "sku": "CMM29660-105-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29660_black_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "black",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "XL"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 30
+      },
+      "size": "3XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Wide leg silhouette cut for a relaxed, oversized drape that sits comfortably through the hip and thigh</li>\n        <li>Loopback fabric construction delivers a satisfying weight and softness, built to hold its shape wear after wear</li>\n        <li>Heavyweight build makes ",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Mens Clothing",
+   "Trousers",
+   "Joggers",
+   "Wide Leg Joggers"
+  ]
+ },
+ {
+  "name": "Oversized Premium 480gsm Sweatshirt",
+  "slug": "boohooman-oversized-premium-480gsm-sweatshirt_cmm29619",
+  "productKey": "CMM29619",
+  "price": 28,
+  "wasPrice": 28,
+  "colour": "black",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 64,
+  "sizes": [
+   "M",
+   "XS",
+   "L",
+   "S",
+   "3XL",
+   "2XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29619_black_xl_s",
+  "objectID": "CMM29619#black",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29619_black_xl",
+   "https://mediahub.boohooman.com/cmm29619_black_xl_1",
+   "https://mediahub.boohooman.com/cmm29619_black_xl_2",
+   "https://mediahub.boohooman.com/cmm29619_black_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "black",
+    "colourFacet": "Black",
+    "image": "https://mediahub.boohooman.com/cmm29619_black_xl",
+    "isOnStock": true,
+    "sizesInStock": [
+     "M",
+     "XS",
+     "L",
+     "S",
+     "3XL",
+     "2XL"
+    ],
+    "sku": "CMM29619-105-56",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29619_black_xl_s"
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "black",
+    "sizePrices": [
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "M"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "XS"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "L"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "S"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "3XL"
+     },
+     {
+      "price": {
+       "centamount": 28
+      },
+      "size": "2XL"
+     }
+    ]
+   }
+  ],
+  "description": "<div>\n    <ul>\n        <li>Heavyweight loopback construction delivers a substantial, structured feel that holds its shape wear after wear</li>\n        <li>Oversized regular fit through the shoulders and body for that effortlessly relaxed, dropped silhouette</li>\n        <li>Classic crew neckline kee",
+  "detail": "Plain",
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": "Plain",
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Oversized Premium 280gsm T-Shirt",
+  "slug": "boohooman-oversized-premium-280gsm-t-shirt_cmm29628",
+  "productKey": "CMM29628",
+  "price": 16,
+  "wasPrice": 16,
+  "colour": "black",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 39,
+  "sizes": [
+   "XS",
+   "S",
+   "M",
+   "L",
+   "2XL",
+   "4XL",
+   "5XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29628_black_xl_s",
+  "objectID": "CMM29628#black",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29628_black_xl",
+   "https://mediahub.boohooman.com/cmm29628_black_xl_1",
+   "https://mediahub.boohooman.com/cmm29628_black_xl_2",
+   "https://mediahub.boohooman.com/cmm29628_black_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "black",
+    "image": "https://mediahub.boohooman.com/cmm29628_black_xl",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29628_black_xl_s",
+    "isOnStock": true,
+    "sku": "CMM29628-105-37",
+    "colourFacet": "Black",
+    "sizesInStock": [
+     "XS",
+     "S",
+     "M",
+     "L",
+     "2XL",
+     "4XL",
+     "5XL"
+    ],
+    "video": ""
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "black",
+    "sizePrices": [
+     {
+      "size": "XS",
+      "price": {
+       "centamount": 1600
+      }
+     },
+     {
+      "size": "S",
+      "price": {
+       "centamount": 1600
+      }
+     },
+     {
+      "size": "M",
+      "price": {
+       "centamount": 1600
+      }
+     },
+     {
+      "size": "L",
+      "price": {
+       "centamount": 1600
+      }
+     },
+     {
+      "size": "2XL",
+      "price": {
+       "centamount": 1600
+      }
+     },
+     {
+      "size": "4XL",
+      "price": {
+       "centamount": 1600
+      }
+     },
+     {
+      "size": "5XL",
+      "price": {
+       "centamount": 1600
+      }
+     }
+    ]
+   }
+  ],
+  "description": "<div>    <ul>        <li>Heavyweight single jersey cotton construction delivers a substantial, structured feel that holds its shape wear after wear</li>        <li>Oversized fit offers a relaxed, roomy silhouette with dropped shoulders and an extended body length for that effortless street-ready loo",
+  "detail": [
+   "Plain"
+  ],
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": [
+   "Plain"
+  ],
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ },
+ {
+  "name": "Regular Fit Premium 480gsm 1/4 Zip Funnel Neck Sweatshirt",
+  "slug": "boohooman-regular-fit-premium-480gsm-1-4-zip-funnel-neck-sweatshirt_cmm29643",
+  "productKey": "CMM29643",
+  "price": 30,
+  "wasPrice": 30,
+  "colour": "black",
+  "productType": "debenhams-product-type",
+  "isOnStock": true,
+  "availableQuantity": 71,
+  "sizes": [
+   "XS",
+   "S",
+   "M",
+   "L",
+   "XL",
+   "2XL",
+   "3XL"
+  ],
+  "swatchImage": "https://mediahub.boohooman.com/cmm29643_black_xl_s",
+  "objectID": "CMM29643#black",
+  "images": [
+   "https://mediahub.boohooman.com/cmm29643_black_xl",
+   "https://mediahub.boohooman.com/cmm29643_black_xl_1",
+   "https://mediahub.boohooman.com/cmm29643_black_xl_2",
+   "https://mediahub.boohooman.com/cmm29643_black_xl_4"
+  ],
+  "colourVariants": [
+   {
+    "colour": "black",
+    "image": "https://mediahub.boohooman.com/cmm29643_black_xl",
+    "swatchImage": "https://mediahub.boohooman.com/cmm29643_black_xl_s",
+    "isOnStock": true,
+    "sku": "CMM29643-105-37",
+    "colourFacet": "Black",
+    "sizesInStock": [
+     "XS",
+     "S",
+     "M",
+     "L",
+     "XL",
+     "2XL",
+     "3XL"
+    ],
+    "video": ""
+   }
+  ],
+  "pricesBySize": [
+   {
+    "colour": "black",
+    "sizePrices": [
+     {
+      "size": "XS",
+      "price": {
+       "centamount": 3000
+      }
+     },
+     {
+      "size": "S",
+      "price": {
+       "centamount": 3000
+      }
+     },
+     {
+      "size": "M",
+      "price": {
+       "centamount": 3000
+      }
+     },
+     {
+      "size": "L",
+      "price": {
+       "centamount": 3000
+      }
+     },
+     {
+      "size": "XL",
+      "price": {
+       "centamount": 3000
+      }
+     },
+     {
+      "size": "2XL",
+      "price": {
+       "centamount": 3000
+      }
+     },
+     {
+      "size": "3XL",
+      "price": {
+       "centamount": 3000
+      }
+     }
+    ]
+   }
+  ],
+  "description": "<div>    <ul>        <li>Heavyweight loopback fabric construction delivers a substantial, structured feel that holds its shape wear after wear</li>        <li>Quarter-zip funnel neck design adds a distinctive sportswear-inspired edge, offering adjustable coverage and a sharp finish at the collar</li",
+  "detail": [
+   "Plain"
+  ],
+  "detailsAndCare": "80% Cotton, 20% Polyester. Model is 6'1 & wears UK size M/32",
+  "design": [
+   "Plain"
+  ],
+  "breadcrumbs": [
+   "Mens",
+   "Shop By Collection",
+   "Mens Activewear",
+   "Gym Clothing",
+   "Gym Tracksuits"
+  ]
+ }
+]

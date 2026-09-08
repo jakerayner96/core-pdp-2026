@@ -1,0 +1,311 @@
+/* ============================================================
+   DEBENHAMS GROUP DESIGN SYSTEM — COMPONENTS
+   Consumes tokens.css only — no raw colour, font or radius values
+   (the one exception is flagged inline). Load AFTER tokens.css.
+
+   C-01 Button (.bd) — signed-off: colour-alignment brand-colours (post-KM, 26 Aug)
+   (DS file → BUTTONS (new) · 9144-1807). Spec on the site: #button.
+   New components built in project branches get promoted into this
+   file when the brief merges.
+   ============================================================ */
+
+/* C-01 Button */
+/* C-01 golden truth (colour-alignment brand-colours, signed-off 26 Aug): 50px, 16/24, 4px radius on
+   EVERY fascia (PLT/Brand Room square-radius modes do not zero buttons), primary uppercase (KM sentence). */
+.bd{font-family:var(--font-family-base);font-weight:var(--w-btn,var(--w-strong));font-size:16px;line-height:24px;padding:12px 24px;border-radius:4px;text-transform:var(--case-btn1,uppercase);letter-spacing:.02em;border:1px solid transparent;cursor:pointer;transition:background var(--dur-fast) var(--ease-standard)}
+.bd.pri{background:var(--surface-action);color:var(--text-on-action)}
+.bd.pri:hover{background:var(--surface-action-hover)}
+.bd.pri:active{background:var(--surface-action-pressed)}
+.bd.sec{background:var(--surface-page,#FFF);color:#000;border-color:var(--btn-outline,var(--border-action));text-transform:var(--case-btn2,none)} /* secondary: white, brand outline, black label, sentence case */
+.bd.dis{background:var(--surface-action-disabled);color:#767676;cursor:not-allowed} /* #767676: golden-truth disabled label — reconcile vs text/disabled Grey 3, see Button spec */
+.bd.spn{background:var(--surface-action);color:var(--text-on-action);min-width:110px}
+.bd.spn i{display:inline-block;width:13px;height:13px;border:2px solid var(--text-on-action);border-right-color:transparent;border-radius:99px;animation:sp .7s linear infinite;vertical-align:-2px}
+.bd:focus-visible{outline:var(--border-w-focus) solid var(--border-focus);outline-offset:2px}
+@keyframes sp{to{transform:rotate(1turn)}}
+
+/* ============================================================
+   C-02 Product Card (.pc)
+   Figma: DS file aIHmkCaTy9c5EWOxAGw0So → 5992-10841 (hero asset;
+   variable layers per 12999-146812). Mobile 170 / desktop 300 —
+   here fluid: the grid sizes the card. Boolean layers = optional
+   child elements. Icons from assets/ds/icons/ (exported from Figma).
+   ============================================================ */
+.pc{display:flex;flex-direction:column;gap:12px;font-family:var(--font-family-base);color:var(--text-primary);position:relative;min-width:0}
+.pc-img{aspect-ratio:2/3;background:var(--surface-media);position:relative;overflow:hidden;width:100%} /* square corners — matches live + Figma */
+.pc-img img.ph{width:100%;height:100%;object-fit:cover;display:block}
+.pc-actions{position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:8px;align-items:center}
+.pc-iconbtn{width:32px;height:32px;min-width:32px;border-radius:var(--radius-pill);background:var(--surface-raised);border:none;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(15,15,15,.14);padding:0}
+.pc-iconbtn img{width:16px;height:16px;display:block;object-fit:contain}
+.pc-iconbtn:focus-visible{outline:var(--border-w-focus) solid var(--border-focus);outline-offset:2px}
+.pc-iconbtn--sq{border-radius:var(--radius-default)} /* boohooMAN / KM / Brand Room run square wishlist buttons */
+.pc-iconbtn--chip{width:24px;height:24px;min-width:24px;border-radius:var(--radius-default);background:var(--badge-bg);box-shadow:none;backdrop-filter:blur(2px)} /* chip follows brand radius: 4px MAN/Deb-side, square PLT/Brand Room (Figma 3-574) */
+.pc-iconbtn--chip img{width:13px;height:13px}
+.pc-fav--plain{background:none;box-shadow:none;width:28px;height:28px;min-width:28px}
+.pc-fav--plain img{width:22px;height:22px;object-fit:contain}
+/* badges — bottom-left stack (Petite / Plus / Sale …); AI banner pinned to the image foot */
+.pc-badges{position:absolute;left:12px;bottom:12px;display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.pc-badges.has-ai{bottom:32px}
+.badge{display:inline-flex;align-items:center;height:28px;padding:4px 8px;background:var(--badge-bg);backdrop-filter:blur(3.5px);border:var(--border-w) solid var(--badge-border);border-radius:var(--radius-default);font-family:var(--font-family-base);font-size:12px;font-weight:var(--w-regular);color:var(--badge-fg);white-space:nowrap;text-transform:var(--cta-case)}
+.badge--sale{color:var(--price-sale)}
+.badge-ai{position:absolute;left:0;right:0;bottom:0;background:var(--ai-bg);color:var(--ai-fg);backdrop-filter:blur(3.5px);font-family:var(--font-family-base);font-size:10px;font-weight:var(--w-regular);letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:4px 8px}
+.badge-ai b{font-weight:var(--w-mid)}
+/* quick add — full-width button variant */
+.pc-add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:40px;padding:8px 24px;background:var(--surface-raised);border:var(--border-w) solid var(--border-subtle);border-radius:var(--radius-default);font-family:var(--font-family-base);font-size:16px;font-weight:var(--w-mid);color:var(--text-primary);cursor:pointer;text-transform:var(--cta-case)}
+.pc-add img{width:24px;height:24px;object-fit:contain}
+.pc-add:hover{border-color:var(--border-strong)}
+.pc-add:focus-visible{outline:var(--border-w-focus) solid var(--border-focus);outline-offset:2px}
+/* taggstar social proof */
+.pc-taggstar{display:flex;align-items:center;gap:4px;background:var(--surface-callout);color:var(--text-inverse);border-radius:var(--radius-default);padding:4px 8px} /* text inherits the card size — same as product name */
+.pc-taggstar img{width:12px;height:12px;object-fit:contain;filter:invert(1)}
+.pc-taggstar b{font-weight:var(--w-strong)}
+.pc-taggstar span{font-weight:var(--w-regular)}
+.pc-taggstar--brand{background:var(--brand-light-3);color:var(--text-primary)} /* boohoo runs it brand-tinted */
+.pc-taggstar--brand img{filter:none}
+.pc-taggstar--lt{background:var(--surface-media);color:var(--text-primary);width:fit-content;border-radius:var(--radius-default)} /* MAN live: grey inline pill, flame + #N bestseller */
+.pc-taggstar--lt img{filter:none}
+/* info block */
+.pc-info{display:flex;flex-direction:column;gap:8px;font-size:14px;min-width:0}
+.pc-sponsored{color:var(--text-secondary);font-weight:var(--w-mid)} /* Figma uses Grey 4 — lifted to Grey 5 for the AA text floor */
+.pc-titles{display:flex;flex-direction:column;gap:4px;min-width:0}
+.pc-brand{font-weight:var(--w-strong)}
+.pc-name{font-weight:var(--w-regular);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.pc-price{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.pc-price .now{font-weight:var(--w-strong)}
+.pc-price.sale .now,.pc-price .pct{color:var(--price-sale)}
+.pc-price .was{font-weight:var(--w-mid);text-decoration:line-through}
+.pc-price .pct{font-weight:var(--w-regular)}
+.pc-offer{color:var(--price-sale);font-weight:var(--w-regular);margin-top:-6px} /* 2px from the price line */
+.pc-ndd{display:flex;gap:6px;align-items:center;font-weight:var(--w-regular);color:var(--text-primary)} /* inherits the card text size — same as product name */
+.pc-ndd img{width:16px;height:16px;object-fit:contain}
+/* colour swatches */
+.pc-swatches{display:flex;gap:8px;align-items:center;height:20px}
+.pc-swatches .set{display:flex;gap:4px}
+/* Figma 921-7470 exact: 20px, 4px radius (3px fill) on every fascia, Grey 2 border,
+   selected = black border + white inner keyline, 4px swatch gaps, +N 14px at 8px gap */
+.pc-swatch{width:20px;height:20px;border:var(--border-w) solid var(--border-subtle);border-radius:4px;padding:0;background:var(--surface-raised);overflow:hidden}
+.pc-swatch i{display:block;width:100%;height:100%;border-radius:3px}
+.pc-swatch.on{border-color:var(--icon-primary)}
+.pc-swatch.on i{border:1px solid #FFF}
+.pc-more{font-weight:var(--w-regular);font-size:14px}
+.pc-swatches--round .pc-swatch,.pc-swatches--round .pc-swatch i{border-radius:var(--radius-pill)} /* PLT runs circle swatches */
+.pc-swatches--round .pc-swatch{border-color:transparent}
+.pc-swatches--round .pc-swatch.on{border-color:var(--icon-primary)}
+/* ratings */
+.pc-stars{display:flex;gap:8px;align-items:center}
+.pc-stars .set{display:flex;gap:2px}
+.pc-stars img{width:12px;height:12px;display:block;object-fit:contain}
+.pc-stars span{font-weight:var(--w-regular)}
+/* compact variant — the shorter PLT / Brand Room format, the target for all fascias */
+.pc--compact{gap:8px}
+.pc--compact .pc-info{gap:6px;font-size:12px}
+.pc--compact .pc-titles{gap:2px}
+.pc--compact .pc-brand{font-size:11px;letter-spacing:.04em} /* title case, never caps */
+.pc--compact .pc-name{font-size:12px}
+.pc--compact .pc-price{font-size:13px}
+.pc--compact .pc-offer,.pc--compact .pc-sponsored{font-size:11px}
+.pc--compact .pc-offer{margin-top:-4px}
+.pc--compact .pc-iconbtn{width:28px;height:28px;min-width:28px}
+.pc--compact .pc-iconbtn img{width:14px;height:14px}
+.pc--compact .badge{height:24px;font-size:11px}
+.pc--compact .pc-add{min-height:36px;font-size:14px}
+.pc--compact .pc-add img{width:20px;height:20px}
+.pc-name--caps{text-transform:uppercase;letter-spacing:.02em} /* PLT names run uppercase */
+/* flush variant — full-bleed zero-gutter grids (boohooMAN new): text insets 4px under the image */
+.pc--flush .pc-info{padding:0 4px 12px}
+.pc--flush .pc-taggstar,.pc--flush .pc-add{margin:0 4px}
+
+/* ============================================================
+   C-03 PLP Header (.hd) — one template, brand tokens style it
+   Figma: header 3793-3545 · USP banner 11982-37171 (same file)
+   ============================================================ */
+.hd{background:var(--surface-page);font-family:var(--font-family-base);color:var(--text-primary)}
+.hd-usp{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;padding:8px 16px;min-height:63px;background:var(--usp-a-bg);color:var(--usp-a-fg);font-size:12px;font-weight:var(--w-regular);text-transform:var(--cta-case);text-align:center}
+.hd-usp b{font-weight:var(--w-strong)}
+@media(min-width:1024px){.hd-usp{font-size:14px}}
+.hd-usp--b{background:var(--usp-b-bg);color:var(--usp-b-fg)}
+/* USP strip — the multi-cell banner from the Header Figma (cells alternate usp-a / usp-a2) */
+.usp-strip{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px;font-family:var(--font-family-base);text-align:center;background:var(--usp-a-bg);padding:0 16px;max-width:100%} /* 16px side margin, per production */
+.usp-strip:empty{display:none}
+.usp-cell{padding:8px;min-height:63px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:var(--usp-a-bg);color:var(--usp-a-fg);font-size:14px;font-weight:var(--w-regular);text-transform:var(--cta-case)}
+.usp-cell:nth-child(even){background:var(--usp-a-bg2,var(--usp-a-bg))}
+.usp-cell b{font-weight:var(--w-strong);font-size:14px;line-height:21px}
+.usp-cell u{text-underline-offset:2px;cursor:pointer;font-size:14px;line-height:1.1}
+.usp-cell .s{font-weight:var(--w-regular);line-height:1.1}
+.usp-cell .s.cd,.hd-usp .s.cd{color:var(--usp-cd-live,currentColor)} /* live countdown accent — MAN red, PLT black (production) */
+.hd-usp--top{background:var(--usp-top-bg,var(--usp-a-bg));color:var(--usp-top-fg,var(--usp-a-fg))}
+.hd-usp:has(.s){flex-direction:column;gap:2px} /* two-line bar: bold headline over the sub line */
+.hd-usp .s{font-weight:var(--w-regular)}
+/* mobile: one message at a time, rotating (Figma 13005-165658) */
+@media(max-width:1023px){.usp-strip{grid-auto-flow:row;grid-template-columns:1fr;padding:0 16px}.usp-strip .usp-cell{display:none;min-height:56px}.usp-strip .usp-cell.rot-on{display:flex}.hd-usp{min-height:56px}}
+/* rotating cells animate in */
+@keyframes usp-rotate{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:1023px){.usp-strip .usp-cell.rot-on{animation:usp-rotate var(--dur-slow) var(--ease-standard)}}
+/* the bar below pins to the top of the PLP window on scroll (Figma 13005-165567) */
+.hd-usp--sticky{position:sticky;top:0;z-index:var(--z-sticky)}
+.hd-usp[hidden]{display:none}
+/* USP banner content — Figma 11982-37171. Separator is a 4px dash (never a mid-dot);
+   'Code:' label regular, code value strong; countdown digits strong (Black/Red variant sets --usp-cd red);
+   caveat = 10px caption line. RULE (design + dev build): an asterisk may only appear in banner copy
+   when the Caveat type is used — the caption text is a required prop. No caption, no asterisk. */
+.usp-sep{display:inline-block;width:4px;height:1px;background:currentColor;vertical-align:middle;margin:0 8px;flex:none}
+.usp-row{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;row-gap:2px}
+.usp-row .usp-t{white-space:normal}
+.usp-sep.wrapbr{display:block;width:100%;height:0;margin:0;background:none} /* wrapped sections: the dash yields to a line break */
+.hd-usp:has(.usp-cd),.usp-cell:has(.usp-cd){flex-direction:column;gap:4px} /* countdown always sits on its own row */
+.usp-cav{display:block;width:100%;font-size:10px;font-weight:var(--w-regular);line-height:1;padding-bottom:4px;text-align:center}
+.usp-cd{display:inline-flex;gap:1px;align-items:center;font-weight:var(--w-strong);color:var(--usp-cd,currentColor)}
+.usp-cd i{font-style:normal;width:5px;text-align:center;padding-bottom:2px;color:var(--usp-a-fg,currentColor)} /* colons stay banner-ink on the Black/Red variant */
+.hd-bar{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 16px;gap:16px}
+.hd-left{display:flex;align-items:center;gap:16px;min-width:0}
+.hd-burger{width:24px;height:24px;min-width:24px;background:none;border:none;padding:0;cursor:pointer}
+.hd-burger img{width:100%;height:100%;display:block;object-fit:contain}
+.hd-logo{height:16px;width:auto;max-width:130px;object-fit:contain;object-position:left;display:block} /* Header component: mobile ~16px */
+.hd-icons{display:flex;align-items:center}
+.hd-icons button{width:38px;height:36px;display:grid;place-items:center;background:none;border:none;cursor:pointer;padding:0}
+.hd-icons img{width:var(--hd-icon,24px);height:var(--hd-icon,24px);display:block;object-fit:contain}
+.hd-icons img.favic{width:var(--hd-favic,21px);height:var(--hd-favic,21px)} /* wishlist glyph runs large — optically match siblings */
+.hd-icons button:focus-visible,.hd-burger:focus-visible{outline:var(--border-w-focus) solid var(--border-focus);outline-offset:2px}
+/* desktop bar (≥1024): logo · centred pill search · icons */
+.hd-bar--desktop{height:88px;padding:16px var(--plp-margin,16px);max-width:2000px;margin:0 auto}
+.hd-bar--desktop .hd-logo{height:20px;max-width:141px} /* Header component: 141×20 */
+.hd-search{flex:1;max-width:800px;margin:0 auto;height:52px;background:var(--surface-media);border:none;border-radius:var(--radius-pill);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;font-family:var(--font-family-base);font-size:16px;font-weight:var(--w-regular);color:var(--text-secondary);cursor:text}
+.hd-search .ics{display:flex;gap:20px;align-items:center}
+.hd-search img{width:22px;height:22px;display:block;object-fit:contain}
+.hd-search--underline{background:transparent;border-radius:0;border-bottom:var(--border-w) solid var(--icon-primary);padding:0 4px} /* PLT pattern */
+.hd-nav{display:flex;gap:16px;align-items:center;justify-content:center;height:40px;max-width:2000px;margin:0 auto;background:var(--nav-bg);color:var(--nav-fg);font-size:15px;font-weight:var(--w-mid);text-transform:var(--cta-case);overflow-x:auto;padding:0 16px}
+.hd-nav a{color:inherit;text-decoration:none;white-space:nowrap}
+.hd-nav a.sale{color:var(--text-error);font-weight:var(--w-strong)}
+.hd-nav a:hover{text-decoration:underline}
+
+/* ============================================================
+   C-04 Sort & Filter (.sf) — combined pattern (winning A/B/C route)
+   Figma: s7WDE3BkCxbgqJ4x4hoV80 → 1783-11572
+   Desktop = dropdown row · Mobile = NDD toggle + Sort & Filter → sheet
+   ============================================================ */
+.sf-bar{display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap;padding:12px 0;font-family:var(--font-family-base);font-size:14px;color:var(--text-primary)}
+.sf-bar--strip{} /* desktop strip under the category links — borderless per review */
+/* mobile split bar — live platform pattern: Filters ⚏ | Relevance ⌄ */
+.sf-split{display:grid;grid-template-columns:1fr 1fr;border-top:var(--border-w) solid var(--border-subtle);border-bottom:var(--border-w) solid var(--border-subtle);font-family:var(--font-family-base);font-size:15px;color:var(--text-primary);margin:0 calc(var(--plp-margin,16px) * -1)} /* rules run edge to edge; button padding keeps labels on the margin */
+.sf-split button{display:flex;align-items:center;justify-content:space-between;height:48px;padding:0 16px;font-family:inherit;font-size:inherit;color:inherit;text-align:left}
+.sf-split button+button{border-left:var(--border-w) solid var(--border-subtle)}
+.sf-split i.ch{width:16px;height:16px;background:url("icons/lib/icons-down.svg") center/contain no-repeat}
+.sf-split .fic{width:18px;height:18px;background:url("icons/lib/icons-filter.svg") center/contain no-repeat;display:inline-block}
+.sf-dd{display:inline-flex;align-items:center;justify-content:space-between;gap:10px;width:160px;height:42px;padding:8px;background:var(--surface-page);border:var(--border-w) solid var(--surface-media);border-radius:var(--radius-default);font-family:inherit;font-size:16px;font-weight:var(--w-regular);color:var(--text-primary);cursor:pointer;text-transform:var(--cta-case)} /* 160px dropdowns, grey-2 keyline (Figma 13003-147068) */
+.sf-dd:hover{border-color:var(--border-strong)}
+.sf-dd i{width:16px;height:16px;flex:none;background:url("icons/lib/icons-down.svg") center/contain no-repeat}
+.sf-sort{margin-left:auto;width:220px} /* sort pinned right, 220px */
+.sf-filters{display:flex;flex-wrap:wrap;gap:8px 12px;flex:0 1 auto;min-width:0;max-height:44px;overflow:hidden} /* one row; show-more sits right after the filters, not by sort */
+.sf-bar.expanded .sf-filters{max-height:none}
+.sf-more{font-size:14px;color:var(--text-primary);white-space:nowrap;align-self:center;flex:none}
+.sf-bar--clamp{flex-wrap:nowrap}
+.sf-bar:has(.sf-float){padding:0} /* pill rows carry their own 8px */
+.sf-ndd{display:inline-flex;align-items:center;gap:8px;font-weight:var(--w-regular);cursor:pointer;user-select:none}
+.sf-ndd .track{width:40px;height:22px;border-radius:var(--radius-pill);background:var(--surface-action-disabled);position:relative;transition:background var(--dur-base) var(--ease-standard);flex:none}
+.sf-ndd .track::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:var(--radius-pill);background:var(--surface-raised);box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform var(--dur-base) var(--ease-standard)}
+.sf-ndd.on .track{background:var(--surface-action)}
+.sf-ndd.on .track::after{transform:translateX(18px)}
+.sf-btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:var(--border-w) solid var(--border-strong);border-radius:var(--radius-pill);background:var(--surface-page);font-family:inherit;font-size:14px;font-weight:var(--w-strong);color:var(--text-primary);cursor:pointer;text-transform:var(--cta-case)}
+.sf-btn img{width:16px;height:16px;object-fit:contain}
+.sf-chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;background:var(--surface-sunken);border:var(--border-w) solid var(--border-subtle);border-radius:var(--radius-pill);font-size:13px}
+.sf-chip button{background:none;border:none;cursor:pointer;font-size:14px;line-height:1;padding:0;color:var(--icon-secondary)}
+/* mobile floating filter pills — New format (Brand Room Figma 739-92223)
+   radius 42 by design on every fascia (explicitly round, even square-radius brands) */
+.sf-float{display:flex;gap:8px;align-items:center;overflow-x:auto;padding:8px var(--plp-margin,16px);margin:0 calc(var(--plp-margin,16px) * -1);width:auto} /* full-bleed: pills iceberg off the right, 16pt internal padding */
+.sf-pill{display:inline-flex;gap:8px;align-items:center;height:34px;padding:8px 12px;background:var(--surface-raised);border:var(--border-w) solid var(--surface-media);border-radius:42px;font-family:var(--font-family-base);font-size:14px;font-weight:var(--w-regular);color:var(--text-primary);white-space:nowrap;flex:none;cursor:pointer}
+.sf-pill i.dn{width:12px;height:12px;background:url("icons/lib/icons-down.svg") center/contain no-repeat}
+.sf-pill img{width:14px;height:14px;object-fit:contain}
+.sf-pill .track{width:30px;height:16px;border-radius:42px;background:var(--surface-action-disabled);position:relative;transition:background var(--dur-base) var(--ease-standard);flex:none}
+.sf-pill .track::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:42px;background:var(--surface-raised);box-shadow:0 1px 2px rgba(0,0,0,.3);transition:transform var(--dur-base) var(--ease-standard)}
+.sf-pill.on .track{background:var(--surface-action)}
+.sf-pill.on .track::after{transform:translateX(14px)}
+
+/* mobile sheet */
+.sf-drawer{position:fixed;inset:0;background:var(--surface-page);z-index:var(--z-modal);display:none;flex-direction:column;font-family:var(--font-family-base)}
+.sf-drawer.open{display:flex}
+.sf-drawer .head{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 16px;border-bottom:var(--border-w) solid var(--border-subtle);font-size:16px;font-weight:var(--w-strong)}
+.sf-drawer .head button{background:none;border:none;cursor:pointer;padding:4px;display:grid;place-items:center}
+.sf-drawer .head button img{width:18px;height:18px;object-fit:contain}
+.sf-drawer .rows{flex:1;overflow-y:auto}
+.sf-row{display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 16px;border-bottom:var(--border-w) solid var(--border-subtle);font-size:16px;font-weight:var(--w-regular);width:100%;background:none;border-left:none;border-right:none;border-top:none;font-family:inherit;color:var(--text-primary);cursor:pointer}
+.sf-row i{width:16px;height:16px;background:url("icons/lib/icons-right.svg") center/contain no-repeat}
+.sf-cta{margin:16px;min-height:48px;background:var(--surface-action);color:var(--text-on-action);border:none;border-radius:var(--radius-default);font-family:inherit;font-size:14px;font-weight:var(--w-strong);letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.sf-cta:active{background:var(--surface-action-pressed)}
+
+/* ============================================================
+   Category nav — roundels (image circles) or pills or text links
+   ============================================================ */
+.cat-row{display:flex;gap:12px;align-items:flex-start;overflow-x:auto;padding:12px 0;font-family:var(--font-family-base)}
+/* Roundel — mobile per App-PLP 1124-2505 (90px, 10px label gap) · desktop per 13003-149196 (173px, 8px label gap) */
+.roundel{display:flex;flex-direction:column;align-items:center;gap:10px;width:90px;flex:none;text-decoration:none;color:var(--text-primary);position:relative}
+.roundel i{width:90px;height:90px;border-radius:var(--radius-pill);display:block;background:var(--surface-media);position:relative;overflow:hidden}
+.roundel span{font-size:14px;font-weight:var(--w-regular);text-align:center;text-transform:capitalize;line-height:1.3;letter-spacing:-.35px}
+@media(min-width:1024px){.roundel{width:173px;gap:8px}.roundel i{width:173px;height:173px}}
+.cat-row--r{gap:8px} /* roundel rows: 8px mobile, 15px desktop */
+@media(min-width:1024px){.cat-row--r{gap:15px}}
+.roundel--outline i{border:4px solid var(--brand-primary);padding:4px;background:var(--surface-page)}
+.roundel--outline i::after{content:'';position:absolute;inset:4px;border-radius:var(--radius-pill);background:var(--roundel-fill,var(--surface-media))}
+.roundel--onimage span{position:absolute;left:8px;right:8px;top:50%;transform:translateY(-50%);color:var(--text-inverse);font-size:15px;z-index:1}
+.roundel--onimage i::after{content:'';position:absolute;inset:0;border-radius:var(--radius-pill);background:rgba(0,0,0,.3)}
+.roundel--onimage.roundel--display span{font-weight:var(--w-strong);text-transform:uppercase;letter-spacing:-.03em;font-size:16px}
+@media(min-width:1024px){.roundel--onimage span{font-size:18px}.roundel--onimage.roundel--display span{font-size:20px}}
+.cat-row--edge{justify-content:flex-start} /* mobile: from the left margin, icebergs off the right */
+@media(min-width:1024px){.cat-row--edge{justify-content:center}} /* desktop: centered */
+.roundel--white i{background:#FFF;border:var(--border-w) solid var(--border-subtle)} /* MAN roundels: white ground, contained imagery (13003-147021) */
+.roundel--white i img{padding:8px}
+.catpill{display:inline-flex;align-items:center;height:36px;padding:0 14px;background:var(--surface-media);border:none;border-radius:var(--radius-default);font-size:14px;font-weight:var(--w-regular);color:var(--text-primary);text-decoration:none;white-space:nowrap;flex:none;text-transform:var(--cta-case)} /* Grey 1 pills — never fully rounded */
+.catpill:hover{filter:brightness(.97)}
+.cat-row--pills{gap:8px} /* pill nav links sit 8px apart */
+.catpill--solid{} /* alias — pills are badge-format everywhere now */
+.catlinks{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;padding:8px 0;font-family:var(--font-family-base)}
+.catlinks a{font-size:14px;font-weight:var(--w-regular);color:var(--text-primary);text-decoration:underline;text-underline-offset:3px;white-space:nowrap;text-transform:var(--cta-case)}
+
+/* Breadcrumb — Figma 12711-4044. 12px w-regular capitalize, slash separators; share icon = PDP mobile only */
+.bc{display:flex;flex-wrap:nowrap;white-space:nowrap;overflow:hidden;gap:8px;row-gap:8px;align-items:center;padding:16px 0 4px;font-family:var(--font-family-base);font-size:12px;font-weight:var(--w-regular);color:var(--text-primary)}
+.bc a{color:inherit;text-decoration:none;text-transform:capitalize}
+.bc a:hover{text-decoration:underline}
+.bc .sep{letter-spacing:.4px}
+.bc .cur{text-transform:capitalize}
+.bc-share{margin-left:auto;width:20px;height:20px;background:none;border:none;padding:0;cursor:pointer}
+.bc-share img{width:100%;height:100%;object-fit:contain}
+
+/* header bag / wishlist count */
+.hd-count{position:relative}
+.hd-count::after{content:attr(data-n);position:absolute;top:4px;right:2px;width:var(--hd-count,14px);height:var(--hd-count,14px);border-radius:50%;background:var(--icon-primary);color:var(--text-inverse);font-size:var(--hd-count-fs,8px);font-weight:var(--w-mid);display:grid;place-items:center;padding:0;line-height:1} /* always 1:1 */
+
+/* ============================================================
+   C-08 Footer (.ft) — Figma 664-1064 (Debenhams) · live-checked
+   across fascias 03 Sep. One template: newsletter band, link
+   columns + social/app rail, sister-brands (Debenhams only),
+   payment strip, centre logo + copyright. Tokens carry the brand.
+   ============================================================ */
+.ft{background:var(--surface-page);color:var(--text-primary);font-family:var(--font-family-base);margin-top:64px}
+.ft-news,.ft-cols,.ft-brands,.ft-pay,.ft-apps,.ft-base{max-width:2000px;margin-left:auto;margin-right:auto}
+.ft-apps{display:flex;gap:12px;align-items:center;justify-content:center;padding:18px var(--plp-margin,16px) 0}
+.ft-apps img{height:40px;width:auto;display:block}
+.ft a{color:inherit;text-decoration:none}
+.ft a:hover{text-decoration:underline}
+.ft-news{background:var(--ft-band);padding:40px var(--plp-margin,16px);display:grid;gap:24px;grid-template-columns:1fr;align-items:start}
+@media(min-width:1024px){.ft-news{grid-template-columns:1.1fr 1fr}}
+.ft-news h3{font-size:26px;font-weight:var(--w-strong);letter-spacing:-.01em;margin-bottom:10px}
+.ft-news p{font-size:14px;font-weight:var(--w-regular);max-width:420px}
+.ft-sub{display:flex;gap:12px;align-items:stretch}
+.ft-sub input{flex:1;min-width:0;height:50px;padding:0 16px;border:var(--border-w) solid var(--border-default);border-radius:var(--radius-default);background:var(--surface-raised);font-family:inherit;font-size:14px;color:var(--text-primary)}
+.ft-sub input::placeholder{color:var(--text-secondary)}
+.ft-sub .bd{padding:0 26px}
+.ft-legal{font-size:11px;color:var(--text-secondary);margin-top:10px;max-width:640px}
+.ft-cols{display:grid;grid-template-columns:repeat(2,1fr);gap:32px 24px;padding:40px var(--plp-margin,16px)}
+@media(min-width:1024px){.ft-cols{grid-template-columns:repeat(4,1fr) 1.2fr}}
+.ft-col h4{font-size:14px;font-weight:var(--w-strong);margin-bottom:14px;text-transform:var(--cta-case)}
+.ft-col a{display:block;font-size:14px;font-weight:var(--w-regular);padding:5px 0}
+.ft-social{display:flex;gap:18px;align-items:center;margin:10px 0 22px}
+.ft-social img{width:22px;height:22px;object-fit:contain}
+.ft-badge{display:inline-flex;align-items:center;gap:7px;background:#000;color:#FFF;border-radius:6px;padding:7px 13px;font-size:12px;font-weight:var(--w-mid);margin:4px 8px 0 0}
+.ft-brands{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap;padding:20px var(--plp-margin,16px);border-top:var(--border-w) solid var(--border-subtle)}
+.ft-brands[hidden]{display:none}
+.ft-brands img{height:14px;width:auto;max-width:110px;object-fit:contain;opacity:.85}
+.ft-pay{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;padding:14px var(--plp-margin,16px)}
+.ft-pay span{display:inline-flex;align-items:center;height:26px;padding:0 9px;border:var(--border-w) solid var(--border-default);border-radius:4px;font-size:10px;font-weight:var(--w-strong);letter-spacing:.03em;background:var(--surface-raised)}
+.ft-pay img{height:26px;width:auto;object-fit:contain;border-radius:3px}
+.ft-base{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 16px 36px}
+.ft-base img{height:24px;width:auto;max-width:170px;object-fit:contain} /* footer logo per component */
+.ft-base small{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary)}

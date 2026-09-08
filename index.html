@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Core PDP 2026 · review — boohooMAN</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#161616;font-family:'Google Sans','Montserrat',system-ui,sans-serif;color:#B0B0B0;display:flex;flex-direction:column;overflow:hidden}
+button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
+
+.strip{display:flex;align-items:center;gap:6px;padding:8px 14px;background:#000;font-size:11.5px;overflow-x:auto;flex:none;font-family:'Google Sans','Montserrat',system-ui,sans-serif}
+.strip::-webkit-scrollbar{display:none}
+.strip b{color:#F7F7F7;font-weight:600;margin-right:2px;white-space:nowrap}
+.strip .chip{flex:none;padding:5px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.2);font-size:11.5px;color:#B0B0B0}
+.strip .chip.on{background:#F7F7F7;color:#000;border-color:#F7F7F7;font-weight:600}
+.strip .chip[disabled]{opacity:.35;cursor:not-allowed}
+#brands{display:inline-flex;gap:6px;flex:none}
+.seg{display:inline-flex;flex:none;border:1px solid rgba(255,255,255,.25);border-radius:99px;overflow:hidden}
+.seg button{border:none;border-radius:0;padding:5px 12px;color:#B0B0B0;white-space:nowrap}
+.seg button.on{background:#F7F7F7;color:#000;font-weight:700}
+.strip select{background:#161616;color:#F7F7F7;border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:4px 8px;font:inherit;font-size:11.5px;max-width:230px}
+.strip .div{width:1px;height:20px;background:rgba(255,255,255,.15);margin:0 6px;flex:none}
+.sizebox{font-size:10.5px;color:#707070;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cfg{margin-left:auto;font-size:10.5px;color:#707070;white-space:nowrap;padding-left:12px}
+.gear{flex:none;padding:4px 10px;border:1px solid rgba(255,255,255,.25);border-radius:7px;color:#F7F7F7;white-space:nowrap}
+
+.stage{flex:1;display:flex;align-items:stretch;justify-content:center;overflow:hidden;padding:0;position:relative}
+.holder{display:flex;align-items:stretch;height:100%}
+iframe{border:none;display:block;height:100%;background:#FFF;box-shadow:0 0 60px rgba(0,0,0,.5)}
+.handle{width:16px;display:flex;align-items:center;justify-content:center;cursor:col-resize;flex:none}
+.handle i{width:5px;height:56px;border-radius:99px;background:#3A3A3A}
+.handle:hover i,.dragging .handle i{background:#6A6A6A}
+body.dragging{user-select:none;cursor:col-resize}
+body.dragging iframe{pointer-events:none}
+
+/* set-rows config panel */
+#rows{position:absolute;top:8px;right:14px;z-index:5;width:260px;background:#0A0A0A;border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:14px;font-size:12px;color:#B0B0B0}
+#rows[hidden]{display:none}
+#rows h3{color:#F7F7F7;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+#rows h3 button{font-size:16px}
+#rows .sub{font-size:10.5px;color:#707070;margin-bottom:10px;line-height:1.45}
+#rows label{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08);color:#F7F7F7;cursor:pointer}
+#rows label span{color:#707070;margin-left:auto;font-size:10.5px}
+#rows .tgl{flex:none;width:26px;height:15px;border-radius:99px;border:1px solid rgba(255,255,255,.35);position:relative;display:inline-block}
+#rows .tgl i{position:absolute;top:1px;left:1px;width:11px;height:11px;border-radius:99px;background:#B0B0B0;transition:left .12s}
+#rows label.on .tgl{background:#0D99FF;border-color:#0D99FF}
+#rows label.on .tgl i{left:12px;background:#FFF}
+#rows .sec{margin-top:12px;font-size:10.5px;color:#707070;text-transform:uppercase;letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<div class="strip">
+  <b>PDP 2026</b>
+  <span class="seg" id="mode"><button data-m="live">Live now</button><button data-m="new" class="on">New format</button></span>
+  <span id="brands">
+    <button class="chip on" data-b="boohooman">boohooMAN</button>
+    <button class="chip" data-b="debenhams" disabled title="Not built yet — boohooMAN first">Debenhams</button>
+    <button class="chip" data-b="boohoo" disabled title="Not built yet">boohoo</button>
+    <button class="chip" data-b="plt" disabled title="Not built yet">PLT</button>
+    <button class="chip" data-b="karenmillen" disabled title="Not built yet">Karen Millen</button>
+  </span>
+  <span class="div"></span>
+  <select id="look" aria-label="Shop The Look module" title="Recommendation module (opens Create The Look)">
+    <option value="nodata" selected>Shop The Look: carousel — no data (grey)</option>
+    <option value="data">Shop The Look: carousel — with data</option>
+    <option value="grid">Shop The Look: grid</option>
+    <option value="none">Shop The Look: off</option>
+  </select>
+  <select id="entry" aria-label="Set builder entry point" title="Advanced bundling entry point (opens Shop The Set)">
+    <optgroup label="03 Medium banner">
+      <option value="03-1" selected>03-1 Buy The Set box — Made To Match</option>
+      <option value="03-2">03-2 Equation strip — SHOP SETS</option>
+    </optgroup>
+    <optgroup label="04 Large banner">
+      <option value="04-1">04-1 Outfit module — 2-up scroll</option>
+      <option value="04-2">04-2 Outfit module — 2×2 grid</option>
+      <option value="04-3">04-3 Outfit module — 3-up scroll</option>
+      <option value="04-4">04-4 Content slot + product carousel</option>
+    </optgroup>
+    <optgroup label="06 Product image">
+      <option value="06-1">06-1 Gallery set end card</option>
+    </optgroup>
+    <optgroup label="07 Price banner">
+      <option value="07-1">07-1 Anchor link — SHOP MATCHING SETS</option>
+      <option value="07-2">07-2 Chip — More Sets Available</option>
+      <option value="07-3">07-3 Chip with trio</option>
+      <option value="07-4">07-4 Chip with trio — Shop The Full Set</option>
+      <option value="07-5">07-5 Banner with trio</option>
+      <option value="07-6">07-6 Borderless trio banner</option>
+    </optgroup>
+    <optgroup label="01 Pills (parked)">
+      <option value="01-1">01-1 Pill — SHOP SETS</option>
+      <option value="01-4">01-4 Hanger pill — Shop The Set</option>
+      <option value="01-8">01-8 Hanger pill — SET BUILDER</option>
+    </optgroup>
+    <option value="none">Entry point: none</option>
+  </select>
+  <select id="stock" aria-label="Stock state">
+    <option value="in" selected>Stock: in stock</option>
+    <option value="size">Stock: some sizes OOS (notify me)</option>
+    <option value="oos">Stock: product OOS (similar items)</option>
+  </select>
+  <button class="gear" id="gearbtn" title="Which product families the set builder shows">⚙ Set rows</button>
+  <span class="div"></span>
+  <select id="preset" aria-label="Width preset">
+    <option value="390" selected>390 — mobile</option>
+    <option value="402">402</option>
+    <option value="440">440</option>
+    <option value="768">768 — tablet</option>
+    <option value="1024">1024</option>
+    <option value="1280">1280</option>
+    <option value="1440">1440 — desktop</option>
+    <option value="0">Fit window</option>
+  </select>
+  <span class="sizebox" id="sizebox"></span>
+  <span class="cfg" id="cfg"></span>
+</div>
+
+<div class="stage" id="stage">
+  <div class="holder">
+    <iframe id="frame" src="pdp.html?brand=boohooman&mode=new" title="PDP preview"></iframe>
+    <div class="handle" id="hr" title="Drag to resize width"><i></i></div>
+  </div>
+  <div id="rows" hidden>
+    <h3>Set builder rows <button id="rowsclose" aria-label="Close">×</button></h3>
+    <div class="sub">Premium Essentials families the team has configured for the set. Each row scrolls through every colour in that family. Order = display order.</div>
+    <div id="rowlist"></div>
+    <div class="sec">Create The Look tiers</div>
+    <div class="sub">The Shop The Look module opens a fixed 3-tier look: Zip Hoodie · Wide Leg Jogger · T-Shirt, matched to the hero colour.</div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+let W=390, BRAND='boohooman', MODE='new', LOOK='nodata', ENTRY='03-1', STOCK='in';
+let ROWS=['zip-hoodie','sweatshirt','tee','wide-jogger']; // default set configuration
+const frame=document.getElementById('frame'),stage=document.getElementById('stage'),
+      preset=document.getElementById('preset'),sizebox=document.getElementById('sizebox'),
+      cfg=document.getElementById('cfg');
+
+function apply(){
+  const avail=stage.clientWidth-16;
+  const w=Math.min(W||avail,avail);
+  frame.style.width=w+'px';
+  sizebox.textContent=`${Math.round(w)}px`;
+}
+function send(){ frame.contentWindow.postMessage({pdpSet:1,brand:BRAND,mode:MODE,look:LOOK,entry:ENTRY,stock:STOCK,rows:ROWS},'*'); }
+addEventListener('message',e=>{ if(e.data&&e.data.pdpCfg){cfg.textContent=e.data.pdpCfg;} });
+
+document.querySelectorAll('#brands .chip:not([disabled])').forEach(b=>b.onclick=()=>{
+  BRAND=b.dataset.b;
+  document.querySelectorAll('#brands .chip').forEach(x=>x.classList.toggle('on',x===b));
+  send();apply();
+});
+document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{
+  MODE=b.dataset.m;
+  document.querySelectorAll('#mode button').forEach(x=>x.classList.toggle('on',x===b));
+  send();apply();
+});
+preset.onchange=()=>{W=+preset.value;apply();};
+document.getElementById('look').onchange=e=>{LOOK=e.target.value;send();};
+document.getElementById('entry').onchange=e=>{ENTRY=e.target.value;send();};
+document.getElementById('stock').onchange=e=>{STOCK=e.target.value;send();};
+
+/* set rows panel */
+const rows=document.getElementById('rows'),rowlist=document.getElementById('rowlist');
+function buildRows(){
+  rowlist.innerHTML='';
+  (window.PE_FAMILIES||[]).forEach(f=>{
+    const l=document.createElement('label');l.className=ROWS.includes(f.id)?'on':'';
+    l.innerHTML=`<span class="tgl"><i></i></span>${f.label}<span>${f.count} colours</span>`;
+    l.onclick=()=>{ if(ROWS.includes(f.id))ROWS=ROWS.filter(x=>x!==f.id); else ROWS.push(f.id); buildRows(); send(); };
+    rowlist.appendChild(l);
+  });
+}
+document.getElementById('gearbtn').onclick=()=>{rows.hidden=!rows.hidden;buildRows();};
+document.getElementById('rowsclose').onclick=()=>rows.hidden=true;
+
+document.getElementById('hr').addEventListener('pointerdown',e=>{
+  e.preventDefault();document.body.classList.add('dragging');
+  const sx=e.clientX, sw=frame.offsetWidth;
+  const move=ev=>{W=Math.max(320,sw+(ev.clientX-sx));preset.value='0';apply();};
+  const up=()=>{document.body.classList.remove('dragging');removeEventListener('pointermove',move);removeEventListener('pointerup',up);};
+  addEventListener('pointermove',move);addEventListener('pointerup',up);
+});
+addEventListener('resize',apply);
+frame.addEventListener('load',send);
+apply();
+</script>
+</body>
+</html>
