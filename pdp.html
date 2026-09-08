@@ -598,6 +598,8 @@ a{color:inherit;text-decoration:none}
 /* toast */
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:#000;color:#FFF;font-size:14px;font-weight:500;padding:12px 20px;border-radius:4px;opacity:0;pointer-events:none;transition:.2s;z-index:70;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* focus flash */
+.flash{outline:2px solid #0D99FF;outline-offset:2px;transition:outline-color .6s}
 /* ---------- Edit layout mode (review tooling) ---------- */
 body.editing [data-block]{position:relative;outline:1.5px dashed rgba(13,153,255,.7);outline-offset:-1px;min-height:28px;padding-top:36px!important}
 body.editing [data-block][hidden]{display:none!important}
@@ -855,7 +857,7 @@ body.editing{padding-bottom:48px}
 <div class="sheet" id="sheet" hidden>
   <div class="bg" data-close></div>
   <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheettitle">
-    <div class="head"><h2 id="sheettitle">Shop The Set</h2><span class="view" id="setview" title="Set builder layout (review)"><button data-v="cards">Cards</button><button data-v="compact">Compact</button></span><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="head"><h2 id="sheettitle">Shop The Set</h2><span class="view" id="setview" hidden><button data-v="cards">Cards</button><button data-v="compact">Compact</button></span><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
     <div class="body" id="sheetbody"></div>
     <div class="foot"><div class="tot"><span>Total</span><b id="sheettotal">£0.00</b></div><button class="btn p" id="sheetatb">Add to bag (0)</button></div>
   </div>
@@ -1240,7 +1242,7 @@ function renderSheetCompact(){
 }
 function renderSheet(){
   const b=$('#sheetbody');b.innerHTML='';
-  const vw=$('#setview');vw.hidden=SH.kind!=='set';vw.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.v===SETVIEW));
+  $('#setview').hidden=true;
   if(SH.kind==='set'&&SETVIEW==='compact'){renderSheetCompact();}
   else{
   if(SH.kind==='look') b.appendChild(el(`<div class="filters"><span>Price <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Body Fit <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Style <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span></div>`));
@@ -1408,13 +1410,23 @@ addEventListener('message',e=>{
   S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;
   if(d.fmt){S.fmt={...S.fmt,...d.fmt};LS('pdp26-fmt',S.fmt);}
   if(d.gridRows){S.gridRows={...S.gridRows,...d.gridRows};LS('pdp26-gridrows',S.gridRows);}
-  if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);}
+  if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);if(!$('#sheet').hidden&&SH.kind==='set')renderSheet();}
   if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);location.reload();return;}
   if(stockChanged){S.size=null;S.notified=false;}
   document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');sh.hidden=true;});document.body.style.overflow='';
   renderAll();
 });
 renderAll();
+/* panel → page focus: bring the thing being changed into view, or open its modal */
+function flash(el){if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1400);}
+addEventListener('message',e=>{const d=e.data;if(!d||!d.pdpFocus)return;const k=d.pdpFocus;
+  if(k==='setview'){if($('#sheet').hidden)openSheet('set');else renderSheet();return;}
+  if(k==='entry'){if(S.entry==='06-1'){const g=$('#gal');g.scrollTo({left:g.scrollWidth,behavior:'smooth'});flash(g);return;}const slot=document.querySelector('#slot-colour .entry,#slot-rail .entry,#slot-buttons .entry');flash(slot?slot.closest('.slot'):$('.colour'));return;}
+  if(k==='look'){flash(S.fmt.look==='pairs'?$('#slot-buttons'):$('#recs-look'));return;}
+  if(k==='hp'){flash($('#recs-hp'));return;}
+  if(k==='wtyl'){flash($('#recs-wtyl'));return;}
+  if(k==='stock'){flash($('.sizes'));return;}
+});
 parent.postMessage({pdpReady:1},'*');
 let __imgsDone=()=>[...document.images].every(i=>i.complete);
 addEventListener('message',e=>{if(e.data&&e.data.pdpPing){const t=setInterval(()=>{if(__imgsDone()){clearInterval(t);parent.postMessage({pdpPong:e.data.pdpPing,h:document.documentElement.scrollHeight},'*');}},100);}});

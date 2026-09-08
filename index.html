@@ -27,6 +27,7 @@ a{color:var(--accent)}
 .seg{display:inline-flex;border:1px solid rgba(255,255,255,.25);border-radius:99px;overflow:hidden}
 .seg button{padding:5px 12px;color:#B0B0B0;font-size:11.5px;white-space:nowrap}
 .seg button.on{background:var(--ink);color:#000;font-weight:700}
+.seg button:disabled{opacity:.35;cursor:not-allowed}
 .top select{background:#161616;color:var(--ink);border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:4px 8px;font:inherit;font-size:11.5px}
 .top .ttl{font-weight:600;font-size:12px;color:var(--ink);white-space:nowrap}
 .top .w{font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums;min-width:48px;text-align:right}
@@ -81,12 +82,39 @@ a{color:var(--accent)}
 .editbtn{padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.3);color:var(--ink);font-size:11.5px;font-weight:600;white-space:nowrap}
 .editbtn.on{background:var(--accent);border-color:var(--accent);color:#FFF}
 .card h3{margin-bottom:2px}
+.card .sub{font-size:11px;font-weight:600;color:var(--ink);margin:6px 0 0;padding-bottom:2px}
+.card .sub.second{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.14)}
 .opt{padding:7px 0}
 .rows{display:flex;gap:6px;padding:6px 0 4px 26px}
 .rw{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.25);font-size:11px;color:#B0B0B0}
 .rw.on{background:var(--ink);color:#000;border-color:var(--ink);font-weight:600}
 .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 2px}
 .foot .rm{font-size:11px}
+/* ---- fold view: iOS 26 Safari frame (SEEL Enhancements 2026 · 3366-199353) ---- */
+.device{position:relative;display:flex;flex-direction:column;height:100%;background:#FFF}
+.device iframe{flex:1;min-height:0}
+.device .sb,.device .tb,.device .home{display:none}
+body.fold .stage{align-items:center}
+body.fold .win{height:auto}
+body.fold .device{height:calc(var(--k) * 874px);border-radius:calc(var(--k) * 44px);overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.5)}
+body.fold .device .sb,body.fold .device .tb,body.fold .device .home{display:flex}
+body.fold .device iframe{box-shadow:none}
+.device .sb{height:calc(var(--k) * 62px);flex:none;background:#FFF;position:relative;align-items:center;justify-content:space-between;padding:0 calc(var(--k) * 30px) 0 calc(var(--k) * 48px);font-family:-apple-system,'SF Pro Text',system-ui,sans-serif}
+.device .sb .time{font-size:calc(var(--k) * 17px);font-weight:600;color:#000;letter-spacing:-.02em;width:calc(var(--k) * 54px)}
+.device .sb .island{position:absolute;left:50%;top:calc(var(--k) * 11px);transform:translateX(-50%);width:calc(var(--k) * 124px);height:calc(var(--k) * 36px);background:#000;border-radius:99px}
+.device .sb .sys{display:flex;align-items:center;gap:calc(var(--k) * 6px)}
+.device .sb .sig{width:calc(var(--k) * 18px);height:calc(var(--k) * 12px)}
+.device .sb .wifi{width:calc(var(--k) * 16px);height:calc(var(--k) * 12px)}
+.device .sb .bat{width:calc(var(--k) * 28px);height:calc(var(--k) * 13px)}
+.device .tb{position:absolute;left:0;right:0;bottom:calc(var(--k) * 34px);height:calc(var(--k) * 48px);padding:0 calc(var(--k) * 28px);align-items:center;justify-content:space-between;gap:calc(var(--k) * 8px);pointer-events:none}
+.device .tb .circ{width:calc(var(--k) * 48px);height:calc(var(--k) * 48px);border-radius:99px;background:rgba(255,255,255,.92);box-shadow:0 1px 6px rgba(0,0,0,.18);display:grid;place-items:center;flex:none;backdrop-filter:blur(12px)}
+.device .tb .circ svg{width:calc(var(--k) * 12px);height:calc(var(--k) * 20px)}
+.device .tb .circ:last-child svg{width:calc(var(--k) * 22px);height:calc(var(--k) * 6px)}
+.device .tb .url{flex:1;height:calc(var(--k) * 48px);border-radius:99px;background:rgba(255,255,255,.92);box-shadow:0 1px 6px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:space-between;padding:0 calc(var(--k) * 14px);font-family:-apple-system,'SF Pro Text',system-ui,sans-serif;font-size:calc(var(--k) * 17px);color:#000;backdrop-filter:blur(12px)}
+.device .tb .url .pg{width:calc(var(--k) * 20px);height:calc(var(--k) * 18px)}
+.device .tb .url .rl{width:calc(var(--k) * 20px);height:calc(var(--k) * 20px)}
+.device .home{position:absolute;left:50%;bottom:calc(var(--k) * 8px);transform:translateX(-50%);width:calc(var(--k) * 134px);height:calc(var(--k) * 5px);border-radius:99px;background:#000}
+body.fold .device::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--k) * 34px);background:linear-gradient(to top,#FFF 60%,rgba(255,255,255,0));pointer-events:none}
 /* ---- stage: plain frame, drag to resize (as before) ---- */
 .stage{position:relative;overflow:hidden;display:flex;align-items:stretch;justify-content:center;padding:0}
 .win{display:flex;height:100%;max-width:100%}
@@ -108,8 +136,7 @@ body.dragging iframe{pointer-events:none}
 <body>
 
 <header class="top">
-  <button class="export" id="exportbtn" title="Export full-page PNGs (mobile + desktop) and a zip of the code with this configuration"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 12.5h11"/></svg>Export</button>
-  <span class="status" id="status"></span>
+  <span class="ttl">PDP 2026 · boohooMAN</span>
   <div class="mid">
     <span class="seg" id="mode"><button data-m="live">Live now</button><button data-m="new" class="on">New format</button></span>
     <span class="chips" id="brands">
@@ -122,16 +149,17 @@ body.dragging iframe{pointer-events:none}
       <option value="390" selected>390</option><option value="402">402</option><option value="440">440</option><option value="768">768</option><option value="1024">1024</option><option value="1280">1280</option><option value="1440">1440</option><option value="0">Fit</option>
     </select>
     <span class="w" id="sizebox"></span>
+    <span class="seg" id="fold"><button data-f="0" class="on">Full page</button><button data-f="1">Fold</button></span>
   </div>
-  <span class="ttl">PDP 2026 · boohooMAN</span>
+  <span class="status" id="status"></span>
+  <button class="export" id="exportbtn" title="Export full-page PNGs (mobile + desktop) and a zip of the code with this configuration"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 12.5h11"/></svg>Export</button>
 </header>
 
 <aside class="panel">
   <div class="ph"><h1>Configure the PDP</h1><button class="editbtn" id="edittgl">Edit layout</button></div>
 
-  <div class="card"><h3>Advanced bundling entry point</h3><div id="entryopts"></div></div>
+  <div class="card"><h3>Advanced bundling</h3><div class="sub">Entry point</div><div id="entryopts"></div><div class="sub second">Modal</div><div id="setviewopts"></div></div>
   <div class="card"><h3>Create the look</h3><div id="lookopts"></div></div>
-  <div class="card"><h3>Advanced bundling modal</h3><div id="setviewopts"></div></div>
   <div class="card"><h3>Handpicked For You</h3><div id="hpopts"></div></div>
   <div class="card"><h3>We Think You'll Like</h3><div id="wtylopts"></div></div>
   <div class="card"><h3>Stock</h3><div id="stockopts"></div></div>
@@ -143,7 +171,16 @@ body.dragging iframe{pointer-events:none}
 <main class="stage" id="stage">
   <div class="win" id="win">
     <div class="holder">
-      <iframe id="frame" src="pdp.html?brand=boohooman&mode=new" title="PDP preview"></iframe>
+      <div class="device" id="device">
+        <div class="sb"><span class="time">9:41</span><span class="island"></span><span class="sys">
+          <svg class="sig" viewBox="0 0 18 12" fill="#000"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg>
+          <svg class="wifi" viewBox="0 0 16 12" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.2a9.5 9.5 0 0 1 13 0"/><path d="M4 7a5.8 5.8 0 0 1 8 0"/><circle cx="8" cy="10.2" r="1" fill="#000" stroke="none"/></svg>
+          <svg class="bat" viewBox="0 0 28 13"><rect x=".5" y=".5" width="24" height="12" rx="3.5" fill="none" stroke="#000" stroke-opacity=".4"/><rect x="2" y="2" width="21" height="9" rx="2" fill="#000"/><path d="M26 4.5v4a2 2 0 0 0 0-4z" fill="#000" fill-opacity=".4"/></svg>
+        </span></div>
+        <iframe id="frame" src="pdp.html?brand=boohooman&mode=new" title="PDP preview"></iframe>
+        <div class="tb"><span class="circ"><svg viewBox="0 0 12 20" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 2 10l8 8"/></svg></span><span class="url"><svg class="pg" viewBox="0 0 20 18" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="2" width="14" height="10" rx="1.5"/><path d="M6 6h8M6 9h5M7 16h6"/></svg><span id="urltxt">boohooman.com</span><svg class="rl" viewBox="0 0 20 20" fill="none" stroke="#000" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a6 6 0 1 1-1.8-4.3"/><path d="M15 2v4h-4"/></svg></span><span class="circ"><svg viewBox="0 0 22 6" fill="#000"><circle cx="3" cy="3" r="2.2"/><circle cx="11" cy="3" r="2.2"/><circle cx="19" cy="3" r="2.2"/></svg></span></div>
+        <div class="home"></div>
+      </div>
       <div class="handle" id="hr" title="Drag to resize width"><i></i></div>
     </div>
   </div>
@@ -166,31 +203,33 @@ const SETVIEWS=[['cards','Cards'],['compact','Compact thumbs']];
 const STOCKS=[['in','In stock'],['size','Some sizes out'],['oos','Out of stock']];
 const ROWS=[[1,'1 row'],[2,'2 rows'],[3,'3 rows']];
 
+let FOLD=false;const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com'};
 let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'grid',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},setview:'cards',edit:false,removed:[]};
 const $=s=>document.querySelector(s);
 const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
 
-function radios(host,list,get,set,inline){
+function radios(host,list,get,set,inline,focusKey){
   host.innerHTML='';
   if(inline){host.className='rows';}
   list.forEach(([v,label])=>{
     const o=document.createElement('button');o.className=(inline?'rw':'opt')+(get()===v?' on':'');o.setAttribute('role','radio');o.setAttribute('aria-checked',get()===v);
     o.innerHTML=inline?label:`<span class="r"></span><span class="t"><b>${label}</b></span>`;
-    o.onclick=()=>{set(v);send();renderPanel();};host.appendChild(o);
+    o.onclick=()=>{set(v);send();renderPanel();if(focusKey)focus(focusKey);};host.appendChild(o);
   });
 }
+function focus(k){setTimeout(()=>frame.contentWindow.postMessage({pdpFocus:k},'*'),80);}
 function fmtCard(host,list,key){
-  radios(host,list,()=>CFG.fmt[key],v=>CFG.fmt[key]=v);
-  if(CFG.fmt[key]==='grid'){const r=document.createElement('div');r.className='rows';host.appendChild(r);radios(r,ROWS,()=>+CFG.gridRows[key],v=>CFG.gridRows[key]=v,true);}
+  radios(host,list,()=>CFG.fmt[key],v=>CFG.fmt[key]=v,false,key);
+  if(CFG.fmt[key]==='grid'){const r=document.createElement('div');r.className='rows';host.appendChild(r);radios(r,ROWS,()=>+CFG.gridRows[key],v=>CFG.gridRows[key]=v,true,key);}
 }
 function renderPanel(){
   const eh=$('#entryopts');eh.innerHTML='';
-  ENTRIES.forEach(([g,items])=>{if(g){const h=document.createElement('div');h.className='grp';h.textContent=g;eh.appendChild(h);}const d=document.createElement('div');eh.appendChild(d);radios(d,items,()=>CFG.entry,v=>CFG.entry=v);});
+  ENTRIES.forEach(([g,items])=>{if(g){const h=document.createElement('div');h.className='grp';h.textContent=g;eh.appendChild(h);}const d=document.createElement('div');eh.appendChild(d);radios(d,items,()=>CFG.entry,v=>CFG.entry=v,false,'entry');});
   fmtCard($('#lookopts'),FMT_BUNDLE,'look');
-  radios($('#setviewopts'),SETVIEWS,()=>CFG.setview,v=>CFG.setview=v);
+  radios($('#setviewopts'),SETVIEWS,()=>CFG.setview,v=>CFG.setview=v,false,'setview');
   fmtCard($('#hpopts'),FMT_RECS,'hp');
   fmtCard($('#wtylopts'),FMT_RECS,'wtyl');
-  radios($('#stockopts'),STOCKS,()=>CFG.stock,v=>CFG.stock=v);
+  radios($('#stockopts'),STOCKS,()=>CFG.stock,v=>CFG.stock=v,false,'stock');
   $('#edittgl').classList.toggle('on',CFG.edit);$('#edittgl').textContent=CFG.edit?'Done editing':'Edit layout';
   $('#removedsum').innerHTML=CFG.removed.length?'Removed: '+CFG.removed.map(r=>`<s>${r.label}</s>`).join(', '):'';
   document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===CFG.mode));
@@ -199,6 +238,9 @@ function apply(){
   const avail=stage.clientWidth-16;
   const w=Math.min(W||avail,avail);
   frame.style.width=w+'px';win.style.width=(w+16)+'px';
+  const mobile=w<600;document.body.classList.toggle('fold',FOLD&&mobile);document.documentElement.style.setProperty('--k',(w/390).toFixed(4));
+  document.querySelectorAll('#fold button').forEach(b=>{b.classList.toggle('on',(+b.dataset.f===1)===(FOLD&&mobile));b.disabled=!mobile;});
+  $('#urltxt').textContent=DOMAIN['boohooman'];
   sizebox.textContent=`${Math.round(w)}px`;
   document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',(b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600)));
 }
@@ -212,6 +254,7 @@ addEventListener('message',e=>{
 document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{CFG.mode=b.dataset.m;send();renderPanel();});
 document.querySelectorAll('#dev button').forEach(b=>b.onclick=()=>{W=+b.dataset.w;preset.value=String(W);apply();});
 preset.onchange=()=>{W=+preset.value;apply();};
+document.querySelectorAll('#fold button').forEach(b=>b.onclick=()=>{FOLD=b.dataset.f==='1';apply();});
 $('#edittgl').onclick=()=>{CFG.edit=!CFG.edit;send();renderPanel();};
 $('#resetorder').onclick=()=>{frame.contentWindow.postMessage({pdpSet:1,resetOrder:1},'*');};
 $('#hr').addEventListener('pointerdown',e=>{
