@@ -298,6 +298,25 @@ a{color:inherit;text-decoration:none}
 .recs.carousel .rail-head{padding:0 var(--m)}
 .recs.carousel .scroll{padding-left:var(--m)}
 .recs.grid{background:#FFF;padding:16px var(--m)}
+/* inline bundling — 'Complete The Look': grey ground, white product cards with size + ADD TO BAG, no modal. Items = the rest of the range in the hero's colour */
+.recs.inline{background:var(--grey-05);padding:16px 0 24px}
+.recs.inline .rail-head{padding:0 var(--m)}
+.recs.inline .ctl{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 var(--m);scroll-snap-type:x proximity}
+.recs.inline .ctl::-webkit-scrollbar{display:none}
+.ctlc{flex:0 0 260px;width:260px;background:#FFF;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-snap-align:start}
+.ctlc .im{aspect-ratio:170/255;overflow:hidden;background:var(--surface-media)}
+.ctlc .im img{width:100%;height:100%;object-fit:cover}
+.ctlc .row{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font-size:14px}
+.ctlc .rng{font-weight:600}
+.ctlc .nm{font-size:14px;font-weight:400;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ctlc .pr{font-weight:600;white-space:nowrap}
+.ctlc .col{font-size:14px}
+.ctlc .col b{font-weight:600}
+.ctlc .sel{height:50px;border:1px solid var(--grey-3);border-radius:4px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:16px;color:var(--grey-5);cursor:pointer}
+.ctlc .sel.set{color:#000;border-color:#000}
+.ctlc .sel img{width:16px;height:16px}
+.ctlc .btn.s{height:50px}
+@media(min-width:1024px){.ctlc{flex:0 0 300px;width:300px}}
 @media(min-width:1024px){
   .recs.nodata .imgs img{flex:0 0 220px;width:220px;height:330px}
   .recs.grid .grid3{grid-template-columns:repeat(6,1fr)}
@@ -970,6 +989,23 @@ function recsModule(key){
   if(fmt==='nodata'){
     const imgs=el(`<div class="imgs"></div>`);items.slice(0,R.bundle?3:6).forEach(p=>imgs.appendChild(el(`<img src="${p.img}" alt="${p.name}" loading="lazy">`)));box.appendChild(imgs);
     box.onclick=()=>open();
+  }else if(fmt==='inline'){
+    box.querySelector('.rail-title').textContent='Complete The Look';box.querySelector('.all').remove();
+    const h=hero();const range=P.filter(p=>p.colour===h.colour&&p.id!==h.id).sort((a,b)=>FAM.findIndex(f=>f.id===a.fam)-FAM.findIndex(f=>f.id===b.fam));
+    const sc=el(`<div class="ctl"></div>`);
+    range.forEach(p=>{
+      const st=CTL[p.id]||(CTL[p.id]={size:null});
+      const c=el(`<div class="ctlc"><div class="im"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
+        <div class="row"><span class="rng">Premium Essentials</span><span class="pr">${fmt2(p)}</span></div>
+        <div class="nm">${p.name}</div>
+        <div class="col">Colour: <b>${p.colour}</b></div>
+        <div class="sel ${st.size?'set':''}"><span>${st.size||'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
+        <button class="btn s">Add to bag</button></div>`);
+      c.querySelector('.sel').onclick=()=>openPick(p,sz=>{st.size=sz;renderRecs();});
+      c.querySelector('.btn').onclick=()=>{if(!st.size){toast('Select a size');return;}openATB([{p,size:st.size}]);};
+      sc.appendChild(c);
+    });
+    box.appendChild(sc);
   }else if(fmt==='carousel'){
     const sc=el(`<div class="scroll"></div>`);items.forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>open(p)})));box.appendChild(sc);
     box.querySelector('.rail-head').onclick=()=>open();
@@ -979,6 +1015,8 @@ function recsModule(key){
   }
   host.appendChild(box);
 }
+const CTL={}; // inline bundling: per-SKU size picks
+const fmt2=p=>(p.was&&p.was>p.price)?`<span style="color:var(--red)">${fmt(p.price)}</span> <s style="font-weight:400">${fmt(p.was)}</s>`:fmt(p.price);
 function renderRecs(){Object.keys(RECS).forEach(recsModule);}
 function renderCYP(){
   const c=$('#cyp');c.innerHTML='';if(S.mode!=='live'||S.stock==='oos')return;
@@ -1160,7 +1198,7 @@ function renderEdit(){
     const sibs=blocksOf(b.parentElement).filter(x=>!x.hidden&&x.offsetParent!==null);const i=sibs.indexOf(b);
     const ed=el(`<div class="ed"><span class="lbl">${b.dataset.label||b.dataset.block}</span></div>`);
     if(b.dataset.recs){const k=b.dataset.recs;const seg=el(`<span class="seg"></span>`);
-      [['nodata','Grey'],['carousel','Carousel'],['grid','Grid'],['off','Off']].forEach(([v,l])=>{const bt=el(`<button class="${S.fmt[k]===v?'on':''}">${l}</button>`);bt.onclick=e=>{e.stopPropagation();S.fmt[k]=v;LS('pdp26-fmt',S.fmt);renderAll();};seg.appendChild(bt);});
+      [['nodata','Grey'],['carousel','Carousel'],['grid','Grid'],...(RECS[k].bundle?[['inline','Inline']]:[]),['off','Off']].forEach(([v,l])=>{const bt=el(`<button class="${S.fmt[k]===v?'on':''}">${l}</button>`);bt.onclick=e=>{e.stopPropagation();S.fmt[k]=v;LS('pdp26-fmt',S.fmt);renderAll();};seg.appendChild(bt);});
       ed.appendChild(seg);}
     const mv=el(`<span class="mv"><button aria-label="Move up" ${i<=0?'disabled':''}>▲</button><button aria-label="Move down" ${i>=sibs.length-1?'disabled':''}>▼</button></span>`);
     mv.children[0].onclick=e=>{e.stopPropagation();sibs[i-1].before(b);saveOrder();renderAll();};
