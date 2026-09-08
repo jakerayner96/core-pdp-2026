@@ -1471,7 +1471,7 @@ function flash(el){if(!el)return;el.scrollIntoView({behavior:'smooth',block:'cen
 var PENDING_FOCUS=null; // hoisted — renderAll runs before this line
 function doFocus(k){
   if(k==='setview'){if($('#sheet').hidden)openSheet('set');else renderSheet();return;}
-  if(k==='entry'){if(S.entry==='06-1'){const g=$('#gal');g.scrollTo({left:g.scrollWidth,behavior:'smooth'});flash(g);return;}const slot=document.querySelector('#slot-colour .entry,#slot-rail .entry,#slot-buttons .entry');flash(slot?slot.closest('.slot'):$('.colour'));return;}
+  if(k==='entry'){if(S.entry==='06-1'){const g=$('#gal');const ec=g.querySelector('.endcard');g.scrollIntoView({behavior:'smooth',block:'center'});if(ec){g.scrollTo({left:ec.offsetLeft,behavior:'smooth'});ec.classList.add('flash');setTimeout(()=>ec.classList.remove('flash'),1400);}else{g.scrollTo({left:g.scrollWidth,behavior:'smooth'});}return;} /* scroll the gallery to wherever the end card now sits */const slot=document.querySelector('#slot-colour .entry,#slot-rail .entry,#slot-buttons .entry');flash(slot?slot.closest('.slot'):$('.colour'));return;}
   if(k==='look'){flash(S.fmt.look==='pairs'?$('#slot-buttons'):$('#recs-look'));return;}
   if(k==='hp'){flash($('#recs-hp'));return;}
   if(k==='wtyl'){flash($('#recs-wtyl'));return;}
