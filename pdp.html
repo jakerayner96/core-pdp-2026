@@ -78,8 +78,10 @@ a{color:inherit;text-decoration:none}
 .usp-new .usp-strip{padding:0}
 .usp-new .usp-cell{font-size:12px;min-height:0;padding:6px 16px;gap:2px;font-weight:var(--w-regular)}
 .usp-new .usp-cell b{font-weight:var(--w-strong)}
-.usp-new .usp-cell{display:flex} /* single banner — DS strip cell, Black/Red countdown variant (--usp-cd) */
+.usp-new .usp-cell{display:flex;gap:2px} /* single banner — DS 11982-37211 Black/Red: 12px regular message, bold red countdown */
+.usp-new .usp-cell b{font-weight:var(--w-regular)}
 .usp-new .usp-cd{font-size:12px}
+.usp-new .usp-cd i{color:var(--usp-cd)}
 
 /* ---------- Breadcrumb ---------- */
 .crumb{display:flex;align-items:center;gap:8px;padding:16px var(--m);font-size:12px;line-height:18px;white-space:nowrap;overflow:hidden}
@@ -301,7 +303,7 @@ a{color:inherit;text-decoration:none}
 /* inline bundling — 'Complete The Look': grey ground, white product cards with size + ADD TO BAG, no modal. Items = the rest of the range in the hero's colour */
 .recs.inline{background:var(--grey-05);padding:16px 0 24px}
 .recs.inline .rail-head{padding:0 var(--m)}
-.recs.inline .ctl{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 var(--m);scroll-snap-type:x proximity}
+.recs.inline .ctl{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 var(--m);scroll-padding:0 var(--m);scroll-snap-type:x proximity} /* first card snaps to the 16px margin, not the edge */
 .recs.inline .ctl::-webkit-scrollbar{display:none}
 .ctlc{flex:0 0 260px;width:260px;background:#FFF;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-snap-align:start}
 .ctlc .im{aspect-ratio:170/255;overflow:hidden;background:var(--surface-media)}
@@ -315,6 +317,8 @@ a{color:inherit;text-decoration:none}
 .ctlc .sel{height:50px;border:1px solid var(--grey-3);border-radius:4px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:16px;color:var(--grey-5);cursor:pointer}
 .ctlc .sel.set{color:#000;border-color:#000}
 .ctlc .sel img{width:16px;height:16px}
+.ctlc .szs{display:flex;gap:4px}
+.ctlc .szs .sz{flex:1 1 0;width:auto;min-width:0;height:40px;font-size:13px;padding:0} /* size buttons as on the PDP, scaled to fit the card */
 .ctlc .btn.s{height:50px}
 @media(min-width:1024px){.ctlc{flex:0 0 300px;width:300px}}
 @media(min-width:1024px){
@@ -411,8 +415,8 @@ a{color:inherit;text-decoration:none}
 /* 03-3 Pairs well with — thumb row + label, under the buy buttons */
 .pairs{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:8px 0}
 .pairs .thumbs{display:flex;gap:8px}
-.pairs .thumbs img{width:56px;height:74px;object-fit:cover;background:var(--grey-05);display:block}
-.pairs .lbl{display:flex;align-items:center;gap:6px;font-size:16px;font-weight:600;white-space:nowrap}
+.pairs .thumbs img{width:48px;height:64px;object-fit:cover;background:var(--grey-05);display:block}
+.pairs .lbl{display:flex;align-items:center;gap:4px;font-size:14px;font-weight:600;white-space:nowrap}
 .pairs .lbl .chev{width:16px;height:16px}
 @media(min-width:1024px){.pairs .thumbs img{width:64px;height:84px}}
 .equation-strip{display:flex;height:116px;background:var(--grey-05);border-radius:4px;overflow:hidden;width:100%;padding:0}
@@ -486,7 +490,8 @@ a{color:inherit;text-decoration:none}
 .srow .rh .all{font-size:12px;font-weight:600}
 .srow .cards{display:flex;gap:4px;padding-left:24px;overflow-x:auto;scrollbar-width:none;padding-right:24px}
 .srow .cards::-webkit-scrollbar{display:none}
-.scard{flex:0 0 140px;width:140px;display:flex;flex-direction:column;gap:12px}
+.scard{flex:0 0 140px;width:140px;display:flex;flex-direction:column;gap:12px} /* Figma: image → 12 → info */
+.scard .inf{display:flex;flex-direction:column;gap:8px} /* price → 8 → size */
 .scard .im{position:relative;aspect-ratio:170/255;overflow:hidden;background:var(--surface-media);cursor:pointer;transition:opacity .15s}
 .scard .im img{width:100%;height:100%;object-fit:cover}
 .scard.dim .im{opacity:.3}
@@ -501,8 +506,8 @@ a{color:inherit;text-decoration:none}
 .scard .sz-sel .v.set{color:#000}
 .scard .sz-sel .v.err{color:var(--red)}
 .scard .sz-sel img{width:12px;height:12px}
-.scard .nm{font-size:12px;color:var(--grey-4);font-weight:400;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
-.sheet .foot{flex:none;background:var(--grey-05);padding:16px 24px 24px;display:flex;flex-direction:column;gap:16px}
+.scard .nm{font-size:12px;color:var(--grey-4);font-weight:400;margin-top:-4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet .foot{flex:none;background:var(--grey-05);padding:24px;display:flex;flex-direction:column;gap:16px}
 .sheet .foot .tot{display:flex;justify-content:space-between;font-size:16px;font-weight:500}
 .sheet .foot .tot b{font-weight:600}
 .sheet .foot .btn.p:disabled{background:var(--grey-3);cursor:not-allowed}
@@ -519,7 +524,14 @@ a{color:inherit;text-decoration:none}
 .lk .chip{position:absolute;transform:translate(-50%,12px);background:#FFF;border-radius:4px;padding:8px 10px;box-shadow:var(--shadow-pill);display:none;flex-direction:column;gap:2px;min-width:150px;font-size:12px}
 .lk .chip b{font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
 .lk .chip.on{display:flex}
-.lk .hint{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.85);border-radius:4px;padding:6px 10px;font-size:12px;font-weight:600}
+.lk.one{flex:none;max-width:none;width:auto;margin:0 var(--m);aspect-ratio:2/3;cursor:default}
+@media(min-width:1024px){.lk.one{width:480px;margin:0 auto}}
+.lk .chip{z-index:2;min-width:190px}
+.lk .chip.up{transform:translate(-50%,calc(-100% - 20px))} /* lowest hotspot opens upwards */
+.lk .chip .swl{display:flex;gap:4px;margin-top:6px}
+.lk .chip .swl button{width:24px;height:36px;padding:0;border:1px solid var(--grey-2);border-radius:3px;overflow:hidden;background:var(--surface-media)}
+.lk .chip .swl button.on{border-color:#000}
+.lk .chip .swl img{width:100%;height:100%;object-fit:cover}
 .lk.on .hint{display:none}
 .recs.hot .btn.s{margin:0 var(--m);width:auto}
 @media(min-width:1024px){.lk{flex:0 0 340px}}
@@ -572,7 +584,16 @@ a{color:inherit;text-decoration:none}
 .crow .th button{flex:0 0 68px;width:68px;height:90px;padding:0;border:1px solid var(--grey-2);background:var(--grey-05);overflow:hidden;position:relative}
 .crow .th button img{width:100%;height:100%;object-fit:cover}
 .crow .th button.on{border:2px solid #000}
-.crow .th button .pr{position:absolute;left:0;right:0;bottom:0;font-size:10px;background:rgba(255,255,255,.85);padding:1px 4px;text-align:left}
+.crow .th button .tick{position:absolute;left:4px;top:4px;width:18px;height:18px;border-radius:3px;background:#000}
+.crow .th button .tick::after{content:"";position:absolute;left:6px;top:2px;width:4px;height:9px;border:solid #FFF;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.crow .csel{display:flex;flex-direction:column;gap:6px;padding:0 24px}
+.crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px}
+.crow .cs .c{color:#000;font-weight:500}
+.crow .cs .sz-sel{display:flex;gap:6px;align-items:center;cursor:pointer;white-space:nowrap}
+.crow .cs .sz-sel .v{color:var(--grey-4)}.crow .cs .sz-sel .v.set{color:#000;font-weight:600}.crow .cs .sz-sel .v.err{color:var(--red)}
+.crow .cs .sz-sel img{width:12px;height:12px}
+.crow .rh .all{font-size:12px;font-weight:600}
+.crow .rh .lbl{font-size:16px;font-weight:500;text-transform:capitalize;letter-spacing:0;color:#000} /* same row label as the cards view */
 /* size picker popover */
 .pick{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center}
 .pick .bg{position:absolute;inset:0}
@@ -1083,7 +1104,11 @@ function setPieces(){return S.rows.length||3;}
 /* ============================================================
    Shop The Look module (new) / Complete Your Purchase With (live) / Similar (OOS)
    ============================================================ */
-function lookItems(){const h=hero();return [h,partner('wide-jogger',h.colour),partner('tee',h.colour)].filter(Boolean);}
+let LOOKSEL={},LOOKHERO=null,HOTOPEN=null; // the look's pieces (fam → SKU), re-seeded when the hero changes; HOTOPEN = which hotspot chip is open
+function lookPieces(){const h=hero();if(LOOKHERO!==h.id){LOOKHERO=h.id;LOOKSEL={'zip-hoodie':h.id,'wide-jogger':(partner('wide-jogger',h.colour)||{}).id,'tee':(partner('tee',h.colour)||{}).id};HOTOPEN=null;}return LOOKSEL;}
+function lookItems(){const L=lookPieces();return ['zip-hoodie','wide-jogger','tee'].map(f=>byId(L[f])).filter(Boolean);}
+/* full-length front shot of the set in a given hoodie colour: image[3] of the zip hoodie (navy's is a torso crop → its jogger's) */
+function fullImg(colour){const j=fam('wide-jogger').concat(fam('straight-jogger')).find(p=>p.colour===colour);const hd=fam('zip-hoodie').find(p=>p.colour===colour);const k=(['Washed Navy','Light Blue'].includes(colour)&&j)?j.id:(hd||j||hero()).id; /* navy + light blue hoodie shots are torso crops → use the jogger set shot */ return `img/products/${k.toLowerCase()}_full.jpg`;}
 function lookMore(){const c=hero().colour;const h=hero();const same=P.filter(p=>p.colour===c&&p.id!==h.id&&!['wide-jogger','tee'].includes(p.fam));const rest=P.filter(p=>p.colour!==c&&p.fam!=='zip-hoodie');return [...same,...rest].slice(0,9);}
 /* Recs module — one component, three formats. bundle:true = the Create The Look one (always opens the sheet). */
 const RECS={
@@ -1113,26 +1138,26 @@ function recsModule(key){
         <div class="row"><span class="rng">Premium Essentials</span><span class="pr">${fmt2(p)}</span></div>
         <div class="nm">${p.name}</div>
         <div class="col">Colour: <b>${p.colour}</b></div>
-        <div class="sel ${st.size?'set':''}"><span>${st.size||'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
+        <div class="szs">${['XS','S','M','L','XL','2XL'].map(z=>`<button class="sz ${st.size===z?'on':''}">${z}</button>`).join('')}</div>
         <button class="btn s">Add to bag</button></div>`);
-      c.querySelector('.sel').onclick=()=>openPick(p,sz=>{st.size=sz;renderRecs();});
+      c.querySelectorAll('.szs .sz').forEach(bt=>bt.onclick=()=>{st.size=bt.textContent;renderRecs();});
       c.querySelector('.btn').onclick=()=>{if(!st.size){toast('Select a size');return;}openATB([{p,size:st.size}]);};
       sc.appendChild(c);
     });
     box.appendChild(sc);
   }else if(f==='hot'){
     box.querySelector('.rail-title').textContent='Complete The Look';
-    const h=hero();const pieces=lookItems();
-    const looks=[{img:(h.gallery||[])[1]||h.img,spots:[[50,32,pieces[0]],[52,74,pieces[1]]]},{img:h.img,spots:[[50,40,pieces[0]]]},{img:(h.gallery||[])[3]||h.img2,spots:[[50,36,pieces[0]],[50,78,pieces[1]]]}];
-    const sc=el(`<div class="looks"></div>`);
-    looks.forEach(L=>{
-      const lk=el(`<div class="lk"><img src="${L.img}" alt="Complete the look"><span class="hint">Tap to shop the look</span></div>`);
-      L.spots.forEach(([x,y,p])=>{if(!p)return;const d=el(`<button class="dot" style="left:${x}%;top:${y}%" aria-label="${p.name}"></button>`);const ch=el(`<div class="chip" style="left:${x}%;top:${y}%"><b>${p.name}</b><span>${fmt(p.price)}</span></div>`);
-        d.onclick=e=>{e.stopPropagation();const on=ch.classList.contains('on');lk.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));ch.classList.toggle('on',!on);};
-        ch.onclick=e=>{e.stopPropagation();openLookModal();};lk.appendChild(d);lk.appendChild(ch);});
-      lk.onclick=()=>{lk.classList.toggle('on');lk.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));};
-      sc.appendChild(lk);});
-    box.appendChild(sc);
+    const L=lookPieces();const hd=byId(L['zip-hoodie']);
+    const SPOTS=[['zip-hoodie',50,30],['tee',52,46],['wide-jogger',48,70]];
+    const lk=el(`<div class="lk one on"><img src="${fullImg(hd.colour)}" alt="Complete the look"></div>`);
+    SPOTS.forEach(([fm,x,y])=>{const p=byId(L[fm]);if(!p)return;
+      const d=el(`<button class="dot" style="left:${x}%;top:${y}%" aria-label="${p.name}"></button>`);
+      const ch=el(`<div class="chip ${HOTOPEN===fm?'on':''} ${y>60?'up':''}" style="left:${x}%;top:${y}%"><b>${p.name}</b><span>${p.colour} · ${fmt(p.price)}</span><div class="swl"></div></div>`);
+      const sw=ch.querySelector('.swl');fam(p.fam).forEach(c=>{const bt=el(`<button class="${c.id===p.id?'on':''}" title="${c.colour}" aria-label="${c.colour}"><img src="${c.img}" alt=""></button>`);bt.onclick=e=>{e.stopPropagation();LOOKSEL[fm]=c.id;renderRecs();};sw.appendChild(bt);});
+      d.onclick=e=>{e.stopPropagation();HOTOPEN=HOTOPEN===fm?null:fm;renderRecs();};
+      ch.onclick=e=>e.stopPropagation();lk.appendChild(d);lk.appendChild(ch);});
+    lk.onclick=()=>{HOTOPEN=null;renderRecs();};
+    box.appendChild(lk);
     const vb=el(`<button class="btn s">View entire look</button>`);vb.onclick=openLookModal;box.appendChild(vb);
   }else if(f==='carousel'){
     const sc=el(`<div class="scroll"></div>`);items.forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>open(p)})));box.appendChild(sc);
@@ -1202,7 +1227,7 @@ function renderEntry(){
 /* ============================================================
    Sheet: Create The Look ('look') / Shop The Set ('set')  — Figma 1038:45022
    ============================================================ */
-let SH={kind:'set',rows:[],sel:{}}; // sel[rowIdx] = {id,size}
+let SH={kind:'set',rows:[],sel:{},view:{}}; // sel[id]={size,err} — MULTI-select: as many as you like from every row · view[ri]='thumbs' after View All
 function sheetRows(kind){
   const h=hero();
   if(kind==='look'){
@@ -1215,9 +1240,10 @@ function sheetRows(kind){
   return S.rows.map(f=>{const F=FAM.find(x=>x.id===f);return F?{label:F.label,items:sortByColour(fam(f),h.colour)}:null;}).filter(Boolean);
 }
 function openSheet(kind,preselectId){
-  SH={kind,rows:sheetRows(kind),sel:{}};
-  // the current product is ticked on open (Figma: first card checked)
-  SH.rows.forEach((r,i)=>{const hit=r.items.find(p=>p.id===hero().id)||(preselectId&&r.items.find(p=>p.id===preselectId));if(hit)SH.sel[i]={id:hit.id,size:null};});
+  SH={kind,rows:sheetRows(kind),sel:{},view:{}};
+  const all=SH.rows.flatMap(r=>r.items);
+  if(all.find(p=>p.id===hero().id))SH.sel[hero().id]={size:null}; // the product you came from is ticked on open (Figma)
+  if(preselectId&&all.find(p=>p.id===preselectId))SH.sel[preselectId]={size:null};
   $('#sheettitle').textContent=kind==='look'?'Shop The Look':'Shop The Set';
   renderSheet();
   const sh=$('#sheet');sh.hidden=false;requestAnimationFrame(()=>sh.classList.add('open'));
@@ -1226,52 +1252,48 @@ function openSheet(kind,preselectId){
 function closeSheet(){const sh=$('#sheet');sh.classList.remove('open');setTimeout(()=>{sh.hidden=true;document.body.style.overflow='';},250);}
 let SETVIEW=PRE.setview||LS('pdp26-setview')||'cards';
 document.querySelectorAll('#setview button').forEach(bt=>bt.onclick=()=>{SETVIEW=bt.dataset.v;LS('pdp26-setview',SETVIEW);renderSheet();parent.postMessage({pdpState:{setview:SETVIEW}},'*');});
-function renderSheetCompact(){
-  const b=$('#sheetbody');
-  const first=SH.sel[0]?byId(SH.sel[0].id):hero();
-  b.appendChild(el(`<div class="cmp-hero"><img src="${first.img}" alt="${first.name}"><div class="cap"><b>${first.name}</b>${first.colour} · ${fmt(first.price)}</div></div>`));
-  SH.rows.forEach((r,ri)=>{
-    const sel=SH.sel[ri];const sp=sel?byId(sel.id):null;
-    const row=el(`<div class="crow"><div class="rh"><span class="lbl">${r.label}${sp?` — <b>${sp.colour} · ${fmt(sp.price)}</b>`:''}</span>${sp?`<span class="sz-sel"><span>Size:</span><span class="v ${sel.size?'set':''} ${sel.err?'err':''}">${sel.size||'Select'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></span>`:''}</div><div class="th"></div></div>`);
-    const th=row.querySelector('.th');
-    r.items.forEach(p=>{const on=sel&&sel.id===p.id;const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""></button>`);
-      bt.onclick=()=>{if(on)delete SH.sel[ri];else SH.sel[ri]={id:p.id,size:null};renderSheet();};th.appendChild(bt);});
-    if(sp)row.querySelector('.sz-sel').onclick=()=>openPick(sp,sz=>{SH.sel[ri].size=sz;SH.sel[ri].err=false;renderSheet();});
-    b.appendChild(row);
+const rowHasSel=r=>r.items.some(p=>SH.sel[p.id]);
+function toggleSel(p){if(SH.sel[p.id])delete SH.sel[p.id];else SH.sel[p.id]={size:null};renderSheet();}
+function sizeLine(p){const st=SH.sel[p.id];return `<div class="sz-sel"><span>Size:</span><span class="v ${st&&st.size?'set':''} ${st&&st.err?'err':''}">${st&&st.size?st.size:'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>`;}
+function wireSize(node,p){node.querySelector('.sz-sel').onclick=e=>{e.stopPropagation();openPick(p,sz=>{SH.sel[p.id]={size:sz};renderSheet();});};}
+/* row as product cards (Figma 1038:45022) */
+function rowCards(r,ri){
+  const has=rowHasSel(r);
+  const row=el(`<div class="srow"><div class="rh"><span class="lbl">${r.label}</span><button class="all">View All</button></div><div class="cards"></div></div>`);
+  row.querySelector('.all').onclick=()=>{SH.view[ri]='thumbs';renderSheet();};
+  const cards=row.querySelector('.cards');
+  r.items.forEach(p=>{
+    const on=!!SH.sel[p.id];const sale=p.was&&p.was>p.price;
+    const c=el(`<div class="scard ${on?'on':''} ${has&&!on?'dim':''}">
+      <div class="im"><img src="${p.img}" alt="${p.name} — ${p.colour}"><button class="cb ${on?'':'off'}" aria-label="${on?'Deselect':'Select'} ${p.colour}"></button></div>
+      <div class="inf"><div class="pr"><span class="now ${sale?'sale':''}">${fmt(p.price)}</span>${sale?`<span class="was">${fmt(p.was)}</span>`:''}</div>${sizeLine(p)}<div class="nm">${p.colour}</div></div></div>`);
+    c.querySelector('.im').onclick=()=>toggleSel(p);wireSize(c,p);cards.appendChild(c);
   });
+  return row;
+}
+/* row as small thumbnails — View All (see every item in the row) and the Compact layout. Tap as many as you like; picks list beneath with a size each */
+function rowThumbs(r,ri,back){
+  const row=el(`<div class="crow"><div class="rh"><span class="lbl">${r.label}</span>${back?'<button class="all">View less</button>':''}</div><div class="th"></div><div class="csel"></div></div>`);
+  if(back)row.querySelector('.all').onclick=()=>{delete SH.view[ri];renderSheet();};
+  const th=row.querySelector('.th');
+  r.items.forEach(p=>{const on=!!SH.sel[p.id];const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt="">${on?'<i class="tick"></i>':''}</button>`);bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
+  const cs=row.querySelector('.csel');
+  r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const line=el(`<div class="cs"><span class="c">${p.colour} · ${fmt(p.price)}</span>${sizeLine(p)}</div>`);wireSize(line,p);cs.appendChild(line);});
+  return row;
 }
 function renderSheet(){
-  const b=$('#sheetbody');b.innerHTML='';
-  $('#setview').hidden=true;
-  if(SH.kind==='set'&&SETVIEW==='compact'){renderSheetCompact();}
-  else{
+  const b=$('#sheetbody');b.innerHTML='';$('#setview').hidden=true;
+  const compact=SH.kind==='set'&&SETVIEW==='compact'; // Compact = every row as thumbnails, no hero (the product you came from is already ticked in its row)
   if(SH.kind==='look') b.appendChild(el(`<div class="filters"><span>Price <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Body Fit <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Style <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span></div>`));
-  SH.rows.forEach((r,ri)=>{
-    const row=el(`<div class="srow"><div class="rh"><span class="lbl">${r.label}</span><span class="all">View All</span></div><div class="cards"></div></div>`);
-    const cards=row.querySelector('.cards');const sel=SH.sel[ri];
-    r.items.forEach(p=>{
-      const on=sel&&sel.id===p.id;const dim=sel&&!on;const sale=p.was&&p.was>p.price;
-      const c=el(`<div class="scard ${on?'on':''} ${dim?'dim':''}">
-        <div class="im"><img src="${p.img}" alt="${p.name} — ${p.colour}"><button class="cb ${on?'':'off'}" aria-label="${on?'Deselect':'Select'} ${p.colour}"><img src="assets/bundling/icons/tick-white.svg" alt=""></button></div>
-        <div class="pr"><span class="now ${sale?'sale':''}">${fmt(p.price)}</span>${sale?`<span class="was">${fmt(p.was)}</span>`:''}</div>
-        <div class="sz-sel"><span>Size:</span><span class="v ${on&&sel.size?'set':''} ${on&&sel.err?'err':''}">${on&&sel.size?sel.size:'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
-        <div class="nm">${p.colour}</div></div>`);
-      c.querySelector('.im').onclick=e=>{ if(on){delete SH.sel[ri];} else {SH.sel[ri]={id:p.id,size:null};} renderSheet(); };
-      c.querySelector('.sz-sel').onclick=e=>{e.stopPropagation();openPick(p,sz=>{SH.sel[ri]={id:p.id,size:sz};renderSheet();});};
-      cards.appendChild(c);
-    });
-    b.appendChild(row);
-  });
-  }
-  const picked=Object.values(SH.sel);
-  const total=picked.reduce((a,s)=>a+byId(s.id).price,0);
-  $('#sheettotal').textContent=fmt(total);
-  const btn=$('#sheetatb');btn.textContent=`Add to bag (${picked.length})`;btn.disabled=!picked.length;
+  SH.rows.forEach((r,ri)=>b.appendChild((compact||SH.view[ri]==='thumbs')?rowThumbs(r,ri,!compact):rowCards(r,ri)));
+  const ids=Object.keys(SH.sel);
+  $('#sheettotal').textContent=fmt(ids.reduce((a,id)=>a+byId(id).price,0));
+  const btn=$('#sheetatb');btn.textContent=`Add to bag (${ids.length})`;btn.disabled=!ids.length;
 }
 $('#sheetatb').onclick=()=>{
-  let bad=false;Object.keys(SH.sel).forEach(k=>{if(!SH.sel[k].size){SH.sel[k].err=true;bad=true;}});
+  let bad=false;Object.keys(SH.sel).forEach(id=>{if(!SH.sel[id].size){SH.sel[id].err=true;bad=true;}});
   if(bad){renderSheet();toast('Select a size for each item');return;}
-  const items=Object.values(SH.sel).map(s=>({p:byId(s.id),size:s.size}));
+  const items=Object.keys(SH.sel).map(id=>({p:byId(id),size:SH.sel[id].size}));
   closeSheet();setTimeout(()=>openATB(items),200);
 };
 /* Complete The Look modal (hotspot format): each piece can switch colour within its family and pick a size; Add all */
@@ -1284,7 +1306,7 @@ function renderLookModal(){
   const b=$('#lookmbody');b.innerHTML='';
   LM.forEach((it,i)=>{const p=byId(it.id);const fs=fam(p.fam);
     const row=el(`<div class="lm"><img class="main" src="${p.img}" alt=""><div class="txt"><div class="nm">${p.name}</div><div class="pr">${fmt(p.price)}</div><div class="swr"></div><div class="sz-sel"><span>Size:</span><span class="v ${it.size?'set':''} ${it.err?'err':''}">${it.size||'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div></div></div>`);
-    const swr=row.querySelector('.swr');fs.forEach(c=>{const bt=el(`<button class="${c.id===p.id?'on':''}" title="${c.colour}" aria-label="${c.colour}"><img src="${c.img}" alt=""></button>`);bt.onclick=()=>{LM[i]={id:c.id,size:null};renderLookModal();};swr.appendChild(bt);});
+    const swr=row.querySelector('.swr');fs.forEach(c=>{const bt=el(`<button class="${c.id===p.id?'on':''}" title="${c.colour}" aria-label="${c.colour}"><img src="${c.img}" alt=""></button>`);bt.onclick=()=>{LM[i]={id:c.id,size:null};LOOKSEL[c.fam]=c.id;renderLookModal();};swr.appendChild(bt);});
     row.querySelector('.sz-sel').onclick=()=>openPick(p,sz=>{LM[i].size=sz;LM[i].err=false;renderLookModal();});
     b.appendChild(row);});
   $('#lookmtotal').textContent=fmt(LM.reduce((a,it)=>a+byId(it.id).price,0));
