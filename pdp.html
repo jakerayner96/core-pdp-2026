@@ -424,7 +424,7 @@ a{color:inherit;text-decoration:none}
 @keyframes mtm{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 .buy-set-box .imgs::-webkit-scrollbar,.equation-strip .imgs::-webkit-scrollbar{display:none}
 .buy-set-box .track img{flex:none}
-.buy-set-box .imgs img{height:100%;aspect-ratio:48/72;object-fit:cover;width:auto}
+.buy-set-box .imgs img{height:117px;width:78px;object-fit:cover} /* fixed 2:3 tiles → exact loop */
 .buy-set-box .copy{flex:0 0 50%;min-width:0;background:var(--grey-05);display:flex;flex-direction:column;justify-content:center;gap:4px;padding:16px 24px}
 .buy-set-box .copy .h{font-size:16px;font-weight:600;white-space:nowrap}
 .buy-set-box .copy .s{font-size:12px;font-weight:400;color:var(--grey-4)}
@@ -613,13 +613,8 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .cmp-hero .cap{position:absolute;left:0;right:0;bottom:0;padding:12px 16px;background:linear-gradient(to top,rgba(255,255,255,.95),rgba(255,255,255,0));font-size:14px}
 .cmp-hero .cap b{font-weight:600;display:block}
 .crow{display:flex;flex-direction:column;gap:6px}
-/* View All ⇄ Zoom In transition: the row scales and bunches up (or grows) before the other layout settles in */
-.srow .cards,.crow .th{transform-origin:left center;transition:transform .22s ease,opacity .22s ease}
-.srow.zooming .cards{transform:scale(.6);opacity:.5}
-.crow.zooming .th{transform:scale(1.667);opacity:.5}
-.crow.zoomin .th,.srow.zoomin .cards{animation:zfade .26s ease both} /* incoming layout is already at the outgoing end size — fade only, no jump */
-@keyframes zfade{from{opacity:.5}to{opacity:1}}
-.srow .cards,.crow .th{will-change:transform,opacity}
+.srow,.crow{flex:none} /* rows never shrink inside the modal's flex column (overflow:hidden during the swap would otherwise collapse them) */
+.srow .cards,.crow .th{will-change:transform,opacity} /* View All ⇄ Zoom In is driven in place by swapRow() */
 .crow .rh{display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:12px}
 .crow .rh .lbl{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--grey-5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .crow .rh .lbl b{color:#000}
@@ -1327,11 +1322,24 @@ const setPrice=p=>`<span class="now sale">${fmt(setNow(p))}</span><span class="w
 function sizeLine(p){const st=SH.sel[p.id];return `<div class="sz-sel"><span>Size:</span><span class="v ${st&&st.size?'set':''} ${st&&st.err?'err':''}">${st&&st.size?st.size:'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>`;}
 function wireSize(node,p){node.querySelector('.sz-sel').onclick=e=>{e.stopPropagation();openPick(p,sz=>{SH.sel[p.id]={size:sz};renderSheet();});};}
 /* row as product cards (Figma 1038:45022) */
+/* View All ⇄ Zoom In: swap ONLY this row, in place. Outgoing size → incoming size is continuous (140→84 or back) and the row height eases, so nothing below jumps */
+function swapRow(oldRow,ri,toThumbs){
+  const r=SH.rows[ri];const h0=oldRow.offsetHeight;
+  if(toThumbs)SH.view[ri]='thumbs';else delete SH.view[ri];
+  const newRow=toThumbs?rowThumbs(r,ri,true):rowCards(r,ri);oldRow.replaceWith(newRow);
+  const h1=newRow.offsetHeight;const inner=newRow.querySelector(toThumbs?'.th':'.cards');
+  newRow.style.height=h0+'px';newRow.style.overflow='hidden';
+  inner.style.transformOrigin='left top';inner.style.transform=toThumbs?'scale(1.667)':'scale(.6)';inner.style.opacity='.6';
+  requestAnimationFrame(()=>{requestAnimationFrame(()=>{
+    newRow.style.transition='height .32s cubic-bezier(.2,.7,.2,1)';inner.style.transition='transform .32s cubic-bezier(.2,.7,.2,1),opacity .32s ease';
+    newRow.style.height=h1+'px';inner.style.transform='none';inner.style.opacity='1';
+    setTimeout(()=>{newRow.style.cssText='';inner.style.cssText='';},360);
+  });});
+}
 function rowCards(r,ri){
   const has=rowHasSel(r);
   const row=el(`<div class="srow"><div class="rh"><span class="lbl">${r.label}</span><button class="all">View All</button></div><div class="cards"></div></div>`);
-  row.querySelector('.all').onclick=()=>{row.classList.add('zooming');setTimeout(()=>{SH.view[ri]='thumbs';SH.animIn=ri;renderSheet();},220);}; // View All: cards bunch up into thumbnails
-  if(SH.animIn===ri){row.classList.add('zoomin');SH.animIn=null;}
+  row.querySelector('.all').onclick=()=>swapRow(row,ri,true); // View All: cards bunch up into thumbnails
   const cards=row.querySelector('.cards');
   r.items.forEach(p=>{
     const on=!!SH.sel[p.id];const sale=p.was&&p.was>p.price;
@@ -1345,8 +1353,7 @@ function rowCards(r,ri){
 /* row as small thumbnails — View All (see every item in the row) and the Compact layout. Tap as many as you like; picks list beneath with a size each */
 function rowThumbs(r,ri,back){
   const row=el(`<div class="crow"><div class="rh"><span class="lbl">${r.label}</span>${back?'<button class="all">Zoom In</button>':''}</div><div class="th"></div><div class="csel"></div></div>`);
-  if(back)row.querySelector('.all').onclick=()=>{row.classList.add('zooming');setTimeout(()=>{delete SH.view[ri];SH.animIn=ri;renderSheet();},220);}; // Zoom In: thumbnails grow back into cards
-  if(SH.animIn===ri){row.classList.add('zoomin');SH.animIn=null;}
+  if(back)row.querySelector('.all').onclick=()=>swapRow(row,ri,false); // Zoom In: thumbnails grow back into cards
   const th=row.querySelector('.th');
   r.items.forEach(p=>{const on=!!SH.sel[p.id];const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""><span class="cb ${on?'':'off'}" aria-hidden="true"></span></button>`);bt.setAttribute('aria-pressed',on);bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
   const cs=row.querySelector('.csel');
