@@ -419,9 +419,9 @@ a{color:inherit;text-decoration:none}
 .chip-entry .hanger{width:16px;height:16px}
 .buy-set-box{display:flex;height:117px;border-radius:4px;overflow:hidden;width:100%;padding:0}
 .buy-set-box .imgs{display:flex;height:100%;flex:0 0 50%;min-width:0;overflow:hidden} /* slow endless marquee of the set */
-.buy-set-box .track{display:flex;height:100%;animation:mtm 16s linear infinite}
+.buy-set-box .track{display:flex;height:100%;animation:mtm 16s linear infinite;will-change:transform}
 .buy-set-box:hover .track{animation-play-state:paused}
-@keyframes mtm{to{transform:translateX(-50%)}}
+@keyframes mtm{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 .buy-set-box .imgs::-webkit-scrollbar,.equation-strip .imgs::-webkit-scrollbar{display:none}
 .buy-set-box .track img{flex:none}
 .buy-set-box .imgs img{height:100%;aspect-ratio:48/72;object-fit:cover;width:auto}
@@ -526,6 +526,7 @@ a{color:inherit;text-decoration:none}
 .scard .sz-sel.nochev{cursor:default}
 .scard .sz-sel{position:relative;line-height:20px;white-space:nowrap;overflow:hidden}
 .scard .sz-sel .v{overflow:hidden;text-overflow:ellipsis;min-width:0}
+body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>span:first-child{display:none} /* labels off: just "Select size" and the colour */
 .scard .sz-sel:not(.nochev)::before{content:"";position:absolute;inset:-10px 0} /* A11y: 40px touch target, 8px rhythm untouched */
 .scard .nm{font-size:12px;color:var(--grey-4);font-weight:400;margin-top:-4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sheet .foot{flex:none;background:var(--grey-05);padding:24px;display:flex;flex-direction:column;gap:16px}
@@ -614,12 +615,11 @@ a{color:inherit;text-decoration:none}
 .crow{display:flex;flex-direction:column;gap:6px}
 /* View All ⇄ Zoom In transition: the row scales and bunches up (or grows) before the other layout settles in */
 .srow .cards,.crow .th{transform-origin:left center;transition:transform .22s ease,opacity .22s ease}
-.srow.zooming .cards{transform:scale(.6);opacity:.35}
-.crow.zooming .th{transform:scale(1.6);opacity:.35}
-.crow.zoomin .th{animation:zin .3s ease both}
-.srow.zoomin .cards{animation:zout .3s ease both}
-@keyframes zin{from{transform:scale(1.5);opacity:.4}to{transform:none;opacity:1}}
-@keyframes zout{from{transform:scale(.62);opacity:.4}to{transform:none;opacity:1}}
+.srow.zooming .cards{transform:scale(.6);opacity:.5}
+.crow.zooming .th{transform:scale(1.667);opacity:.5}
+.crow.zoomin .th,.srow.zoomin .cards{animation:zfade .26s ease both} /* incoming layout is already at the outgoing end size — fade only, no jump */
+@keyframes zfade{from{opacity:.5}to{opacity:1}}
+.srow .cards,.crow .th{will-change:transform,opacity}
 .crow .rh{display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:12px}
 .crow .rh .lbl{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--grey-5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .crow .rh .lbl b{color:#000}
@@ -1018,6 +1018,7 @@ const S={
   entry:q.get('entry')||PRE.entry||'03-1',       // set-builder entry point id | none
   stock:q.get('stock')||PRE.stock||'in',         // in | size | oos
   sizerec:PRE.sizerec!==undefined?PRE.sizerec:(LS('pdp26-sizerec')!==null?LS('pdp26-sizerec'):true), // size recommender on/off
+  labels:PRE.labels!==undefined?PRE.labels:(LS('pdp26-labels')!==null?LS('pdp26-labels'):false), // builder cards: show 'Size:' / 'Colour:' labels
   rows:(q.get('rows')||'zip-hoodie,sweatshirt,tee,wide-jogger').split(',').filter(Boolean),
   colour:'CMM29598',                  // hero SKU (washed navy zip hoodie)
   size:null, notified:false, consent:true,
@@ -1353,7 +1354,7 @@ function rowThumbs(r,ri,back){
   return row;
 }
 function renderSheet(){
-  const b=$('#sheetbody');b.innerHTML='';$('#setview').hidden=true;
+  const b=$('#sheetbody');b.innerHTML='';document.body.classList.toggle('nolabels',!S.labels);$('#setview').hidden=true;
   b.classList.toggle('big',SH.kind==='set'&&SETVIEW==='large');b.classList.toggle('compact',SH.kind==='set'&&SETVIEW==='compact');
   const compact=SH.kind==='set'&&SETVIEW==='compact'; // Compact = every row as thumbnails, no hero (the product you came from is already ticked in its row)
   if(SH.kind==='look') b.appendChild(el(`<div class="filters"><span>Price <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Body Fit <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Style <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span></div>`));
@@ -1457,10 +1458,11 @@ function renderAll(){
   renderEntry();renderCYP();renderSimilar();renderRecs();
   $('#nddmsg').hidden=S.stock==='oos';
   $('#sizerec').hidden=!S.sizerec;
+  document.body.classList.toggle('nolabels',!S.labels);
   renderEdit();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1524,6 +1526,7 @@ addEventListener('message',e=>{
   if(d.gridRows){S.gridRows={...S.gridRows,...d.gridRows};LS('pdp26-gridrows',S.gridRows);}
   if(d.endpos){S.endpos=+d.endpos;LS('pdp26-endpos',S.endpos);}
   if(typeof d.sizerec==='boolean'){S.sizerec=d.sizerec;LS('pdp26-sizerec',S.sizerec);}
+  if(typeof d.labels==='boolean'){S.labels=d.labels;LS('pdp26-labels',S.labels);}
   if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);if(!$('#sheet').hidden&&SH.kind==='set')renderSheet();}
   if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);location.reload();return;}
   if(d.focus)PENDING_FOCUS=d.focus;
