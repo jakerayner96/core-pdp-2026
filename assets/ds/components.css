@@ -158,19 +158,19 @@
 .hd-bar{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 16px;gap:16px}
 .hd-left{display:flex;align-items:center;gap:16px;min-width:0}
 .hd-burger{width:24px;height:24px;min-width:24px;background:none;border:none;padding:0;cursor:pointer}
-.hd-burger img{width:100%;height:100%;display:block;object-fit:contain}
-.hd-logo{height:16px;width:auto;max-width:130px;object-fit:contain;object-position:left;display:block} /* Header component: mobile ~16px */
+.hd-burger img{width:100%;height:100%;display:block;object-fit:none} /* 24-grid glyph at native size — library SVGs are trimmed to the glyph, never scale them up */
+.hd-logo{height:15px;width:auto;max-width:106px;object-fit:contain;object-position:left;display:block} /* Header component / production: 106×15 mobile */
 .hd-icons{display:flex;align-items:center}
-.hd-icons button{width:38px;height:36px;display:grid;place-items:center;background:none;border:none;cursor:pointer;padding:0}
-.hd-icons img{width:var(--hd-icon,24px);height:var(--hd-icon,24px);display:block;object-fit:contain}
-.hd-icons img.favic{width:var(--hd-favic,21px);height:var(--hd-favic,21px)} /* wishlist glyph runs large — optically match siblings */
+.hd-icons button{width:38px;height:40px;display:grid;place-items:center;background:none;border:none;cursor:pointer;padding:0} /* production: 24 icon + 7px side padding, py-2 */
+.hd-icons img{width:var(--hd-icon,24px);height:var(--hd-icon,24px);display:block;object-fit:none} /* native glyph size inside the 24 box (bookmark 15×21, bag 20×23) — matches production, no optical fudge */
+.hd-icons img.favic{width:var(--hd-favic,24px);height:var(--hd-favic,24px)}
 .hd-icons button:focus-visible,.hd-burger:focus-visible{outline:var(--border-w-focus) solid var(--border-focus);outline-offset:2px}
 /* desktop bar (≥1024): logo · centred pill search · icons */
 .hd-bar--desktop{height:88px;padding:16px var(--plp-margin,16px);max-width:2000px;margin:0 auto}
 .hd-bar--desktop .hd-logo{height:20px;max-width:141px} /* Header component: 141×20 */
-.hd-search{flex:1;max-width:800px;margin:0 auto;height:52px;background:var(--surface-media);border:none;border-radius:var(--radius-pill);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;font-family:var(--font-family-base);font-size:16px;font-weight:var(--w-regular);color:var(--text-secondary);cursor:text}
+.hd-search{flex:1;max-width:800px;margin:0 auto;height:56px;/* production: h-14 */background:var(--surface-media);border:none;border-radius:var(--radius-pill);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;font-family:var(--font-family-base);font-size:16px;font-weight:var(--w-regular);color:var(--text-secondary);cursor:text}
 .hd-search .ics{display:flex;gap:20px;align-items:center}
-.hd-search img{width:22px;height:22px;display:block;object-fit:contain}
+.hd-search img{width:24px;height:24px;display:block;object-fit:none}
 .hd-search--underline{background:transparent;border-radius:0;border-bottom:var(--border-w) solid var(--icon-primary);padding:0 4px} /* PLT pattern */
 .hd-nav{display:flex;gap:16px;align-items:center;justify-content:center;height:40px;max-width:2000px;margin:0 auto;background:var(--nav-bg);color:var(--nav-fg);font-size:15px;font-weight:var(--w-mid);text-transform:var(--cta-case);overflow-x:auto;padding:0 16px}
 .hd-nav a{color:inherit;text-decoration:none;white-space:nowrap}

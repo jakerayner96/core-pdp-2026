@@ -40,17 +40,19 @@ a{color:inherit;text-decoration:none}
 
 /* ---------- Header ---------- */
 .hdr{background:#FFF}
-.hdr-row{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;gap:16px}
+.hdr-row{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;gap:16px} /* production: py-2 px-4, icons 24 in py-2 px-[7px] */
 .hdr-left{display:flex;align-items:center;gap:16px;min-width:0}
-.hdr-logo{height:16px;width:auto}
+.hdr-logo{height:15px;width:auto;max-width:106px} /* production: 106×15 mobile */
 .hdr-icons{display:flex;align-items:center}
-.hdr-icons button{width:38px;height:36px;display:grid;place-items:center}
+.hdr-icons button{width:38px;height:40px;display:grid;place-items:center}
+.hdr-icons button:last-child{width:31px;justify-items:end} /* last icon: pl-[7px] only */
+.hdr .ic{object-fit:none} /* 24-grid glyphs at native size inside the 24 box — never scaled up */
 .hdr-search{display:none}
 .hdr-nav{display:none}
 @media(min-width:1024px){
   .hdr-row{height:88px;padding:0 var(--m);gap:40px}
-  .hdr-logo{height:20px}
-  .hdr-search{display:flex;flex:1;max-width:800px;height:56px;background:var(--grey-1);border-radius:99px;align-items:center;padding:0 28px;gap:16px;color:var(--grey-4);font-size:16px;font-weight:400}
+  .hdr-logo{height:20px;max-width:141px} /* production: 141×20 desktop */
+  .hdr-search{display:flex;flex:1;max-width:800px;height:56px;/* production: xl:w-800 h-14 */background:var(--grey-1);border-radius:99px;align-items:center;padding:0 28px;gap:16px;color:var(--grey-4);font-size:16px;font-weight:400}
   .hdr-search span{flex:1}
   .hdr-search .ic{opacity:.9}
   .hdr-icons button{width:40px}
@@ -76,15 +78,15 @@ a{color:inherit;text-decoration:none}
 .usp-new .usp-strip{padding:0}
 .usp-new .usp-cell{font-size:12px;min-height:0;padding:6px 16px;gap:2px;font-weight:var(--w-regular)}
 .usp-new .usp-cell b{font-weight:var(--w-strong)}
-.usp-new .usp-cell:not(:first-child){display:none}
-@media(min-width:768px){.usp-new .usp-cell:not(:first-child){display:flex}}
+.usp-new .usp-cell{display:flex} /* single banner — DS strip cell, Black/Red countdown variant (--usp-cd) */
+.usp-new .usp-cd{font-size:12px}
 
 /* ---------- Breadcrumb ---------- */
 .crumb{display:flex;align-items:center;gap:8px;padding:16px var(--m);font-size:12px;line-height:18px;white-space:nowrap;overflow:hidden}
 .crumb a{text-transform:capitalize;font-weight:300}
 .mode-new .crumb a{font-weight:var(--w-regular)}
 .crumb .sep{padding:0 0}
-.crumb .share{margin-left:auto;flex:none}
+.crumb .share{margin-left:auto;flex:none;width:24px;height:24px;display:grid;place-items:center}
 .crumb .desk{display:none}
 @media(min-width:1024px){.crumb .desk{display:inline}.crumb .share{display:none}}
 
@@ -143,8 +145,9 @@ a{color:inherit;text-decoration:none}
 .brand{font-size:16px;font-weight:600}
 .pname{font-size:16px;font-weight:400}
 .mode-live .pname{font-weight:300}
-.wish{position:relative;width:44px;height:44px;flex:none;border-radius:99px;border:1px solid var(--grey-2);display:grid;place-items:center;background:#FFF}
-.wish img{width:16px;height:16px}
+.wish{position:relative;width:44px;height:44px;flex:none;border-radius:99px;border:none;display:grid;place-items:center;background:#FFF;box-shadow:var(--shadow-pill);transition:transform .2s ease-out} /* production wishlist-button: 44, shadow 0 0 14px -4px */
+.wish:hover{transform:scale(1.15)}
+.wish img{width:24px;height:24px;object-fit:none;zoom:.8333} /* production: 20px svg on a 24 viewBox */
 .price-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .price-vals{display:flex;align-items:flex-end;gap:8px;white-space:nowrap}
 .price-now{font-size:24px;font-weight:600;line-height:normal}
@@ -156,11 +159,14 @@ a{color:inherit;text-decoration:none}
 .mode-live .icon-msg{font-weight:400}
 .icon-msg img{width:20px;height:20px}
 .icon-msg b{font-weight:600}
-.options{display:flex;flex-direction:column;gap:16px}
+.buyblock{display:flex;flex-direction:column;gap:16px}
 .colour{display:flex;flex-direction:column;gap:8px}
 .colour-lbl{font-size:16px;font-weight:300}
 .colour-lbl b{font-weight:500}
-.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.swatches{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px} /* one row — scrolls, colours may run off the right edge */
+.swatches::-webkit-scrollbar{display:none}
+@media(min-width:1024px){.swatches{margin-right:0;padding-right:0}}
+.sw{flex:none}
 .mode-live .swatches{display:none}
 .sw{width:60px;height:89px;border-radius:4px;border:1px solid var(--grey-1);overflow:hidden;position:relative;padding:0;background:var(--surface-media)}
 .sw img{width:100%;height:100%;object-fit:cover;border-radius:3px}
@@ -175,6 +181,12 @@ a{color:inherit;text-decoration:none}
 .size-guide{display:flex;align-items:center;gap:4px;font-size:14px;font-weight:400;white-space:nowrap}
 .size-guide img{width:16px;height:16px}
 .size-btns{display:flex;gap:8px;flex-wrap:wrap}
+.fit{display:flex;flex-direction:column;gap:12px}
+.fit .lbl{font-size:16px;font-weight:400}
+.mode-live .fit .lbl{font-weight:300}
+.sz.fitb{width:auto;min-width:60px;padding:0 16px}
+.mode-live .sz.fitb{width:auto;min-width:53px}
+.mode-live .sz.fitb.on{border:1px solid #000;font-weight:400}
 .sz{width:60px;min-width:60px;height:50px;background:#FFF;border:1px solid var(--grey-3);border-radius:4px;font-size:16px;font-weight:400;display:flex;align-items:center;justify-content:center;position:relative;color:#000}
 .mode-live .sz{width:53px;min-width:53px;border-color:#E5E7EB}
 .sz.on{border:2px solid #000;font-weight:700}
@@ -229,7 +241,8 @@ a{color:inherit;text-decoration:none}
 .deliver .quote{font-size:12px;font-weight:300;font-style:italic;border-top:1px solid rgba(255,255,255,.25);padding-top:12px}
 .uspbox{background:#FFF;border:1px solid var(--grey-2);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:16px}
 .uspbox .r{display:flex;gap:16px;align-items:flex-start}
-.uspbox .r img{width:24px;height:24px;flex:none}
+.uspbox .r img{width:24px;height:24px;flex:none;object-fit:none}
+.uspbox .r img[src$=".png"]{object-fit:contain} /* production calendar PNG (3x) — DS icons-calendar.svg is a flagged multi-part export (bare rectangle) */
 .uspbox .txt{flex:1;display:flex;flex-direction:column;gap:2px}
 .uspbox .t14{font-size:14px;font-weight:400;line-height:21px}
 .uspbox .t12{font-size:12px;font-weight:400;line-height:18px}
@@ -250,9 +263,9 @@ a{color:inherit;text-decoration:none}
 /* ---------- Product cards (Figma 569:24467 / DS C-02 anatomy) ---------- */
 .card{display:flex;flex-direction:column;gap:12px;min-width:0;cursor:pointer}
 .card .img{position:relative;aspect-ratio:170/255;overflow:hidden;background:var(--surface-media)}
-.card .img img{width:100%;height:100%;object-fit:cover}
+.card .img>img{width:100%;height:100%;object-fit:cover} /* the photo only — never the action icon */
 .card .cw{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:99px;background:#FFF;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.14)}
-.card .cw img{width:12px;height:12px}
+.card .cw img{width:16px;height:16px} /* 16px icon in the 32px action button (Figma Actions 9672:41639) */
 .card .info{display:flex;flex-direction:column;gap:8px}
 .card .titles{display:flex;flex-direction:column;gap:4px;font-size:14px}
 .card .cb-brand{font-weight:600}
@@ -275,20 +288,20 @@ a{color:inherit;text-decoration:none}
 @media(min-width:1024px){.grid3{grid-template-columns:repeat(6,1fr);gap:24px 16px}.scroll .card{flex:0 0 220px}}
 
 /* ---------- Shop The Look module (Figma 638:56822 / 57804 / 57872) ---------- */
-.look{cursor:pointer} /* FULL-BLEED: the module (and its grey ground) runs edge to edge; content keeps the page margin */
-.look.nodata{background:var(--grey-05);padding:16px var(--m);display:flex;flex-direction:column;gap:16px}
-.look.nodata .imgs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
-.look.nodata .imgs::-webkit-scrollbar{display:none}
-.look.nodata .imgs img{flex:0 0 150px;width:150px;height:225px;object-fit:cover}
-.look.data{background:#FFF;padding:16px 0;display:flex;flex-direction:column;gap:16px}
-.look.data .rail-head{padding:0 var(--m)}
-.look.data .scroll{padding-left:var(--m)}
-.look.grid{background:#FFF;padding:16px var(--m);display:flex;flex-direction:column;gap:16px}
+/* ---------- Recs module: ONE component, three formats (Figma 638:56822 grey/no-data · 638:57804 carousel · 638:57872 grid) ---------- */
+.recs{display:flex;flex-direction:column;gap:16px} /* FULL-BLEED: the module (and its grey ground) runs edge to edge; content keeps the page margin */
+.recs.nodata{background:var(--grey-05);padding:16px var(--m);cursor:pointer}
+.recs.nodata .imgs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.recs.nodata .imgs::-webkit-scrollbar{display:none}
+.recs.nodata .imgs img{flex:0 0 150px;width:150px;height:225px;object-fit:cover}
+.recs.carousel{background:#FFF;padding:16px 0}
+.recs.carousel .rail-head{padding:0 var(--m)}
+.recs.carousel .scroll{padding-left:var(--m)}
+.recs.grid{background:#FFF;padding:16px var(--m)}
 @media(min-width:1024px){
-  .look.nodata .imgs img{flex:0 0 220px;width:220px;height:330px}
-  .look.grid .grid3{grid-template-columns:repeat(6,1fr)}
+  .recs.nodata .imgs img{flex:0 0 220px;width:220px;height:330px}
+  .recs.grid .grid3{grid-template-columns:repeat(6,1fr)}
 }
-.mode-live .look{display:none}
 
 /* Complete Your Purchase With — live production module */
 .cyp{display:none;flex-direction:column;gap:12px}
@@ -365,16 +378,20 @@ a{color:inherit;text-decoration:none}
 .chip-entry.round{border-radius:100px}.chip-entry.square{border-radius:4px}.chip-entry.outlined{border:1px solid #000}
 .chip-entry .hanger{width:16px;height:16px}
 .buy-set-box{display:flex;height:117px;border-radius:4px;overflow:hidden;width:100%;padding:0}
-.buy-set-box .imgs{display:flex;height:100%;flex:0 0 50%;min-width:0;overflow:hidden}
+.buy-set-box .imgs{display:flex;height:100%;flex:0 0 50%;min-width:0;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity} /* peeking image scrolls */
+.buy-set-box .imgs::-webkit-scrollbar,.equation-strip .imgs::-webkit-scrollbar{display:none}
+.buy-set-box .imgs img{scroll-snap-align:start;flex:none}
 .buy-set-box .imgs img{height:100%;aspect-ratio:48/72;object-fit:cover;width:auto}
 .buy-set-box .copy{flex:0 0 50%;min-width:0;background:var(--grey-05);display:flex;flex-direction:column;justify-content:center;gap:4px;padding:16px 24px}
 .buy-set-box .copy .h{font-size:16px;font-weight:600;white-space:nowrap}
 .buy-set-box .copy .s{font-size:12px;font-weight:400;color:var(--grey-4)}
 .equation-strip{display:flex;height:116px;background:var(--grey-05);border-radius:4px;overflow:hidden;width:100%;padding:0}
-.equation-strip .imgs{flex:1;display:flex;height:100%;overflow:hidden}
+.equation-strip .imgs{flex:1;display:flex;height:100%;overflow-x:auto;scrollbar-width:none}
+.equation-strip .imgs img{flex:none}
 .equation-strip .imgs img{height:100%;aspect-ratio:48/72;object-fit:cover;width:auto}
 .equation-strip .copy{width:127px;flex:none;display:flex;align-items:center;justify-content:center;padding:0 16px;font-size:14px;font-weight:600;text-align:center}
 .outfit-module{background:var(--grey-05);cursor:pointer}
+@media(min-width:1024px){#slot-rail{margin:0 calc(var(--m) * -1)}}
 .outfit-scroll{display:flex;overflow-x:auto;scrollbar-width:none}
 .outfit-scroll::-webkit-scrollbar{display:none}
 .outfit-scroll img{flex:0 0 auto;aspect-ratio:390/585;object-fit:cover;height:auto}
@@ -484,14 +501,32 @@ a{color:inherit;text-decoration:none}
 /* toast */
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:#000;color:#FFF;font-size:14px;font-weight:500;padding:12px 20px;border-radius:4px;opacity:0;pointer-events:none;transition:.2s;z-index:70;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* ---------- Edit layout mode (review tooling) ---------- */
+body.editing [data-block]{position:relative;outline:1.5px dashed rgba(13,153,255,.7);outline-offset:-1px;min-height:28px;padding-top:36px!important}
+body.editing [data-block][hidden]{display:none!important}
+.ed{position:absolute;top:4px;left:4px;right:4px;z-index:20;display:flex;align-items:center;gap:6px;pointer-events:none;font-family:'Google Sans',system-ui,sans-serif}
+.ed>*{pointer-events:auto}
+.ed .lbl{background:#0D99FF;color:#FFF;font-size:11px;font-weight:600;padding:3px 8px;border-radius:99px;white-space:nowrap;line-height:1.3}
+.ed .seg{display:inline-flex;background:#0A0A0A;border-radius:99px;padding:2px;gap:2px}
+.ed .seg button{font-size:10.5px;color:#B0B0B0;padding:2px 8px;border-radius:99px;line-height:1.4}
+.ed .seg button.on{background:#F7F7F7;color:#000;font-weight:600}
+.ed .mv{margin-left:auto;display:inline-flex;gap:4px}
+.ed .mv button{width:24px;height:24px;border-radius:99px;background:#0A0A0A;color:#FFF;display:grid;place-items:center;font-size:12px;line-height:1}
+.ed .mv button:disabled{opacity:.3}
+#edbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:#0A0A0A;color:#F7F7F7;font-family:'Google Sans',system-ui,sans-serif;font-size:12px;display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid rgba(255,255,255,.2)}
+#edbar[hidden]{display:none}
+#edbar b{color:#0D99FF}
+#edbar button{color:#F7F7F7;text-decoration:underline;font-size:12px}
+#edbar .done{margin-left:auto;background:#F7F7F7;color:#000;text-decoration:none;font-weight:600;padding:6px 14px;border-radius:99px}
+body.editing{padding-bottom:48px}
 /* below sections on desktop */
 @media(min-width:1024px){
   .below{padding:32px var(--m) 32px}
   .below>.inset{margin:0}
   .desc{padding:16px 0}
   .reclinks{padding:0}
-  .look{margin-left:calc(var(--m) * -1);margin-right:calc(var(--m) * -1)} /* .below carries the margin on desktop — pull the module back to the edges */
-  .look.nodata{padding:24px var(--m)}
+  .recs{margin-left:calc(var(--m) * -1);margin-right:calc(var(--m) * -1)} /* .below carries the margin on desktop — pull the module back to the edges */
+  .recs.nodata{padding:24px var(--m)}
 }
 </style>
 </head>
@@ -527,9 +562,7 @@ a{color:inherit;text-decoration:none}
   <!-- new USP: single DS strip (P-05 decision: new format runs the strip only) -->
   <div class="usp-new">
     <div class="usp-strip">
-      <div class="usp-cell"><span><b>Order by midnight to get it tomorrow</b><span class="usp-sep"></span>Code: <b>TAKE15</b></span></div>
-      <div class="usp-cell"><span><b>Student discount</b><span class="usp-sep"></span>Extra 20% off</span></div>
-      <div class="usp-cell"><span><b>Brands at MAN</b><span class="usp-sep"></span>Up to 70% off</span></div>
+      <div class="usp-cell rot-on"><span class="usp-row"><span class="usp-t"><b>Order by midnight to get it tomorrow</b></span></span><span class="usp-cd" id="uspcd"></span></div>
     </div>
   </div>
 </header>
@@ -541,7 +574,7 @@ a{color:inherit;text-decoration:none}
   <a class="desk" href="#">Shop By Collection</a><span class="sep desk">/</span>
   <a class="desk" href="#">Mens Activewear</a><span class="sep desk">/</span>
   <a href="#">Gym Clothing</a><span class="sep">/</span><a href="#">Gym Tracksuits</a>
-  <button class="share" aria-label="Share"><img class="ic" src="assets/ds/icons/lib/icons-share.svg" alt=""></button>
+  <button class="share" aria-label="Share"><img class="ic ic-16" src="assets/ds/icons/lib/icons-share.svg" alt=""></button>
 </nav>
 
 <!-- ================= HERO ================= -->
@@ -557,7 +590,7 @@ a{color:inherit;text-decoration:none}
   </div>
 
   <div class="buy">
-    <div class="brand-product">
+    <div class="brand-product" data-block="title" data-label="Title &amp; wishlist">
       <div class="slot" id="slot-pill"></div>
       <div class="title-row">
         <div class="title-text">
@@ -568,18 +601,24 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
 
-    <div class="price-row" id="pricerow"></div>
+    <div class="price-row" id="pricerow" data-block="price" data-label="Price"></div>
     <div class="slot" id="slot-price"></div>
 
-    <div class="icon-msg" id="nddmsg"><img src="assets/bundling/icons/badge-nextday.svg" alt=""><span>Order in <b id="ndd">12 hrs 28 mins</b> for Next Day Delivery</span></div>
+    <div class="icon-msg" id="nddmsg" data-block="ndd" data-label="Delivery promise"><img src="assets/bundling/icons/badge-nextday.svg" alt=""><span>Order in <b id="ndd">12 hrs 28 mins</b> for Next Day Delivery</span></div>
 
-    <div class="options">
-      <div class="colour">
+      <div class="colour" data-block="colour" data-label="Colour">
         <span class="colour-lbl">Colour: <b id="colourname">Washed Navy</b></span>
         <div class="swatches" id="swatches"></div>
       </div>
 
-      <div class="sizes">
+      <div class="slot" id="slot-colour" data-block="entry" data-label="Set entry point"></div>
+
+      <div class="fit" data-block="fit" data-label="Body Fit">
+        <span class="lbl">Body Fit:</span>
+        <div class="size-btns"><button class="sz fitb on">Regular</button><button class="sz fitb">Tall</button></div>
+      </div>
+
+      <div class="sizes" data-block="size" data-label="Size">
         <div class="size-head">
           <span class="lbl" id="sizelbl">Select a size:</span>
           <span class="size-guide"><img src="assets/ds/icons/lib/icons-measure.svg" alt="">Size Guide</span>
@@ -587,6 +626,7 @@ a{color:inherit;text-decoration:none}
         <div class="size-btns" id="sizebtns"></div>
       </div>
 
+      <div class="buyblock" data-block="buy" data-label="Buy buttons / notify me">
       <div class="buy-btns" id="buybtns">
         <button class="btn p" id="atbbtn">Add to bag</button>
         <button class="btn paypal"><img src="assets/bundling/icons/paypal-logo.png" alt="PayPal"></button>
@@ -601,45 +641,42 @@ a{color:inherit;text-decoration:none}
         <div class="consent"><button class="cb" id="ncb" aria-label="Consent"><img src="assets/bundling/icons/tick-white.svg" alt=""></button><span>By ticking the box you confirm that you are aged 16 or over &amp; consent to receiving email alerts about products, offers &amp; marketing communications. Please see our <a href="#">Privacy Policy</a> for more information.</span></div>
       </div>
 
-      <div class="premier"><div class="t"><b>PREMIER</b>Enjoy unlimited delivery for an entire year from just £9.99</div><button class="add">Add</button></div>
+      </div>
+
+      <div class="premier" data-block="premier" data-label="Premier (live)"><div class="t"><b>PREMIER</b>Enjoy unlimited delivery for an entire year from just £9.99</div><button class="add">Add</button></div>
 
       <div class="slot" id="slot-buttons"></div>
-    </div>
 
     <!-- desktop: these boxes sit in the buy column -->
-    <div class="deliver deskonly" id="deliver-d"></div>
-    <div class="uspbox deskonly" id="uspbox-d"></div>
-    <div class="uspbox deskonly" id="student-d"></div>
-    <div class="bnpl deskonly" id="bnpl-d"></div>
+    <div class="deliver deskonly" id="deliver-d" data-block="deliver-d" data-label="Deliver+"></div>
+    <div class="uspbox deskonly" id="uspbox-d" data-block="uspbox-d" data-label="Delivery &amp; returns"></div>
+    <div class="uspbox deskonly" id="student-d" data-block="student-d" data-label="Student"></div>
+    <div class="bnpl deskonly" id="bnpl-d" data-block="bnpl-d" data-label="BNPL"></div>
   </div>
 </section>
 
 <!-- ================= BELOW ================= -->
 <section class="below">
-  <div class="inset buyside deliver" id="deliver-m"></div>
-  <div class="inset buyside uspbox" id="uspbox-m"></div>
-  <div class="inset buyside uspbox" id="student-m"></div>
-  <div class="inset buyside bnpl" id="bnpl-m"></div>
+  <div class="inset buyside deliver" id="deliver-m" data-block="deliver" data-label="Deliver+"></div>
+  <div class="inset buyside uspbox" id="uspbox-m" data-block="uspbox" data-label="Delivery &amp; returns"></div>
+  <div class="inset buyside uspbox" id="student-m" data-block="student" data-label="Student"></div>
+  <div class="inset buyside bnpl" id="bnpl-m" data-block="bnpl" data-label="BNPL"></div>
+  <div class="slot" id="slot-rail" data-block="entry04" data-label="Set entry point — 04 large banner"></div>
 
-  <div class="slot" id="slot-rail"></div>
-
-  <!-- New format: Shop The Look module → Create The Look -->
-  <div id="lookmod"></div>
+  <!-- Recs modules — one component, three formats (grey image carousel / data carousel / grid). 'look' is the bundle one → Create The Look -->
+  <div id="recs-look" data-block="look" data-label="Shop The Look (bundle)" data-recs="look"></div>
 
   <!-- Live: production 'Complete Your Purchase With' -->
-  <div class="inset cyp" id="cyp"></div>
+  <div class="inset cyp" id="cyp" data-block="cyp" data-label="Complete Your Purchase With (live)"></div>
 
-  <div class="inset rail" id="similar" hidden>
+  <div class="inset rail" id="similar" hidden data-block="similar" data-label="Shop Similar Items (OOS)">
     <span class="rail-title">Shop Similar Items</span>
     <div class="grid3" id="similargrid"></div>
   </div>
 
-  <div class="inset rail">
-    <span class="rail-title">Handpicked For You</span>
-    <div class="grid3" id="handpicked"></div>
-  </div>
+  <div id="recs-hp" data-block="hp" data-label="Handpicked For You" data-recs="hp"></div>
 
-  <div class="desc">
+  <div class="desc" data-block="desc" data-label="Description">
     <span class="h">At a Glance</span>
     <ul class="glance">
       <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Premium heavyweight 480GSM fabric</li>
@@ -669,16 +706,11 @@ a{color:inherit;text-decoration:none}
     <div class="acc"><button class="acc-h"><span class="h">Delivery</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Standard delivery from £3.99 (3–5 working days). Next Day from £5.99 — order by midnight. Premier: unlimited delivery for a year from £9.99.</p></div></div>
     <div class="divider"></div>
     <div class="acc"><button class="acc-h"><span class="h">Returns</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Eligible for return within 21 days. Exclusions apply — see our returns policy.</p></div></div>
-    <div class="divider"></div>
-    <div class="share-row"><span>Share</span><img src="assets/ds/icons/lib/icons-share.svg" alt=""></div>
   </div>
 
-  <div class="rail" style="padding-left:var(--m)">
-    <span class="rail-title">We Think You'll Like</span>
-    <div class="scroll" id="wtyl"></div>
-  </div>
+  <div id="recs-wtyl" data-block="wtyl" data-label="We Think You'll Like" data-recs="wtyl"></div>
 
-  <div class="reclinks">
+  <div class="reclinks" data-block="reclinks" data-label="Recommendations">
     <span class="rail-title">Recommendations</span>
     <div class="chips">
       <a href="#">Black zip up hoodies</a><a href="#">Oversized jumpers</a><a href="#">Grey zip up hoodies</a><a href="#">Boxy t shirts</a><a href="#">Dark wash jeans</a><a href="#">Black washed jeans</a><a href="#">Zip-Up Cardigan for Men</a><a href="#">Zip t shirts</a><a href="#">Dark Grey Washed Hoodie for Men</a><a href="#">Plus Size Quarter Zip</a>
@@ -760,9 +792,12 @@ a{color:inherit;text-decoration:none}
    State
    ============================================================ */
 const q=new URLSearchParams(location.search);
+const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}};
 const S={
   mode:q.get('mode')||'new',          // live | new
-  look:q.get('look')||'nodata',       // nodata | data | grid | none
+  edit:false,                          // edit-layout mode (review tooling)
+  fmt:LS('pdp26-fmt')||{look:'nodata',hp:'grid',wtyl:'carousel'}, // recs module formats: nodata | carousel | grid | off
+  order:LS('pdp26-order')||{},         // block order per container (edit mode)
   entry:q.get('entry')||'03-1',       // set-builder entry point id | none
   stock:q.get('stock')||'in',         // in | size | oos
   rows:(q.get('rows')||'zip-hoodie,sweatshirt,tee,wide-jogger').split(',').filter(Boolean),
@@ -899,7 +934,7 @@ function renderBoxes(){
    ============================================================ */
 function card(p,opts={}){
   const sale=p.was&&p.was>p.price;
-  const c=el(`<div class="card"><div class="img"><img src="${p.img}" alt="${p.name}" loading="lazy"><span class="cw"><img src="assets/ds/icons/lib/icon-bookmark.svg" alt=""></span></div>
+  const c=el(`<div class="card"><div class="img"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
   <div class="info"><div class="titles"><span class="cb-brand">${p.brand||'boohooMAN'}</span><span class="cb-name">${p.name}</span></div>
   <div class="cp"><span class="now ${sale?'sale':''}">${fmt(p.price)}</span>${sale?`<span class="was">${fmt(p.was)}</span>${opts.pct?`<span class="pct">-${Math.round((1-p.price/p.was)*100)}%</span>`:''}`:''}</div></div></div>`);
   c.onclick=opts.onclick||(()=>{if(p.id&&byId(p.id)){S.colour=p.id;S.size=null;renderAll();scrollTo({top:0,behavior:'smooth'});}});
@@ -917,25 +952,34 @@ function setPieces(){return S.rows.length||3;}
    Shop The Look module (new) / Complete Your Purchase With (live) / Similar (OOS)
    ============================================================ */
 function lookItems(){const h=hero();return [h,partner('wide-jogger',h.colour),partner('tee',h.colour)].filter(Boolean);}
-function renderLook(){
-  const m=$('#lookmod');m.innerHTML='';m.className='';
-  if(S.mode!=='new'||S.look==='none'||S.stock==='oos')return;
-  const items=lookItems();
-  if(S.look==='nodata'){
-    const box=el(`<div class="look nodata"><div class="rail-head"><span class="rail-title">Shop The Look</span><span class="all">View All</span></div><div class="imgs"></div></div>`);
-    items.forEach(p=>box.querySelector('.imgs').appendChild(el(`<img src="${p.img}" alt="${p.name}">`)));
-    box.onclick=()=>openSheet('look');m.appendChild(box);
-  }else if(S.look==='data'){
-    const box=el(`<div class="look data"><div class="rail-head"><span class="rail-title">Shop The Look</span><span class="all">View All</span></div><div class="scroll"></div></div>`);
-    items.forEach(p=>box.querySelector('.scroll').appendChild(card(p,{pct:true,onclick:()=>openSheet('look',p.id)})));
-    box.querySelector('.rail-head').onclick=()=>openSheet('look');m.appendChild(box);
+function lookMore(){const c=hero().colour;return [partner('sweatshirt',c),partner('quarter-zip',c),partner('straight-jogger',c)].filter(Boolean);}
+/* Recs module — one component, three formats. bundle:true = the Create The Look one (always opens the sheet). */
+const RECS={
+  look:{title:'Shop The Look',bundle:true,items:()=>[...lookItems(),...lookMore()],onlyNew:true},
+  hp:{title:'Handpicked For You',items:()=>HP},
+  wtyl:{title:"We Think You'll Like",items:()=>WTYL},
+};
+function recsModule(key){
+  const R=RECS[key],host=$('#recs-'+key);host.innerHTML='';host.className='';
+  const fmt=S.fmt[key]||'carousel';
+  const off=fmt==='off'||(R.onlyNew&&S.mode!=='new')||(key==='look'&&S.stock==='oos');
+  host.hidden=off;if(off)return;
+  const items=R.items();
+  const open=p=>R.bundle?openSheet('look',p&&p.id):(p&&p.id&&byId(p.id)?(S.colour=p.id,S.size=null,renderAll(),scrollTo({top:0,behavior:'smooth'})):toast(R.title+' — View All'));
+  const box=el(`<div class="recs ${fmt}"><div class="rail-head"><span class="rail-title">${R.title}</span><span class="all">View All</span></div></div>`);
+  if(fmt==='nodata'){
+    const imgs=el(`<div class="imgs"></div>`);items.slice(0,R.bundle?3:6).forEach(p=>imgs.appendChild(el(`<img src="${p.img}" alt="${p.name}" loading="lazy">`)));box.appendChild(imgs);
+    box.onclick=()=>open();
+  }else if(fmt==='carousel'){
+    const sc=el(`<div class="scroll"></div>`);items.forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>open(p)})));box.appendChild(sc);
+    box.querySelector('.rail-head').onclick=()=>open();
   }else{
-    const box=el(`<div class="look grid"><div class="rail-head"><span class="rail-title">Shop The Look</span><span class="all">View All</span></div><div class="grid3"></div></div>`);
-    const more=[partner('sweatshirt',hero().colour),partner('quarter-zip',hero().colour),partner('straight-jogger',hero().colour)].filter(Boolean);
-    [...items,...more].slice(0,6).forEach(p=>box.querySelector('.grid3').appendChild(card(p,{onclick:()=>openSheet('look',p.id)})));
-    box.querySelector('.rail-head').onclick=()=>openSheet('look');m.appendChild(box);
+    const g=el(`<div class="grid3"></div>`);items.slice(0,6).forEach(p=>g.appendChild(card(p,{pct:S.mode==='new',onclick:()=>open(p)})));box.appendChild(g);
+    box.querySelector('.rail-head').onclick=()=>open();
   }
+  host.appendChild(box);
 }
+function renderRecs(){Object.keys(RECS).forEach(recsModule);}
 function renderCYP(){
   const c=$('#cyp');c.innerHTML='';if(S.mode!=='live'||S.stock==='oos')return;
   const h=hero();const items=[h,partner('tee',h.colour),partner('wide-jogger',h.colour),partner('wide-jogger',h.colour)];
@@ -968,17 +1012,13 @@ const WTYL=[
   {img:'assets/bundling/rv-1.jpg',name:'Oversized Boxy Man Sport Washed Zip Through Hoodie',price:28,was:40},
   {img:'assets/bundling/rv-3.jpg',name:'Oversized Boxy Official Zip Through Hoodie',price:22.4,was:32},
 ];
-function renderRecs(){
-  const hp=$('#handpicked');hp.innerHTML='';HP.forEach(p=>hp.appendChild(card(p,{pct:S.mode==='new'})));
-  const w=$('#wtyl');w.innerHTML='';WTYL.forEach(p=>w.appendChild(card(p,{pct:true})));
-}
 
 /* ============================================================
    Entry points (new format only)
    ============================================================ */
-const SLOT={'01':'slot-pill','03':'slot-buttons','04':'slot-rail','07':'slot-price'};
+const SLOT={'01':'slot-colour','03':'slot-colour','04':'slot-rail','07':'slot-colour'}; // Jake 08 Sep: 03/07 sit directly under the colours; 04 large banners sit under the BNPL box
 function renderEntry(){
-  ['slot-pill','slot-price','slot-buttons','slot-rail'].forEach(id=>$('#'+id).innerHTML='');
+  ['slot-pill','slot-price','slot-buttons','slot-colour','slot-rail'].forEach(id=>$('#'+id).innerHTML='');
   if(S.mode!=='new'||S.entry==='none'||S.entry==='06-1'||S.stock==='oos')return;
   const tpl=document.getElementById('tpl-'+S.entry);if(!tpl)return;
   const slot=$('#'+SLOT[S.entry.slice(0,2)]);
@@ -1074,25 +1114,64 @@ function tick(){
   const now=new Date(),mid=new Date(now);mid.setHours(24,0,0,0);
   const s=Math.floor((mid-now)/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60),sec=s%60;
   $('#ndd').textContent=`${h} hrs ${m} mins`;
-  $('#cd1').textContent=`00:${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  const cd=`00:${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  $('#cd1').textContent=cd;
+  // DS countdown markup (P-05): strong digits, 5px colon columns
+  $('#uspcd').innerHTML=cd.split(':').map((d,i)=>(i?'<i>:</i>':'')+'<b>'+d+'</b>').join('');
 }
 tick();setInterval(tick,1000);
-/* new-format USP strip: mobile rotates one message at a time (DS rule, 4s) */
-let uspI=0;const uspCells=[...document.querySelectorAll('.usp-new .usp-cell')];
-function uspRot(){uspCells.forEach((c,i)=>c.classList.toggle('rot-on',i===uspI));uspI=(uspI+1)%uspCells.length;}
-uspRot();setInterval(uspRot,4000);
+
 
 function renderAll(){
   document.body.className='mode-'+S.mode;
+  applyOrder();
   renderGallery();renderSwatches();renderPrice();renderSizes();renderBuy();renderBoxes();
-  renderEntry();renderLook();renderCYP();renderSimilar();renderRecs();
+  renderEntry();renderCYP();renderSimilar();renderRecs();
   $('#nddmsg').hidden=S.stock==='oos';
-  parent.postMessage({pdpCfg:`${S.mode} · look:${S.look} · entry:${S.entry} · stock:${S.stock} · rows:${S.rows.join('+')} · ${hero().id} ${hero().colour}`},'*');
+  renderEdit();
+  parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · recs: look=${S.fmt.look} hp=${S.fmt.hp} wtyl=${S.fmt.wtyl} · ${hero().id} ${hero().colour}`},'*');
+}
+
+/* ============================================================
+   Edit layout mode — reorder any [data-block] within its container; recs modules pick a format. Persists in localStorage.
+   ============================================================ */
+function blocksOf(parent){return [...parent.children].filter(c=>c.dataset&&c.dataset.block);}
+function containerKey(parent){return parent.id||parent.className.split(' ')[0];}
+function saveOrder(){const o={};document.querySelectorAll('[data-block]').forEach(b=>{const k=containerKey(b.parentElement);(o[k]=o[k]||[]).includes(b.dataset.block)||o[k].push(b.dataset.block);});S.order=o;LS('pdp26-order',o);}
+function applyOrder(){
+  Object.entries(S.order).forEach(([k,names])=>{
+    const parent=document.getElementById(k)||document.querySelector('.'+k);if(!parent)return;
+    const blocks=blocksOf(parent);if(!blocks.length)return;
+    const anchor=blocks[0];const byName=Object.fromEntries(blocks.map(b=>[b.dataset.block,b]));
+    let ref=anchor;names.forEach((n,i)=>{const b=byName[n];if(!b)return;if(i===0){parent.insertBefore(b,anchor);ref=b;}else{ref.after(b);ref=b;}});
+  });
+}
+function renderEdit(){
+  document.body.classList.toggle('editing',S.edit);
+  document.querySelectorAll('.ed').forEach(e=>e.remove());
+  let bar=$('#edbar');
+  if(!bar){bar=el(`<div id="edbar"><b>Edit layout</b><span>▲▼ move a block · pick a recs format</span><button id="edreset">Reset</button><button class="done" id="eddone">Done</button></div>`);document.body.appendChild(bar);
+    bar.querySelector('#edreset').onclick=()=>{S.order={};S.fmt={look:'nodata',hp:'grid',wtyl:'carousel'};LS('pdp26-order',{});LS('pdp26-fmt',S.fmt);location.reload();};
+    bar.querySelector('#eddone').onclick=()=>{S.edit=false;renderAll();parent.postMessage({pdpEdit:false},'*');};}
+  bar.hidden=!S.edit;
+  if(!S.edit)return;
+  document.querySelectorAll('[data-block]').forEach(b=>{
+    if(b.hidden||b.offsetParent===null)return;
+    const sibs=blocksOf(b.parentElement).filter(x=>!x.hidden&&x.offsetParent!==null);const i=sibs.indexOf(b);
+    const ed=el(`<div class="ed"><span class="lbl">${b.dataset.label||b.dataset.block}</span></div>`);
+    if(b.dataset.recs){const k=b.dataset.recs;const seg=el(`<span class="seg"></span>`);
+      [['nodata','Grey'],['carousel','Carousel'],['grid','Grid'],['off','Off']].forEach(([v,l])=>{const bt=el(`<button class="${S.fmt[k]===v?'on':''}">${l}</button>`);bt.onclick=e=>{e.stopPropagation();S.fmt[k]=v;LS('pdp26-fmt',S.fmt);renderAll();};seg.appendChild(bt);});
+      ed.appendChild(seg);}
+    const mv=el(`<span class="mv"><button aria-label="Move up" ${i<=0?'disabled':''}>▲</button><button aria-label="Move down" ${i>=sibs.length-1?'disabled':''}>▼</button></span>`);
+    mv.children[0].onclick=e=>{e.stopPropagation();sibs[i-1].before(b);saveOrder();renderAll();};
+    mv.children[1].onclick=e=>{e.stopPropagation();sibs[i+1].after(b);saveOrder();renderAll();};
+    ed.appendChild(mv);b.prepend(ed);
+  });
 }
 addEventListener('message',e=>{
   const d=e.data;if(!d||!d.pdpSet)return;
   const stockChanged=d.stock!==S.stock;
-  S.mode=d.mode||S.mode;S.look=d.look||S.look;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;
+  S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;
   if(stockChanged){S.size=null;S.notified=false;}
   document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');sh.hidden=true;});document.body.style.overflow='';
   renderAll();
