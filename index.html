@@ -11,10 +11,10 @@
    Review shell v2 — configurator. Dark Group-UX chrome (Google Sans, black & white).
    Layout/logic model: PayPal Checkout demo — WINDOW controls on top (viewport, live⇄new, export), PAGE controls down the left.
    ============================================================ */
-:root{--bg:#161616;--bar:#000;--panel:#0A0A0A;--line:rgba(255,255,255,.14);--ink:#F7F7F7;--muted:#9A9A9A;--dim:#707070;--accent:#0D99FF;--ok:#1FA971}
+:root{--bg:#161616;--bar:#000;--panel:#000;--line:rgba(255,255,255,.14);--ink:#F7F7F7;--muted:#9A9A9A;--dim:#707070;--accent:#0D99FF;--ok:#1FA971}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{background:var(--bg);font-family:'Google Sans','Montserrat',system-ui,sans-serif;color:var(--muted);display:grid;grid-template-rows:48px 1fr;grid-template-columns:380px 1fr;height:100%;overflow:hidden;font-size:12px}
+body{background:var(--bg);font-family:'Google Sans','Montserrat',system-ui,sans-serif;color:var(--muted);display:grid;grid-template-rows:48px 1fr;grid-template-columns:360px 1fr;height:100%;overflow:hidden;font-size:12px}
 button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
 a{color:var(--accent)}
 
@@ -31,6 +31,8 @@ a{color:var(--accent)}
 .top .ttl{font-weight:600;font-size:12px;color:var(--ink);white-space:nowrap}
 .top .w{font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums;min-width:48px;text-align:right}
 .top .status{font-size:11px;color:var(--muted);white-space:nowrap}
+.top .chips{flex-wrap:nowrap}
+.top .div{width:1px;height:20px;background:rgba(255,255,255,.15);margin:0 4px;flex:none}
 
 /* ---- left panel: page controls ---- */
 .panel{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:16px 14px 40px}
@@ -40,7 +42,7 @@ a{color:var(--accent)}
 .panel .brandline b{color:var(--ink)}
 .note{background:rgba(13,153,255,.12);border-left:3px solid var(--accent);padding:10px 12px;font-size:11.5px;line-height:1.5;margin:0 -14px 16px;color:#D8D8D8}
 .note b{font-weight:600;color:var(--ink)}
-.card{border:1px solid var(--line);border-radius:10px;padding:12px 12px 10px;margin-bottom:10px;background:#111}
+.card{border:1px solid var(--line);border-radius:10px;padding:12px 12px 10px;margin-bottom:10px;background:#0E0E0E}
 .card h3{font-size:12.5px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;gap:8px}
 .card h3 .tag{font-size:9.5px;font-weight:600;color:#000;background:var(--ok);padding:2px 7px;border-radius:99px;white-space:nowrap}
 .card h3 .tag.alt{background:#A78BFA}
@@ -98,6 +100,11 @@ body.dragging iframe{pointer-events:none}
   <span class="status" id="status"></span>
   <div class="mid">
     <span class="seg" id="mode"><button data-m="live">Live now</button><button data-m="new" class="on">New format</button></span>
+    <span class="chips" id="brands">
+      <button class="chip on" data-b="boohooman">boohooMAN</button>
+      <button class="chip" disabled title="Not built yet">Debenhams</button><button class="chip" disabled title="Not built yet">boohoo</button><button class="chip" disabled title="Not built yet">PLT</button><button class="chip" disabled title="Not built yet">Karen Millen</button>
+    </span>
+    <span class="div"></span>
     <span class="seg" id="dev"><button data-w="0">Desktop</button><button data-w="390" class="on">Mobile</button></span>
     <select id="preset" aria-label="Width preset" title="Exact width — or drag the handle on the preview">
       <option value="390" selected>390</option><option value="402">402</option><option value="440">440</option><option value="768">768</option><option value="1024">1024</option><option value="1280">1280</option><option value="1440">1440</option><option value="0">Fit</option>
@@ -110,16 +117,8 @@ body.dragging iframe{pointer-events:none}
 <aside class="panel">
   <div class="brandline"><img src="assets/boohooman.svg" alt="boohooMAN"> · Product description page</div>
   <h1>Configure the PDP</h1>
-  <div class="brandline">Pick options, rearrange the page, then <b style="color:#111;margin-left:4px">Export</b></div>
+  <div class="brandline">Pick options, rearrange the page, then <b>Export</b></div>
   <div class="note"><b>How this works:</b> every choice here changes the preview. <b>Edit layout</b> lets you move blocks up and down on the page itself and remove them (removed blocks are listed under the page, not lost). When you're happy, hit <b>Export</b> — you get full-page PNGs at mobile and desktop plus a zip of the code set to your configuration. Send that back to Jake.</div>
-
-  <div class="card">
-    <h3>Brand</h3>
-    <div class="chips" id="brands">
-      <button class="chip on" data-b="boohooman">boohooMAN</button>
-      <button class="chip" disabled title="Not built yet">Debenhams</button><button class="chip" disabled title="Not built yet">boohoo</button><button class="chip" disabled title="Not built yet">PLT</button><button class="chip" disabled title="Not built yet">Karen Millen</button>
-    </div>
-  </div>
 
   <div class="card" id="c-entry">
     <h3>Set entry point <span class="tag">Advanced bundling</span></h3>
