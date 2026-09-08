@@ -203,6 +203,13 @@ a{color:inherit;text-decoration:none}
 .sz .bell{position:absolute;right:3px;top:3px;width:14px;height:14px}
 .mode-live .sz.oos .bell{display:none}
 .mode-live .sz.oos.bellable .bell{display:block}
+.sizerec{display:flex;flex-direction:column;gap:8px}
+.sizerec .srb{display:flex;align-items:center;gap:12px;background:var(--grey-05);border-radius:4px;padding:12px;width:100%;text-align:left;min-height:58px}
+.sizerec .srb .cp{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.sizerec .srb .cp b{font-size:14px;font-weight:600}
+.sizerec .srb .cp span{font-size:12px;color:var(--grey-5)}
+.sizerec .model{font-size:14px;font-weight:300;color:#333}
+.sizerec .model b{font-weight:600}
 .buy-btns{display:flex;flex-direction:column;gap:8px}
 .btn{height:50px;border-radius:4px;font-size:16px;font-weight:600;line-height:24px;display:flex;align-items:center;justify-content:center;width:100%;text-transform:uppercase;gap:8px}
 .btn.p{background:#000;color:#FFF}
@@ -388,7 +395,7 @@ a{color:inherit;text-decoration:none}
 
 /* ---------- Footer (live boohooman.com) ---------- */
 .ft{border-top:1px solid var(--grey-2);margin-top:16px}
-.ft .news{padding:32px var(--m);display:flex;flex-direction:column;gap:12px;text-align:center}
+.ft .news{padding:32px var(--m);display:flex;flex-direction:column;gap:12px;text-align:center;background:var(--ft-band,#F8F8F8)} /* live: bg-bg-grey #F8F8F8 · DS C-08 --ft-band */
 .ft .news h3{font-size:24px;font-weight:600;line-height:1.5}
 .ft .news p{font-size:16px}
 .ft .news .row{display:flex;gap:0;max-width:520px;width:100%;margin:0 auto}
@@ -517,7 +524,9 @@ a{color:inherit;text-decoration:none}
 .scard .sz-sel .v.err{color:var(--red)}
 .scard .sz-sel img{width:12px;height:12px}
 .scard .sz-sel.nochev{cursor:default}
-.scard .sz-sel:not(.nochev){min-height:40px;margin:-8px 0;padding:8px 0} /* A11y: ≥40px touch target without changing the 8px rhythm */
+.scard .sz-sel{position:relative;line-height:20px;white-space:nowrap;overflow:hidden}
+.scard .sz-sel .v{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.scard .sz-sel:not(.nochev)::before{content:"";position:absolute;inset:-10px 0} /* A11y: 40px touch target, 8px rhythm untouched */
 .scard .nm{font-size:12px;color:var(--grey-4);font-weight:400;margin-top:-4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sheet .foot{flex:none;background:var(--grey-05);padding:24px;display:flex;flex-direction:column;gap:16px}
 .sheet .foot .tot{display:flex;justify-content:space-between;font-size:16px;font-weight:500}
@@ -561,6 +570,24 @@ a{color:inherit;text-decoration:none}
 .lm .sz-sel{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
 .lm .sz-sel .v{color:var(--grey-4)}.lm .sz-sel .v.set{color:#000}.lm .sz-sel .v.err{color:var(--red)}
 .lm .sz-sel img{width:12px;height:12px}
+/* size guide modal */
+.sizeg .body{padding:0 24px 24px;gap:24px}
+.sizeg .srb{display:flex;align-items:center;gap:12px;background:var(--grey-05);border-radius:4px;padding:12px;width:100%;text-align:left}
+.sizeg .srb .cp{flex:1;display:flex;flex-direction:column;gap:2px}
+.sizeg .srb .cp b{font-size:14px;font-weight:600}
+.sizeg .srb .cp span{font-size:12px;color:var(--grey-5)}
+.sizeg .units{display:flex;align-items:center;gap:12px;font-size:16px;line-height:24px}
+.sizeg .units .tg{width:46px;height:24px;border-radius:99px;background:#000;position:relative;flex:none}
+.sizeg .units .tg i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:99px;background:#FFF;transition:left .15s}
+.sizeg .units .tg.in i{left:25px}
+.sizeg .ttl{display:flex;flex-direction:column;gap:16px;font-size:16px}
+.sizeg .ttl b{font-weight:600}
+.sizeg table{width:100%;border:1px solid var(--grey-2);border-radius:4px;border-collapse:separate;border-spacing:0;overflow:hidden;font-size:14px;text-align:center}
+.sizeg th{background:var(--grey-05);padding:24px 8px;font-weight:500;color:#1A1818}
+.sizeg td{padding:16px 8px;color:#565656;font-weight:400}
+.sizeg tbody tr:nth-child(even) td{background:var(--grey-05)}
+.sizeg .how{display:flex;flex-direction:column;gap:16px;font-size:16px}
+.sizeg .how b{font-weight:600}
 /* pairs-well-with list modal */
 .pairsm .body{padding:0 0 24px}
 .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px 8px}
@@ -608,6 +635,8 @@ a{color:inherit;text-decoration:none}
 .crow .csel{display:flex;flex-direction:column;gap:0;padding:0 24px}
 .crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;min-height:44px} /* A11y: 44px rows */
 .crow .cs .c{color:#000;font-weight:500}
+.crow .cs .c .sale{color:var(--red);font-weight:600}
+.crow .cs .c s{color:var(--grey-4);font-weight:400}
 .crow .cs .sz-sel{display:flex;gap:6px;align-items:center;cursor:pointer;white-space:nowrap;min-height:44px;padding:0 4px}
 .crow .cs .sz-sel .v{color:var(--grey-4)}.crow .cs .sz-sel .v.set{color:#000;font-weight:600}.crow .cs .sz-sel .v.err{color:var(--red)}
 .crow .cs .sz-sel img{width:12px;height:12px}
@@ -776,6 +805,12 @@ body.editing{padding-bottom:48px}
         <div class="size-btns" id="sizebtns"></div>
       </div>
 
+      <!-- Size recommender — Figma 1060-63028: grey banner (trend arrow · copy · chevron) + model line. Toggled from the panel -->
+      <div class="sizerec" id="sizerec" data-block="sizerec" data-label="Size recommender">
+        <button class="srb" aria-label="We recommend sizing up — open the size guide"><img class="ic" src="assets/ds/icons/lib/icon-arrow-increase.svg" alt=""><span class="cp"><b>We recommend sizing up</b><span>Customers say this item fits too small</span></span><img class="ic-12" src="assets/ds/icons/lib/icons-right.svg" alt=""></button>
+        <p class="model">Model is <b>6’1”</b> and wearing <b>UK size M</b></p>
+      </div>
+
       <div class="buyblock" data-block="buy" data-label="Buy buttons / notify me">
       <div class="buy-btns" id="buybtns">
         <button class="btn p" id="atbbtn">Add to bag</button>
@@ -913,6 +948,15 @@ body.editing{padding-bottom:48px}
   </div>
 </div>
 
+<!-- Size Guide — Figma 1060-63228: recommender banner (if on) · CM/Inches toggle · title/subtext · table · How to measure -->
+<div class="sheet sizeg" id="sizeg" hidden>
+  <div class="bg" data-close></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sgtitle">
+    <div class="head"><h2 id="sgtitle">Size Guide</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="body" id="sgbody"></div>
+  </div>
+</div>
+
 <!-- Pairs well with — complete-the-look LIST modal (not the set builder): 2-col product grid, + to quick add -->
 <div class="sheet pairsm" id="pairsm" hidden>
   <div class="bg" data-close></div>
@@ -973,6 +1017,7 @@ const S={
   order:PRE.order||LS('pdp26-order')||{},         // block order per container (edit mode)
   entry:q.get('entry')||PRE.entry||'03-1',       // set-builder entry point id | none
   stock:q.get('stock')||PRE.stock||'in',         // in | size | oos
+  sizerec:PRE.sizerec!==undefined?PRE.sizerec:(LS('pdp26-sizerec')!==null?LS('pdp26-sizerec'):true), // size recommender on/off
   rows:(q.get('rows')||'zip-hoodie,sweatshirt,tee,wide-jogger').split(',').filter(Boolean),
   colour:'CMM29598',                  // hero SKU (washed navy zip hoodie)
   size:null, notified:false, consent:true,
@@ -1183,7 +1228,7 @@ function recsModule(key){
     const sc=el(`<div class="scroll"></div>`);items.forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>open(p)})));box.appendChild(sc);
     box.querySelector('.rail-head').onclick=()=>open();
   }else{
-    const rows=+(S.gridRows[key]||2);const g=el(`<div class="grid3"></div>`);items.slice(0,3*rows).forEach(p=>g.appendChild(card(p,{pct:S.mode==='new',onclick:()=>open(p)})));box.appendChild(g);
+    const rows=Math.min(20,Math.max(1,+(S.gridRows[key]||2)));const g=el(`<div class="grid3"></div>`);const pool=items.length?Array.from({length:3*rows},(_,i)=>items[i%items.length]):[];pool.forEach(p=>g.appendChild(card(p,{pct:S.mode==='new',onclick:()=>open(p)})));box.appendChild(g);
     box.querySelector('.rail-head').onclick=()=>open();
   }
   host.appendChild(box);
@@ -1275,6 +1320,9 @@ let SETVIEW=PRE.setview||LS('pdp26-setview')||'cards';
 document.querySelectorAll('#setview button').forEach(bt=>bt.onclick=()=>{SETVIEW=bt.dataset.v;LS('pdp26-setview',SETVIEW);renderSheet();parent.postMessage({pdpState:{setview:SETVIEW}},'*');});
 const rowHasSel=r=>r.items.some(p=>SH.sel[p.id]);
 function toggleSel(p){if(SH.sel[p.id])delete SH.sel[p.id];else SH.sel[p.id]={size:null};renderSheet();}
+const SET_OFF=0.2; // bundle incentive shown in the builder: 20% off each piece
+const setNow=p=>Math.round(p.price*(1-SET_OFF)*100)/100;
+const setPrice=p=>`<span class="now sale">${fmt(setNow(p))}</span><span class="was">${fmt(p.price)}</span>`;
 function sizeLine(p){const st=SH.sel[p.id];return `<div class="sz-sel"><span>Size:</span><span class="v ${st&&st.size?'set':''} ${st&&st.err?'err':''}">${st&&st.size?st.size:'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>`;}
 function wireSize(node,p){node.querySelector('.sz-sel').onclick=e=>{e.stopPropagation();openPick(p,sz=>{SH.sel[p.id]={size:sz};renderSheet();});};}
 /* row as product cards (Figma 1038:45022) */
@@ -1286,9 +1334,9 @@ function rowCards(r,ri){
   const cards=row.querySelector('.cards');
   r.items.forEach(p=>{
     const on=!!SH.sel[p.id];const sale=p.was&&p.was>p.price;
-    const c=el(`<div class="scard ${on?'on':''} ${has&&!on?'dim':''}">
+    const c=el(`<div class="scard ${on?'on':''}">
       <div class="im"><img src="${p.img}" alt="${p.name} — ${p.colour}"><button class="cb ${on?'':'off'}" aria-label="${on?'Deselect':'Select'} ${p.colour}"></button></div>
-      <div class="inf"><div class="pr"><span class="now ${sale?'sale':''}">${fmt(p.price)}</span>${sale?`<span class="was">${fmt(p.was)}</span>`:''}</div>${sizeLine(p)}<div class="sz-sel nochev"><span>Colour:</span><span class="v set">${p.colour}</span></div></div></div>`);
+      <div class="inf"><div class="pr">${setPrice(p)}</div>${sizeLine(p)}<div class="sz-sel nochev"><span>Colour:</span><span class="v set">${p.colour}</span></div></div></div>`);
     c.querySelector('.im').onclick=()=>toggleSel(p);wireSize(c,p);cards.appendChild(c);
   });
   return row;
@@ -1301,7 +1349,7 @@ function rowThumbs(r,ri,back){
   const th=row.querySelector('.th');
   r.items.forEach(p=>{const on=!!SH.sel[p.id];const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""><span class="cb ${on?'':'off'}" aria-hidden="true"></span></button>`);bt.setAttribute('aria-pressed',on);bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
   const cs=row.querySelector('.csel');
-  r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const line=el(`<div class="cs"><span class="c">${p.colour} · ${fmt(p.price)}</span>${sizeLine(p)}</div>`);wireSize(line,p);cs.appendChild(line);});
+  r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const line=el(`<div class="cs"><span class="c">${p.colour} · <b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span>${sizeLine(p)}</div>`);wireSize(line,p);cs.appendChild(line);});
   return row;
 }
 function renderSheet(){
@@ -1311,7 +1359,7 @@ function renderSheet(){
   if(SH.kind==='look') b.appendChild(el(`<div class="filters"><span>Price <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Body Fit <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Style <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span></div>`));
   SH.rows.forEach((r,ri)=>b.appendChild((compact||SH.view[ri]==='thumbs')?rowThumbs(r,ri,!compact):rowCards(r,ri)));
   const ids=Object.keys(SH.sel);
-  $('#sheettotal').textContent=fmt(ids.reduce((a,id)=>a+byId(id).price,0));
+  $('#sheettotal').textContent=fmt(ids.reduce((a,id)=>a+setNow(byId(id)),0));
   const btn=$('#sheetatb');btn.textContent=`Add to bag (${ids.length})`;btn.disabled=!ids.length;
 }
 $('#sheetatb').onclick=()=>{
@@ -1350,6 +1398,22 @@ function openPairs(){
     g.appendChild(c);});
   const m=$('#pairsm');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';
 }
+/* Size guide (Figma 1060-63228) — CM ⇄ Inches; recommender banner when on */
+const SIZES_CM=[['XS','86–91','71–76','86–91'],['S','91–96','76–81','91–96'],['M','96–101','81–86','96–101'],['L','101–106','86–91','101–106'],['XL','106–111','91–96','106–111'],['2XL','111–116','96–101','111–116']];
+const SIZES_IN=[['XS','34–36','28–30','34–36'],['S','36–38','30–32','36–38'],['M','38–40','32–34','38–40'],['L','40–42','34–36','40–42'],['XL','42–44','36–38','42–44'],['2XL','44–46','38–40','44–46']];
+let SG_IN=false;
+function renderSizeGuide(){
+  const b=$('#sgbody');b.innerHTML='';
+  if(S.sizerec)b.appendChild(el(`<div class="srb"><img class="ic" src="assets/ds/icons/lib/icon-arrow-increase.svg" alt=""><span class="cp"><b>We recommend sizing up</b><span>Customers say this item fits too small</span></span></div>`));
+  const u=el(`<div class="units"><span>CM</span><button class="tg ${SG_IN?'in':''}" role="switch" aria-checked="${SG_IN}" aria-label="Show inches"><i></i></button><span>Inches</span></div>`);u.querySelector('.tg').onclick=()=>{SG_IN=!SG_IN;renderSizeGuide();};b.appendChild(u);
+  b.appendChild(el(`<div class="ttl"><b>Men’s tops</b><span>Body measurements in ${SG_IN?'inches':'cm'}</span></div>`));
+  const rows=(SG_IN?SIZES_IN:SIZES_CM).map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+  b.appendChild(el(`<table><thead><tr><th>Size</th><th>Chest</th><th>Waist</th><th>Hips</th></tr></thead><tbody>${rows}</tbody></table>`));
+  b.appendChild(el(`<div class="how"><b>How to measure</b><span>Chest – Measure at the fullest part of the chest and around the back</span><span>Waist – Measure around the natural waistline</span><span>Hips – Measure around fullest part of your hip</span><span>Inside leg – Measure from top of the inside leg to ankle</span></div>`));
+}
+function openSizeGuide(){renderSizeGuide();const m=$('#sizeg');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';}
+document.querySelector('.size-guide').onclick=openSizeGuide;
+$('#sizerec .srb').onclick=openSizeGuide;
 /* size picker */
 function openPick(p,cb){
   const m=$('#pickmenu');m.innerHTML='<div class="t">Select size</div>';
@@ -1392,10 +1456,11 @@ function renderAll(){
   renderGallery();renderSwatches();renderPrice();renderSizes();renderBuy();renderBoxes();
   renderEntry();renderCYP();renderSimilar();renderRecs();
   $('#nddmsg').hidden=S.stock==='oos';
+  $('#sizerec').hidden=!S.sizerec;
   renderEdit();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1458,6 +1523,7 @@ addEventListener('message',e=>{
   if(d.fmt){S.fmt={...S.fmt,...d.fmt};LS('pdp26-fmt',S.fmt);}
   if(d.gridRows){S.gridRows={...S.gridRows,...d.gridRows};LS('pdp26-gridrows',S.gridRows);}
   if(d.endpos){S.endpos=+d.endpos;LS('pdp26-endpos',S.endpos);}
+  if(typeof d.sizerec==='boolean'){S.sizerec=d.sizerec;LS('pdp26-sizerec',S.sizerec);}
   if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);if(!$('#sheet').hidden&&SH.kind==='set')renderSheet();}
   if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);location.reload();return;}
   if(d.focus)PENDING_FOCUS=d.focus;
@@ -1476,6 +1542,7 @@ function doFocus(k){
   if(k==='hp'){flash($('#recs-hp'));return;}
   if(k==='wtyl'){flash($('#recs-wtyl'));return;}
   if(k==='stock'){flash($('.sizes'));return;}
+  if(k==='sizerec'){flash(S.sizerec?$('#sizerec'):$('.sizes'));return;}
 }
 addEventListener('message',e=>{const d=e.data;if(d&&d.pdpFocus)doFocus(d.pdpFocus);});
 parent.postMessage({pdpReady:1},'*');

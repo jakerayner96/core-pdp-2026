@@ -88,6 +88,11 @@ a{color:var(--accent)}
 .rows{display:flex;gap:6px;padding:6px 0 4px 26px}
 .rw{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.25);font-size:11px;color:#B0B0B0}
 .rw.on{background:var(--ink);color:#000;border-color:var(--ink);font-weight:600}
+.qty{display:inline-flex;align-items:center;gap:4px;margin-left:auto}
+.qty button{width:24px;height:24px;border-radius:99px;border:1px solid rgba(255,255,255,.3);color:var(--ink);display:grid;place-items:center;font-size:14px;line-height:1}
+.qty input{width:36px;height:24px;background:#161616;border:1px solid rgba(255,255,255,.25);border-radius:6px;color:var(--ink);text-align:center;font:inherit;font-size:11.5px;-moz-appearance:textfield}
+.qty input::-webkit-outer-spin-button,.qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.qty em{font-style:normal;font-size:10.5px;color:var(--dim)}
 .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 2px}
 .foot .rm{font-size:11px}
 /* ---- fold view: iOS 26 Safari frame (SEEL Enhancements 2026 · 3366-199353) ---- */
@@ -157,11 +162,12 @@ body.dragging iframe{pointer-events:none}
 <aside class="panel">
   <div class="ph"><h1>Configure the PDP</h1><button class="editbtn" id="edittgl">Edit layout</button></div>
 
+  <div class="card"><h3>Stock</h3><div id="stockopts"></div></div>
+  <div class="card"><h3>Size recommender</h3><div id="srecopts"></div></div>
   <div class="card"><h3>Advanced bundling</h3><div class="sub">Entry point</div><div id="entryopts"></div><div class="sub second">Modal</div><div id="setviewopts"></div></div>
   <div class="card"><h3>Create the look</h3><div id="lookopts"></div></div>
   <div class="card"><h3>Handpicked For You</h3><div id="hpopts"></div></div>
   <div class="card"><h3>We Think You'll Like</h3><div id="wtylopts"></div></div>
-  <div class="card"><h3>Stock</h3><div id="stockopts"></div></div>
 
   <div class="foot"><span class="rm" id="removedsum"></span><button class="link" id="resetorder">Reset layout</button></div>
   <div class="sum" id="cfg"></div>
@@ -198,13 +204,14 @@ const ENTRIES=[
   ['',[['none','None']]],
 ];
 const FMT_BUNDLE=[['nodata','Grey background'],['carousel','Carousel'],['grid','Grid'],['inline','Inline band'],['hot','Hotspot imagery'],['off','Off']];
-const FMT_RECS=[['nodata','Grey background'],['carousel','Carousel'],['grid','Grid'],['off','Off']];
+const FMT_RECS=[['carousel','Carousel'],['grid','Grid'],['off','Off']];
+const SREC=[[true,'On'],[false,'Off']];
 const SETVIEWS=[['large','Large cards'],['cards','Cards'],['compact','Compact thumbs']];
 const STOCKS=[['in','In stock'],['size','Some sizes out'],['oos','Out of stock']];
 const ROWS=[[1,'1 row'],[2,'2 rows'],[3,'3 rows']];
 
 let FOLD=false;const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com'};
-let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'grid',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,setview:'cards',edit:false,removed:[]};
+let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'grid',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,sizerec:true,setview:'cards',edit:false,removed:[]};
 const $=s=>document.querySelector(s);
 const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
 
@@ -220,7 +227,10 @@ function radios(host,list,get,set,inline,focusKey){
 function focus(k){setTimeout(()=>frame.contentWindow.postMessage({pdpFocus:k},'*'),80);}
 function fmtCard(host,list,key){
   radios(host,list,()=>CFG.fmt[key],v=>CFG.fmt[key]=v,false,key);
-  if(CFG.fmt[key]==='grid'){const r=document.createElement('div');r.className='rows';host.appendChild(r);radios(r,ROWS,()=>+CFG.gridRows[key],v=>CFG.gridRows[key]=v,true,key);}
+  if(CFG.fmt[key]==='grid'){const opt=[...host.querySelectorAll('.opt')].find(o=>o.textContent.trim()==='Grid');if(opt){const n=+CFG.gridRows[key]||2;const q=document.createElement('span');q.className='qty';q.innerHTML=`<button aria-label="Fewer rows">−</button><input type="number" min="1" max="20" value="${n}" aria-label="Rows"><button aria-label="More rows">+</button><em>rows</em>`;
+    const set=v=>{CFG.gridRows[key]=Math.min(20,Math.max(1,v));send(frame,key);renderPanel();};
+    q.children[0].onclick=e=>{e.stopPropagation();set(n-1);};q.children[2].onclick=e=>{e.stopPropagation();set(n+1);};q.children[1].onclick=e=>e.stopPropagation();q.children[1].onchange=e=>{e.stopPropagation();set(+e.target.value||1);};
+    opt.appendChild(q);}}
 }
 function renderPanel(){
   const eh=$('#entryopts');eh.innerHTML='';
@@ -231,6 +241,7 @@ function renderPanel(){
   fmtCard($('#hpopts'),FMT_RECS,'hp');
   fmtCard($('#wtylopts'),FMT_RECS,'wtyl');
   radios($('#stockopts'),STOCKS,()=>CFG.stock,v=>CFG.stock=v,false,'stock');
+  radios($('#srecopts'),SREC,()=>CFG.sizerec,v=>CFG.sizerec=v,false,'sizerec');
   $('#edittgl').classList.toggle('on',CFG.edit);$('#edittgl').textContent=CFG.edit?'Done editing':'Edit layout';
   $('#removedsum').innerHTML=CFG.removed.length?'Removed: '+CFG.removed.map(r=>`<s>${r.label}</s>`).join(', '):'';
   document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===CFG.mode));
@@ -245,11 +256,11 @@ function apply(){
   sizebox.textContent=`${Math.round(w)}px`;
   document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',(b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600)));
 }
-function send(f=frame,focusKey){ f.contentWindow.postMessage({pdpSet:1,focus:focusKey||null,brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,setview:CFG.setview,edit:CFG.edit},'*'); }
+function send(f=frame,focusKey){ f.contentWindow.postMessage({pdpSet:1,focus:focusKey||null,brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,setview:CFG.setview,edit:CFG.edit},'*'); }
 addEventListener('message',e=>{
   const d=e.data;if(!d)return;
   if(d.pdpCfg&&e.source===frame.contentWindow)cfg.textContent=d.pdpCfg;
-  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
+  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
   if(typeof d.pdpEdit==='boolean'){CFG.edit=d.pdpEdit;renderPanel();}
 });
 document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{CFG.mode=b.dataset.m;send();renderPanel();});
@@ -275,7 +286,7 @@ function loadFrame(w){
   return new Promise(res=>{
     const f=document.createElement('iframe');f.style.width=w+'px';f.style.height='900px';f.style.border='0';f.src='pdp.html?brand=boohooman&mode='+CFG.mode+'&_='+Date.now();
     $('#hidden').appendChild(f);
-    const onMsg=e=>{if(e.source!==f.contentWindow)return;if(e.data&&e.data.pdpReady){const cfgNoEdit={...CFG,edit:false};f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:cfgNoEdit.mode,entry:cfgNoEdit.entry,stock:cfgNoEdit.stock,fmt:cfgNoEdit.fmt,gridRows:cfgNoEdit.gridRows,endpos:cfgNoEdit.endpos,setview:cfgNoEdit.setview,edit:false},'*');
+    const onMsg=e=>{if(e.source!==f.contentWindow)return;if(e.data&&e.data.pdpReady){const cfgNoEdit={...CFG,edit:false};f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:cfgNoEdit.mode,entry:cfgNoEdit.entry,stock:cfgNoEdit.stock,fmt:cfgNoEdit.fmt,gridRows:cfgNoEdit.gridRows,endpos:cfgNoEdit.endpos,sizerec:cfgNoEdit.sizerec,setview:cfgNoEdit.setview,edit:false},'*');
       const id=Math.random().toString(36).slice(2);const onPong=ev=>{if(ev.source===f.contentWindow&&ev.data&&ev.data.pdpPong===id){removeEventListener('message',onPong);removeEventListener('message',onMsg);f.style.height=(ev.data.h+20)+'px';setTimeout(()=>res(f),500);}};addEventListener('message',onPong);setTimeout(()=>f.contentWindow.postMessage({pdpPing:id},'*'),300);}};
     addEventListener('message',onMsg);
   });
@@ -295,7 +306,7 @@ async function doExport(){
     exptxt.textContent='Rendering desktop (1440)…';const d=await shot(1440);
     exptxt.textContent='Packaging code…';
     const zip=new JSZip();const name=`core-pdp-2026-${stamp()}`;const root=zip.folder(name);
-    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
+    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
     root.file('config.json',JSON.stringify(state,null,2));
     root.file(`${name}-mobile-390.png`,m);root.file(`${name}-desktop-1440.png`,d);
     let html=await (await fetch('pdp.html')).text();
