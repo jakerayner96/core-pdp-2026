@@ -133,6 +133,15 @@ a{color:inherit;text-decoration:none}
   .arrow.l{left:12px}.arrow.r{right:12px}
 }
 .arrow{display:none}
+/* On the product image (Jake 09 Sep): one pill on the gallery — Create The Look (different pieces → look modal) OR Shop Sets (same colour → set sheet), never both */
+.galmain{position:relative}
+.galov{position:absolute;left:16px;bottom:16px;z-index:3;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 10px 0 6px;background:rgba(255,255,255,.85);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);border-radius:4px;color:#000;text-align:left}
+.galov .st{position:relative;width:34px;height:26px;flex:none}
+.galov .st img{position:absolute;top:0;width:18px;height:26px;object-fit:cover;border-radius:2px;border:1px solid #FFF;background:var(--surface-media)}
+.galov .st img:nth-child(1){left:0;z-index:3}.galov .st img:nth-child(2){left:8px;z-index:2}.galov .st img:nth-child(3){left:16px;z-index:1}
+.galov .t{font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.galov .t i{font-style:normal;font-weight:400;letter-spacing:0;text-transform:none;color:var(--grey-4)}
+@media(min-width:1024px){.galov{left:24px;bottom:24px}}
 @media(min-width:1024px){.arrow{display:grid}}
 
 /* gallery set end card (entry 06) */
@@ -1181,7 +1190,8 @@ const S={
   sizerec:PRE.sizerec!==undefined?PRE.sizerec:(LS('pdp26-sizerec')!==null?LS('pdp26-sizerec'):true), // size recommender on/off
   accOpen:PRE.accOpen||LS('pdp26-acc')||{'acc-desc':true},
   glanceOff:PRE.glanceOff||LS('pdp26-glanceoff')||[], // hidden At a Glance items (indexes) // accordion default open/closed by block name
-  trioAnim:PRE.trioAnim!=null?!!PRE.trioAnim:LS('pdp26-trioanim')===true, // chip trio / fan deck shuffle animation (configurator toggle)
+  trioAnim:PRE.trioAnim!=null?!!PRE.trioAnim:LS('pdp26-trioanim')===true,
+  galOv:PRE.galOv||LS('pdp26-galov')||'off', // on the product image: off | look (Create The Look) | set (Shop Sets) — exclusive // chip trio / fan deck shuffle animation (configurator toggle)
   srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger (size + hanger carry a small + badge)
   added:PRE.added||LS('pdp26-added')||[], // added modules: [{key,container,label}] — repeatable recs blocks created in edit mode
   copy:PRE.copy||LS('pdp26-copy')||{}, // edited copy: key → text (edit mode: tap any title/label/button caption)
@@ -1230,6 +1240,15 @@ function renderGallery(){
   setImages(6).forEach((src,i)=>rows[i<3?0:1].appendChild(el(`<img src="${src}" alt="">`)));
   ec.onclick=()=>openSheet('set');
   const at=gal.children[Math.max(0,(+S.endpos||5)-1)];if(at)gal.insertBefore(ec,at);else gal.appendChild(ec); // position = the slide it becomes
+  // on-image pill (configurator: On the product image)
+  const old=$('#galov');if(old)old.remove();
+  if(S.mode==='new'&&S.stock!=='oos'&&S.galOv&&S.galOv!=='off'){
+    const isLook=S.galOv==='look';
+    const pcs=isLook?lookItems():['zip-hoodie','wide-jogger','tee','sweatshirt','quarter-zip','ls-tee','oth-hoodie','straight-jogger'].map(f=>partner(f,h.colour)).filter(q=>q&&q.colour===h.colour);
+    const ov=el(`<button class="galov" id="galov" aria-label="${isLook?'Create the look':'Shop the set'}"><span class="st">${pcs.slice(0,3).map(q=>`<img src="${q.img}" alt="">`).join('')}</span><span class="t"><span data-copy="galov.${S.galOv}">${isLook?'Create the look':'Shop the set'}</span> <i>· ${pcs.length} ${isLook?'items':'pieces'}</i></span></button>`);
+    ov.onclick=()=>isLook?openLookModal():openSheet('set');
+    gal.parentElement.appendChild(ov);applyCopy(ov);
+  }
   // thumbs (desktop)
   const th=$('#thumbs');th.innerHTML='';
   imgs.forEach((src,i)=>{const b=el(`<button class="${i===0?'on':''}"><img src="${src}" alt=""></button>`);b.onclick=()=>goSlide(i);th.appendChild(b);});
@@ -1688,7 +1707,7 @@ function renderAll(){
   renderEdit();applyCopy();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,trioAnim:S.trioAnim,desc:descState(),edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,trioAnim:S.trioAnim,galOv:S.galOv,desc:descState(),edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1773,7 +1792,7 @@ function renderEdit(){
 addEventListener('message',e=>{
   const d=e.data;if(!d||!d.pdpSet)return;
   const stockChanged=d.stock!==S.stock;
-  S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;if(typeof d.trioAnim==='boolean'){S.trioAnim=d.trioAnim;LS('pdp26-trioanim',S.trioAnim);}
+  S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;if(typeof d.trioAnim==='boolean'){S.trioAnim=d.trioAnim;LS('pdp26-trioanim',S.trioAnim);}if(d.galOv){S.galOv=d.galOv;LS('pdp26-galov',S.galOv);}
   if(d.fmt){S.fmt={...S.fmt,...d.fmt};LS('pdp26-fmt',S.fmt);}
   if(d.gridRows){S.gridRows={...S.gridRows,...d.gridRows};LS('pdp26-gridrows',S.gridRows);}
   if(d.endpos){S.endpos=+d.endpos;LS('pdp26-endpos',S.endpos);}
