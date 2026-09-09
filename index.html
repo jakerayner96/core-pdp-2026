@@ -239,7 +239,7 @@ const ENTRIES=[ // listed in page order, top to bottom (Jake 09 Sep)
   ['Under the colours · grey boxes',[['03-1','Made To Match box (marquee + copy)'],['03-2','Equation strip (images + SHOP SETS)'],['07-2','Chip (More Sets Available · SHOP NOW)'],['09-2','Set sum card (a + b + c · total · add to bag)'],['09-3','Same-colour carousel (other pieces in this colour, add each)']]],
   ['Under the colours · trio (stacked cards — Static / Shuffle)',[['07-4','Trio chip + copy (grey)'],['07-5','Trio banner + chevron (grey)'],['07-6','Trio banner, borderless']]],
   ['Under the colours · image banners (no grey)',[['08-1','Overlay bottom-left'],['08-2','Overlay bottom-right'],['08-4','White pill'],['08-5','Centre band'],['08-7','Marquee row'],['08-8','Filmstrip + caption below']]],
-  ['Under the colours · no box',[['07-1','Anchor link (SHOP MATCHING SETS ›)'],['09-1','Colour swatch grid'],['09-4','Explore The Set (colourways · tap reveals the pieces)'],['09-5','One-tap add-on (matching joggers)'],['09-8','Split tile (hoodie | joggers)'],['09-7','Text link line']]],
+  ['Under the colours · no box',[['07-1','Anchor link (SHOP MATCHING SETS ›)'],['09-1','Colour swatch grid'],['09-4','Explore The Set (colourways · tap reveals the pieces)'],['09-5','One-tap add-on card (matching joggers, bag-card format)'],['09-8','Split tile (hoodie | joggers | tee)']]],
   ['Under the pay box · large banners',[['04-1','2-up scroll'],['04-2','2×2 grid'],['04-3','3-up scroll'],['04-4','PLP slot + set carousel']]],
   ['',[['none','None']]],
 ];
@@ -315,7 +315,7 @@ function send(f=frame,focusKey){ f.contentWindow.postMessage({pdpSet:1,focus:foc
 addEventListener('message',e=>{
   const d=e.data;if(!d)return;
   if(d.pdpCfg&&e.source===frame.contentWindow)cfg.textContent=d.pdpCfg;
-  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.added)CFG.added=s.added;if(typeof s.trioAnim==='boolean')CFG.trioAnim=s.trioAnim;if(s.entry&&['07-3','08-3','08-6','09-6'].includes(s.entry))CFG.entry='07-4';if(s.srecIcon)CFG.srecIcon=SREC_ICON.some(([k])=>k===s.srecIcon)?s.srecIcon:'arrow';if(s.desc)CFG.desc=s.desc;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
+  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.added)CFG.added=s.added;if(typeof s.trioAnim==='boolean')CFG.trioAnim=s.trioAnim;if(s.entry&&['07-3','08-3','08-6','09-6','09-7'].includes(s.entry))CFG.entry='07-4';if(s.srecIcon)CFG.srecIcon=SREC_ICON.some(([k])=>k===s.srecIcon)?s.srecIcon:'arrow';if(s.desc)CFG.desc=s.desc;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
   if(typeof d.pdpEdit==='boolean'){CFG.edit=d.pdpEdit;renderPanel();}
 });
 document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{CFG.mode=b.dataset.m;send();renderPanel();});
