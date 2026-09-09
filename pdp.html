@@ -269,14 +269,15 @@ a{color:inherit;text-decoration:none}
 .uspbox .txt{flex:1;display:flex;flex-direction:column;gap:2px}
 .uspbox .t14{font-size:14px;font-weight:400;line-height:21px}
 .uspbox .t12{font-size:12px;font-weight:400;line-height:18px}
-.uspbox .t12 u{text-underline-position:from-font}
+.uspbox .t12 b{font-weight:600} /* clickable = same size, bolder, no underline */
+b.lnk,.ft .news small b{font-weight:600}
 .uspbox .cap{font-size:16px;font-weight:400}
 .uspbox .strong{font-size:16px;font-weight:600}
 .bnpl{background:#FFF;border:1px solid var(--grey-2);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:12px}
 .bnpl .badges{display:flex;gap:8px;align-items:center}
 .bnpl .badges img{height:24px;width:auto} /* DS payment badges (assets/ds/icons/pay — footer import 165380) */
-.bnpl .terms{font-size:14px;font-weight:300;color:var(--grey-4);line-height:21px}
-.bnpl .more{font-size:12px;font-weight:600} /* styled like the View All action */
+.bnpl .terms{font-size:12px;font-weight:400;line-height:18px;color:#000} /* same as the uspbox small print (Exclusions apply…) */
+.bnpl .more{font-size:12px;font-weight:600;line-height:18px} /* clickable = same size, bolder, no underline */
 @media(min-width:1024px){
   .below>.inset.buyside{display:none} /* on desktop these live inside the buy panel */
 }
@@ -781,7 +782,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:#000;color:#FFF;font-size:14px;font-weight:500;padding:12px 20px;border-radius:4px;opacity:0;pointer-events:none;transition:.2s;z-index:70;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 /* focus flash */
-.flash{outline:2px solid #0D99FF;outline-offset:2px;transition:outline-color .6s}
+.flash{outline:none} /* Jake 09 Sep: no blue outline on option change — the page just scrolls the changed block into view */
 /* ---------- Edit layout mode (review tooling) ---------- */
 body.editing [data-block]{position:relative;outline:1.5px dashed rgba(13,153,255,.7);outline-offset:-1px;min-height:28px;padding-top:36px!important}
 body.editing [data-block][hidden]{display:none!important}
@@ -1046,7 +1047,7 @@ body.editing{padding-bottom:48px}
       <h3 data-copy="ft.h">Let's get to know each other</h3>
       <p>Sign up to receive emails from us, so you never miss out on the good stuff.</p>
       <div class="row"><input type="email" placeholder="Email address"><button>Subscribe</button></div>
-      <small>By submitting your details, you agree to receive marketing communications from BOOHOOMAN &amp; our <u>family of brands</u> by email. You can unsubscribe at any time. See our <u>Privacy Policy</u>.</small>
+      <small>By submitting your details, you agree to receive marketing communications from BOOHOOMAN &amp; our <b>family of brands</b> by email. You can unsubscribe at any time. See our <b>Privacy Policy</b>.</small>
     </div>
     <div class="pay"><img src="assets/ds/icons/pay/visa.png" alt="Visa"><img src="assets/ds/icons/pay/mastercard.png" alt="Mastercard"><img src="assets/ds/icons/pay/amex.png" alt="American Express"><img src="assets/ds/icons/pay/maestro.png" alt="Maestro"><img src="assets/ds/icons/pay/visa-electron.png" alt="Visa Electron"><img src="assets/ds/icons/pay/apple-pay.png" alt="Apple Pay"><img src="assets/ds/icons/pay/payplus.png" alt="Pay+"><img src="assets/ds/icons/pay/paypal.png" alt="PayPal"><img src="assets/ds/icons/pay/klarna.png" alt="Klarna"><img src="assets/ds/icons/pay/clearpay.png" alt="Clearpay"><img src="assets/ds/icons/pay/google-pay.png" alt="Google Pay"></div>
     <div class="cols"><!-- live boohooman.com footer accordions, 09 Sep 2026 -->
@@ -1307,7 +1308,7 @@ const DELIVER=`<img class="dp" src="assets/bundling/icons/deliverplus-logo.svg" 
 <li><img src="assets/ds/icons/lib/icons-tick.svg" alt="">Full order coverage (lost, stolen, damaged) with instant payout on eligible claims</li></ul>
 <span class="more">Learn More</span><p class="quote">“Refund was approved and back in my account the same day.” — Deliver+ customer</p>`;
 const USPBOX=`<div class="r"><img src="assets/ds/icons/lib/icons-order.svg" alt=""><div class="txt"><span class="t14">Delivery from £3.99 or Next Day from £5.99</span></div></div>
-<div class="r"><img src="assets/bundling/icons/calendar.png" alt=""><div class="txt"><span class="t14">Eligible for return within 21 days</span><span class="t12">Exclusions apply. Please see our <u>returns policy</u></span></div></div>`;
+<div class="r"><img src="assets/bundling/icons/calendar.png" alt=""><div class="txt"><span class="t14">Eligible for return within 21 days</span><span class="t12">Exclusions apply. Please see our <b>returns policy</b></span></div></div>`;
 const STUDENT=`<div class="r"><img src="assets/ds/icons/lib/icons-university.svg" alt=""><div class="txt"><span class="cap">Student Exclusive</span><span class="strong">Save 20% with student discount</span></div></div>`;
 const BNPL=`<div class="badges"><img src="assets/ds/icons/pay/paypal.png" alt="PayPal"><img src="assets/ds/icons/pay/klarna.png" alt="Klarna"><img src="assets/ds/icons/pay/clearpay.png" alt="Clearpay"></div><span class="terms">18+, T&amp;C apply. Credit subject to status.</span><span class="more">See more</span>`;
 function renderBoxes(){
