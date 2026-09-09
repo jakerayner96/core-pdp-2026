@@ -104,7 +104,7 @@ a{color:var(--accent)}
   .win,.holder,.device{width:100%!important}
   .device{flex:1}
   iframe{width:100%!important;box-shadow:none}
-  .handle{display:none}
+  .stage .handle{display:none!important}
   #mtab{display:grid;place-items:center;position:fixed;left:0;top:64px;z-index:70;width:44px;height:44px;background:#000;color:#FFF;border-radius:0 12px 12px 0;box-shadow:0 2px 10px rgba(0,0,0,.35)}
   #mtab svg{width:22px;height:22px}
   .panel{position:fixed;inset:0;z-index:80;border-right:none;transform:translateX(-100%);transition:transform .25s ease;padding-top:12px}
@@ -289,7 +289,7 @@ function send(f=frame,focusKey){ f.contentWindow.postMessage({pdpSet:1,focus:foc
 addEventListener('message',e=>{
   const d=e.data;if(!d)return;
   if(d.pdpCfg&&e.source===frame.contentWindow)cfg.textContent=d.pdpCfg;
-  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
+  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
   if(typeof d.pdpEdit==='boolean'){CFG.edit=d.pdpEdit;renderPanel();}
 });
 document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{CFG.mode=b.dataset.m;send();renderPanel();});
@@ -335,7 +335,7 @@ async function doExport(){
     exptxt.textContent='Rendering desktop (1440)…';const d=await shot(1440);
     exptxt.textContent='Packaging code…';
     const zip=new JSZip();const name=`core-pdp-2026-${stamp()}`;const root=zip.folder(name);
-    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,labels:CFG.labels,setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
+    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,labels:CFG.labels,copy:CFG.copy||{},setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
     root.file('config.json',JSON.stringify(state,null,2));
     root.file(`${name}-mobile-390.png`,m);root.file(`${name}-desktop-1440.png`,d);
     let html=await (await fetch('pdp.html')).text();

@@ -229,9 +229,17 @@ a{color:inherit;text-decoration:none}
 .notify .btn .bell{width:16px;height:16px;filter:invert(1)}
 .notify .consent{display:flex;gap:12px;align-items:flex-start;font-size:12px;font-weight:400;line-height:1.35}
 .notify .consent a{font-weight:600}
-.cb{width:24px;height:24px;min-width:24px;border-radius:3px;background:#000;display:grid;place-items:center;border:none}
+.cb{width:28px;height:28px;min-width:28px;border-radius:99px;background:#FFF;display:grid;place-items:center;border:none;box-shadow:0 2px 8px rgba(0,0,0,.18);transition:background .15s,border-color .15s,box-shadow .15s} /* selection = a floating tick chip on the image (not a form checkbox) */
+.cb.off{background:rgba(255,255,255,.28);border:1.5px solid rgba(255,255,255,.95);box-shadow:none;backdrop-filter:blur(3px)}
+.cb::after{transform-origin:center}
+.cb:not(.off)::after{animation:tickpop .22s cubic-bezier(.2,.8,.2,1.2)}
+@keyframes tickpop{from{transform:translateY(-2px) rotate(-45deg) scale(.4);opacity:0}to{transform:translateY(-2px) rotate(-45deg) scale(1);opacity:1}}
+/* consent = DS form checkbox (C-11 .chk) */
+#ncb.cb{width:24px;height:24px;min-width:24px;border-radius:3px;background:#000;box-shadow:none;border:none;backdrop-filter:none}
+#ncb.cb.off{background:#FFF;border:1px solid var(--grey-3)}
+#ncb.cb::after{border-color:#FFF}
 .cb img{display:none}
-.cb::after{content:"";display:block;width:6px;height:11px;border:solid #FFF;border-width:0 2px 2px 0;transform:translateY(-1px) rotate(45deg)} /* 1:1 24px box, crisp tick (Figma Checkbox 5915:6387) */
+.cb::after{content:"";display:block;width:12px;height:6px;border-left:2px solid #000;border-bottom:2px solid #000;transform:translateY(-2px) rotate(-45deg)} /* DS .chk tick geometry (12×6, 2px), black on the white chip */
 .cb.off{background:#FFF;border:1px solid var(--grey-3)}
 .cb.off::after{display:none}
 .notify .done{background:var(--grey-05);border-radius:4px;padding:12px 16px;font-size:14px;display:flex;gap:8px;align-items:center}
@@ -627,7 +635,8 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .th button{flex:0 0 84px;width:84px;height:126px;padding:0;border:none;background:var(--grey-05);overflow:hidden;position:relative} /* 2:3 tiles */
 .crow .th button img{width:100%;height:100%;object-fit:cover}
 .crow .th button.on{box-shadow:inset 0 0 0 1px #000} /* thin keyline when ticked */
-.crow .th button .cb{position:absolute;left:4px;top:4px} /* same 24px checkbox as the cards */
+.crow .th button .cb{position:absolute;left:4px;top:4px;width:24px;height:24px;min-width:24px} /* smaller chip on tiles */
+.crow .th button .cb::after{width:10px;height:5px}
 .crow .csel{display:flex;flex-direction:column;gap:2px;padding:0 24px}
 .crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;min-height:28px} /* natural rhythm; targets stay ≥24px (WCAG 2.2 AA 2.5.8) */
 .crow .cs .c{color:#000;font-weight:500}
@@ -687,6 +696,8 @@ body.editing [data-block][hidden]{display:none!important}
 #addpanel .it{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-top:1px solid rgba(255,255,255,.08)}
 #addpanel .it button{font-size:11px;font-weight:600;color:#FFF;background:#0D99FF;padding:4px 10px;border-radius:99px}
 #addpanel .empty{color:#9A9A9A;padding:6px 0}
+.copyedit{outline:1px dashed rgba(13,153,255,.7);outline-offset:2px;cursor:text;border-radius:2px;min-width:1ch}
+.copyedit:focus{outline:2px solid #0D99FF;background:rgba(13,153,255,.08)}
 /* removed tray — sits under the page so removals are visible (and exported) rather than silently gone */
 .removed{background:#F4F5F7;border-top:1px dashed #B5B5B5;padding:20px var(--m) 28px;font-family:'Google Sans',system-ui,sans-serif}
 .removed[hidden]{display:none}
@@ -746,7 +757,7 @@ body.editing{padding-bottom:48px}
   <!-- new USP: single DS strip (P-05 decision: new format runs the strip only) -->
   <div class="usp-new">
     <div class="usp-strip">
-      <div class="usp-cell rot-on"><span class="usp-row"><span class="usp-t"><b>Order by midnight to get it tomorrow</b></span></span><span class="usp-cd" id="uspcd"></span></div>
+      <div class="usp-cell rot-on"><span class="usp-row"><span class="usp-t"><b data-copy="usp.msg">Order by midnight to get it tomorrow</b></span></span><span class="usp-cd" id="uspcd"></span></div>
     </div>
   </div>
 </header>
@@ -798,34 +809,34 @@ body.editing{padding-bottom:48px}
       <div class="slot" id="slot-colour" data-block="entry" data-label="Set entry point"></div>
 
       <div class="fit" data-block="fit" data-label="Body Fit">
-        <span class="lbl">Body Fit:</span>
+        <span class="lbl" data-copy="fit.lbl">Body Fit:</span>
         <div class="size-btns"><button class="sz fitb on">Regular</button><button class="sz fitb">Tall</button></div>
       </div>
 
       <div class="sizes" data-block="size" data-label="Size">
         <div class="size-head">
           <span class="lbl" id="sizelbl">Select a size:</span>
-          <span class="size-guide"><img src="assets/ds/icons/lib/icons-measure.svg" alt="">Size Guide</span>
+          <span class="size-guide"><img src="assets/ds/icons/lib/icons-measure.svg" alt=""><span data-copy="size.guide">Size Guide</span></span>
         </div>
         <div class="size-btns" id="sizebtns"></div>
       </div>
 
       <!-- Size recommender — Figma 1060-63028: grey banner (trend arrow · copy · chevron) + model line. Toggled from the panel -->
       <div class="sizerec" id="sizerec" data-block="sizerec" data-label="Size recommender">
-        <div class="srb" role="note"><img class="ic" src="assets/ds/icons/lib/icon-arrow-increase.svg" alt=""><span class="cp"><b>We recommend sizing up</b><span>Customers say this item fits too small</span></span></div>
-        <p class="model">Model is <b>6’1”</b> and wearing <b>UK size M</b></p>
+        <div class="srb" role="note"><img class="ic" src="assets/ds/icons/lib/icon-arrow-increase.svg" alt=""><span class="cp"><b data-copy="srec.h">We recommend sizing up</b><span data-copy="srec.s">Customers say this item fits too small</span></span></div>
+        <p class="model" data-copy="srec.model">Model is 6’1” and wearing UK size M</p>
       </div>
 
       <div class="buyblock" data-block="buy" data-label="Buy buttons / notify me">
       <div class="buy-btns" id="buybtns">
-        <button class="btn p" id="atbbtn">Add to bag</button>
+        <button class="btn p" id="atbbtn"><span data-copy="buy.atb">Add to bag</span></button>
         <button class="btn paypal"><img src="assets/bundling/icons/paypal-logo.png" alt="PayPal"></button>
         <button class="btn apple"><img src="assets/bundling/icons/applepay.svg" alt="Apple Pay"></button>
       </div>
 
       <!-- Notify me — Figma 1042:66804 / Back-in-stock UX -->
       <div class="notify" id="notify" hidden>
-        <h4>Get notified when it’s back in stock?</h4>
+        <h4 data-copy="notify.h">Get notified when it’s back in stock?</h4>
         <div class="inp"><input type="email" id="nemail" placeholder="Email Address" autocomplete="email"></div>
         <button class="btn p" id="nbtn"><img class="bell" src="assets/ds/icons/lib/icons-notification.svg" alt="">Notify me</button>
         <div class="consent"><button class="cb" id="ncb" aria-label="Consent"><img src="assets/bundling/icons/tick-white.svg" alt=""></button><span>By ticking the box you confirm that you are aged 16 or over &amp; consent to receiving email alerts about products, offers &amp; marketing communications. Please see our <a href="#">Privacy Policy</a> for more information.</span></div>
@@ -859,7 +870,7 @@ body.editing{padding-bottom:48px}
   <div class="inset cyp" id="cyp" data-block="cyp" data-label="Complete Your Purchase With (live)"></div>
 
   <div class="inset rail" id="similar" hidden data-block="similar" data-label="Shop Similar Items (OOS)">
-    <span class="rail-title">Shop Similar Items</span>
+    <span class="rail-title" data-copy="similar.title">Shop Similar Items</span>
     <div class="grid3" id="similargrid"></div>
   </div>
 
@@ -867,7 +878,7 @@ body.editing{padding-bottom:48px}
 
   <div class="desc" data-block="desc" data-label="Description area">
     <div class="drow" data-block="glance" data-label="At a Glance">
-    <span class="h">At a Glance</span>
+    <span class="h" data-copy="desc.glance">At a Glance</span>
     <ul class="glance">
       <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Premium heavyweight 480GSM fabric</li>
       <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Trendy oversized boxy fit</li>
@@ -877,7 +888,7 @@ body.editing{padding-bottom:48px}
     </ul>
     </div>
     <div class="drow acc open" data-block="acc-desc" data-label="Description">
-      <button class="acc-h"><span class="h">Description</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button>
+      <button class="acc-h"><span class="h" data-copy="desc.description">Description</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button>
       <div class="acc-b">
         <ul>
           <li>Heavyweight loopback fabric construction delivers a substantial, structured feel with a satisfyingly thick weight that holds its shape wear after wear</li>
@@ -890,15 +901,15 @@ body.editing{padding-bottom:48px}
         <p class="sku">SKU: CMM29598-10070-37</p>
       </div>
     </div>
-    <div class="drow acc" data-block="acc-care" data-label="Product Details &amp; Care"><button class="acc-h"><span class="h">Product Details &amp; Care</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>80% Cotton, 20% Polyester. Model is 6'1 &amp; wears UK size M/32. Machine wash at 30°C.</p></div></div>
-    <div class="drow acc" data-block="acc-delivery" data-label="Delivery"><button class="acc-h"><span class="h">Delivery</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Standard delivery from £3.99 (3–5 working days). Next Day from £5.99 — order by midnight. Premier: unlimited delivery for a year from £9.99.</p></div></div>
-    <div class="drow acc" data-block="acc-returns" data-label="Returns"><button class="acc-h"><span class="h">Returns</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Eligible for return within 21 days. Exclusions apply — see our returns policy.</p></div></div>
+    <div class="drow acc" data-block="acc-care" data-label="Product Details &amp; Care"><button class="acc-h"><span class="h" data-copy="desc.care">Product Details &amp; Care</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>80% Cotton, 20% Polyester. Model is 6'1 &amp; wears UK size M/32. Machine wash at 30°C.</p></div></div>
+    <div class="drow acc" data-block="acc-delivery" data-label="Delivery"><button class="acc-h"><span class="h" data-copy="desc.delivery">Delivery</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Standard delivery from £3.99 (3–5 working days). Next Day from £5.99 — order by midnight. Premier: unlimited delivery for a year from £9.99.</p></div></div>
+    <div class="drow acc" data-block="acc-returns" data-label="Returns"><button class="acc-h"><span class="h" data-copy="desc.returns">Returns</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Eligible for return within 21 days. Exclusions apply — see our returns policy.</p></div></div>
   </div>
 
   <div id="recs-wtyl" data-block="wtyl" data-label="We Think You'll Like" data-recs="wtyl"></div>
 
   <div class="reclinks" data-block="reclinks" data-label="Recommendations">
-    <span class="rail-title">Recommendations</span>
+    <span class="rail-title" data-copy="reclinks.title">Recommendations</span>
     <div class="chips">
       <a href="#">Black zip up hoodies</a><a href="#">Oversized jumpers</a><a href="#">Grey zip up hoodies</a><a href="#">Boxy t shirts</a><a href="#">Dark wash jeans</a><a href="#">Black washed jeans</a><a href="#">Zip-Up Cardigan for Men</a><a href="#">Zip t shirts</a><a href="#">Dark Grey Washed Hoodie for Men</a><a href="#">Plus Size Quarter Zip</a>
     </div>
@@ -910,7 +921,7 @@ body.editing{padding-bottom:48px}
 <footer class="ft">
   <div class="wrap">
     <div class="news">
-      <h3>Let's get to know each other</h3>
+      <h3 data-copy="ft.h">Let's get to know each other</h3>
       <p>Sign up to receive emails from us, so you never miss out on the good stuff.</p>
       <div class="row"><input type="email" placeholder="Email address"><button>Subscribe</button></div>
       <small>By submitting your details, you agree to receive marketing communications from BOOHOOMAN &amp; our <u>family of brands</u> by email. You can unsubscribe at any time. See our <u>Privacy Policy</u>.</small>
@@ -941,9 +952,9 @@ body.editing{padding-bottom:48px}
 <div class="sheet" id="sheet" hidden>
   <div class="bg" data-close></div>
   <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheettitle">
-    <div class="head"><h2 id="sheettitle">Shop The Set</h2><span class="view" id="setview" hidden><button data-v="cards">Cards</button><button data-v="compact">Compact</button></span><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="head"><h2 id="sheettitle" data-copy="sheet.set">Shop The Set</h2><span class="view" id="setview" hidden><button data-v="cards">Cards</button><button data-v="compact">Compact</button></span><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
     <div class="body" id="sheetbody"></div>
-    <div class="foot"><div class="tot"><span>Total</span><b id="sheettotal">£0.00</b></div><button class="btn p" id="sheetatb">Add to bag (0)</button></div>
+    <div class="foot"><div class="tot"><span data-copy="sheet.total">Total</span><b id="sheettotal">£0.00</b></div><button class="btn p" id="sheetatb">Add to bag (0)</button></div>
   </div>
 </div>
 
@@ -951,7 +962,7 @@ body.editing{padding-bottom:48px}
 <div class="sheet lookm" id="lookm" hidden>
   <div class="bg" data-close></div>
   <div class="panel" role="dialog" aria-modal="true">
-    <div class="head"><h2>Complete The Look</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="head"><h2 data-copy="lookm.title">Complete The Look</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
     <div class="body" id="lookmbody"></div>
     <div class="foot"><div class="tot"><span>Total</span><b id="lookmtotal">£0.00</b></div><button class="btn p" id="lookmatb">Add all to bag</button></div>
   </div>
@@ -961,7 +972,7 @@ body.editing{padding-bottom:48px}
 <div class="sheet sizeg" id="sizeg" hidden>
   <div class="bg" data-close></div>
   <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sgtitle">
-    <div class="head"><h2 id="sgtitle">Size Guide</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="head"><h2 id="sgtitle" data-copy="sg.title">Size Guide</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
     <div class="body" id="sgbody"></div>
   </div>
 </div>
@@ -970,7 +981,7 @@ body.editing{padding-bottom:48px}
 <div class="sheet pairsm" id="pairsm" hidden>
   <div class="bg" data-close></div>
   <div class="panel" role="dialog" aria-modal="true">
-    <div class="head"><h2>Pairs well with</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="head"><h2 data-copy="pairs.title">Pairs well with</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
     <div class="body"><div class="pgrid" id="pgrid"></div></div>
   </div>
 </div>
@@ -983,7 +994,7 @@ body.editing{padding-bottom:48px}
 <div class="sheet atb" id="atb" hidden>
   <div class="bg" data-close></div>
   <div class="panel" role="dialog" aria-modal="true">
-    <div class="head"><h2>Added to Bag</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="head"><h2 data-copy="atb.title">Added to Bag</h2><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
     <div class="items" id="atbitems"></div>
     <div class="btns"><button class="btn s" data-close>Continue shopping</button><button class="btn p" id="viewbag">View bag</button></div>
   </div>
@@ -995,19 +1006,19 @@ body.editing{padding-bottom:48px}
 <template id="tpl-01-1"><div class="pill-row"><button class="chip-entry round entry">SHOP SETS</button></div></template>
 <template id="tpl-01-4"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">Shop The Set</button></div></template>
 <template id="tpl-01-8"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">SET BUILDER</button></div></template>
-<template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><span class="track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span></span><span class="copy"><span class="h">Made To Match</span><span class="s">Shop our range of matching sets</span></span></button></template>
-<template id="tpl-03-2"><button class="equation-strip entry"><span class="imgs"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy">SHOP SETS</span></button></template>
-<template id="tpl-03-3"><button class="pairs entry"><span class="thumbs"><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="lbl">Pairs well with<img class="chev" src="assets/ds/icons/lib/icons-right.svg" alt=""></span></button></template>
-<template id="tpl-04-1"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll two-up"><img src="assets/bundling/om1-1.jpg" alt=""><img src="assets/bundling/om1-2.jpg" alt=""><img data-set="0" alt=""><img data-set="1" alt=""></div><div class="outfit-caption"><div class="l"><span class="h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta">LAUNCH SET BUILDER</span></div></div></template>
-<template id="tpl-04-2"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-grid"><img src="assets/bundling/om2-1.jpg" alt=""><img src="assets/bundling/om2-2.jpg" alt=""><img src="assets/bundling/om2-3.jpg" alt=""><img src="assets/bundling/om2-4.jpg" alt=""></div><div class="outfit-caption"><div class="l"><span class="h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta">LAUNCH SET BUILDER</span></div></div></template>
-<template id="tpl-04-3"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll three-up"><img src="assets/bundling/om3-1.jpg" alt=""><img src="assets/bundling/om3-2.jpg" alt=""><img src="assets/bundling/om3-3.jpg" alt=""><img data-set="0" alt=""><img data-set="1" alt=""></div><div class="outfit-caption"><div class="l"><span class="h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta">LAUNCH SET BUILDER</span></div></div></template>
-<template id="tpl-04-4"><div class="content-slot entry" role="button" tabindex="0"><div class="plp-slot"><img src="assets/bundling/plp-slot.jpg" alt=""><div class="cap"><span class="h">Shop Matching Sets</span><span class="cta">VIEW ALL</span></div></div><div class="scroll" style="padding-left:16px" data-setcards></div></div></template>
-<template id="tpl-07-1"><button class="anchor-link entry"><img class="bi" src="assets/bundling/icons/badge-sets.svg" alt=""><span class="txt">SHOP MATCHING SETS</span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
-<template id="tpl-07-2"><button class="price-chip entry"><span class="lead"><img class="bi" src="assets/bundling/icons/badge-sets.svg" alt=""><span class="label">More Sets Available</span></span><span class="shop">SHOP NOW</span></button></template>
-<template id="tpl-07-3"><button class="price-chip with-trio entry"><span class="lead"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="label">More Sets Available</span></span></button></template>
-<template id="tpl-07-4"><button class="price-chip with-trio entry"><span class="lead"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h">Shop The Full Set</span><span class="s" data-pieces></span></span></span></button></template>
-<template id="tpl-07-5"><button class="price-banner boxed entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
-<template id="tpl-07-6"><button class="price-banner bare entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
+<template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><span class="track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span></span><span class="copy"><span class="h" data-copy="e.03-1.h">Made To Match</span><span class="s" data-copy="e.03-1.s">Shop our range of matching sets</span></span></button></template>
+<template id="tpl-03-2"><button class="equation-strip entry"><span class="imgs"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy" data-copy="e.03-2.cta">SHOP SETS</span></button></template>
+<template id="tpl-03-3"><button class="pairs entry"><span class="thumbs"><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="lbl"><span data-copy="e.pairs">Pairs well with</span><img class="chev" src="assets/ds/icons/lib/icons-right.svg" alt=""></span></button></template>
+<template id="tpl-04-1"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll two-up"><img src="assets/bundling/om1-1.jpg" alt=""><img src="assets/bundling/om1-2.jpg" alt=""><img data-set="0" alt=""><img data-set="1" alt=""></div><div class="outfit-caption"><div class="l"><span class="h" data-copy="e.04.h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta" data-copy="e.04.cta">LAUNCH SET BUILDER</span></div></div></template>
+<template id="tpl-04-2"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-grid"><img src="assets/bundling/om2-1.jpg" alt=""><img src="assets/bundling/om2-2.jpg" alt=""><img src="assets/bundling/om2-3.jpg" alt=""><img src="assets/bundling/om2-4.jpg" alt=""></div><div class="outfit-caption"><div class="l"><span class="h" data-copy="e.04.h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta" data-copy="e.04.cta">LAUNCH SET BUILDER</span></div></div></template>
+<template id="tpl-04-3"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll three-up"><img src="assets/bundling/om3-1.jpg" alt=""><img src="assets/bundling/om3-2.jpg" alt=""><img src="assets/bundling/om3-3.jpg" alt=""><img data-set="0" alt=""><img data-set="1" alt=""></div><div class="outfit-caption"><div class="l"><span class="h" data-copy="e.04.h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta" data-copy="e.04.cta">LAUNCH SET BUILDER</span></div></div></template>
+<template id="tpl-04-4"><div class="content-slot entry" role="button" tabindex="0"><div class="plp-slot"><img src="assets/bundling/plp-slot.jpg" alt=""><div class="cap"><span class="h" data-copy="e.04-4.h">Shop Matching Sets</span><span class="cta" data-copy="e.04-4.cta">VIEW ALL</span></div></div><div class="scroll" style="padding-left:16px" data-setcards></div></div></template>
+<template id="tpl-07-1"><button class="anchor-link entry"><img class="bi" src="assets/bundling/icons/badge-sets.svg" alt=""><span class="txt" data-copy="e.07-1">SHOP MATCHING SETS</span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
+<template id="tpl-07-2"><button class="price-chip entry"><span class="lead"><img class="bi" src="assets/bundling/icons/badge-sets.svg" alt=""><span class="label" data-copy="e.07.label">More Sets Available</span></span><span class="shop" data-copy="e.07.shop">SHOP NOW</span></button></template>
+<template id="tpl-07-3"><button class="price-chip with-trio entry"><span class="lead"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="label" data-copy="e.07.label">More Sets Available</span></span></button></template>
+<template id="tpl-07-4"><button class="price-chip with-trio entry"><span class="lead"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07-4.h">Shop The Full Set</span><span class="s" data-pieces></span></span></span></button></template>
+<template id="tpl-07-5"><button class="price-banner boxed entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07.whole">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
+<template id="tpl-07-6"><button class="price-banner bare entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07.whole">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 
 <script src="data.js"></script>
 <script>
@@ -1027,6 +1038,7 @@ const S={
   entry:q.get('entry')||PRE.entry||'03-1',       // set-builder entry point id | none
   stock:q.get('stock')||PRE.stock||'in',         // in | size | oos
   sizerec:PRE.sizerec!==undefined?PRE.sizerec:(LS('pdp26-sizerec')!==null?LS('pdp26-sizerec'):true), // size recommender on/off
+  copy:PRE.copy||LS('pdp26-copy')||{}, // edited copy: key → text (edit mode: tap any title/label/button caption)
   labels:PRE.labels!==undefined?PRE.labels:(LS('pdp26-labels')!==null?LS('pdp26-labels'):false), // builder cards: show 'Size:' / 'Colour:' labels
   rows:(q.get('rows')||'zip-hoodie,sweatshirt,tee,wide-jogger').split(',').filter(Boolean),
   colour:'CMM29598',                  // hero SKU (washed navy zip hoodie)
@@ -1067,7 +1079,7 @@ function renderGallery(){
     gal.appendChild(s);
   });
   // 06-1 gallery set end card
-  const ec=el(`<div class="slide endcard ${S.mode==='new'&&S.entry==='06-1'&&S.stock!=='oos'?'on':''}" role="button" tabindex="0"><div class="stack"><div class="rows"><div class="row"></div><div class="row"></div></div><span class="cta">SHOP MORE SETS</span></div></div>`);
+  const ec=el(`<div class="slide endcard ${S.mode==='new'&&S.entry==='06-1'&&S.stock!=='oos'?'on':''}" role="button" tabindex="0"><div class="stack"><div class="rows"><div class="row"></div><div class="row"></div></div><span class="cta" data-copy="e.06.cta">SHOP MORE SETS</span></div></div>`);
   const rows=ec.querySelectorAll('.row');
   setImages(6).forEach((src,i)=>rows[i<3?0:1].appendChild(el(`<img src="${src}" alt="">`)));
   ec.onclick=()=>openSheet('set');
@@ -1199,7 +1211,7 @@ function recsModule(key){
   host.hidden=off;if(off)return;
   const items=R.items();
   const open=p=>R.bundle?openSheet('look',p&&p.id):(p&&p.id&&byId(p.id)?(S.colour=p.id,S.size=null,renderAll(),scrollTo({top:0,behavior:'smooth'})):toast(R.title+' — View All'));
-  const box=el(`<div class="recs ${f}"><div class="rail-head"><span class="rail-title">${R.title}</span>${f==='nodata'?'<span class="all">View All</span>':''}</div></div>`); // View All belongs to the visual (no data) carousel only
+  const box=el(`<div class="recs ${f}"><div class="rail-head"><span class="rail-title" data-copy="recs.${key}.${f}">${R.title}</span>${f==='nodata'?'<span class="all" data-copy="recs.viewall">View All</span>':''}</div></div>`); // View All belongs to the visual (no data) carousel only
   if(f==='nodata'){
     const imgs=el(`<div class="imgs"></div>`);items.slice(0,R.bundle?3:6).forEach(p=>imgs.appendChild(el(`<img src="${p.img}" alt="${p.name}" loading="lazy">`)));box.appendChild(imgs);
     box.onclick=()=>open();
@@ -1241,7 +1253,7 @@ function recsModule(key){
     const rows=Math.min(20,Math.max(1,+(S.gridRows[key]||2)));const g=el(`<div class="grid3"></div>`);const pool=items.length?Array.from({length:3*rows},(_,i)=>items[i%items.length]):[];pool.forEach(p=>g.appendChild(card(p,{pct:S.mode==='new',onclick:()=>open(p)})));box.appendChild(g);
     box.querySelector('.rail-head').onclick=()=>open();
   }
-  host.appendChild(box);
+  host.appendChild(box);applyCopy(host);
 }
 const CTL={}; // inline bundling: per-SKU size picks
 const fmt2=p=>(p.was&&p.was>p.price)?`<span style="color:var(--red)">${fmt(p.price)}</span> <s style="font-weight:400">${fmt(p.was)}</s>`:fmt(p.price);
@@ -1297,7 +1309,7 @@ function renderEntry(){
   node.querySelectorAll('[data-pieces]').forEach(s=>s.textContent=`${setPieces()} matching pieces · ${fam('zip-hoodie').length} colours`);
   const sc=node.querySelector('[data-setcards]');if(sc){lookItems().forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>openSheet('set')})));}
   node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>openSheet('set')));
-  slot.appendChild(node);
+  slot.appendChild(node);applyCopy(slot);
 }
 
 /* ============================================================
@@ -1320,7 +1332,7 @@ function openSheet(kind,preselectId){
   const all=SH.rows.flatMap(r=>r.items);
   if(all.find(p=>p.id===hero().id))SH.sel[hero().id]={size:null}; // the product you came from is ticked on open (Figma)
   if(preselectId&&all.find(p=>p.id===preselectId))SH.sel[preselectId]={size:null};
-  $('#sheettitle').textContent=kind==='look'?'Shop The Look':'Shop The Set';
+  const st=$('#sheettitle');st.dataset.copy='sheet.'+kind;st.textContent=S.copy['sheet.'+kind]||(kind==='look'?'Shop The Look':'Shop The Set');
   renderSheet();
   const sh=$('#sheet');sh.hidden=false;requestAnimationFrame(()=>sh.classList.add('open'));
   document.body.style.overflow='hidden';
@@ -1337,22 +1349,25 @@ function sizeLine(p){const st=SH.sel[p.id];return `<div class="sz-sel"><span>Siz
 function wireSize(node,p){node.querySelector('.sz-sel').onclick=e=>{e.stopPropagation();openPick(p,sz=>{SH.sel[p.id]={size:sz};renderSheet();});};}
 /* row as product cards (Figma 1038:45022) */
 /* View All ⇄ Zoom In: swap ONLY this row, in place. Outgoing size → incoming size is continuous (140→84 or back) and the row height eases, so nothing below jumps */
+function growIn(row,targets,hPrev){targets=targets.filter(Boolean);if(!targets.length)return;const nat=targets.map(t=>t.offsetHeight);targets.forEach(t=>{t.style.height='0px';t.style.overflow='hidden';t.style.opacity='0';});void row.offsetHeight;const start=Math.max(0,hPrev-row.offsetHeight);targets.forEach(t=>{t.style.height=start+'px';});void row.offsetHeight;targets.forEach((t,i)=>{t.style.transition='height 220ms ease,opacity 220ms ease';t.style.height=nat[i]+'px';t.style.opacity='1';});setTimeout(()=>targets.forEach(t=>{t.style.cssText='';}),260);}
 function swapRow(oldRow,ri,toThumbs){
-  const r=SH.rows[ri];const h0=oldRow.offsetHeight;
-  if(toThumbs)SH.view[ri]='thumbs';else delete SH.view[ri];
-  const newRow=toThumbs?rowThumbs(r,ri,true):rowCards(r,ri);oldRow.replaceWith(newRow);
-  const h1=newRow.offsetHeight;const inner=newRow.querySelector(toThumbs?'.th':'.cards');
-  newRow.style.height=h0+'px';newRow.style.overflow='hidden';
-  inner.style.transformOrigin='left top';inner.style.transform=toThumbs?'scale(1.667)':'scale(.6)';inner.style.opacity='.6';
-  requestAnimationFrame(()=>{requestAnimationFrame(()=>{
-    newRow.style.transition='height .32s cubic-bezier(.2,.7,.2,1)';inner.style.transition='transform .32s cubic-bezier(.2,.7,.2,1),opacity .32s ease';
-    newRow.style.height=h1+'px';inner.style.transform='none';inner.style.opacity='1';
-    setTimeout(()=>{newRow.style.cssText='';inner.style.cssText='';},360);
-  });});
+  const r=SH.rows[ri];const D=320;
+  if(toThumbs){ // cards → thumbs: each card narrows 140→84 (image keeps 2:3, so it just scales), price/size/colour collapse + fade
+    const cards=[...oldRow.querySelectorAll('.scard')];
+    cards.forEach(c=>{const inf=c.querySelector('.inf');inf.style.height=inf.offsetHeight+'px';inf.style.overflow='hidden';});
+    void oldRow.offsetHeight;
+    cards.forEach(c=>{c.style.transition=`width ${D}ms ease,flex-basis ${D}ms ease`;c.style.width='84px';c.style.flexBasis='84px';const inf=c.querySelector('.inf');inf.style.transition=`height ${D}ms ease,opacity 200ms ease`;inf.style.height='0px';inf.style.opacity='0';});
+    setTimeout(()=>{const hPrev=oldRow.offsetHeight;SH.view[ri]='thumbs';const nr=rowThumbs(r,ri,true);oldRow.replaceWith(nr);growIn(nr,[nr.querySelector('.csel')],hPrev);},D+10);
+  }else{ // thumbs → cards: tiles grow 84→140 (or 210 in Large) with the aspect locked, picks fade; then the cards' info fades in
+    const target=SETVIEW==='large'?210:140;const tiles=[...oldRow.querySelectorAll('.th button')];
+    tiles.forEach(t=>{t.style.transition=`width ${D}ms ease,height ${D}ms ease,flex-basis ${D}ms ease`;t.style.width=target+'px';t.style.flexBasis=target+'px';t.style.height=(target*1.5)+'px';});
+    const cs=oldRow.querySelector('.csel');if(cs){cs.style.transition='opacity 200ms ease';cs.style.opacity='0';}
+    setTimeout(()=>{const hPrev=oldRow.offsetHeight;delete SH.view[ri];const nr=rowCards(r,ri);oldRow.replaceWith(nr);growIn(nr,[...nr.querySelectorAll('.inf')],hPrev);},D+10);
+  }
 }
 function rowCards(r,ri){
   const has=rowHasSel(r);
-  const row=el(`<div class="srow"><div class="rh"><span class="lbl">${r.label}</span><button class="all">View All</button></div><div class="cards"></div></div>`);
+  const row=el(`<div class="srow"><div class="rh"><span class="lbl">${r.label}</span><button class="all"><span data-copy="sheet.viewall">View All</span></button></div><div class="cards"></div></div>`);
   row.querySelector('.all').onclick=()=>swapRow(row,ri,true); // View All: cards bunch up into thumbnails
   const cards=row.querySelector('.cards');
   r.items.forEach(p=>{
@@ -1366,7 +1381,7 @@ function rowCards(r,ri){
 }
 /* row as small thumbnails — View All (see every item in the row) and the Compact layout. Tap as many as you like; picks list beneath with a size each */
 function rowThumbs(r,ri,back){
-  const row=el(`<div class="crow"><div class="rh"><span class="lbl">${r.label}</span>${back?'<button class="all">Zoom In</button>':''}</div><div class="th"></div><div class="csel"></div></div>`);
+  const row=el(`<div class="crow"><div class="rh"><span class="lbl">${r.label}</span>${back?'<button class="all"><span data-copy="sheet.zoomin">Zoom In</span></button>':''}</div><div class="th"></div><div class="csel"></div></div>`);
   if(back)row.querySelector('.all').onclick=()=>swapRow(row,ri,false); // Zoom In: thumbnails grow back into cards
   const th=row.querySelector('.th');
   r.items.forEach(p=>{const on=!!SH.sel[p.id];const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""><span class="cb ${on?'':'off'}" aria-hidden="true"></span></button>`);bt.setAttribute('aria-pressed',on);bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
@@ -1375,14 +1390,15 @@ function rowThumbs(r,ri,back){
   return row;
 }
 function renderSheet(){
-  const b=$('#sheetbody');b.innerHTML='';document.body.classList.toggle('nolabels',!S.labels);$('#setview').hidden=true;
+  const b=$('#sheetbody');const keepScroll=b.scrollTop;b.innerHTML='';document.body.classList.toggle('nolabels',!S.labels);$('#setview').hidden=true;
   b.classList.toggle('big',SH.kind==='set'&&SETVIEW==='large');b.classList.toggle('compact',SH.kind==='set'&&SETVIEW==='compact');
   const compact=SH.kind==='set'&&SETVIEW==='compact'; // Compact = every row as thumbnails, no hero (the product you came from is already ticked in its row)
   if(SH.kind==='look') b.appendChild(el(`<div class="filters"><span>Price <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Body Fit <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Style <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span></div>`));
   SH.rows.forEach((r,ri)=>b.appendChild((compact||SH.view[ri]==='thumbs')?rowThumbs(r,ri,!compact):rowCards(r,ri)));
   const ids=Object.keys(SH.sel);
   $('#sheettotal').textContent=fmt(ids.reduce((a,id)=>a+setNow(byId(id)),0));
-  const btn=$('#sheetatb');btn.textContent=`Add to bag (${ids.length})`;btn.disabled=!ids.length;
+  const btn=$('#sheetatb');btn.innerHTML=`<span data-copy="sheet.atb">Add to bag</span> (${ids.length})`;btn.disabled=!ids.length;
+  b.scrollTop=keepScroll;applyCopy($('#sheet'));
 }
 $('#sheetatb').onclick=()=>{
   let bad=false;Object.keys(SH.sel).forEach(id=>{if(!SH.sel[id].size){SH.sel[id].err=true;bad=true;}});
@@ -1437,6 +1453,12 @@ function openSizeGuide(){renderSizeGuide();const m=$('#sizeg');m.hidden=false;re
 $('#addtab').onclick=()=>{const p=$('#addpanel');p.hidden=!p.hidden;$('#addtab').classList.toggle('open',!p.hidden);};
 document.querySelector('.size-guide').onclick=openSizeGuide;
 document.querySelectorAll('.fitb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fitb').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
+/* Editable copy — every [data-copy] element takes S.copy overrides; in edit mode it becomes contenteditable */
+function applyCopy(root){(root||document).querySelectorAll('[data-copy]').forEach(el=>{const k=el.dataset.copy;if(S.copy[k]!=null&&el.textContent!==S.copy[k])el.textContent=S.copy[k];if(S.edit){el.setAttribute('contenteditable','true');el.classList.add('copyedit');el.setAttribute('spellcheck','false');}else{el.removeAttribute('contenteditable');el.classList.remove('copyedit');}});}
+document.addEventListener('input',e=>{const el=e.target.closest&&e.target.closest('[data-copy]');if(!el||!S.edit)return;S.copy[el.dataset.copy]=el.textContent;LS('pdp26-copy',S.copy);});
+document.addEventListener('click',e=>{const el=e.target.closest&&e.target.closest('[data-copy]');if(!el||!S.edit)return;e.preventDefault();e.stopPropagation();el.focus();},true);
+document.addEventListener('focusout',e=>{if(e.target.closest&&e.target.closest('[data-copy]')&&S.edit)parent.postMessage({pdpState:{copy:S.copy}},'*');});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.closest&&e.target.closest('[data-copy]')&&S.edit){e.preventDefault();e.target.blur();}});
 /* size picker */
 function openPick(p,cb){
   const m=$('#pickmenu');m.innerHTML='<div class="t">Select size</div>';
@@ -1481,10 +1503,10 @@ function renderAll(){
   $('#nddmsg').hidden=S.stock==='oos';
   $('#sizerec').hidden=!S.sizerec;
   document.body.classList.toggle('nolabels',!S.labels);
-  renderEdit();
+  renderEdit();applyCopy();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1526,8 +1548,8 @@ function renderEdit(){
   document.body.classList.toggle('editing',S.edit);
   document.querySelectorAll('.ed').forEach(e=>e.remove());
   let bar=$('#edbar');
-  if(!bar){bar=el(`<div id="edbar"><b>Edit layout</b><span>▲▼ move a block · ✕ remove it (listed under the page)</span><button id="edreset">Reset</button><button class="done" id="eddone">Done</button></div>`);document.body.appendChild(bar);
-    bar.querySelector('#edreset').onclick=()=>{S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);location.reload();};
+  if(!bar){bar=el(`<div id="edbar"><b>Edit layout</b><span>▲▼ move · ✕ remove · tap any text to edit the copy</span><button id="edreset">Reset</button><button class="done" id="eddone">Done</button></div>`);document.body.appendChild(bar);
+    bar.querySelector('#edreset').onclick=()=>{S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});location.reload();};
     bar.querySelector('#eddone').onclick=()=>{S.edit=false;renderAll();parent.postMessage({pdpEdit:false},'*');};}
   bar.hidden=!S.edit;
   if(!S.edit)return;
@@ -1552,7 +1574,7 @@ addEventListener('message',e=>{
   if(typeof d.sizerec==='boolean'){S.sizerec=d.sizerec;LS('pdp26-sizerec',S.sizerec);}
   if(typeof d.labels==='boolean'){S.labels=d.labels;LS('pdp26-labels',S.labels);}
   if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);if(!$('#sheet').hidden&&SH.kind==='set')renderSheet();}
-  if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);location.reload();return;}
+  if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});location.reload();return;}
   if(d.focus)PENDING_FOCUS=d.focus;
   if(stockChanged){S.size=null;S.notified=false;}
   document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');sh.hidden=true;});document.body.style.overflow='';
