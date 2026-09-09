@@ -402,7 +402,7 @@ a{color:inherit;text-decoration:none}
 .mode-new .chips a{background:var(--grey-05);border:none;border-radius:4px;padding:8px 12px;font-size:14px;font-weight:400} /* grey boxes, regular text, no outline */
 
 /* ---------- Footer (live boohooman.com) ---------- */
-.ft{border-top:1px solid var(--grey-2);margin-top:16px}
+.ft{margin-top:16px}
 .ft .news{padding:32px var(--m);display:flex;flex-direction:column;gap:12px;text-align:center;background:var(--ft-band,#F8F8F8)} /* live: bg-bg-grey #F8F8F8 · DS C-08 --ft-band */
 .ft .news h3{font-size:24px;font-weight:600;line-height:1.5}
 .ft .news p{font-size:16px}
@@ -689,6 +689,8 @@ body.editing [data-block][hidden]{display:none!important}
 .ed .mv button.del{background:#D33F3F}
 .copyedit{outline:1px dashed rgba(13,153,255,.7);outline-offset:2px;cursor:text;border-radius:2px;min-width:1ch}
 .copyedit:focus{outline:2px solid #0D99FF;background:rgba(13,153,255,.08)}
+body:not(.editing) .glx{display:none}
+.glx{margin-left:auto;width:22px;height:22px;border-radius:99px;background:#D33F3F;color:#FFF;font-size:11px;display:grid;place-items:center;flex:none}
 /* insertion points (edit mode): dashed boundary line + a white + at the right edge */
 .ins{height:0;position:relative;z-index:30;margin:-8px 0}
 .ins .ln{position:absolute;left:0;right:56px;top:0;border-top:2px dashed rgba(13,153,255,.55)}
@@ -888,11 +890,11 @@ body.editing{padding-bottom:48px}
     <div class="drow" data-block="glance" data-label="At a Glance">
     <span class="h" data-copy="desc.glance">At a Glance</span>
     <ul class="glance">
-      <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Premium heavyweight 480GSM fabric</li>
-      <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Trendy oversized boxy fit</li>
-      <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Distinctive washed finish</li>
-      <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Versatile zip-through design</li>
-      <li><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i>Soft 80% cotton blend</li>
+      <li data-gl="0"><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i><span data-copy="glance.0">Premium heavyweight 480GSM fabric</span></li>
+      <li data-gl="1"><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i><span data-copy="glance.1">Trendy oversized boxy fit</span></li>
+      <li data-gl="2"><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i><span data-copy="glance.2">Distinctive washed finish</span></li>
+      <li data-gl="3"><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i><span data-copy="glance.3">Versatile zip-through design</span></li>
+      <li data-gl="4"><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i><span data-copy="glance.4">Soft 80% cotton blend</span></li>
     </ul>
     </div>
     <div class="drow acc open" data-block="acc-desc" data-label="Description">
@@ -1046,6 +1048,8 @@ const S={
   entry:q.get('entry')||PRE.entry||'03-1',       // set-builder entry point id | none
   stock:q.get('stock')||PRE.stock||'in',         // in | size | oos
   sizerec:PRE.sizerec!==undefined?PRE.sizerec:(LS('pdp26-sizerec')!==null?LS('pdp26-sizerec'):true), // size recommender on/off
+  accOpen:PRE.accOpen||LS('pdp26-acc')||{'acc-desc':true},
+  glanceOff:PRE.glanceOff||LS('pdp26-glanceoff')||[], // hidden At a Glance items (indexes) // accordion default open/closed by block name
   srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger | info
   added:PRE.added||LS('pdp26-added')||[], // added modules: [{key,container,label}] — repeatable recs blocks created in edit mode
   copy:PRE.copy||LS('pdp26-copy')||{}, // edited copy: key → text (edit mode: tap any title/label/button caption)
@@ -1467,6 +1471,14 @@ document.querySelector('.size-guide').onclick=openSizeGuide;
 document.querySelectorAll('.fitb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fitb').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
 const SREC_ICONS={arrow:'icon-arrow-increase.svg',tape:'icons-measure.svg',size:'icons-size.svg',hanger:'icons-hanger.svg',info:'icons-info.svg'};
 function applySrecIcon(){const src='assets/ds/icons/lib/'+(SREC_ICONS[S.srecIcon]||SREC_ICONS.arrow);document.querySelectorAll('.srb img.ic').forEach(i=>{if(!i.src.endsWith(src))i.src=src;});}
+function descState(){const rows=[...document.querySelectorAll('.desc>[data-block]')].map(b=>({name:b.dataset.block,label:b.dataset.label,acc:b.classList.contains('acc'),open:!!S.accOpen[b.dataset.block],removed:false,glance:b.dataset.block==='glance'?[...document.querySelectorAll('.glance li[data-gl]')].map(li=>({i:+li.dataset.gl,text:li.textContent.trim(),off:S.glanceOff.includes(+li.dataset.gl)})):null}));S.removed.filter(r=>r.container==='desc').forEach(r=>rows.push({name:r.name,label:r.label,acc:r.name.startsWith('acc-'),open:!!S.accOpen[r.name],removed:true}));return rows;}
+addEventListener('message',e=>{const d=e.data;if(!d||!d.pdpDesc)return;const {op,name}=d.pdpDesc;const b=document.querySelector(`.desc>[data-block="${name}"]`);
+  if(op==='toggle'){S.accOpen[name]=!S.accOpen[name];LS('pdp26-acc',S.accOpen);renderAll();flash(b);return;}
+  if(op==='glance'){const i=+d.pdpDesc.i;S.glanceOff=S.glanceOff.includes(i)?S.glanceOff.filter(x=>x!==i):[...S.glanceOff,i];LS('pdp26-glanceoff',S.glanceOff);renderAll();flash(document.querySelector('[data-block="glance"]'));return;}
+  if(op==='remove'&&b){removeBlock(b);return;}
+  if(op==='restore'){restoreBlock(name);return;}
+  if((op==='up'||op==='down')&&b){const sibs=blocksOf(b.parentElement);const i=sibs.indexOf(b);if(op==='up'&&i>0)sibs[i-1].before(b);if(op==='down'&&i<sibs.length-1)sibs[i+1].after(b);saveOrder();renderAll();flash(b);}
+});
 /* Editable copy — every [data-copy] element takes S.copy overrides; in edit mode it becomes contenteditable */
 function applyCopy(root){(root||document).querySelectorAll('[data-copy]').forEach(el=>{const k=el.dataset.copy;if(S.copy[k]!=null&&el.textContent!==S.copy[k])el.textContent=S.copy[k];if(S.edit){el.setAttribute('contenteditable','true');el.classList.add('copyedit');el.setAttribute('spellcheck','false');}else{el.removeAttribute('contenteditable');el.classList.remove('copyedit');}});}
 document.addEventListener('input',e=>{const el=e.target.closest&&e.target.closest('[data-copy]');if(!el||!S.edit)return;S.copy[el.dataset.copy]=el.textContent;LS('pdp26-copy',S.copy);});
@@ -1516,11 +1528,13 @@ function renderAll(){
   renderEntry();renderCYP();renderSimilar();renderRecs();
   $('#nddmsg').hidden=S.stock==='oos';
   $('#sizerec').hidden=!S.sizerec;applySrecIcon();
+  document.querySelectorAll('.drow.acc[data-block]').forEach(a=>a.classList.toggle('open',!!S.accOpen[a.dataset.block]));
+  document.querySelectorAll('.glance li[data-gl]').forEach(li=>{li.hidden=S.glanceOff.includes(+li.dataset.gl);});
   document.body.classList.toggle('nolabels',!S.labels);
   renderEdit();applyCopy();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,desc:descState(),edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1595,6 +1609,7 @@ function renderEdit(){
     mv.children[2].onclick=e=>{e.stopPropagation();removeBlock(b);};
     ed.appendChild(mv);b.prepend(ed);
   });
+  document.querySelectorAll('.glance li[data-gl]').forEach(li=>{if(li.hidden)return;const x=el(`<button class="glx" aria-label="Remove this point">✕</button>`);x.onclick=e=>{e.stopPropagation();const i=+li.dataset.gl;S.glanceOff=[...S.glanceOff,i];LS('pdp26-glanceoff',S.glanceOff);renderAll();};li.appendChild(x);});
   // insertion points: a + at every boundary in the two columns (and the description rows)
   ['.buy','.below','.desc'].forEach(sel=>{const c=document.querySelector(sel);if(!c)return;const vis=blocksOf(c).filter(x=>!x.hidden&&x.offsetParent!==null);if(!vis.length&&sel==='.desc')return;
     const mk=ref=>{const ins=el(`<div class="ins"><span class="ln"></span><button class="plus" aria-label="Add a block here">+</button></div>`);ins.querySelector('.plus').onclick=e=>{e.stopPropagation();openAddMenu(c,ref,e.currentTarget);};return ins;};
@@ -1612,7 +1627,7 @@ addEventListener('message',e=>{
   if(d.srecIcon){S.srecIcon=d.srecIcon;LS('pdp26-srecicon',S.srecIcon);}
   if(typeof d.labels==='boolean'){S.labels=d.labels;LS('pdp26-labels',S.labels);}
   if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);if(!$('#sheet').hidden&&SH.kind==='set')renderSheet();}
-  if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});LS('pdp26-added',[]);location.reload();return;}
+  if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});LS('pdp26-added',[]);LS('pdp26-acc',{'acc-desc':true});LS('pdp26-glanceoff',[]);location.reload();return;}
   if(d.focus)PENDING_FOCUS=d.focus;
   if(stockChanged){S.size=null;S.notified=false;}
   document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');sh.hidden=true;});document.body.style.overflow='';

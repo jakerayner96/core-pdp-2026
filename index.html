@@ -93,6 +93,16 @@ a{color:var(--accent)}
 .qty input{width:36px;height:24px;background:#161616;border:1px solid rgba(255,255,255,.25);border-radius:6px;color:var(--ink);text-align:center;font:inherit;font-size:11.5px;-moz-appearance:textfield}
 .qty input::-webkit-outer-spin-button,.qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .qty em{font-style:normal;font-size:10.5px;color:var(--dim)}
+.arow{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid rgba(255,255,255,.07)}
+.arow:first-child{border-top:none}
+.arow .lb{flex:1;font-size:12px;font-weight:500;color:#D8D8D8;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arow.gone .lb{text-decoration:line-through;color:var(--dim)}
+.arow.sub{padding-left:14px;border-top:none}
+.arow.sub .lb{font-size:11px;font-weight:400;color:var(--muted)}
+.seg.mini button{padding:2px 8px;font-size:10.5px}
+.arow .mv{display:inline-flex;gap:4px}
+.arow .mv button{width:24px;height:24px;border-radius:99px;border:1px solid rgba(255,255,255,.3);color:var(--ink);display:grid;place-items:center;font-size:11px}
+.arow .mv button.del{border-color:#D33F3F;color:#FF6B6B}
 .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 2px}
 .foot .rm{font-size:11px}
 /* ---- mobile: the page fills the window; the same panel slides over it from a black settings tab ---- */
@@ -195,6 +205,7 @@ body.dragging iframe{pointer-events:none}
   <div class="card"><h3>Handpicked For You</h3><div id="hpopts"></div></div>
   <div class="card"><h3>We Think You'll Like</h3><div id="wtylopts"></div></div>
   <div id="addedcards"></div>
+  <div class="card"><h3>Accordions</h3><div id="accopts"></div></div>
 
   <div class="foot"><span class="rm" id="removedsum"></span><button class="link" id="resetorder">Reset layout</button></div>
   <div class="sum" id="cfg"></div>
@@ -270,6 +281,12 @@ function renderPanel(){
   radios($('#setviewopts'),SETVIEWS,()=>CFG.setview,v=>CFG.setview=v,false,'setview');
   fmtCard($('#hpopts'),FMT_RECS,'hp');
   fmtCard($('#wtylopts'),FMT_RECS,'wtyl');
+  const ao=$('#accopts');ao.innerHTML='';(CFG.desc||[]).forEach(r=>{const row=document.createElement('div');row.className='arow'+(r.removed?' gone':'');
+    row.innerHTML=`<span class="lb">${r.label}</span>${r.acc&&!r.removed?`<span class="seg mini"><button class="${r.open?'on':''}" data-o="1">Open</button><button class="${r.open?'':'on'}" data-o="0">Closed</button></span>`:''}${r.removed?`<button class="link" data-op="restore">Add back</button>`:`<span class="mv"><button data-op="up" aria-label="Up">▲</button><button data-op="down" aria-label="Down">▼</button><button data-op="remove" class="del" aria-label="Remove">✕</button></span>`}`;
+    row.querySelectorAll('[data-op]').forEach(b=>b.onclick=()=>frame.contentWindow.postMessage({pdpDesc:{op:b.dataset.op,name:r.name}},'*'));
+    row.querySelectorAll('.seg.mini button').forEach(b=>b.onclick=()=>{if((b.dataset.o==='1')!==r.open)frame.contentWindow.postMessage({pdpDesc:{op:'toggle',name:r.name}},'*');});
+    ao.appendChild(row);
+    if(r.glance&&!r.removed){r.glance.forEach(g=>{const gr=document.createElement('div');gr.className='arow sub'+(g.off?' gone':'');gr.innerHTML=`<span class="lb">${g.text}</span>${g.off?'<button class="link">Add back</button>':'<span class="mv"><button class="del" aria-label="Remove">✕</button></span>'}`;gr.querySelector('button').onclick=()=>frame.contentWindow.postMessage({pdpDesc:{op:'glance',name:r.name,i:g.i}},'*');ao.appendChild(gr);});}});
   const ac=$('#addedcards');ac.innerHTML='';(CFG.added||[]).forEach(a=>{const card=document.createElement('div');card.className='card';card.innerHTML=`<h3>${a.label}</h3><div></div>`;ac.appendChild(card);fmtCard(card.lastElementChild,FMT_ADDED,a.key);});
   radios($('#stockopts'),STOCKS,()=>CFG.stock,v=>CFG.stock=v,false,'stock');
   radios($('#srecopts'),SREC,()=>CFG.sizerec,v=>CFG.sizerec=v,false,'sizerec');
@@ -294,7 +311,7 @@ function send(f=frame,focusKey){ f.contentWindow.postMessage({pdpSet:1,focus:foc
 addEventListener('message',e=>{
   const d=e.data;if(!d)return;
   if(d.pdpCfg&&e.source===frame.contentWindow)cfg.textContent=d.pdpCfg;
-  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.added)CFG.added=s.added;if(s.srecIcon)CFG.srecIcon=s.srecIcon;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
+  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.added)CFG.added=s.added;if(s.srecIcon)CFG.srecIcon=s.srecIcon;if(s.desc)CFG.desc=s.desc;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
   if(typeof d.pdpEdit==='boolean'){CFG.edit=d.pdpEdit;renderPanel();}
 });
 document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{CFG.mode=b.dataset.m;send();renderPanel();});
