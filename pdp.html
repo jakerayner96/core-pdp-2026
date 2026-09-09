@@ -701,8 +701,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .recs.ms .row:first-child{border-top:none}
 .recs.ms .row>img{width:90px;height:135px;object-fit:cover;border-radius:2px;flex:none;background:var(--surface-media)}
 .recs.ms .row .inf{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;font-size:12px;line-height:15px;align-self:stretch}
-.recs.ms .row .sels{display:flex;gap:16px;flex-wrap:nowrap;margin-top:2px;min-width:0} /* Size + Colour side by side, as in the modal */
-.recs.ms .row .sels .sz-sel{min-width:0;flex:0 1 auto}
+.recs.ms .row .sels{display:flex;flex-direction:column;gap:4px;margin-top:2px;min-width:0} /* Size then Colour, stacked as in the modal; colour is fixed */
 .recs.ms .row .inf .qa{margin-top:auto;align-self:flex-start}
 .recs.ms .row .inf .nm{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .recs.ms .row .inf .nm b{font-weight:700}
@@ -1454,9 +1453,8 @@ function recsModule(key){
     const list=w.querySelector('.list');
     pieces.forEach(p=>{const st=CTL[p.id]||(CTL[p.id]={size:null});
       const r=el(`<div class="row" role="button" tabindex="0"><img src="${p.img}" alt=""><div class="inf"><span class="nm"><b>${p.brand||'boohooMAN'}</b> - ${p.name}</span><span class="pr">${fmt2(p)}</span>
-        <div class="sels"><div class="sz-sel" data-k="size"><span>Size:</span><span class="v ${st.size?'set':''}">${st.size||'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div><div class="sz-sel" data-k="colour"><span>Colour:</span><span class="v set">${p.colour}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div></div><span class="qa">Add</span></div></div>`);
+        <div class="sels"><div class="sz-sel" data-k="size"><span>Size:</span><span class="v ${st.size?'set':''}">${st.size||'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div><div class="sz-sel nochev"><span>Colour:</span><span class="v set">${p.colour}</span></div></div><span class="qa">Add</span></div></div>`);
       r.querySelector('[data-k="size"]').onclick=e=>{e.stopPropagation();openPick(p,sz=>{st.size=sz;renderRecs();});};
-      r.querySelector('[data-k="colour"]').onclick=e=>{e.stopPropagation();openColourPick(p,c=>{LOOKSEL[p.fam]=c.id;renderRecs();});};
       r.querySelector('.qa').onclick=e=>{e.stopPropagation();if(!st.size){openPick(p,sz=>{st.size=sz;renderRecs();openATB([{p,size:sz}]);});return;}openATB([{p,size:st.size}]);};
       r.onclick=openLookModal;list.appendChild(r);});
     w.querySelector('.look').onclick=openLookModal;
