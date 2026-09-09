@@ -194,6 +194,7 @@ body.dragging iframe{pointer-events:none}
   <div class="card"><h3>Create the look</h3><div id="lookopts"></div></div>
   <div class="card"><h3>Handpicked For You</h3><div id="hpopts"></div></div>
   <div class="card"><h3>We Think You'll Like</h3><div id="wtylopts"></div></div>
+  <div id="addedcards"></div>
 
   <div class="foot"><span class="rm" id="removedsum"></span><button class="link" id="resetorder">Reset layout</button></div>
   <div class="sum" id="cfg"></div>
@@ -231,6 +232,7 @@ const ENTRIES=[
 ];
 const FMT_BUNDLE=[['nodata','Grey background'],['carousel','Carousel'],['grid','Grid'],['inline','Inline band'],['hot','Hotspot imagery'],['off','Off']];
 const FMT_RECS=[['carousel','Carousel'],['grid','Grid'],['off','Off']];
+const FMT_ADDED=[['carousel','Carousel'],['grid','Grid'],['nodata','Image carousel (grey)'],['inline','Complete The Look band'],['hot','Hotspot look'],['off','Off']];
 const SREC=[[true,'On'],[false,'Off']];
 const LABELS=[[false,'Hidden'],[true,'Shown']];
 const SETVIEWS=[['large','Large cards'],['cards','Cards'],['compact','Compact thumbs']];
@@ -267,6 +269,7 @@ function renderPanel(){
   radios($('#setviewopts'),SETVIEWS,()=>CFG.setview,v=>CFG.setview=v,false,'setview');
   fmtCard($('#hpopts'),FMT_RECS,'hp');
   fmtCard($('#wtylopts'),FMT_RECS,'wtyl');
+  const ac=$('#addedcards');ac.innerHTML='';(CFG.added||[]).forEach(a=>{const card=document.createElement('div');card.className='card';card.innerHTML=`<h3>${a.label}</h3><div></div>`;ac.appendChild(card);fmtCard(card.lastElementChild,FMT_ADDED,a.key);});
   radios($('#stockopts'),STOCKS,()=>CFG.stock,v=>CFG.stock=v,false,'stock');
   radios($('#srecopts'),SREC,()=>CFG.sizerec,v=>CFG.sizerec=v,false,'sizerec');
   radios($('#labelopts'),LABELS,()=>CFG.labels,v=>CFG.labels=v,false,'setview');
@@ -289,7 +292,7 @@ function send(f=frame,focusKey){ f.contentWindow.postMessage({pdpSet:1,focus:foc
 addEventListener('message',e=>{
   const d=e.data;if(!d)return;
   if(d.pdpCfg&&e.source===frame.contentWindow)cfg.textContent=d.pdpCfg;
-  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
+  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.added)CFG.added=s.added;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
   if(typeof d.pdpEdit==='boolean'){CFG.edit=d.pdpEdit;renderPanel();}
 });
 document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{CFG.mode=b.dataset.m;send();renderPanel();});
@@ -336,7 +339,7 @@ async function doExport(){
     exptxt.textContent='Rendering desktop (1440)…';const d=await shot(1440);
     exptxt.textContent='Packaging code…';
     const zip=new JSZip();const name=`core-pdp-2026-${stamp()}`;const root=zip.folder(name);
-    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,labels:CFG.labels,copy:CFG.copy||{},setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
+    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,labels:CFG.labels,copy:CFG.copy||{},added:CFG.added||[],setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
     root.file('config.json',JSON.stringify(state,null,2));
     root.file(`${name}-mobile-390.png`,m);root.file(`${name}-desktop-1440.png`,d);
     let html=await (await fetch('pdp.html')).text();

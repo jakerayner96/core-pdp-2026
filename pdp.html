@@ -687,17 +687,22 @@ body.editing [data-block][hidden]{display:none!important}
 .ed .mv button{width:24px;height:24px;border-radius:99px;background:#0A0A0A;color:#FFF;display:grid;place-items:center;font-size:12px;line-height:1}
 .ed .mv button:disabled{opacity:.3}
 .ed .mv button.del{background:#D33F3F}
-#addtab{position:fixed;right:0;top:44%;z-index:41;width:44px;height:56px;border:2px dashed #0D99FF;border-right:none;border-radius:12px 0 0 12px;background:rgba(10,10,10,.92);color:#FFF;font-size:26px;line-height:1;font-family:'Google Sans',system-ui,sans-serif;display:grid;place-items:center}
-#addtab[hidden]{display:none}
-#addtab.open{background:#0D99FF;border-color:#0D99FF}
-#addpanel{position:fixed;right:48px;top:calc(44% - 8px);z-index:41;width:240px;max-height:60vh;overflow:auto;background:#0A0A0A;color:#F7F7F7;border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:12px;font-family:'Google Sans',system-ui,sans-serif;font-size:12px}
-#addpanel[hidden]{display:none}
-#addpanel h4{font-size:12px;font-weight:600;color:#0D99FF;margin-bottom:6px}
-#addpanel .it{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-top:1px solid rgba(255,255,255,.08)}
-#addpanel .it button{font-size:11px;font-weight:600;color:#FFF;background:#0D99FF;padding:4px 10px;border-radius:99px}
-#addpanel .empty{color:#9A9A9A;padding:6px 0}
 .copyedit{outline:1px dashed rgba(13,153,255,.7);outline-offset:2px;cursor:text;border-radius:2px;min-width:1ch}
 .copyedit:focus{outline:2px solid #0D99FF;background:rgba(13,153,255,.08)}
+/* insertion points (edit mode): dashed boundary line + a white + at the right edge */
+.ins{height:0;position:relative;z-index:30;margin:-8px 0}
+.ins .ln{position:absolute;left:0;right:56px;top:0;border-top:2px dashed rgba(13,153,255,.55)}
+.ins .plus{position:absolute;right:6px;top:-22px;width:44px;height:44px;border-radius:99px;background:#FFF;color:#000;box-shadow:0 2px 10px rgba(0,0,0,.28);font-size:26px;line-height:1;display:grid;place-items:center;font-family:'Google Sans',system-ui,sans-serif}
+.ins .plus:hover{background:#0D99FF;color:#FFF}
+body.editing .buy>.ins:first-child,body.editing .below>.ins:first-child{margin-top:8px}
+@media(max-width:1023px){body.editing .below>.ins:first-child{display:none}} /* stacked: the buy column's last + already sits on that boundary */
+#addmenu{position:fixed;z-index:60;width:260px;max-height:70vh;overflow:auto;background:#0A0A0A;color:#F7F7F7;border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:12px;font-family:'Google Sans',system-ui,sans-serif;font-size:12px;box-shadow:0 12px 40px rgba(0,0,0,.4)}
+#addmenu[hidden]{display:none}
+#addmenu h4{font-size:11px;font-weight:600;color:#0D99FF;margin:0 0 4px;text-transform:uppercase;letter-spacing:.05em}
+#addmenu h4.second{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12)}
+#addmenu .it{display:block;width:100%;text-align:left;padding:8px 6px;border-radius:6px;font-size:12.5px;color:#F7F7F7}
+#addmenu .it:hover{background:rgba(255,255,255,.08)}
+#addmenu .empty{color:#8A8A8A;padding:6px}
 /* removed tray — sits under the page so removals are visible (and exported) rather than silently gone */
 .removed{background:#F4F5F7;border-top:1px dashed #B5B5B5;padding:20px var(--m) 28px;font-family:'Google Sans',system-ui,sans-serif}
 .removed[hidden]{display:none}
@@ -945,8 +950,8 @@ body.editing{padding-bottom:48px}
 </footer>
 
 <!-- Edit mode: add back a removed block — dashed + tab at the edge (Squarespace-style) → list -->
-<button id="addtab" hidden aria-label="Add a removed block back" title="Add a block back">+</button>
-<div id="addpanel" hidden><h4>Add back</h4><div id="addlist"></div></div>
+<!-- Edit mode: add menu (opens from a + at any boundary) — any component, not just removed ones -->
+<div id="addmenu" hidden><h4>Add here</h4><div id="addnew"></div><h4 class="second">Add back</h4><div id="addback"></div></div>
 
 <!-- Removed tray — every block deleted in edit mode is listed here (restore in edit mode). Exports include it. -->
 <section class="removed" id="removed" hidden><h4><b>Removed from this layout</b> · <span id="removedn">0</span> block(s)</h4><div class="list" id="removedlist"></div><div id="removedstore" hidden></div></section>
@@ -1041,6 +1046,7 @@ const S={
   entry:q.get('entry')||PRE.entry||'03-1',       // set-builder entry point id | none
   stock:q.get('stock')||PRE.stock||'in',         // in | size | oos
   sizerec:PRE.sizerec!==undefined?PRE.sizerec:(LS('pdp26-sizerec')!==null?LS('pdp26-sizerec'):true), // size recommender on/off
+  added:PRE.added||LS('pdp26-added')||[], // added modules: [{key,container,label}] — repeatable recs blocks created in edit mode
   copy:PRE.copy||LS('pdp26-copy')||{}, // edited copy: key → text (edit mode: tap any title/label/button caption)
   labels:PRE.labels!==undefined?PRE.labels:(LS('pdp26-labels')!==null?LS('pdp26-labels'):false), // builder cards: show 'Size:' / 'Colour:' labels
   rows:(q.get('rows')||'zip-hoodie,sweatshirt,tee,wide-jogger').split(',').filter(Boolean),
@@ -1208,7 +1214,7 @@ const RECS={
   // hp pads the same way when 3 rows are asked for
 };
 function recsModule(key){
-  const R=RECS[key],host=$('#recs-'+key);host.innerHTML='';host.className='';
+  const R=RECS[key]||addedRecs(key),host=$('#recs-'+key);host.innerHTML='';host.className='';
   const f=S.fmt[key]||'carousel';
   const off=f==='off'||f==='pairs'||(R.onlyNew&&S.mode!=='new')||(key==='look'&&S.stock==='oos'); // 'pairs' renders under the buy buttons instead (renderEntry)
   host.hidden=off;if(off)return;
@@ -1260,7 +1266,10 @@ function recsModule(key){
 }
 const CTL={}; // inline bundling: per-SKU size picks
 const fmt2=p=>(p.was&&p.was>p.price)?`<span style="color:var(--red)">${fmt(p.price)}</span> <s style="font-weight:400">${fmt(p.was)}</s>`:fmt(p.price);
-function renderRecs(){Object.keys(RECS).forEach(recsModule);}
+function ensureAdded(){S.added.forEach(a=>{if(!document.getElementById('recs-'+a.key)){const parent=document.getElementById(a.container)||document.querySelector('.'+a.container)||document.querySelector('.below');parent.appendChild(el(`<div id="recs-${a.key}" data-block="${a.key}" data-label="${a.label}" data-recs="${a.key}"></div>`));}});}
+function poolFor(key){const i=Math.max(0,S.added.findIndex(a=>a.key===key));const fams=FAM.map(f=>f.id);let out=[];for(let k=0;k<fams.length&&out.length<9;k++)out=out.concat(fam(fams[(i+2+k)%fams.length]));return out.slice(0,9);}
+function addedRecs(key){return {title:'You might also like',items:()=>poolFor(key)};}
+function renderRecs(){ensureAdded();Object.keys(RECS).concat(S.added.map(a=>a.key)).forEach(k=>{if(document.getElementById('recs-'+k))recsModule(k);});}
 function renderCYP(){
   const c=$('#cyp');c.innerHTML='';if(S.mode!=='live'||S.stock==='oos')return;
   const h=hero();const items=[h,partner('tee',h.colour),partner('wide-jogger',h.colour),partner('wide-jogger',h.colour)];
@@ -1453,7 +1462,6 @@ function renderSizeGuide(){
   b.appendChild(el(`<div class="how"><b>How to measure</b><span>Chest – Measure at the fullest part of the chest and around the back</span><span>Waist – Measure around the natural waistline</span><span>Hips – Measure around fullest part of your hip</span><span>Inside leg – Measure from top of the inside leg to ankle</span></div>`));
 }
 function openSizeGuide(){renderSizeGuide();const m=$('#sizeg');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';}
-$('#addtab').onclick=()=>{const p=$('#addpanel');p.hidden=!p.hidden;$('#addtab').classList.toggle('open',!p.hidden);};
 document.querySelector('.size-guide').onclick=openSizeGuide;
 document.querySelectorAll('.fitb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fitb').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
 /* Editable copy — every [data-copy] element takes S.copy overrides; in edit mode it becomes contenteditable */
@@ -1500,7 +1508,7 @@ tick();setInterval(tick,1000);
 
 function renderAll(){
   document.body.className='mode-'+S.mode;
-  applyRemoved();applyOrder();
+  ensureAdded();applyRemoved();applyOrder();
   renderGallery();renderSwatches();renderPrice();renderSizes();renderBuy();renderBoxes();
   renderEntry();renderCYP();renderSimilar();renderRecs();
   $('#nddmsg').hidden=S.stock==='oos';
@@ -1509,7 +1517,7 @@ function renderAll(){
   renderEdit();applyCopy();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1543,16 +1551,34 @@ function restoreBlock(name){
 function applyRemoved(){ // on load (or preset): move listed blocks into the store
   S.removed.forEach(it=>{const b=document.querySelector(`[data-block="${it.name}"]`);if(b&&b.parentElement.id!=='removedstore')$('#removedstore').appendChild(b);});
   const tray=$('#removed');tray.hidden=!S.removed.length;$('#removedn').textContent=S.removed.length;
-  $('#addtab').hidden=!S.edit;if(!S.edit)$('#addpanel').hidden=true;
-  const al=$('#addlist');al.innerHTML='';if(!S.removed.length)al.innerHTML='<div class="empty">Nothing removed yet</div>';S.removed.forEach(it=>{const c=el(`<div class="it"><span>${it.label}</span><button>Add</button></div>`);c.querySelector('button').onclick=()=>restoreBlock(it.name);al.appendChild(c);});
   const l=$('#removedlist');l.innerHTML='';S.removed.forEach(it=>{const c=el(`<span class="it"><s>${it.label}</s><button ${S.edit?'':'hidden'}>Restore</button></span>`);c.querySelector('button').onclick=()=>restoreBlock(it.name);l.appendChild(c);});
 }
+const ADD_NEW=[['carousel','Recommendation carousel'],['grid','Product grid'],['nodata','Image carousel (grey)'],['inline','Complete The Look band'],['hot','Hotspot look']];
+function openAddMenu(container,ref,anchor){
+  const m=$('#addmenu');const nw=$('#addnew'),bk=$('#addback');nw.innerHTML='';bk.innerHTML='';
+  ADD_NEW.forEach(([f,label])=>{const b=el(`<button class="it">${label}</button>`);b.onclick=()=>addNew(container,ref,f,label);nw.appendChild(b);});
+  if(!S.removed.length)bk.innerHTML='<div class="empty">Nothing removed</div>';S.removed.forEach(it=>{const b=el(`<button class="it">${it.label}</button>`);b.onclick=()=>addBack(container,ref,it.name);bk.appendChild(b);});
+  m.hidden=false;const r=anchor.getBoundingClientRect();const w=260;m.style.left=Math.max(8,Math.min(window.innerWidth-w-8,r.left-w-8))+'px';m.style.top=Math.max(8,Math.min(window.innerHeight-m.offsetHeight-8,r.top-8))+'px';
+}
+function placeAfter(container,ref,node){if(ref&&ref.parentElement===container)ref.after(node);else container.prepend(node);}
+function addNew(container,ref,f,label){
+  const key='a'+Date.now().toString(36);const n=S.added.length+1;const lbl=`${label} ${n}`;
+  S.added.push({key,container:containerKey(container),label:lbl});LS('pdp26-added',S.added);S.fmt[key]=f;LS('pdp26-fmt',S.fmt);S.gridRows[key]=2;LS('pdp26-gridrows',S.gridRows);
+  const host=el(`<div id="recs-${key}" data-block="${key}" data-label="${lbl}" data-recs="${key}"></div>`);placeAfter(container,ref,host);
+  $('#addmenu').hidden=true;saveOrder();renderAll();setTimeout(()=>flash(host),60);
+}
+function addBack(container,ref,name){
+  const it=S.removed.find(r=>r.name===name);const b=$('#removedstore').querySelector(`[data-block="${name}"]`);if(!it||!b)return;
+  placeAfter(container,ref,b);S.removed=S.removed.filter(r=>r.name!==name);LS('pdp26-removed',S.removed);
+  $('#addmenu').hidden=true;saveOrder();renderAll();setTimeout(()=>flash(b),60);
+}
+document.addEventListener('click',e=>{if(!e.target.closest('#addmenu')&&!e.target.closest('.ins'))$('#addmenu').hidden=true;});
 function renderEdit(){
   document.body.classList.toggle('editing',S.edit);
-  document.querySelectorAll('.ed').forEach(e=>e.remove());
+  document.querySelectorAll('.ed,.ins').forEach(e=>e.remove());if(!S.edit)$('#addmenu').hidden=true;
   let bar=$('#edbar');
-  if(!bar){bar=el(`<div id="edbar"><b>Edit layout</b><span>▲▼ move · ✕ remove · tap any text to edit the copy</span><button id="edreset">Reset</button><button class="done" id="eddone">Done</button></div>`);document.body.appendChild(bar);
-    bar.querySelector('#edreset').onclick=()=>{S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});location.reload();};
+  if(!bar){bar=el(`<div id="edbar"><b>Edit layout</b><span>▲▼ move · ✕ remove · + add at a boundary · tap text to edit copy</span><button id="edreset">Reset</button><button class="done" id="eddone">Done</button></div>`);document.body.appendChild(bar);
+    bar.querySelector('#edreset').onclick=()=>{S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});LS('pdp26-added',[]);location.reload();};
     bar.querySelector('#eddone').onclick=()=>{S.edit=false;renderAll();parent.postMessage({pdpEdit:false},'*');};}
   bar.hidden=!S.edit;
   if(!S.edit)return;
@@ -1566,6 +1592,11 @@ function renderEdit(){
     mv.children[2].onclick=e=>{e.stopPropagation();removeBlock(b);};
     ed.appendChild(mv);b.prepend(ed);
   });
+  // insertion points: a + at every boundary in the two columns (and the description rows)
+  ['.buy','.below','.desc'].forEach(sel=>{const c=document.querySelector(sel);if(!c)return;const vis=blocksOf(c).filter(x=>!x.hidden&&x.offsetParent!==null);if(!vis.length&&sel==='.desc')return;
+    const mk=ref=>{const ins=el(`<div class="ins"><span class="ln"></span><button class="plus" aria-label="Add a block here">+</button></div>`);ins.querySelector('.plus').onclick=e=>{e.stopPropagation();openAddMenu(c,ref,e.currentTarget);};return ins;};
+    if(vis.length)c.insertBefore(mk(null),vis[0]);else c.appendChild(mk(null));
+    vis.forEach(b=>b.after(mk(b)));});
 }
 addEventListener('message',e=>{
   const d=e.data;if(!d||!d.pdpSet)return;
@@ -1577,7 +1608,7 @@ addEventListener('message',e=>{
   if(typeof d.sizerec==='boolean'){S.sizerec=d.sizerec;LS('pdp26-sizerec',S.sizerec);}
   if(typeof d.labels==='boolean'){S.labels=d.labels;LS('pdp26-labels',S.labels);}
   if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);if(!$('#sheet').hidden&&SH.kind==='set')renderSheet();}
-  if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});location.reload();return;}
+  if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});LS('pdp26-added',[]);location.reload();return;}
   if(d.focus)PENDING_FOCUS=d.focus;
   if(stockChanged){S.size=null;S.notified=false;}
   document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');sh.hidden=true;});document.body.style.overflow='';
@@ -1594,6 +1625,7 @@ function doFocus(k){
   if(k==='hp'){flash($('#recs-hp'));return;}
   if(k==='wtyl'){flash($('#recs-wtyl'));return;}
   if(k==='stock'){flash($('.sizes'));return;}
+  if(document.getElementById('recs-'+k)){flash($('#recs-'+k));return;}
   if(k==='sizerec'){flash(S.sizerec?$('#sizerec'):$('.sizes'));return;}
 }
 addEventListener('message',e=>{const d=e.data;if(d&&d.pdpFocus)doFocus(d.pdpFocus);});
