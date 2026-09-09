@@ -168,8 +168,14 @@ a{color:inherit;text-decoration:none}
 .price-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .price-vals{display:flex;align-items:flex-end;gap:8px;white-space:nowrap}
 .price-now{font-size:24px;font-weight:600;line-height:normal}
-.price-now.sale{color:var(--red)}
-.price-was{font-size:20px;font-weight:400;color:var(--grey-5);text-decoration:line-through;line-height:normal}
+.price-now.sale{color:var(--red)} /* Figma 2898-23506: 24 semibold red */
+.price-was{font-size:20px;font-weight:300;color:var(--grey-5);text-decoration:line-through;text-underline-position:from-font;line-height:normal} /* 20 light, struck */
+.pct{background:#FDE8E8;color:#D00000;font-size:14px;font-weight:400;padding:4px 8px;border-radius:4px;white-space:nowrap} /* Badges / Savings */
+.code-badge{display:inline-flex;align-items:stretch;font-size:14px;font-weight:400;white-space:nowrap;cursor:pointer;padding:0;text-align:left} /* Figma 2650-6936: two-part badge */
+.code-badge .l{background:#FDE8E8;color:#D00000;padding:4px 8px;border-radius:4px 0 0 4px}
+.code-badge .r{background:var(--red);color:#FFF;padding:4px 8px;border-radius:0 4px 4px 0;display:inline-flex;align-items:center;gap:6px}
+.code-badge .r i{width:12px;height:12px;display:block;background:#FFF;-webkit-mask:url(assets/ds/icons/lib/icons-copy.svg) center/contain no-repeat;mask:url(assets/ds/icons/lib/icons-copy.svg) center/contain no-repeat}
+.price-row .code-badge{flex-basis:100%}
 .save{background:var(--sale-badge-bg);color:var(--sale-badge-text);font-size:14px;font-weight:500;padding:4px 8px;border-radius:4px}
 .oos-lbl{color:var(--red);font-size:16px;font-weight:500;letter-spacing:.02em}
 .icon-msg{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
@@ -252,12 +258,11 @@ a{color:inherit;text-decoration:none}
 .cb.off::after{display:none}
 .notify .done{background:var(--grey-05);border-radius:4px;padding:12px 16px;font-size:14px;display:flex;gap:8px;align-items:center}
 
-/* premier (live) */
-.premier{background:#D3D3D3;border-radius:4px;padding:16px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between}
-.premier .t{font-size:14px;font-weight:400;line-height:21px}
-.premier .t b{display:block;font-size:22px;font-weight:800;font-style:italic;letter-spacing:-.02em;margin-bottom:4px}
-.premier .add{background:#000;color:#FFF;font-size:14px;text-transform:uppercase;padding:8px 16px;border-radius:4px;flex:none}
-.mode-new .premier{display:none}
+/* Premier — live boohooman.com markup (Jake 09 Sep): grey art background, PREMIER logo 24px, copy, black ADD */
+.premier{background:url(assets/bundling/premier-bg.jpg) center/100% 100% no-repeat,#CECECE;border-radius:4px;padding:16px 20px;display:flex;gap:24px;align-items:center;width:100%}
+.premier .t{flex:1;min-width:0;font-size:14px;font-weight:400;line-height:20px;color:#000}
+.premier .t img{height:24px;width:auto;display:block;margin-bottom:12px}
+.premier .add{background:#000;color:#FFF;font-size:14px;line-height:16px;font-weight:600;text-transform:uppercase;padding:8px 16px;border-radius:4px;flex:none} /* --unlimited-bag-button-bg (boohooMAN: black) */
 
 /* ---------- below-fold boxes ---------- */
 .below{display:flex;flex-direction:column;gap:16px;padding-bottom:32px}
@@ -1008,7 +1013,7 @@ body.editing{padding-bottom:48px}
 
       </div>
 
-      <div class="premier" data-block="premier" data-label="Premier (live)"><div class="t"><b>PREMIER</b>Enjoy unlimited delivery for an entire year from just £9.99</div><button class="add">Add</button></div>
+      <div class="premier" data-block="premier" data-label="Premier"><div class="t"><img src="assets/bundling/premier-logo.jpg" alt="Premier"><span data-copy="premier.t">Enjoy unlimited delivery for an entire year from just £9.99</span></div><button class="add" data-copy="premier.cta">Add</button></div>
 
       <div class="slot" id="slot-buttons"></div>
 
@@ -1218,7 +1223,8 @@ const S={
   glanceOff:PRE.glanceOff||LS('pdp26-glanceoff')||[], // hidden At a Glance items (indexes) // accordion default open/closed by block name
   trioAnim:PRE.trioAnim!=null?!!PRE.trioAnim:LS('pdp26-trioanim')===true,
   galOv:PRE.galOv||LS('pdp26-galov')||'off',
-  ptabs:PRE.ptabs!=null?!!PRE.ptabs:LS('pdp26-ptabs')===true, // master product tabs above the brand line // on the product image: off | look (Create The Look) | set (Shop Sets) — exclusive // chip trio / fan deck shuffle animation (configurator toggle)
+  ptabs:PRE.ptabs!=null?!!PRE.ptabs:LS('pdp26-ptabs')===true, // master product tabs above the brand line
+  pricing:PRE.pricing||LS('pdp26-pricing')||'full', // full | markdown | code // on the product image: off | look (Create The Look) | set (Shop Sets) — exclusive // chip trio / fan deck shuffle animation (configurator toggle)
   srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger (size + hanger carry a small + badge)
   added:PRE.added||LS('pdp26-added')||[], // added modules: [{key,container,label}] — repeatable recs blocks created in edit mode
   copy:PRE.copy||LS('pdp26-copy')||{}, // edited copy: key → text (edit mode: tap any title/label/button caption)
@@ -1317,9 +1323,13 @@ function renderSwatches(){
    ============================================================ */
 function renderPrice(){
   const h=hero();const r=$('#pricerow');r.innerHTML='';
-  const sale=h.was&&h.was>h.price;
-  r.appendChild(el(`<div class="price-vals"><span class="price-now ${sale?'sale':''}">${fmt(h.price)}</span>${sale?`<span class="price-was">${fmt(h.was)}</span>`:''}</div>`));
-  if(sale) r.appendChild(el(`<span class="save">Save ${Math.round((1-h.price/h.was)*100)}%</span>`));
+  // configurator: Pricing — full | markdown | code (Figma Sale-Pricing-2026). Markdown = -20% off a was price; code = a further 40% off with 40OFF
+  const md=S.mode==='new'&&(S.pricing==='markdown'||S.pricing==='code');
+  const was=md?Math.ceil(h.price*1.25):h.was, now=h.price;
+  const sale=was&&was>now;
+  r.appendChild(el(`<div class="price-vals"><span class="price-now ${sale?'sale':''}">${fmt(now)}</span>${sale?`<span class="price-was">${fmt(was)}</span>`:''}</div>`));
+  if(sale) r.appendChild(el(md?`<span class="pct">-${Math.round((1-now/was)*100)}%</span>`:`<span class="save">Save ${Math.round((1-now/was)*100)}%</span>`));
+  if(md&&S.pricing==='code'){const code='40OFF';const cb=el(`<button class="code-badge" aria-label="Copy code ${code}"><span class="l">${fmt(now*0.6)} with code</span><span class="r">${code}<i></i></span></button>`);cb.onclick=()=>{try{navigator.clipboard&&navigator.clipboard.writeText(code);}catch(e){}toast('Code '+code+' copied');};r.appendChild(cb);}
   if(S.stock==='oos'&&S.mode==='live') r.appendChild(el(`<span class="oos-lbl">Out of Stock</span>`));
 }
 function renderSizes(){
@@ -1766,7 +1776,7 @@ function renderAll(){
   renderEdit();applyCopy();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,trioAnim:S.trioAnim,galOv:S.galOv,ptabs:S.ptabs,desc:descState(),edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,trioAnim:S.trioAnim,galOv:S.galOv,ptabs:S.ptabs,pricing:S.pricing,desc:descState(),edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1851,7 +1861,7 @@ function renderEdit(){
 addEventListener('message',e=>{
   const d=e.data;if(!d||!d.pdpSet)return;
   const stockChanged=d.stock!==S.stock;
-  S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;if(typeof d.trioAnim==='boolean'){S.trioAnim=d.trioAnim;LS('pdp26-trioanim',S.trioAnim);}if(d.galOv){S.galOv=d.galOv;LS('pdp26-galov',S.galOv);}if(typeof d.ptabs==='boolean'){S.ptabs=d.ptabs;LS('pdp26-ptabs',S.ptabs);}
+  S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;if(typeof d.trioAnim==='boolean'){S.trioAnim=d.trioAnim;LS('pdp26-trioanim',S.trioAnim);}if(d.galOv){S.galOv=d.galOv;LS('pdp26-galov',S.galOv);}if(typeof d.ptabs==='boolean'){S.ptabs=d.ptabs;LS('pdp26-ptabs',S.ptabs);}if(d.pricing){S.pricing=d.pricing;LS('pdp26-pricing',S.pricing);}
   if(d.fmt){S.fmt={...S.fmt,...d.fmt};LS('pdp26-fmt',S.fmt);}
   if(d.gridRows){S.gridRows={...S.gridRows,...d.gridRows};LS('pdp26-gridrows',S.gridRows);}
   if(d.endpos){S.endpos=+d.endpos;LS('pdp26-endpos',S.endpos);}
