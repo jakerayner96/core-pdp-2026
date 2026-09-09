@@ -229,8 +229,8 @@ a{color:inherit;text-decoration:none}
 .notify .btn .bell{width:16px;height:16px;filter:invert(1)}
 .notify .consent{display:flex;gap:12px;align-items:flex-start;font-size:12px;font-weight:400;line-height:1.35}
 .notify .consent a{font-weight:600}
-.cb{width:24px;height:24px;min-width:24px;border-radius:4px;background:#FFF;display:grid;place-items:center;border:none;box-shadow:none;transition:background .15s,border-color .15s}  /* Jake 09 Sep: rounded rectangle like the new-format PLP wishlist button (.pc-iconbtn--sq), flat on the image, bottom-right */ /* selection = a floating tick chip on the image (not a form checkbox) */
-.cb.off{background:rgba(255,255,255,.28);border:1.5px solid rgba(255,255,255,.95);box-shadow:none;backdrop-filter:blur(3px)}
+.cb{width:20px;height:20px;min-width:20px;border-radius:4px;background:#FFF;display:grid;place-items:center;border:none;box-shadow:none;transition:background .15s,border-color .15s}  /* Jake 09 Sep: rounded rectangle like the new-format PLP wishlist button (.pc-iconbtn--sq), flat on the image, bottom-right */ /* selection = a floating tick chip on the image (not a form checkbox) */
+.cb.off{background:rgba(255,255,255,.85);border:none;box-shadow:none} /* unticked: same white box, no outline (Jake 09 Sep) */
 .cb::after{transform-origin:center}
 .cb.pop:not(.off)::after{animation:tickpop .16s ease-out} /* only the chip just tapped, and gently */
 @keyframes tickpop{from{transform:scale(.85);opacity:.3}to{transform:scale(1);opacity:1}}
@@ -239,9 +239,7 @@ a{color:inherit;text-decoration:none}
 #ncb.cb.off{background:#FFF;border:1px solid var(--grey-3)}
 #ncb.cb::after{background:#FFF}
 .cb img{display:none}
-.cb::after{content:"";display:block;width:16px;height:12px;background:#000;-webkit-mask:url(assets/ds/icons/lib/icons-tick.svg) center/contain no-repeat;mask:url(assets/ds/icons/lib/icons-tick.svg) center/contain no-repeat} /* the DS tick icon itself (icons-tick.svg, 1px stroke) — Jake 09 Sep */
-.crow .th button .cb::after{width:13px;height:10px}
-.cb.off{background:#FFF;border:1px solid var(--grey-3)}
+.cb::after{content:"";display:block;width:15px;height:11px;background:#000;-webkit-mask:url(assets/ds/icons/lib/icons-tick.svg) center/contain no-repeat;mask:url(assets/ds/icons/lib/icons-tick.svg) center/contain no-repeat} /* the DS tick icon itself (icons-tick.svg, 1px stroke) — Jake 09 Sep */
 .cb.off::after{display:none}
 .notify .done{background:var(--grey-05);border-radius:4px;padding:12px 16px;font-size:14px;display:flex;gap:8px;align-items:center}
 
@@ -356,7 +354,7 @@ b.lnk,.ft .news small b{font-weight:600}
 .cyp .it{display:grid;grid-template-columns:100px 1fr;gap:20px}
 .cyp .it .im{position:relative;aspect-ratio:2/3;background:var(--surface-media)}
 .cyp .it .im img{width:100%;height:100%;object-fit:cover}
-.cyp .it .cb{position:absolute;right:8px;bottom:8px}
+.cyp .it .cb{position:absolute;right:4px;bottom:4px}
 .cyp .it .cur{font-size:12px;font-weight:300;color:#777;padding-bottom:4px}
 .cyp .it .b{font-size:14px;font-weight:500}
 .cyp .it .n{font-size:14px;font-weight:300;padding-top:4px}
@@ -539,14 +537,14 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .range-strip .chev{width:12px;height:12px;flex:none}
 .set-sum{display:flex;flex-direction:column;gap:10px;width:100%;padding:12px;background:var(--grey-05);border-radius:4px;text-align:left} /* Jake 09 Sep: title top-left like the carousels; tiles and copy share one 72px row */
 .set-sum .head .h{font-size:14px;font-weight:600}
-.set-sum .body{display:flex;align-items:stretch;gap:16px;height:72px}
+.set-sum .body{display:flex;align-items:center;gap:16px;height:72px}
 .set-sum .tiles{display:flex;align-items:center;gap:4px;flex:none}
 .set-sum .tiles img{width:48px;height:72px;object-fit:cover;border-radius:2px;background:var(--surface-media)}
 .set-sum .tiles i{font-style:normal;font-size:14px;font-weight:600;color:var(--grey-4);width:12px;text-align:center}
-.set-sum .copy{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between}
+.set-sum .copy{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px}
+.set-sum .chev{width:12px;height:12px;flex:none}
 .set-sum .copy .s{font-size:12px;color:var(--grey-4)}
 .set-sum .copy .p{font-size:14px;font-weight:600}
-.set-sum .copy .qa{display:inline-flex;align-items:center;height:24px;padding:0 8px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
 .same-colour{display:flex;flex-direction:column;gap:10px;width:100%;padding:12px;background:var(--grey-05);border-radius:4px;text-align:left} /* Jake 09 Sep: the other pieces in this colour — Zara-style carousel, add per piece */
 .same-colour .head{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600}
 .same-colour .head .cta{font-size:12px}
@@ -619,7 +617,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .scard .im{position:relative;aspect-ratio:170/255;overflow:hidden;background:var(--surface-media);cursor:pointer;transition:opacity .15s}
 .scard .im img{width:100%;height:100%;object-fit:cover}
 .scard.on .im{box-shadow:var(--shadow-pill)}
-.scard .cb{position:absolute;right:8px;bottom:8px}
+.scard .cb{position:absolute;right:4px;bottom:4px} /* Jake 09 Sep: one size + position for every card size (= the compact tiles) */
 .scard .pr{display:flex;flex-wrap:wrap;gap:4px 8px;font-size:14px;align-items:center}
 .scard .pr .now{font-weight:600}
 .scard .pr .now.sale{color:var(--red)}
@@ -733,7 +731,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .th button{flex:0 0 84px;width:84px;height:126px;padding:0;border:none;background:var(--grey-05);overflow:hidden;position:relative} /* 2:3 tiles */
 .crow .th button img{width:100%;height:100%;object-fit:cover}
 .crow .th button.on{box-shadow:inset 0 0 0 1px #000} /* thin keyline when ticked */
-.crow .th button .cb{position:absolute;right:4px;bottom:4px;width:20px;height:20px;min-width:20px} /* smaller chip on tiles */
+.crow .th button .cb{position:absolute;right:4px;bottom:4px}
 .crow .th button .cb::after{width:10px;height:5px}
 .crow .csel{display:flex;flex-direction:column;gap:2px;padding:0 24px}
 .crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;min-height:28px} /* natural rhythm; targets stay ≥24px (WCAG 2.2 AA 2.5.8) */
@@ -1138,7 +1136,7 @@ body.editing{padding-bottom:48px}
 <template id="tpl-08-7"><button class="img-banner marquee entry"><span class="row track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
 <template id="tpl-08-8"><button class="img-strip entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""></span><span class="cap"><span class="l"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-pieces></span></span><span class="cta" data-copy="e.08-8.cta">SHOP THE SET</span></span></button></template>
 <template id="tpl-09-1"><button class="range-strip entry"><span class="dots" data-dots></span><span class="copy"><span class="h">Available in <span data-colours></span> colours</span><span class="s" data-copy="e.09-1.s">Matching joggers and tees in every colour</span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
-<template id="tpl-09-2"><button class="set-sum entry"><span class="head"><span class="h" data-copy="e.09-2.h">Complete the set</span></span><span class="body"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="s"><span data-count></span> <span data-copy="e.09-2.s">pieces together</span></span><span class="p" data-price></span><span class="qa" data-copy="e.09-2.cta">Add to bag</span></span></span></button></template>
+<template id="tpl-09-2"><button class="set-sum entry"><span class="head"><span class="h" data-copy="e.09-2.h">Complete the set</span></span><span class="body"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="s"><span data-count></span> <span data-copy="e.09-2.s">pieces together</span></span><span class="p" data-price></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></span></button></template>
 <template id="tpl-09-3"><button class="same-colour entry"><span class="head"><span class="h"><span data-copy="e.09-3.h">Also in</span> <span data-colourname></span></span><span class="cta" data-copy="e.09-3.cta">SHOP THE SET</span></span><span class="scroller" data-samecolour></span></button></template>
 <template id="tpl-09-4"><div class="colourways entry" role="button" tabindex="0"><span class="head"><span data-copy="e.09-4.h">Explore The Set</span><span class="cta" data-copy="e.09-4.cta">VIEW ALL</span></span><span class="scroller" data-colourways></span><span class="setrow" data-setrow hidden></span></div></template>
 <template id="tpl-09-5"><button class="addon entry"><img data-set="1" alt=""><span class="copy"><span class="t"><b data-copy="e.09-5.h">Add the matching joggers</b></span><span class="nm" data-addon-name></span><span class="at" data-addon-attr></span><span class="pr" data-addon-price></span></span><span class="qa" data-copy="e.09-5.cta">Add</span></button></template>
@@ -1454,7 +1452,7 @@ function renderEntry(){
     w.addEventListener('click',e=>{e.stopPropagation();const open=w.classList.contains('open');r.querySelectorAll('.cw').forEach(x=>x.classList.remove('open','on'));panel.innerHTML='';if(open){panel.hidden=true;r.querySelector(`.cw[data-id="${hh.id}"]`)?.classList.add('on');return;}w.classList.add('open','on');FAMS.map(f=>partner(f,c.colour)).filter(q=>q&&q.colour===c.colour).forEach(q=>panel.appendChild(miniCard(q)));panel.hidden=false;});
     w.dataset.id=c.id;r.appendChild(w);});});
   const sc=node.querySelector('[data-setcards]');if(sc){lookItems().forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>openSheet('set')})));}
-  node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>openSheet('set')));
+  node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>openSheet('set',S.entry==='09-2'?lookItems().map(q=>q.id):undefined))); // set sum opens the modal with its three pieces ticked
   slot.appendChild(node);applyCopy(slot);
 }
 
@@ -1477,7 +1475,7 @@ function openSheet(kind,preselectId){
   SH={kind,rows:sheetRows(kind),sel:{},view:{}};
   const all=SH.rows.flatMap(r=>r.items);
   if(all.find(p=>p.id===hero().id))SH.sel[hero().id]={size:null}; // the product you came from is ticked on open (Figma)
-  if(preselectId&&all.find(p=>p.id===preselectId))SH.sel[preselectId]={size:null};
+  [].concat(preselectId||[]).forEach(id=>{if(all.find(p=>p.id===id))SH.sel[id]={size:null};}); // one id or a list
   const st=$('#sheettitle');st.dataset.copy='sheet.'+kind;st.textContent=S.copy['sheet.'+kind]||(kind==='look'?'Shop The Look':'Shop The Set');
   renderSheet();
   const sh=$('#sheet');sh.hidden=false;requestAnimationFrame(()=>sh.classList.add('open'));
