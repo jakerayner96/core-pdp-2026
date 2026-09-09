@@ -232,8 +232,8 @@ a{color:inherit;text-decoration:none}
 .cb{width:24px;height:24px;min-width:24px;border-radius:4px;background:#FFF;display:grid;place-items:center;border:none;box-shadow:none;transition:background .15s,border-color .15s}  /* Jake 09 Sep: rounded rectangle like the new-format PLP wishlist button (.pc-iconbtn--sq), flat on the image, bottom-right */ /* selection = a floating tick chip on the image (not a form checkbox) */
 .cb.off{background:rgba(255,255,255,.28);border:1.5px solid rgba(255,255,255,.95);box-shadow:none;backdrop-filter:blur(3px)}
 .cb::after{transform-origin:center}
-.cb:not(.off)::after{animation:tickpop .22s cubic-bezier(.2,.8,.2,1.2)}
-@keyframes tickpop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.cb.pop:not(.off)::after{animation:tickpop .16s ease-out} /* only the chip just tapped, and gently */
+@keyframes tickpop{from{transform:scale(.85);opacity:.3}to{transform:scale(1);opacity:1}}
 /* consent = DS form checkbox (C-11 .chk) */
 #ncb.cb{width:24px;height:24px;min-width:24px;border-radius:3px;background:#000;box-shadow:none;border:none;backdrop-filter:none}
 #ncb.cb.off{background:#FFF;border:1px solid var(--grey-3)}
@@ -1486,7 +1486,8 @@ function closeSheet(){const sh=$('#sheet');sh.classList.remove('open');setTimeou
 let SETVIEW=PRE.setview||LS('pdp26-setview')||'cards';
 document.querySelectorAll('#setview button').forEach(bt=>bt.onclick=()=>{SETVIEW=bt.dataset.v;LS('pdp26-setview',SETVIEW);renderSheet();parent.postMessage({pdpState:{setview:SETVIEW}},'*');});
 const rowHasSel=r=>r.items.some(p=>SH.sel[p.id]);
-function toggleSel(p){if(SH.sel[p.id])delete SH.sel[p.id];else SH.sel[p.id]={size:null};renderSheet();}
+let JUST=null; // the item just tapped — only its tick animates on re-render (Jake 09 Sep)
+function toggleSel(p){if(SH.sel[p.id])delete SH.sel[p.id];else SH.sel[p.id]={size:null};JUST=p.id;renderSheet();JUST=null;}
 const SET_OFF=0.2; // bundle incentive shown in the builder: 20% off each piece
 const setNow=p=>Math.round(p.price*(1-SET_OFF)*100)/100;
 const setPrice=p=>`<span class="now sale">${fmt(setNow(p))}</span><span class="was">${fmt(p.price)}</span>`;
@@ -1518,7 +1519,7 @@ function rowCards(r,ri){
   r.items.forEach(p=>{
     const on=!!SH.sel[p.id];const sale=p.was&&p.was>p.price;
     const c=el(`<div class="scard ${on?'on':''}">
-      <div class="im"><img src="${p.img}" alt="${p.name} — ${p.colour}"><button class="cb ${on?'':'off'}" aria-label="${on?'Deselect':'Select'} ${p.colour}"></button></div>
+      <div class="im"><img src="${p.img}" alt="${p.name} — ${p.colour}"><button class="cb ${on?'':'off'}${JUST===p.id?' pop':''}" aria-label="${on?'Deselect':'Select'} ${p.colour}"></button></div>
       <div class="inf"><div class="pr">${setPrice(p)}</div>${sizeLine(p)}<div class="sz-sel nochev"><span>Colour:</span><span class="v set">${p.colour}</span></div></div></div>`);
     c.querySelector('.im').onclick=()=>toggleSel(p);wireSize(c,p);cards.appendChild(c);
   });
@@ -1529,7 +1530,7 @@ function rowThumbs(r,ri,back){
   const row=el(`<div class="crow"><div class="rh"><span class="lbl">${r.label}</span>${back?'<button class="all"><span data-copy="sheet.zoomin">Zoom In</span></button>':''}</div><div class="th"></div><div class="csel"></div></div>`);
   if(back)row.querySelector('.all').onclick=()=>swapRow(row,ri,false); // Zoom In: thumbnails grow back into cards
   const th=row.querySelector('.th');
-  r.items.forEach(p=>{const on=!!SH.sel[p.id];const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""><span class="cb ${on?'':'off'}" aria-hidden="true"></span></button>`);bt.setAttribute('aria-pressed',on);bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
+  r.items.forEach(p=>{const on=!!SH.sel[p.id];const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""><span class="cb ${on?'':'off'}${JUST===p.id?' pop':''}" aria-hidden="true"></span></button>`);bt.setAttribute('aria-pressed',on);bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
   const cs=row.querySelector('.csel');
   r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const line=el(`<div class="cs"><span class="c">${p.colour} · <b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span>${sizeLine(p)}</div>`);wireSize(line,p);cs.appendChild(line);});
   return row;
