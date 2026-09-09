@@ -202,6 +202,7 @@ body.dragging iframe{pointer-events:none}
   <div class="card"><h3>Size recommender</h3><div id="srecopts"></div><div class="sub second">Icon</div><div id="srecicon"></div></div>
   <div class="card"><h3>Advanced bundling</h3><div class="sub">Entry point</div><div id="entryopts"></div><div class="sub second">Modal</div><div id="setviewopts"></div><div class="sub second">Size / Colour labels on cards</div><div id="labelopts"></div></div>
   <div class="card"><h3>On the product image</h3><div class="sub">One pill on the gallery — either, never both</div><div id="galovopts"></div></div>
+  <div class="card"><h3>Product tabs</h3><div class="sub">Master toggle above the brand line — switches the whole PDP to the joggers, tee… in this colour</div><div id="ptabsopts"></div></div>
   <div class="card"><h3>Create the look</h3><div id="lookopts"></div></div>
   <div class="card"><h3>Handpicked For You</h3><div id="hpopts"></div></div>
   <div class="card"><h3>We Think You'll Like</h3><div id="wtylopts"></div></div>
@@ -244,10 +245,11 @@ const ENTRIES=[ // listed in page order, top to bottom (Jake 09 Sep)
   ['Under the pay box · large banners',[['04-1','2-up scroll'],['04-2','2×2 grid'],['04-3','3-up scroll'],['04-4','PLP slot + set carousel']]],
   ['',[['none','None']]],
 ];
-const FMT_BUNDLE=[['nodata','Grey background'],['carousel','Carousel'],['grid','Grid'],['inline','Inline band'],['hot','Hotspot imagery'],['ms','Outfit list'],['collage','Flat-lay collage'],['tabs','Product tabs'],['off','Off']];
+const FMT_BUNDLE=[['nodata','Grey background'],['carousel','Carousel'],['grid','Grid'],['inline','Inline band'],['hot','Hotspot imagery'],['ms','Outfit list'],['collage','Flat-lay collage'],['off','Off']];
 const FMT_RECS=[['carousel','Carousel'],['grid','Grid'],['off','Off']];
-const FMT_ADDED=[['carousel','Carousel'],['grid','Grid'],['nodata','Image carousel (grey)'],['inline','Complete The Look band'],['hot','Hotspot look'],['ms','Outfit list'],['collage','Flat-lay collage'],['tabs','Product tabs'],['off','Off']];
+const FMT_ADDED=[['carousel','Carousel'],['grid','Grid'],['nodata','Image carousel (grey)'],['inline','Complete The Look band'],['hot','Hotspot look'],['ms','Outfit list'],['collage','Flat-lay collage'],['off','Off']];
 const SREC=[[true,'On'],[false,'Off']];
+const PTABS=[[false,'Off'],[true,'On']];
 const GAL_OV=[['off','Off'],['look','Create The Look (different pieces → look modal)'],['set','Shop Sets (same colour → set builder)']];
 const TRIO_ANIM=[[false,'Static'],[true,'Shuffle']];const TRIO_ENTRIES=['07-4','07-5','07-6']; // entries that stack cards → animation toggle
 const SREC_ICON=[['arrow','Trend arrow'],['tape','Measuring tape'],['size','Size / garment +'],['hanger','Hanger +']];
@@ -257,7 +259,7 @@ const STOCKS=[['in','In stock'],['size','Some sizes out'],['oos','Out of stock']
 const ROWS=[[1,'1 row'],[2,'2 rows'],[3,'3 rows']];
 
 let FOLD=false;const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com'};
-let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'carousel',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,sizerec:true,srecIcon:'arrow',trioAnim:false,galOv:'off',labels:false,setview:'cards',edit:false,removed:[]};
+let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'carousel',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,sizerec:true,srecIcon:'arrow',trioAnim:false,galOv:'off',ptabs:false,labels:false,setview:'cards',edit:false,removed:[]};
 const $=s=>document.querySelector(s);
 const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
 
@@ -296,6 +298,7 @@ function renderPanel(){
   const ac=$('#addedcards');ac.innerHTML='';(CFG.added||[]).forEach(a=>{const card=document.createElement('div');card.className='card';card.innerHTML=`<h3>${a.label}</h3><div></div>`;ac.appendChild(card);fmtCard(card.lastElementChild,FMT_ADDED,a.key);});
   radios($('#stockopts'),STOCKS,()=>CFG.stock,v=>CFG.stock=v,false,'stock');
   radios($('#srecopts'),SREC,()=>CFG.sizerec,v=>CFG.sizerec=v,false,'sizerec');
+  radios($('#ptabsopts'),PTABS,()=>CFG.ptabs,v=>CFG.ptabs=v,false,'entry');
   radios($('#galovopts'),GAL_OV,()=>CFG.galOv,v=>CFG.galOv=v,false,'gallery');
   radios($('#srecicon'),SREC_ICON,()=>CFG.srecIcon,v=>CFG.srecIcon=v,false,'sizerec');
   radios($('#labelopts'),LABELS,()=>CFG.labels,v=>CFG.labels=v,false,'setview');
@@ -314,11 +317,11 @@ function apply(){
   sizebox.textContent=`${Math.round(w)}px`;
   document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',(b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600)));
 }
-function send(f=frame,focusKey){ f.contentWindow.postMessage({pdpSet:1,focus:focusKey||null,brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,srecIcon:CFG.srecIcon,trioAnim:CFG.trioAnim,galOv:CFG.galOv,labels:CFG.labels,setview:CFG.setview,edit:CFG.edit},'*'); }
+function send(f=frame,focusKey){ f.contentWindow.postMessage({pdpSet:1,focus:focusKey||null,brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,srecIcon:CFG.srecIcon,trioAnim:CFG.trioAnim,galOv:CFG.galOv,ptabs:CFG.ptabs,labels:CFG.labels,setview:CFG.setview,edit:CFG.edit},'*'); }
 addEventListener('message',e=>{
   const d=e.data;if(!d)return;
   if(d.pdpCfg&&e.source===frame.contentWindow)cfg.textContent=d.pdpCfg;
-  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.added)CFG.added=s.added;if(typeof s.trioAnim==='boolean')CFG.trioAnim=s.trioAnim;if(s.galOv)CFG.galOv=s.galOv;if(s.entry&&['07-3','08-3','08-6','09-6','09-7','09-4'].includes(s.entry))CFG.entry='07-4';if(s.srecIcon)CFG.srecIcon=SREC_ICON.some(([k])=>k===s.srecIcon)?s.srecIcon:'arrow';if(s.desc)CFG.desc=s.desc;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
+  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.added)CFG.added=s.added;if(typeof s.trioAnim==='boolean')CFG.trioAnim=s.trioAnim;if(s.galOv)CFG.galOv=s.galOv;if(typeof s.ptabs==='boolean')CFG.ptabs=s.ptabs;if(s.entry&&['07-3','08-3','08-6','09-6','09-7','09-4'].includes(s.entry))CFG.entry='07-4';if(s.srecIcon)CFG.srecIcon=SREC_ICON.some(([k])=>k===s.srecIcon)?s.srecIcon:'arrow';if(s.desc)CFG.desc=s.desc;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
   if(typeof d.pdpEdit==='boolean'){CFG.edit=d.pdpEdit;renderPanel();}
 });
 document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{CFG.mode=b.dataset.m;send();renderPanel();});
@@ -345,7 +348,7 @@ function loadFrame(w){
   return new Promise(res=>{
     const f=document.createElement('iframe');f.style.width=w+'px';f.style.height='900px';f.style.border='0';f.src='pdp.html?brand=boohooman&mode='+CFG.mode+'&_='+Date.now();
     $('#hidden').appendChild(f);
-    const onMsg=e=>{if(e.source!==f.contentWindow)return;if(e.data&&e.data.pdpReady){const cfgNoEdit={...CFG,edit:false};f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:cfgNoEdit.mode,entry:cfgNoEdit.entry,stock:cfgNoEdit.stock,fmt:cfgNoEdit.fmt,gridRows:cfgNoEdit.gridRows,endpos:cfgNoEdit.endpos,sizerec:cfgNoEdit.sizerec,srecIcon:cfgNoEdit.srecIcon,trioAnim:cfgNoEdit.trioAnim,galOv:cfgNoEdit.galOv,labels:cfgNoEdit.labels,setview:cfgNoEdit.setview,edit:false},'*');
+    const onMsg=e=>{if(e.source!==f.contentWindow)return;if(e.data&&e.data.pdpReady){const cfgNoEdit={...CFG,edit:false};f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:cfgNoEdit.mode,entry:cfgNoEdit.entry,stock:cfgNoEdit.stock,fmt:cfgNoEdit.fmt,gridRows:cfgNoEdit.gridRows,endpos:cfgNoEdit.endpos,sizerec:cfgNoEdit.sizerec,srecIcon:cfgNoEdit.srecIcon,trioAnim:cfgNoEdit.trioAnim,galOv:cfgNoEdit.galOv,ptabs:cfgNoEdit.ptabs,labels:cfgNoEdit.labels,setview:cfgNoEdit.setview,edit:false},'*');
       const id=Math.random().toString(36).slice(2);const onPong=ev=>{if(ev.source===f.contentWindow&&ev.data&&ev.data.pdpPong===id){removeEventListener('message',onPong);removeEventListener('message',onMsg);f.style.height=(ev.data.h+20)+'px';setTimeout(()=>res(f),500);}};addEventListener('message',onPong);setTimeout(()=>f.contentWindow.postMessage({pdpPing:id},'*'),300);}};
     addEventListener('message',onMsg);
   });
@@ -365,7 +368,7 @@ async function doExport(){
     exptxt.textContent='Rendering desktop (1440)…';const d=await shot(1440);
     exptxt.textContent='Packaging code…';
     const zip=new JSZip();const name=`core-pdp-2026-${stamp()}`;const root=zip.folder(name);
-    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,srecIcon:CFG.srecIcon,trioAnim:CFG.trioAnim,galOv:CFG.galOv,labels:CFG.labels,copy:CFG.copy||{},added:CFG.added||[],setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
+    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,srecIcon:CFG.srecIcon,trioAnim:CFG.trioAnim,galOv:CFG.galOv,ptabs:CFG.ptabs,labels:CFG.labels,copy:CFG.copy||{},added:CFG.added||[],setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
     root.file('config.json',JSON.stringify(state,null,2));
     root.file(`${name}-mobile-390.png`,m);root.file(`${name}-desktop-1440.png`,d);
     let html=await (await fetch('pdp.html')).text();
