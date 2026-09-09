@@ -537,15 +537,16 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .range-strip .copy .h{font-size:14px;font-weight:600}
 .range-strip .copy .s{font-size:12px;color:var(--grey-4)}
 .range-strip .chev{width:12px;height:12px;flex:none}
-.set-sum{display:flex;align-items:center;gap:16px;width:100%;padding:12px;background:var(--grey-05);border-radius:4px;text-align:left} /* Jake 09 Sep: grey card, copy stacked, tiny add-to-bag */
+.set-sum{display:flex;flex-direction:column;gap:10px;width:100%;padding:12px;background:var(--grey-05);border-radius:4px;text-align:left} /* Jake 09 Sep: title top-left like the carousels; tiles and copy share one 72px row */
+.set-sum .head .h{font-size:14px;font-weight:600}
+.set-sum .body{display:flex;align-items:stretch;gap:16px;height:72px}
 .set-sum .tiles{display:flex;align-items:center;gap:4px;flex:none}
-.set-sum .tiles img{width:44px;height:66px;object-fit:cover;border-radius:2px}
+.set-sum .tiles img{width:48px;height:72px;object-fit:cover;border-radius:2px;background:var(--surface-media)}
 .set-sum .tiles i{font-style:normal;font-size:14px;font-weight:600;color:var(--grey-4);width:12px;text-align:center}
-.set-sum .copy{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:2px}
-.set-sum .copy .h{font-size:14px;font-weight:600}
+.set-sum .copy{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between}
 .set-sum .copy .s{font-size:12px;color:var(--grey-4)}
-.set-sum .copy .p{font-size:14px;font-weight:600;margin-top:2px}
-.set-sum .copy .qa{display:inline-flex;align-items:center;height:24px;padding:0 8px;margin-top:6px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
+.set-sum .copy .p{font-size:14px;font-weight:600}
+.set-sum .copy .qa{display:inline-flex;align-items:center;height:24px;padding:0 8px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
 .same-colour{display:flex;flex-direction:column;gap:10px;width:100%;padding:12px;background:var(--grey-05);border-radius:4px;text-align:left} /* Jake 09 Sep: the other pieces in this colour — Zara-style carousel, add per piece */
 .same-colour .head{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600}
 .same-colour .head .cta{font-size:12px}
@@ -1137,7 +1138,7 @@ body.editing{padding-bottom:48px}
 <template id="tpl-08-7"><button class="img-banner marquee entry"><span class="row track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
 <template id="tpl-08-8"><button class="img-strip entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""></span><span class="cap"><span class="l"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-pieces></span></span><span class="cta" data-copy="e.08-8.cta">SHOP THE SET</span></span></button></template>
 <template id="tpl-09-1"><button class="range-strip entry"><span class="dots" data-dots></span><span class="copy"><span class="h">Available in <span data-colours></span> colours</span><span class="s" data-copy="e.09-1.s">Matching joggers and tees in every colour</span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
-<template id="tpl-09-2"><button class="set-sum entry"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.09-2.h">Complete the set</span><span class="s"><span data-count></span> <span data-copy="e.09-2.s">pieces together</span></span><span class="p" data-price></span><span class="qa" data-copy="e.09-2.cta">Add to bag</span></span></button></template>
+<template id="tpl-09-2"><button class="set-sum entry"><span class="head"><span class="h" data-copy="e.09-2.h">Complete the set</span></span><span class="body"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="s"><span data-count></span> <span data-copy="e.09-2.s">pieces together</span></span><span class="p" data-price></span><span class="qa" data-copy="e.09-2.cta">Add to bag</span></span></span></button></template>
 <template id="tpl-09-3"><button class="same-colour entry"><span class="head"><span class="h"><span data-copy="e.09-3.h">Also in</span> <span data-colourname></span></span><span class="cta" data-copy="e.09-3.cta">SHOP THE SET</span></span><span class="scroller" data-samecolour></span></button></template>
 <template id="tpl-09-4"><div class="colourways entry" role="button" tabindex="0"><span class="head"><span data-copy="e.09-4.h">Explore The Set</span><span class="cta" data-copy="e.09-4.cta">VIEW ALL</span></span><span class="scroller" data-colourways></span><span class="setrow" data-setrow hidden></span></div></template>
 <template id="tpl-09-5"><button class="addon entry"><img data-set="1" alt=""><span class="copy"><span class="t"><b data-copy="e.09-5.h">Add the matching joggers</b></span><span class="nm" data-addon-name></span><span class="at" data-addon-attr></span><span class="pr" data-addon-price></span></span><span class="qa" data-copy="e.09-5.cta">Add</span></button></template>
