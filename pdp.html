@@ -536,24 +536,25 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .range-strip .copy .h{font-size:14px;font-weight:600}
 .range-strip .copy .s{font-size:12px;color:var(--grey-4)}
 .range-strip .chev{width:12px;height:12px;flex:none}
-.set-sum{display:flex;align-items:center;gap:12px;width:100%;padding:0;text-align:left}
+.set-sum{display:flex;align-items:center;gap:16px;width:100%;padding:12px;background:var(--grey-05);border-radius:4px;text-align:left} /* Jake 09 Sep: grey card, copy stacked, tiny add-to-bag */
 .set-sum .tiles{display:flex;align-items:center;gap:4px;flex:none}
 .set-sum .tiles img{width:44px;height:66px;object-fit:cover;border-radius:2px}
 .set-sum .tiles i{font-style:normal;font-size:14px;font-weight:600;color:var(--grey-4);width:12px;text-align:center}
-.set-sum .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.set-sum .copy{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:2px}
 .set-sum .copy .h{font-size:14px;font-weight:600}
 .set-sum .copy .s{font-size:12px;color:var(--grey-4)}
-.set-sum .cta{font-size:12px;font-weight:600;white-space:nowrap}
-.piece-chips{display:flex;flex-direction:column;gap:8px;width:100%;padding:0;text-align:left}
-.piece-chips .chips{display:flex;gap:8px}
-.piece-chips .pc{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:8px;border:1px solid var(--grey-2);border-radius:4px;padding:6px 8px 6px 6px;font-size:12px;font-weight:600}
-.piece-chips .pc img{width:28px;height:42px;object-fit:cover;border-radius:2px;flex:none}
-.piece-chips .pc span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.piece-chips .pc.on{border-color:#000}
-.piece-chips .pc i{font-style:normal;font-weight:600;color:var(--grey-4)}
-.piece-chips .foot{display:flex;justify-content:space-between;align-items:center;font-size:12px}
-.piece-chips .foot .s{color:var(--grey-4)}
-.piece-chips .foot .cta{font-weight:600}
+.set-sum .copy .p{font-size:14px;font-weight:600;margin-top:2px}
+.set-sum .copy .qa{display:inline-flex;align-items:center;height:24px;padding:0 8px;margin-top:6px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
+.same-colour{display:flex;flex-direction:column;gap:10px;width:100%;padding:12px;background:var(--grey-05);border-radius:4px;text-align:left} /* Jake 09 Sep: the other pieces in this colour — Zara-style carousel, add per piece */
+.same-colour .head{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600}
+.same-colour .head .cta{font-size:12px}
+.same-colour .scroller{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -12px;padding:0 12px}
+.same-colour .scroller::-webkit-scrollbar{display:none}
+.same-colour .sc{flex:none;width:96px;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.same-colour .sc img{width:96px;height:144px;object-fit:cover;border-radius:2px;background:var(--surface-media)}
+.same-colour .sc .nm{font-size:11px;line-height:1.3;color:#000;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;height:2.6em}
+.same-colour .sc .pr{font-size:12px;font-weight:600}
+.same-colour .sc .qa{display:inline-flex;align-items:center;height:24px;padding:0 8px;margin-top:2px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
 .colourways{display:flex;flex-direction:column;gap:8px;width:100%;padding:0;text-align:left}
 .colourways .head{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600}
 .colourways .head .cta{font-size:12px}
@@ -1131,8 +1132,8 @@ body.editing{padding-bottom:48px}
 <template id="tpl-08-7"><button class="img-banner marquee entry"><span class="row track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
 <template id="tpl-08-8"><button class="img-strip entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""></span><span class="cap"><span class="l"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-pieces></span></span><span class="cta" data-copy="e.08-8.cta">SHOP THE SET</span></span></button></template>
 <template id="tpl-09-1"><button class="range-strip entry"><span class="dots" data-dots></span><span class="copy"><span class="h">Available in <span data-colours></span> colours</span><span class="s" data-copy="e.09-1.s">Matching joggers and tees in every colour</span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
-<template id="tpl-09-2"><button class="set-sum entry"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.09-2.h">Complete the set</span><span class="s" data-total></span></span><span class="cta" data-copy="e.09-2.cta">SHOP</span></button></template>
-<template id="tpl-09-3"><button class="piece-chips entry"><span class="chips"><span class="pc on"><img data-set="0" alt=""><span data-copy="e.09-3.a">Hoodie</span></span><span class="pc"><img data-set="1" alt=""><span data-copy="e.09-3.b">Joggers</span><i>+</i></span><span class="pc"><img data-set="2" alt=""><span data-copy="e.09-3.c">Tee</span><i>+</i></span></span><span class="foot"><span class="s" data-copy="e.09-3.s">Sold separately · same colour</span><span class="cta" data-copy="e.09-3.cta">SHOP THE SET</span></span></button></template>
+<template id="tpl-09-2"><button class="set-sum entry"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.09-2.h">Complete the set</span><span class="s"><span data-count></span> <span data-copy="e.09-2.s">pieces together</span></span><span class="p" data-price></span><span class="qa" data-copy="e.09-2.cta">Add to bag</span></span></button></template>
+<template id="tpl-09-3"><button class="same-colour entry"><span class="head"><span class="h"><span data-copy="e.09-3.h">Also in</span> <span data-colourname></span></span><span class="cta" data-copy="e.09-3.cta">SHOP THE SET</span></span><span class="scroller" data-samecolour></span></button></template>
 <template id="tpl-09-4"><button class="colourways entry"><span class="head"><span data-copy="e.09-4.h">This set in every colour</span><span class="cta" data-copy="e.09-4.cta">VIEW ALL</span></span><span class="scroller" data-colourways></span></button></template>
 <template id="tpl-09-5"><button class="addon entry"><img data-set="1" alt=""><span class="copy"><span class="h" data-copy="e.09-5.h">Add the matching joggers</span><span class="s" data-addon></span></span><span class="plus">+</span></button></template>
 <template id="tpl-09-7"><button class="range-link entry"><span>Also in <b><span data-colours></span> colours</b> · <b data-copy="e.09-7.b">matching set available</b></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
@@ -1438,8 +1439,10 @@ function renderEntry(){
   const hs=fam('zip-hoodie'),hh=hero();
   node.querySelectorAll('[data-colours]').forEach(s=>s.textContent=hs.length);
   node.querySelectorAll('[data-dots]').forEach(d=>{hs.slice(0,8).forEach(c=>{const im=document.createElement('img');im.src=c.img;im.alt='';d.appendChild(im);});if(hs.length>8){const i=document.createElement('i');i.textContent='+'+(hs.length-8);d.appendChild(i);}});
-  node.querySelectorAll('[data-total]').forEach(s=>{const it=lookItems();s.textContent=`${it.length} pieces · £${it.reduce((a,x)=>a+(+x.price||0),0)} together`;});
+  {const it=lookItems();node.querySelectorAll('[data-count]').forEach(s=>s.textContent=it.length);node.querySelectorAll('[data-price]').forEach(s=>s.textContent=`£${it.reduce((a,x)=>a+(+x.price||0),0).toFixed(2)}`);}
   node.querySelectorAll('[data-addon]').forEach(s=>{const j=lookItems()[1];s.textContent=j?`£${j.price} · ${j.colour||hh.colour}`:'';});
+  node.querySelectorAll('[data-colourname]').forEach(s=>s.textContent=hh.colour);
+  node.querySelectorAll('[data-samecolour]').forEach(r=>{['wide-jogger','tee','sweatshirt','quarter-zip','ls-tee','oth-hoodie','straight-jogger'].forEach(f=>{const q=partner(f,hh.colour);if(!q||q.colour!==hh.colour)return;const w=document.createElement('span');w.className='sc';w.innerHTML=`<img alt=""><span class="nm"></span><span class="pr"></span><span class="qa">Add</span>`;w.querySelector('img').src=q.img;w.querySelector('.nm').textContent=q.name;w.querySelector('.pr').textContent=`£${(+q.price).toFixed(2)}`;r.appendChild(w);});});
   node.querySelectorAll('[data-colourways]').forEach(r=>{hs.forEach(c=>{const w=document.createElement('span');w.className='cw'+(c.id===hh.id?' on':'');w.innerHTML=`<img alt=""><span></span>`;w.querySelector('img').src=c.img;w.querySelector('span').textContent=c.colour;r.appendChild(w);});});
   const sc=node.querySelector('[data-setcards]');if(sc){lookItems().forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>openSheet('set')})));}
   node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>openSheet('set')));
