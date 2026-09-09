@@ -133,15 +133,7 @@ a{color:inherit;text-decoration:none}
   .arrow.l{left:12px}.arrow.r{right:12px}
 }
 .arrow{display:none}
-/* On the product image (Jake 09 Sep): one pill on the gallery — Create The Look (different pieces → look modal) OR Shop Sets (same colour → set sheet), never both */
 .galmain{position:relative}
-.galov{position:absolute;left:16px;bottom:16px;z-index:3;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 10px 0 6px;background:rgba(255,255,255,.85);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);border-radius:4px;color:#000;text-align:left}
-.galov .st{position:relative;width:34px;height:26px;flex:none}
-.galov .st img{position:absolute;top:0;width:18px;height:26px;object-fit:cover;border-radius:2px;border:1px solid #FFF;background:var(--surface-media)}
-.galov .st img:nth-child(1){left:0;z-index:3}.galov .st img:nth-child(2){left:8px;z-index:2}.galov .st img:nth-child(3){left:16px;z-index:1}
-.galov .t{font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
-.galov .t i{font-style:normal;font-weight:400;letter-spacing:0;text-transform:none;color:var(--grey-4)}
-@media(min-width:1024px){.galov{left:24px;bottom:24px}}
 @media(min-width:1024px){.arrow{display:grid}}
 
 /* gallery set end card (entry 06) */
@@ -171,11 +163,8 @@ a{color:inherit;text-decoration:none}
 .price-now.sale{color:var(--red)} /* Figma 2898-23506: 24 semibold red */
 .price-was{font-size:20px;font-weight:300;color:var(--grey-5);text-decoration:line-through;text-underline-position:from-font;line-height:normal} /* 20 light, struck */
 .pct{background:#FDE8E8;color:#D00000;font-size:14px;font-weight:400;padding:4px 8px;border-radius:4px;white-space:nowrap} /* Badges / Savings */
-.code-badge{display:inline-flex;align-items:stretch;font-size:14px;font-weight:400;white-space:nowrap;cursor:pointer;padding:0;text-align:left} /* Figma 2650-6936: two-part badge */
-.code-badge .l{background:#FDE8E8;color:#D00000;padding:4px 8px;border-radius:4px 0 0 4px}
-.code-badge .r{background:var(--red);color:#FFF;padding:4px 8px;border-radius:0 4px 4px 0;display:inline-flex;align-items:center;gap:6px}
-.code-badge .r i{width:12px;height:12px;display:block;background:#FFF;-webkit-mask:url(assets/ds/icons/lib/icons-copy.svg) center/contain no-repeat;mask:url(assets/ds/icons/lib/icons-copy.svg) center/contain no-repeat}
-.price-row .code-badge{flex-basis:100%}
+.code-line{flex-basis:100%;display:inline-flex;align-items:center;gap:4px;color:var(--red);font-size:12px;line-height:14px;font-weight:400;text-transform:uppercase;letter-spacing:.02em;padding:0;text-align:left;margin-top:-10px} /* PLP-style '£21.60 WITH CODE: EXTRATEN' — tight under the price */
+.code-line i{width:10px;height:10px;display:block;background:var(--red);-webkit-mask:url(assets/ds/icons/lib/icons-copy.svg) center/contain no-repeat;mask:url(assets/ds/icons/lib/icons-copy.svg) center/contain no-repeat}
 .save{background:var(--sale-badge-bg);color:var(--sale-badge-text);font-size:14px;font-weight:500;padding:4px 8px;border-radius:4px}
 .oos-lbl{color:var(--red);font-size:16px;font-weight:500;letter-spacing:.02em}
 .icon-msg{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
@@ -694,7 +683,8 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .recs.collage .btn.s{margin:12px var(--m) 0;width:auto}
 @media(min-width:1024px){.recs.collage .board{width:480px;margin:0 auto}.recs.collage .btn.s{width:480px;margin:12px auto 0;display:block}}
 /* master product tabs (Reiss-style, Jake 09 Sep): above the brand line, below the gallery pagination — switch the whole PDP to another piece of the set in this colour */
-.ptabs{display:flex;gap:24px;border-bottom:1px solid var(--grey-1);overflow-x:auto;scrollbar-width:none}
+.ptabs{display:flex;gap:24px;border-bottom:1px solid var(--grey-1);overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px;scroll-padding-right:16px} /* runs off the right edge (iceberg) so more tabs are visibly waiting */
+@media(min-width:1024px){.ptabs{margin-right:calc(var(--m) * -1);padding-right:var(--m)}}
 .ptabs::-webkit-scrollbar{display:none}
 .ptabs button{padding:10px 0;font-size:14px;font-weight:400;color:var(--grey-4);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
 .ptabs button.on{color:#000;font-weight:600;border-bottom-color:#000}
@@ -1222,7 +1212,6 @@ const S={
   accOpen:PRE.accOpen||LS('pdp26-acc')||{'acc-desc':true},
   glanceOff:PRE.glanceOff||LS('pdp26-glanceoff')||[], // hidden At a Glance items (indexes) // accordion default open/closed by block name
   trioAnim:PRE.trioAnim!=null?!!PRE.trioAnim:LS('pdp26-trioanim')===true,
-  galOv:PRE.galOv||LS('pdp26-galov')||'off',
   ptabs:PRE.ptabs!=null?!!PRE.ptabs:LS('pdp26-ptabs')===true, // master product tabs above the brand line
   pricing:PRE.pricing||LS('pdp26-pricing')||'full', // full | markdown | code // on the product image: off | look (Create The Look) | set (Shop Sets) — exclusive // chip trio / fan deck shuffle animation (configurator toggle)
   srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger (size + hanger carry a small + badge)
@@ -1273,15 +1262,6 @@ function renderGallery(){
   setImages(6).forEach((src,i)=>rows[i<3?0:1].appendChild(el(`<img src="${src}" alt="">`)));
   ec.onclick=()=>openSheet('set');
   const at=gal.children[Math.max(0,(+S.endpos||5)-1)];if(at)gal.insertBefore(ec,at);else gal.appendChild(ec); // position = the slide it becomes
-  // on-image pill (configurator: On the product image)
-  const old=$('#galov');if(old)old.remove();
-  if(S.mode==='new'&&S.stock!=='oos'&&S.galOv&&S.galOv!=='off'){
-    const isLook=S.galOv==='look';
-    const pcs=isLook?lookItems():['zip-hoodie','wide-jogger','tee','sweatshirt','quarter-zip','ls-tee','oth-hoodie','straight-jogger'].map(f=>partner(f,h.colour)).filter(q=>q&&q.colour===h.colour);
-    const ov=el(`<button class="galov" id="galov" aria-label="${isLook?'Create the look':'Shop the set'}"><span class="st">${pcs.slice(0,3).map(q=>`<img src="${q.img}" alt="">`).join('')}</span><span class="t"><span data-copy="galov.${S.galOv}">${isLook?'Create the look':'Shop the set'}</span> <i>· ${pcs.length} ${isLook?'items':'pieces'}</i></span></button>`);
-    ov.onclick=()=>isLook?openLookModal():openSheet('set');
-    gal.parentElement.appendChild(ov);applyCopy(ov);
-  }
   // thumbs (desktop)
   const th=$('#thumbs');th.innerHTML='';
   imgs.forEach((src,i)=>{const b=el(`<button class="${i===0?'on':''}"><img src="${src}" alt=""></button>`);b.onclick=()=>goSlide(i);th.appendChild(b);});
@@ -1300,11 +1280,12 @@ $('#gal').addEventListener('scroll',()=>requestAnimationFrame(updatePag));
 $('#arrL').onclick=()=>{const gal=$('#gal'),slides=visibleSlides();const w=slides[0].offsetWidth+8;goSlide(Math.round(gal.scrollLeft/w)-1);};
 $('#arrR').onclick=()=>{const gal=$('#gal'),slides=visibleSlides();const w=slides[0].offsetWidth+8;goSlide(Math.round(gal.scrollLeft/w)+1);};
 
-function renderPTabs(){ // master product tabs: every family with a piece in the hero's colour; the hero's family is active
+const FAM_SINGULAR={'zip-hoodie':'Zip Up Hoodie','oth-hoodie':'Hoodie','quarter-zip':'1/4 Zip','sweatshirt':'Sweatshirt','ls-tee':'Long Sleeve Tee','tee':'T-Shirt','straight-jogger':'Straight Leg Jogger','wide-jogger':'Wide Leg Jogger'}; // tab = the single product, not the family
+function renderPTabs(){ // hero product tabs: every family with a piece in the hero's colour; the hero's family is active
   const t=$('#ptabs');t.innerHTML='';const h=hero();
   if(!S.ptabs||S.mode!=='new'){t.hidden=true;return;}
   const pcs=FAM.map(f=>partner(f.id,h.colour)).filter(q=>q&&q.colour===h.colour);
-  pcs.forEach(q=>{const f=FAM.find(x=>x.id===q.fam);const b=el(`<button role="tab" aria-selected="${q.fam===h.fam}" class="${q.fam===h.fam?'on':''}">${f&&(f.label||f.name)||q.fam}</button>`);b.onclick=()=>{if(q.id===h.id)return;S.colour=q.id;S.size=null;S.notified=false;renderAll();};t.appendChild(b);});
+  pcs.forEach(q=>{const f=FAM.find(x=>x.id===q.fam);const b=el(`<button role="tab" aria-selected="${q.fam===h.fam}" class="${q.fam===h.fam?'on':''}">${FAM_SINGULAR[q.fam]||(f&&f.label)||q.fam}</button>`);b.onclick=()=>{if(q.id===h.id)return;S.colour=q.id;S.size=null;S.notified=false;renderAll();};t.appendChild(b);});
   t.hidden=pcs.length<2;
 }
 function renderSwatches(){
@@ -1329,7 +1310,7 @@ function renderPrice(){
   const sale=was&&was>now;
   r.appendChild(el(`<div class="price-vals"><span class="price-now ${sale?'sale':''}">${fmt(now)}</span>${sale?`<span class="price-was">${fmt(was)}</span>`:''}</div>`));
   if(sale) r.appendChild(el(md?`<span class="pct">-${Math.round((1-now/was)*100)}%</span>`:`<span class="save">Save ${Math.round((1-now/was)*100)}%</span>`));
-  if(md&&S.pricing==='code'){const code='40OFF';const cb=el(`<button class="code-badge" aria-label="Copy code ${code}"><span class="l">${fmt(now*0.6)} with code</span><span class="r">${code}<i></i></span></button>`);cb.onclick=()=>{try{navigator.clipboard&&navigator.clipboard.writeText(code);}catch(e){}toast('Code '+code+' copied');};r.appendChild(cb);}
+  if(md&&S.pricing==='code'){const code='40OFF';const cb=el(`<button class="code-line" aria-label="Copy code ${code}">${fmt(now*0.6)} with code: ${code}<i></i></button>`);cb.onclick=()=>{try{navigator.clipboard&&navigator.clipboard.writeText(code);}catch(e){}toast('Code '+code+' copied');};r.appendChild(cb);}
   if(S.stock==='oos'&&S.mode==='live') r.appendChild(el(`<span class="oos-lbl">Out of Stock</span>`));
 }
 function renderSizes(){
@@ -1776,7 +1757,7 @@ function renderAll(){
   renderEdit();applyCopy();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,trioAnim:S.trioAnim,galOv:S.galOv,ptabs:S.ptabs,pricing:S.pricing,desc:descState(),edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,trioAnim:S.trioAnim,ptabs:S.ptabs,pricing:S.pricing,desc:descState(),edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1861,7 +1842,7 @@ function renderEdit(){
 addEventListener('message',e=>{
   const d=e.data;if(!d||!d.pdpSet)return;
   const stockChanged=d.stock!==S.stock;
-  S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;if(typeof d.trioAnim==='boolean'){S.trioAnim=d.trioAnim;LS('pdp26-trioanim',S.trioAnim);}if(d.galOv){S.galOv=d.galOv;LS('pdp26-galov',S.galOv);}if(typeof d.ptabs==='boolean'){S.ptabs=d.ptabs;LS('pdp26-ptabs',S.ptabs);}if(d.pricing){S.pricing=d.pricing;LS('pdp26-pricing',S.pricing);}
+  S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;if(typeof d.trioAnim==='boolean'){S.trioAnim=d.trioAnim;LS('pdp26-trioanim',S.trioAnim);}if(typeof d.ptabs==='boolean'){S.ptabs=d.ptabs;LS('pdp26-ptabs',S.ptabs);}if(d.pricing){S.pricing=d.pricing;LS('pdp26-pricing',S.pricing);}
   if(d.fmt){S.fmt={...S.fmt,...d.fmt};LS('pdp26-fmt',S.fmt);}
   if(d.gridRows){S.gridRows={...S.gridRows,...d.gridRows};LS('pdp26-gridrows',S.gridRows);}
   if(d.endpos){S.endpos=+d.endpos;LS('pdp26-endpos',S.endpos);}
