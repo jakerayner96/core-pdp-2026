@@ -208,8 +208,7 @@ a{color:inherit;text-decoration:none}
 .sizerec .srb .cp{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
 .sizerec .srb .cp b{font-size:14px;font-weight:600}
 .sizerec .srb .cp span{font-size:12px;color:var(--grey-5)}
-.sizerec .model{font-size:14px;font-weight:300;color:#333}
-.sizerec .model b{font-weight:600}
+.buy .model{font-size:14px;font-weight:300;color:#333;margin-top:-4px}
 .buy-btns{display:flex;flex-direction:column;gap:8px}
 .btn{height:50px;border-radius:4px;font-size:16px;font-weight:600;line-height:24px;display:flex;align-items:center;justify-content:center;width:100%;text-transform:uppercase;gap:8px}
 .btn.p{background:#000;color:#FFF}
@@ -822,9 +821,10 @@ body.editing{padding-bottom:48px}
       </div>
 
       <!-- Size recommender — Figma 1060-63028: grey banner (trend arrow · copy · chevron) + model line. Toggled from the panel -->
+      <p class="model" data-block="model" data-label="Model info" data-copy="srec.model">Model is 6’1” and wearing UK size M</p>
+
       <div class="sizerec" id="sizerec" data-block="sizerec" data-label="Size recommender">
         <div class="srb" role="note"><img class="ic" src="assets/ds/icons/lib/icon-arrow-increase.svg" alt=""><span class="cp"><b data-copy="srec.h">We recommend sizing up</b><span data-copy="srec.s">Customers say this item fits too small</span></span></div>
-        <p class="model" data-copy="srec.model">Model is 6’1” and wearing UK size M</p>
       </div>
 
       <div class="buyblock" data-block="buy" data-label="Buy buttons / notify me">
