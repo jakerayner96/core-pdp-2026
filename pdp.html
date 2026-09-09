@@ -521,7 +521,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .img-banner.pos-br .cap{right:12px;bottom:12px;align-items:flex-end;text-align:right}
 .img-banner.pos-bl .cap,.img-banner.pos-br .cap,.img-banner.marquee .cap{z-index:1}
 .img-banner.pill,.img-banner.band{height:137px} /* Jake 09 Sep: 20px taller than the other banners */
-.img-banner.pill .cap{left:12px;bottom:12px;z-index:1;flex-direction:row;align-items:center;height:24px;padding:0 8px;background:#FFF;color:#000;border-radius:4px;box-shadow:none} /* = PLP quick-add button (.pc-qa) in white, no icon */
+.img-banner.pill .cap{left:12px;bottom:12px;z-index:1;flex-direction:row;align-items:center;height:24px;padding:0 8px;background:rgba(255,255,255,.85);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);color:#000;border-radius:4px;box-shadow:none} /* PLP wishlist-chip treatment: white 85% + blur */ /* = PLP quick-add button (.pc-qa) in white, no icon */
 .img-banner.pill .cap .h{font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase}
 .img-banner.pill .cap .s{display:none}
 .img-banner.band .cap{left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;align-items:center;text-align:center;background:rgba(255,255,255,.85);color:#000;padding:10px 16px} /* MAN --badge-bg: white 85%, like the PLP quick add / wishlist chip */
@@ -667,7 +667,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .recs.ms .wrapms{display:flex;flex-direction:column;gap:12px;padding:0 var(--m)}
 .recs.ms .look{position:relative;aspect-ratio:3/4;background:var(--surface-media);overflow:hidden;border-radius:4px;cursor:pointer}
 .recs.ms .look img{width:100%;height:100%;object-fit:cover;display:block}
-.recs.ms .look .pill{position:absolute;left:12px;bottom:12px;display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;background:#FFF;color:#000;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.recs.ms .look .pill{position:absolute;left:12px;bottom:12px;display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;background:rgba(255,255,255,.85);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);color:#000;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
 .recs.ms .look .pill i{font-style:normal;font-weight:400;color:var(--grey-4);text-transform:none;letter-spacing:0}
 .recs.ms .list{display:flex;flex-direction:column}
 .recs.ms .row{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px solid var(--grey-1);text-align:left;cursor:pointer}
@@ -1371,9 +1371,9 @@ function recsModule(key){
         <div class="row"><span class="rng">Premium Essentials</span><span class="pr">${fmt2(p)}</span></div>
         <div class="nm">${p.name}</div>
         <div class="col">Colour: <b>${p.colour}</b></div>
-        <div class="szs">${['XS','S','M','L','XL','2XL'].map(z=>`<button class="sz ${st.size===z?'on':''}">${z}</button>`).join('')}</div>
+        <div class="sel ${st.size?'set':''}"><span>${st.size||'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
         <button class="btn s">Add to bag</button></div>`);
-      c.querySelectorAll('.szs .sz').forEach(bt=>bt.onclick=()=>{st.size=bt.textContent;renderRecs();});
+      c.querySelector('.sel').onclick=e=>{e.stopPropagation();openPick(p,sz=>{st.size=sz;renderRecs();});}; // size = the modal's dropdown picker, not buttons (Jake 09 Sep)
       c.querySelector('.btn').onclick=()=>{if(!st.size){toast('Select a size');return;}openATB([{p,size:st.size}]);};
       sc.appendChild(c);
     });
