@@ -670,6 +670,24 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .lk.on .hint{display:none}
 .recs.hot .btn.s{margin:0 var(--m);width:auto}
 @media(min-width:1024px){.lk{flex:0 0 340px}}
+/* flat-lay collage (Jake 09 Sep): the look's pieces laid out together in one container — tap a piece for its chip (name · colour · price · swatches), View entire look → modal */
+.recs.collage{background:#FFF;padding:16px 0}
+.recs.collage .rail-head{padding:0 var(--m)}
+.recs.collage .board{position:relative;margin:0 var(--m);aspect-ratio:3/4;background:var(--grey-05);border-radius:4px;overflow:visible;display:grid;grid-template-columns:3fr 2fr;grid-template-rows:11fr 9fr;gap:6px;padding:6px}
+.recs.collage .tile{position:relative;min-width:0;min-height:0;overflow:hidden;border-radius:4px;background:var(--surface-media);cursor:pointer;padding:0}
+.recs.collage .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s} /* absolute so intrinsic image size can't stretch the 3:4 board */
+.recs.collage .tile:hover img{transform:scale(1.03)}
+.recs.collage .tile.a{grid-column:1;grid-row:1}.recs.collage .tile.b{grid-column:2;grid-row:1/3}.recs.collage .tile.c{grid-column:1;grid-row:2}
+.recs.collage .tile .dot{position:absolute;right:8px;bottom:8px;width:20px;height:20px;border-radius:4px;background:rgba(255,255,255,.85);backdrop-filter:blur(2px);display:grid;place-items:center;font-size:14px;line-height:1;font-weight:300;color:#000}
+.recs.collage .tile.on .dot{background:#000;color:#FFF}
+.recs.collage .chip{position:absolute;z-index:2;background:#FFF;border-radius:4px;padding:8px 10px;box-shadow:var(--shadow-pill);display:flex;flex-direction:column;gap:2px;min-width:190px;font-size:12px}
+.recs.collage .chip b{font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.recs.collage .chip .swl{display:flex;gap:4px;margin-top:6px}
+.recs.collage .chip .swl button{width:24px;height:36px;padding:0;border:1px solid var(--grey-2);border-radius:3px;overflow:hidden;background:var(--surface-media)}
+.recs.collage .chip .swl button.on{border-color:#000}
+.recs.collage .chip .swl img{width:100%;height:100%;object-fit:cover}
+.recs.collage .btn.s{margin:12px var(--m) 0;width:auto}
+@media(min-width:1024px){.recs.collage .board{width:480px;margin:0 auto}.recs.collage .btn.s{width:480px;margin:12px auto 0;display:block}}
 /* M&S-style 'Shop the outfit' (Jake 09 Sep): look image with a white 'Shop the outfit · N items' pill, the pieces listed beneath as thumb / name / colour / price / Add; everything opens the Complete The Look modal */
 .recs.ms{background:#FFF;padding:16px 0}
 .recs.ms .rail-head{padding:0 var(--m)}
@@ -1413,6 +1431,21 @@ function recsModule(key){
       ch.onclick=e=>e.stopPropagation();lk.appendChild(d);lk.appendChild(ch);});
     lk.onclick=()=>{HOTOPEN=null;renderRecs();};
     box.appendChild(lk);
+    const vb=el(`<button class="btn s">View entire look</button>`);vb.onclick=openLookModal;box.appendChild(vb);
+  }else if(f==='collage'){
+    box.querySelector('.rail-title').textContent='Complete The Look';
+    const L=lookPieces();const pcs=[['zip-hoodie','a'],['wide-jogger','b'],['tee','c']].map(([fm,cls])=>[fm,cls,byId(L[fm])]).filter(x=>x[2]);
+    const board=el(`<div class="board"></div>`);
+    pcs.forEach(([fm,cls,p])=>{
+      const t=el(`<button class="tile ${cls} ${HOTOPEN===fm?'on':''}" aria-label="${p.name}"><img src="${p.img}" alt=""><span class="dot">${HOTOPEN===fm?'–':'+'}</span></button>`);
+      t.onclick=e=>{e.stopPropagation();HOTOPEN=HOTOPEN===fm?null:fm;renderRecs();};board.appendChild(t);
+      if(HOTOPEN===fm){const ch=el(`<div class="chip"><b>${p.name}</b><span>${p.colour} · ${fmt(p.price)}</span><div class="swl"></div></div>`);
+        const sw=ch.querySelector('.swl');fam(p.fam).forEach(c=>{const bt=el(`<button class="${c.id===p.id?'on':''}" title="${c.colour}" aria-label="${c.colour}"><img src="${c.img}" alt=""></button>`);bt.onclick=e=>{e.stopPropagation();LOOKSEL[fm]=c.id;renderRecs();};sw.appendChild(bt);});
+        ch.onclick=e=>e.stopPropagation();
+        ch.style.cssText=cls==='a'?'left:12px;top:12px':cls==='b'?'right:12px;top:40%':'left:12px;bottom:12px';board.appendChild(ch);}
+    });
+    board.onclick=()=>{HOTOPEN=null;renderRecs();};
+    box.appendChild(board);
     const vb=el(`<button class="btn s">View entire look</button>`);vb.onclick=openLookModal;box.appendChild(vb);
   }else if(f==='ms'){
     box.querySelector('.rail-title').textContent='Shop The Look';
