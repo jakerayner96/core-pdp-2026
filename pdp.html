@@ -186,7 +186,7 @@ a{color:inherit;text-decoration:none}
 .mode-live .size-head .lbl{font-weight:300}
 .size-head .lbl b{font-weight:500}
 .size-head .lbl .oos{color:var(--red);font-weight:500;letter-spacing:.02em}
-.size-guide{display:flex;align-items:center;gap:4px;font-size:14px;font-weight:400;white-space:nowrap}
+.size-guide{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;white-space:nowrap} /* styled like the View All action */
 .size-guide img{width:16px;height:16px}
 .size-btns{display:flex;gap:8px;flex-wrap:wrap}
 .fit{display:flex;flex-direction:column;gap:12px}
@@ -263,7 +263,7 @@ a{color:inherit;text-decoration:none}
 .deliver .more{font-size:14px;font-weight:600}
 .deliver .quote{font-size:12px;font-weight:300;font-style:italic;border-top:1px solid rgba(255,255,255,.25);padding-top:12px}
 .uspbox{background:#FFF;border:1px solid var(--grey-2);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:16px}
-.uspbox .r{display:flex;gap:16px;align-items:flex-start}
+.uspbox .r{display:flex;gap:16px;align-items:center} /* icon centred on the row (Jake 09 Sep) */
 .uspbox .r img{width:24px;height:24px;flex:none;object-fit:none}
 .uspbox .r img[src$=".png"]{object-fit:contain} /* production calendar PNG (3x) — DS icons-calendar.svg is a flagged multi-part export (bare rectangle) */
 .uspbox .txt{flex:1;display:flex;flex-direction:column;gap:2px}
@@ -276,7 +276,7 @@ a{color:inherit;text-decoration:none}
 .bnpl .badges{display:flex;gap:8px;align-items:center}
 .bnpl .badges img{height:24px;width:auto} /* DS payment badges (assets/ds/icons/pay — footer import 165380) */
 .bnpl .terms{font-size:14px;font-weight:300;color:var(--grey-4);line-height:21px}
-.bnpl .more{font-size:14px;font-weight:400;text-decoration:underline;text-underline-position:from-font}
+.bnpl .more{font-size:12px;font-weight:600} /* styled like the View All action */
 @media(min-width:1024px){
   .below>.inset.buyside{display:none} /* on desktop these live inside the buy panel */
 }
@@ -410,8 +410,11 @@ a{color:inherit;text-decoration:none}
 .ft .news input{flex:1;height:50px;border:1px solid var(--grey-3);border-right:none;border-radius:4px 0 0 4px;padding:0 16px;font:inherit;font-size:14px}
 .ft .news button{height:50px;background:#000;color:#FFF;padding:0 24px;border-radius:0 4px 4px 0;text-transform:uppercase;font-weight:600}
 .ft .news small{font-size:14px;color:#000;display:block;max-width:520px;margin:0 auto}
+.ft .pay{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;padding:24px var(--m) 8px} /* live: payment badges between newsletter and accordions (DS assets/ds/icons/pay) */
+.ft .pay img{height:30px;width:auto;display:block}
 .ft .cols{display:grid;grid-template-columns:1fr;gap:0;padding:0 var(--m)}
 .ft .col{border-top:1px solid var(--grey-2);padding:16px 0;font-size:16px;font-weight:600;display:flex;justify-content:space-between}
+.ft .col:first-child{border-top:none} /* no divider above the first accordion */
 .ft .col img{width:16px;height:16px}
 .ft .misc{padding:24px var(--m);display:flex;flex-direction:column;gap:24px;align-items:center;text-align:center}
 .ft .misc .h{font-size:16px;font-weight:600}
@@ -487,6 +490,111 @@ a{color:inherit;text-decoration:none}
 .trio{position:relative;width:108px;height:98px;flex:none} /* stacked images = colour-swatch size (60×89) */
 .trio img{position:absolute;width:60px;height:90px;object-fit:cover;border-radius:2px;box-shadow:var(--shadow-pill)}
 .trio img:nth-child(1){left:0;top:8px}.trio img:nth-child(2){left:24px;top:4px}.trio img:nth-child(3){left:48px;top:0}
+/* shuffle (configurator toggle): the front card lifts, slides to the back, the others step forward — a deck being cut */
+body.trio-anim .trio img{animation:trio-shuffle 4.5s ease-in-out infinite}
+body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio img:nth-child(2){animation-delay:-3s}body.trio-anim .trio img:nth-child(1){animation-delay:-1.8s}
+@keyframes trio-shuffle{0%,24%{left:48px;top:0;z-index:3}32%{left:66px;top:-8px;z-index:3}40%,58%{left:0;top:8px;z-index:1}66%,92%{left:24px;top:4px;z-index:2}100%{left:48px;top:0;z-index:3}}
+
+/* ---------- 08: image banners — no grey, a row of set images with the copy overlaid (Jake 09 Sep) ---------- */
+.img-banner{position:relative;display:block;width:100%;height:117px;border-radius:4px;overflow:hidden;padding:0;text-align:left;background:var(--surface-media)}
+.img-banner .row{display:flex;height:100%}
+.img-banner .row img{flex:1 1 0;min-width:0;height:100%;object-fit:cover}
+.img-banner.marquee .row{width:max-content}
+.img-banner.marquee .row img{flex:none;width:78px}
+.img-banner.marquee .track{animation:mtm 16s linear infinite;will-change:transform}
+.img-banner.marquee:hover .track{animation-play-state:paused}
+.img-banner .cap{position:absolute;display:flex;flex-direction:column;gap:2px;color:#FFF;pointer-events:none}
+.img-banner .cap .h{font-size:16px;font-weight:600;white-space:nowrap}
+.img-banner .cap .s{font-size:12px;font-weight:400;opacity:.9}
+.img-banner::after{content:"";position:absolute;inset:0;pointer-events:none}
+.img-banner.pos-bl::after,.img-banner.pos-br::after,.img-banner.marquee::after{background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,0) 62%)}
+.img-banner.pos-tl::after{background:linear-gradient(to bottom,rgba(0,0,0,.7),rgba(0,0,0,0) 62%)}
+.img-banner.pos-bl .cap,.img-banner.marquee .cap{left:12px;bottom:12px}
+.img-banner.pos-br .cap{right:12px;bottom:12px;align-items:flex-end;text-align:right}
+.img-banner.pos-tl .cap{left:12px;top:12px}
+.img-banner.pos-bl .cap,.img-banner.pos-br .cap,.img-banner.pos-tl .cap,.img-banner.marquee .cap{z-index:1}
+.img-banner.pill .cap{left:12px;bottom:12px;z-index:1;flex-direction:row;align-items:center;gap:6px;background:#FFF;color:#000;border-radius:99px;padding:8px 12px;box-shadow:var(--shadow-pill)}
+.img-banner.pill .cap .h{font-size:12px;font-weight:600}
+.img-banner.pill .cap .s{display:none}
+.img-banner.pill .cap .chev{width:10px;height:10px}
+.img-banner.band .cap{left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;align-items:center;text-align:center;background:rgba(0,0,0,.6);padding:10px 16px}
+.img-banner.card .cap{left:12px;bottom:12px;z-index:1;background:#FFF;color:#000;border-radius:4px;padding:10px 12px;box-shadow:var(--shadow-pill);max-width:70%}
+.img-banner.card .cap .h{font-size:14px}
+.img-banner.card .cap .s{color:var(--grey-4);opacity:1}
+.img-banner.card .cap .chev{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:10px;height:10px}
+.img-banner.card .cap{padding-right:28px}
+.img-strip{display:flex;flex-direction:column;gap:8px;width:100%;padding:0;text-align:left}
+.img-strip .row{display:flex;gap:2px;height:140px;border-radius:4px;overflow:hidden}
+.img-strip .row img{flex:1 1 0;min-width:0;height:100%;object-fit:cover}
+.img-strip .cap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.img-strip .cap .l{display:flex;flex-direction:column;gap:2px}
+.img-strip .cap .h{font-size:14px;font-weight:600}
+.img-strip .cap .s{font-size:12px;color:var(--grey-4)}
+.img-strip .cap .cta{font-size:12px;font-weight:600;white-space:nowrap}
+
+/* ---------- 09: range ideas — other ways to say "more colours · more pieces · matching sets" (Jake 09 Sep) ---------- */
+.range-strip{display:flex;align-items:center;gap:12px;width:100%;padding:8px 0;text-align:left}
+.range-strip .dots{display:flex;flex:none}
+.range-strip .dots img,.range-strip .dots i{width:24px;height:24px;border-radius:99px;object-fit:cover;border:2px solid #FFF;margin-left:-8px;box-shadow:0 0 0 1px var(--grey-2)}
+.range-strip .dots img:first-child,.range-strip .dots i:first-child{margin-left:0}
+.range-strip .dots i{display:grid;place-items:center;background:#000;color:#FFF;font-size:9px;font-weight:600;font-style:normal}
+.range-strip .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.range-strip .copy .h{font-size:14px;font-weight:600}
+.range-strip .copy .s{font-size:12px;color:var(--grey-4)}
+.range-strip .chev{width:12px;height:12px;flex:none}
+.set-sum{display:flex;align-items:center;gap:12px;width:100%;padding:0;text-align:left}
+.set-sum .tiles{display:flex;align-items:center;gap:4px;flex:none}
+.set-sum .tiles img{width:44px;height:66px;object-fit:cover;border-radius:2px}
+.set-sum .tiles i{font-style:normal;font-size:14px;font-weight:600;color:var(--grey-4);width:12px;text-align:center}
+.set-sum .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.set-sum .copy .h{font-size:14px;font-weight:600}
+.set-sum .copy .s{font-size:12px;color:var(--grey-4)}
+.set-sum .cta{font-size:12px;font-weight:600;white-space:nowrap}
+.piece-chips{display:flex;flex-direction:column;gap:8px;width:100%;padding:0;text-align:left}
+.piece-chips .chips{display:flex;gap:8px}
+.piece-chips .pc{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:8px;border:1px solid var(--grey-2);border-radius:4px;padding:6px 8px 6px 6px;font-size:12px;font-weight:600}
+.piece-chips .pc img{width:28px;height:42px;object-fit:cover;border-radius:2px;flex:none}
+.piece-chips .pc span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.piece-chips .pc.on{border-color:#000}
+.piece-chips .pc i{font-style:normal;font-weight:600;color:var(--grey-4)}
+.piece-chips .foot{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.piece-chips .foot .s{color:var(--grey-4)}
+.piece-chips .foot .cta{font-weight:600}
+.colourways{display:flex;flex-direction:column;gap:8px;width:100%;padding:0;text-align:left}
+.colourways .head{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600}
+.colourways .head .cta{font-size:12px}
+.colourways .scroller{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
+.colourways .scroller::-webkit-scrollbar{display:none}
+.colourways .cw{flex:none;width:72px;display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--grey-4)}
+.colourways .cw img{width:72px;height:96px;object-fit:cover;border-radius:2px}
+.colourways .cw.on{color:#000;font-weight:600}
+.colourways .cw.on img{outline:1.5px solid #000;outline-offset:1px}
+.colourways .cw span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.addon{display:flex;align-items:center;gap:12px;width:100%;padding:8px;border:1px solid var(--grey-2);border-radius:4px;text-align:left}
+.addon img{width:40px;height:60px;object-fit:cover;border-radius:2px;flex:none}
+.addon .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.addon .copy .h{font-size:14px;font-weight:600}
+.addon .copy .s{font-size:12px;color:var(--grey-4)}
+.addon .plus{flex:none;width:32px;height:32px;border-radius:99px;background:#000;color:#FFF;display:grid;place-items:center;font-size:18px;line-height:1}
+.fan-deck{display:flex;align-items:center;gap:12px;width:100%;padding:8px 0;text-align:left}
+.fan-deck .fan{position:relative;width:156px;height:104px;flex:none}
+.fan-deck .fan img{position:absolute;left:50px;bottom:0;width:56px;height:84px;object-fit:cover;border-radius:2px;box-shadow:var(--shadow-pill);transform-origin:50% 130%}
+.fan-deck .fan img:nth-child(1){transform:rotate(-28deg)}.fan-deck .fan img:nth-child(2){transform:rotate(-14deg)}.fan-deck .fan img:nth-child(3){transform:rotate(0)}.fan-deck .fan img:nth-child(4){transform:rotate(14deg)}.fan-deck .fan img:nth-child(5){transform:rotate(28deg)}
+body.trio-anim .fan-deck .fan img{animation:fan-riffle 5s ease-in-out infinite}
+body.trio-anim .fan-deck .fan img:nth-child(1){--r:-28deg;animation-delay:0s}body.trio-anim .fan-deck .fan img:nth-child(2){--r:-14deg;animation-delay:.25s}body.trio-anim .fan-deck .fan img:nth-child(3){--r:0deg;animation-delay:.5s}body.trio-anim .fan-deck .fan img:nth-child(4){--r:14deg;animation-delay:.75s}body.trio-anim .fan-deck .fan img:nth-child(5){--r:28deg;animation-delay:1s}
+@keyframes fan-riffle{0%,70%,100%{transform:rotate(var(--r)) translateY(0)}78%{transform:rotate(var(--r)) translateY(-10px)}}
+.fan-deck .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.fan-deck .copy .h{font-size:14px;font-weight:600}
+.fan-deck .copy .s{font-size:12px;color:var(--grey-4)}
+.fan-deck .chev{width:12px;height:12px;flex:none}
+.range-link{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:400;padding:4px 0;text-align:left}
+.range-link b{font-weight:600}
+.range-link .chev{width:12px;height:12px}
+.split-tile{position:relative;display:flex;width:100%;height:160px;border-radius:4px;overflow:hidden;padding:0;gap:2px}
+.split-tile img{flex:1 1 0;min-width:0;height:100%;object-fit:cover}
+.split-tile .cap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;background:#FFF;border-radius:4px;padding:10px 14px;box-shadow:var(--shadow-pill);white-space:nowrap}
+.split-tile .cap .h{font-size:14px;font-weight:600}
+.split-tile .cap .s{font-size:12px;color:var(--grey-4)}
 .price-banner{display:flex;align-items:center;gap:12px;width:100%}
 .price-banner.boxed{background:var(--grey-05);border-radius:4px;padding:12px}
 .price-banner.bare{padding:8px 0}
@@ -691,10 +799,14 @@ body.editing [data-block][hidden]{display:none!important}
 .copyedit:focus{outline:2px solid #0D99FF;background:rgba(13,153,255,.08)}
 body:not(.editing) .glx{display:none}
 .glx{margin-left:auto;width:22px;height:22px;border-radius:99px;background:#D33F3F;color:#FFF;font-size:11px;display:grid;place-items:center;flex:none}
-/* insertion points (edit mode): dashed boundary line + a white + at the right edge */
+/* insertion points (edit mode): dashed boundary line + a white + on the screen edge, 24px like the ▲▼✕ controls */
 .ins{height:0;position:relative;z-index:30;margin:-8px 0}
-.ins .ln{position:absolute;left:0;right:56px;top:0;border-top:2px dashed rgba(13,153,255,.55)}
-.ins .plus{position:absolute;right:6px;top:-22px;width:44px;height:44px;border-radius:99px;background:#FFF;color:#000;box-shadow:0 2px 10px rgba(0,0,0,.28);font-size:26px;line-height:1;display:grid;place-items:center;font-family:'Google Sans',system-ui,sans-serif}
+.buy>.ins{margin-right:-16px} /* run out past the column padding to the screen edge */
+.desc>.ins{margin-right:calc(var(--m) * -1)}
+@media(min-width:1024px){.buy>.ins{margin-right:calc(var(--m) * -1)}} /* desktop: buy column ends --m from the edge */
+.ins .ln{position:absolute;left:0;right:32px;top:0;border-top:2px dashed rgba(13,153,255,.55)}
+.ins .plus{position:absolute;right:2px;top:-12px;width:24px;height:24px;border-radius:99px;background:#FFF;color:#000;box-shadow:0 2px 8px rgba(0,0,0,.28);display:grid;place-items:center;padding:0}
+.ins .plus svg{width:12px;height:12px;display:block}
 .ins .plus:hover{background:#0D99FF;color:#FFF}
 body.editing .buy>.ins:first-child,body.editing .below>.ins:first-child{margin-top:8px}
 @media(max-width:1023px){body.editing .below>.ins:first-child{display:none}} /* stacked: the buy column's last + already sits on that boundary */
@@ -936,10 +1048,12 @@ body.editing{padding-bottom:48px}
       <div class="row"><input type="email" placeholder="Email address"><button>Subscribe</button></div>
       <small>By submitting your details, you agree to receive marketing communications from BOOHOOMAN &amp; our <u>family of brands</u> by email. You can unsubscribe at any time. See our <u>Privacy Policy</u>.</small>
     </div>
-    <div class="cols">
-      <div class="col">HOW CAN WE HELP?<img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
-      <div class="col">INFORMATION<img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
-      <div class="col">ABOUT US<img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
+    <div class="pay"><img src="assets/ds/icons/pay/visa.png" alt="Visa"><img src="assets/ds/icons/pay/mastercard.png" alt="Mastercard"><img src="assets/ds/icons/pay/amex.png" alt="American Express"><img src="assets/ds/icons/pay/maestro.png" alt="Maestro"><img src="assets/ds/icons/pay/visa-electron.png" alt="Visa Electron"><img src="assets/ds/icons/pay/apple-pay.png" alt="Apple Pay"><img src="assets/ds/icons/pay/payplus.png" alt="Pay+"><img src="assets/ds/icons/pay/paypal.png" alt="PayPal"><img src="assets/ds/icons/pay/klarna.png" alt="Klarna"><img src="assets/ds/icons/pay/clearpay.png" alt="Clearpay"><img src="assets/ds/icons/pay/google-pay.png" alt="Google Pay"></div>
+    <div class="cols"><!-- live boohooman.com footer accordions, 09 Sep 2026 -->
+      <div class="col">Shopping with boohooMan<img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
+      <div class="col">Customer Care<img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
+      <div class="col">Privacy &amp; Legal<img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
+      <div class="col">More From DSGN Studio<img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
     </div>
     <div class="misc">
       <span class="h">Download Our App</span>
@@ -1028,6 +1142,22 @@ body.editing{padding-bottom:48px}
 <template id="tpl-07-3"><button class="price-chip with-trio entry"><span class="lead"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="label" data-copy="e.07.label">More Sets Available</span></span></button></template>
 <template id="tpl-07-4"><button class="price-chip with-trio entry"><span class="lead"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07-4.h">Shop The Full Set</span><span class="s" data-pieces></span></span></span></button></template>
 <template id="tpl-07-5"><button class="price-banner boxed entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07.whole">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
+<template id="tpl-08-1"><button class="img-banner pos-bl entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
+<template id="tpl-08-2"><button class="img-banner pos-br entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
+<template id="tpl-08-3"><button class="img-banner pos-tl entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
+<template id="tpl-08-4"><button class="img-banner pill entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08-4.h">Shop The Matching Set</span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></span></button></template>
+<template id="tpl-08-5"><button class="img-banner band entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-pieces></span></span></button></template>
+<template id="tpl-08-6"><button class="img-banner card entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></span></button></template>
+<template id="tpl-08-7"><button class="img-banner marquee entry"><span class="row track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
+<template id="tpl-08-8"><button class="img-strip entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""></span><span class="cap"><span class="l"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-pieces></span></span><span class="cta" data-copy="e.08-8.cta">SHOP THE SET</span></span></button></template>
+<template id="tpl-09-1"><button class="range-strip entry"><span class="dots" data-dots></span><span class="copy"><span class="h">Available in <span data-colours></span> colours</span><span class="s" data-copy="e.09-1.s">Matching joggers and tees in every colour</span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
+<template id="tpl-09-2"><button class="set-sum entry"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.09-2.h">Complete the set</span><span class="s" data-total></span></span><span class="cta" data-copy="e.09-2.cta">SHOP</span></button></template>
+<template id="tpl-09-3"><button class="piece-chips entry"><span class="chips"><span class="pc on"><img data-set="0" alt=""><span data-copy="e.09-3.a">Hoodie</span></span><span class="pc"><img data-set="1" alt=""><span data-copy="e.09-3.b">Joggers</span><i>+</i></span><span class="pc"><img data-set="2" alt=""><span data-copy="e.09-3.c">Tee</span><i>+</i></span></span><span class="foot"><span class="s" data-copy="e.09-3.s">Sold separately · same colour</span><span class="cta" data-copy="e.09-3.cta">SHOP THE SET</span></span></button></template>
+<template id="tpl-09-4"><button class="colourways entry"><span class="head"><span data-copy="e.09-4.h">This set in every colour</span><span class="cta" data-copy="e.09-4.cta">VIEW ALL</span></span><span class="scroller" data-colourways></span></button></template>
+<template id="tpl-09-5"><button class="addon entry"><img data-set="1" alt=""><span class="copy"><span class="h" data-copy="e.09-5.h">Add the matching joggers</span><span class="s" data-addon></span></span><span class="plus">+</span></button></template>
+<template id="tpl-09-6"><button class="fan-deck entry"><span class="fan"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="copy"><span class="h" data-copy="e.09-6.h">Part of a set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
+<template id="tpl-09-7"><button class="range-link entry"><span>Also in <b><span data-colours></span> colours</b> · <b data-copy="e.09-7.b">matching set available</b></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
+<template id="tpl-09-8"><button class="split-tile entry"><img data-set="0" alt=""><img data-set="1" alt=""><span class="cap"><span class="h" data-copy="e.09-8.h">Wear it with the joggers</span><span class="s" data-copy="e.09-8.s">Complete the look</span></span></button></template>
 <template id="tpl-07-6"><button class="price-banner bare entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07.whole">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 
 <script src="data.js"></script>
@@ -1050,7 +1180,8 @@ const S={
   sizerec:PRE.sizerec!==undefined?PRE.sizerec:(LS('pdp26-sizerec')!==null?LS('pdp26-sizerec'):true), // size recommender on/off
   accOpen:PRE.accOpen||LS('pdp26-acc')||{'acc-desc':true},
   glanceOff:PRE.glanceOff||LS('pdp26-glanceoff')||[], // hidden At a Glance items (indexes) // accordion default open/closed by block name
-  srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger | info
+  trioAnim:PRE.trioAnim!=null?!!PRE.trioAnim:LS('pdp26-trioanim')===true, // chip trio / fan deck shuffle animation (configurator toggle)
+  srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger (size + hanger carry a small + badge)
   added:PRE.added||LS('pdp26-added')||[], // added modules: [{key,container,label}] — repeatable recs blocks created in edit mode
   copy:PRE.copy||LS('pdp26-copy')||{}, // edited copy: key → text (edit mode: tap any title/label/button caption)
   labels:PRE.labels!==undefined?PRE.labels:(LS('pdp26-labels')!==null?LS('pdp26-labels'):false), // builder cards: show 'Size:' / 'Colour:' labels
@@ -1311,7 +1442,7 @@ const WTYL=[
 /* ============================================================
    Entry points (new format only)
    ============================================================ */
-const SLOT={'01':'slot-colour','03':'slot-colour','04':'slot-rail','07':'slot-colour'}; // Jake 08 Sep: 03/07 sit directly under the colours; 04 large banners sit under the BNPL box
+const SLOT={'01':'slot-colour','03':'slot-colour','04':'slot-rail','07':'slot-colour','08':'slot-colour','09':'slot-colour'}; // Jake 08 Sep: 03/07 sit directly under the colours; 04 large banners sit under the BNPL box
 function renderEntry(){
   ['slot-pill','slot-price','slot-buttons','slot-colour','slot-rail'].forEach(id=>$('#'+id).innerHTML='');
   if(S.mode!=='new'||S.stock==='oos')return;
@@ -1324,6 +1455,13 @@ function renderEntry(){
   node.querySelectorAll('img[data-set]').forEach(im=>im.src=imgs[+im.dataset.set]||imgs[0]);
   node.querySelectorAll('.track').forEach(t=>{t.innerHTML+=t.innerHTML;}); // duplicate for a seamless loop
   node.querySelectorAll('[data-pieces]').forEach(s=>s.textContent=`${setPieces()} matching pieces · ${fam('zip-hoodie').length} colours`);
+  // 09 range ideas: colour dots, set total, colourway rail, add-on price
+  const hs=fam('zip-hoodie'),hh=hero();
+  node.querySelectorAll('[data-colours]').forEach(s=>s.textContent=hs.length);
+  node.querySelectorAll('[data-dots]').forEach(d=>{hs.slice(0,6).forEach(c=>{const im=document.createElement('img');im.src=c.img;im.alt='';d.appendChild(im);});if(hs.length>6){const i=document.createElement('i');i.textContent='+'+(hs.length-6);d.appendChild(i);}});
+  node.querySelectorAll('[data-total]').forEach(s=>{const it=lookItems();s.textContent=`${it.length} pieces · £${it.reduce((a,x)=>a+(+x.price||0),0)} together`;});
+  node.querySelectorAll('[data-addon]').forEach(s=>{const j=lookItems()[1];s.textContent=j?`£${j.price} · ${j.colour||hh.colour}`:'';});
+  node.querySelectorAll('[data-colourways]').forEach(r=>{hs.forEach(c=>{const w=document.createElement('span');w.className='cw'+(c.id===hh.id?' on':'');w.innerHTML=`<img alt=""><span></span>`;w.querySelector('img').src=c.img;w.querySelector('span').textContent=c.colour;r.appendChild(w);});});
   const sc=node.querySelector('[data-setcards]');if(sc){lookItems().forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>openSheet('set')})));}
   node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>openSheet('set')));
   slot.appendChild(node);applyCopy(slot);
@@ -1459,7 +1597,7 @@ const SIZES_IN=[['XS','34–36','28–30','34–36'],['S','36–38','30–32','3
 let SG_IN=false;
 function renderSizeGuide(){
   const b=$('#sgbody');b.innerHTML='';
-  if(S.sizerec)b.appendChild(el(`<div class="srb"><img class="ic" src="assets/ds/icons/lib/${SREC_ICONS[S.srecIcon]||SREC_ICONS.arrow}" alt=""><span class="cp"><b>We recommend sizing up</b><span>Customers say this item fits too small</span></span></div>`));
+  if(S.sizerec)b.appendChild(el(`<div class="srb"><img class="ic" src="${SREC_ICONS[S.srecIcon]||SREC_ICONS.arrow}" alt=""><span class="cp"><b>We recommend sizing up</b><span>Customers say this item fits too small</span></span></div>`));
   const u=el(`<div class="units"><span>CM</span><button class="tg ${SG_IN?'in':''}" role="switch" aria-checked="${SG_IN}" aria-label="Show inches"><i></i></button><span>Inches</span></div>`);u.querySelector('.tg').onclick=()=>{SG_IN=!SG_IN;renderSizeGuide();};b.appendChild(u);
   b.appendChild(el(`<div class="ttl"><b>Men’s tops</b><span>Body measurements in ${SG_IN?'inches':'cm'}</span></div>`));
   const rows=(SG_IN?SIZES_IN:SIZES_CM).map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
@@ -1469,8 +1607,9 @@ function renderSizeGuide(){
 function openSizeGuide(){renderSizeGuide();const m=$('#sizeg');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';}
 document.querySelector('.size-guide').onclick=openSizeGuide;
 document.querySelectorAll('.fitb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fitb').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
-const SREC_ICONS={arrow:'icon-arrow-increase.svg',tape:'icons-measure.svg',size:'icons-size.svg',hanger:'icons-hanger.svg',info:'icons-info.svg'};
-function applySrecIcon(){const src='assets/ds/icons/lib/'+(SREC_ICONS[S.srecIcon]||SREC_ICONS.arrow);document.querySelectorAll('.srb img.ic').forEach(i=>{if(!i.src.endsWith(src))i.src=src;});}
+const SREC_ICONS={arrow:'assets/ds/icons/lib/icon-arrow-increase.svg',tape:'assets/ds/icons/lib/icons-measure.svg',size:'assets/icons/icons-size-plus.svg',hanger:'assets/icons/icons-hanger-plus.svg'}; // info variant retired 09 Sep
+if(!SREC_ICONS[S.srecIcon]){S.srecIcon='arrow';LS('pdp26-srecicon','arrow');}
+function applySrecIcon(){const src=SREC_ICONS[S.srecIcon]||SREC_ICONS.arrow;document.querySelectorAll('.srb img.ic').forEach(i=>{if(!i.src.endsWith(src))i.src=src;});}
 function descState(){const rows=[...document.querySelectorAll('.desc>[data-block]')].map(b=>({name:b.dataset.block,label:b.dataset.label,acc:b.classList.contains('acc'),open:!!S.accOpen[b.dataset.block],removed:false,glance:b.dataset.block==='glance'?[...document.querySelectorAll('.glance li[data-gl]')].map(li=>({i:+li.dataset.gl,text:li.textContent.trim(),off:S.glanceOff.includes(+li.dataset.gl)})):null}));S.removed.filter(r=>r.container==='desc').forEach(r=>rows.push({name:r.name,label:r.label,acc:r.name.startsWith('acc-'),open:!!S.accOpen[r.name],removed:true}));return rows;}
 addEventListener('message',e=>{const d=e.data;if(!d||!d.pdpDesc)return;const {op,name}=d.pdpDesc;const b=document.querySelector(`.desc>[data-block="${name}"]`);
   if(op==='toggle'){S.accOpen[name]=!S.accOpen[name];LS('pdp26-acc',S.accOpen);renderAll();flash(b);return;}
@@ -1522,6 +1661,7 @@ tick();setInterval(tick,1000);
 
 
 function renderAll(){
+  document.body.classList.toggle('trio-anim',!!S.trioAnim);
   document.body.className='mode-'+S.mode;
   ensureAdded();applyRemoved();applyOrder();
   renderGallery();renderSwatches();renderPrice();renderSizes();renderBuy();renderBoxes();
@@ -1534,7 +1674,7 @@ function renderAll(){
   renderEdit();applyCopy();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,desc:descState(),edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,trioAnim:S.trioAnim,desc:descState(),edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1612,14 +1752,14 @@ function renderEdit(){
   document.querySelectorAll('.glance li[data-gl]').forEach(li=>{if(li.hidden)return;const x=el(`<button class="glx" aria-label="Remove this point">✕</button>`);x.onclick=e=>{e.stopPropagation();const i=+li.dataset.gl;S.glanceOff=[...S.glanceOff,i];LS('pdp26-glanceoff',S.glanceOff);renderAll();};li.appendChild(x);});
   // insertion points: a + at every boundary in the two columns (and the description rows)
   ['.buy','.below','.desc'].forEach(sel=>{const c=document.querySelector(sel);if(!c)return;const vis=blocksOf(c).filter(x=>!x.hidden&&x.offsetParent!==null);if(!vis.length&&sel==='.desc')return;
-    const mk=ref=>{const ins=el(`<div class="ins"><span class="ln"></span><button class="plus" aria-label="Add a block here">+</button></div>`);ins.querySelector('.plus').onclick=e=>{e.stopPropagation();openAddMenu(c,ref,e.currentTarget);};return ins;};
+    const mk=ref=>{const ins=el(`<div class="ins"><span class="ln"></span><button class="plus" aria-label="Add a block here"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.5v9M1.5 6h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></div>`);ins.querySelector('.plus').onclick=e=>{e.stopPropagation();openAddMenu(c,ref,e.currentTarget);};return ins;};
     if(vis.length)c.insertBefore(mk(null),vis[0]);else c.appendChild(mk(null));
     vis.forEach(b=>b.after(mk(b)));});
 }
 addEventListener('message',e=>{
   const d=e.data;if(!d||!d.pdpSet)return;
   const stockChanged=d.stock!==S.stock;
-  S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;
+  S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;if(typeof d.trioAnim==='boolean'){S.trioAnim=d.trioAnim;LS('pdp26-trioanim',S.trioAnim);}
   if(d.fmt){S.fmt={...S.fmt,...d.fmt};LS('pdp26-fmt',S.fmt);}
   if(d.gridRows){S.gridRows={...S.gridRows,...d.gridRows};LS('pdp26-gridrows',S.gridRows);}
   if(d.endpos){S.endpos=+d.endpos;LS('pdp26-endpos',S.endpos);}

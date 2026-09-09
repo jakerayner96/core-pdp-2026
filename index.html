@@ -239,20 +239,23 @@ const ENTRIES=[
   ['Large banner',[['04-1','2-up scroll'],['04-2','2×2 grid'],['04-3','3-up scroll'],['04-4','Slot + carousel']]],
   ['Product image',[['06-1','Gallery end card']]],
   ['Price banner',[['07-1','Anchor link'],['07-2','Chip'],['07-3','Chip with trio'],['07-4','Chip trio + copy'],['07-5','Banner with trio'],['07-6','Borderless trio']]],
+  ['Image banner (no grey)',[['08-1','Copy bottom-left'],['08-2','Copy bottom-right'],['08-3','Copy top-left'],['08-4','White pill'],['08-5','Centre band'],['08-6','White card'],['08-7','Marquee row'],['08-8','Filmstrip + caption below']]],
+  ['Range ideas',[['09-1','Colour dots strip'],['09-2','Set sum (a + b + c)'],['09-3','Piece chips'],['09-4','Colourway rail'],['09-5','One-tap add-on'],['09-6','Fan deck'],['09-7','Text link'],['09-8','Split tile']]],
   ['',[['none','None']]],
 ];
 const FMT_BUNDLE=[['nodata','Grey background'],['carousel','Carousel'],['grid','Grid'],['inline','Inline band'],['hot','Hotspot imagery'],['off','Off']];
 const FMT_RECS=[['carousel','Carousel'],['grid','Grid'],['off','Off']];
 const FMT_ADDED=[['carousel','Carousel'],['grid','Grid'],['nodata','Image carousel (grey)'],['inline','Complete The Look band'],['hot','Hotspot look'],['off','Off']];
 const SREC=[[true,'On'],[false,'Off']];
-const SREC_ICON=[['arrow','Trend arrow'],['tape','Measuring tape'],['size','Size / garment'],['hanger','Hanger'],['info','Info']];
+const TRIO_ANIM=[[false,'Static'],[true,'Shuffle']];const TRIO_ENTRIES=['07-3','07-4','07-5','07-6','09-6']; // entries that stack cards → animation toggle
+const SREC_ICON=[['arrow','Trend arrow'],['tape','Measuring tape'],['size','Size / garment +'],['hanger','Hanger +']];
 const LABELS=[[false,'Hidden'],[true,'Shown']];
 const SETVIEWS=[['large','Large cards'],['cards','Cards'],['compact','Compact thumbs']];
 const STOCKS=[['in','In stock'],['size','Some sizes out'],['oos','Out of stock']];
 const ROWS=[[1,'1 row'],[2,'2 rows'],[3,'3 rows']];
 
 let FOLD=false;const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com'};
-let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'carousel',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,sizerec:true,srecIcon:'arrow',labels:false,setview:'cards',edit:false,removed:[]};
+let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'carousel',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,sizerec:true,srecIcon:'arrow',trioAnim:false,labels:false,setview:'cards',edit:false,removed:[]};
 const $=s=>document.querySelector(s);
 const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
 
@@ -276,6 +279,7 @@ function fmtCard(host,list,key){
 function renderPanel(){
   const eh=$('#entryopts');eh.innerHTML='';
   ENTRIES.forEach(([g,items])=>{if(g){const h=document.createElement('div');h.className='grp';h.textContent=g;eh.appendChild(h);}const d=document.createElement('div');eh.appendChild(d);radios(d,items,()=>CFG.entry,v=>CFG.entry=v,false,'entry');});
+  if(TRIO_ENTRIES.includes(CFG.entry)){const opt=[...eh.querySelectorAll('.opt.on')][0];if(opt){const r=document.createElement('div');r.className='rows';opt.after(r);radios(r,TRIO_ANIM,()=>CFG.trioAnim,v=>CFG.trioAnim=v,true,'entry');}}
   if(CFG.entry==='06-1'){const opt=[...eh.querySelectorAll('.opt')].find(o=>o.textContent.trim().startsWith('Gallery end card'));if(opt){const r=document.createElement('div');r.className='rows';opt.after(r);radios(r,[[2,'Slide 2'],[3,'Slide 3'],[4,'Slide 4'],[5,'Slide 5']],()=>+CFG.endpos,v=>CFG.endpos=v,true,'entry');}}
   fmtCard($('#lookopts'),FMT_BUNDLE,'look');
   radios($('#setviewopts'),SETVIEWS,()=>CFG.setview,v=>CFG.setview=v,false,'setview');
@@ -307,11 +311,11 @@ function apply(){
   sizebox.textContent=`${Math.round(w)}px`;
   document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',(b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600)));
 }
-function send(f=frame,focusKey){ f.contentWindow.postMessage({pdpSet:1,focus:focusKey||null,brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,srecIcon:CFG.srecIcon,labels:CFG.labels,setview:CFG.setview,edit:CFG.edit},'*'); }
+function send(f=frame,focusKey){ f.contentWindow.postMessage({pdpSet:1,focus:focusKey||null,brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,srecIcon:CFG.srecIcon,trioAnim:CFG.trioAnim,labels:CFG.labels,setview:CFG.setview,edit:CFG.edit},'*'); }
 addEventListener('message',e=>{
   const d=e.data;if(!d)return;
   if(d.pdpCfg&&e.source===frame.contentWindow)cfg.textContent=d.pdpCfg;
-  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.added)CFG.added=s.added;if(s.srecIcon)CFG.srecIcon=s.srecIcon;if(s.desc)CFG.desc=s.desc;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
+  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.added)CFG.added=s.added;if(typeof s.trioAnim==='boolean')CFG.trioAnim=s.trioAnim;if(s.srecIcon)CFG.srecIcon=SREC_ICON.some(([k])=>k===s.srecIcon)?s.srecIcon:'arrow';if(s.desc)CFG.desc=s.desc;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
   if(typeof d.pdpEdit==='boolean'){CFG.edit=d.pdpEdit;renderPanel();}
 });
 document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{CFG.mode=b.dataset.m;send();renderPanel();});
@@ -338,7 +342,7 @@ function loadFrame(w){
   return new Promise(res=>{
     const f=document.createElement('iframe');f.style.width=w+'px';f.style.height='900px';f.style.border='0';f.src='pdp.html?brand=boohooman&mode='+CFG.mode+'&_='+Date.now();
     $('#hidden').appendChild(f);
-    const onMsg=e=>{if(e.source!==f.contentWindow)return;if(e.data&&e.data.pdpReady){const cfgNoEdit={...CFG,edit:false};f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:cfgNoEdit.mode,entry:cfgNoEdit.entry,stock:cfgNoEdit.stock,fmt:cfgNoEdit.fmt,gridRows:cfgNoEdit.gridRows,endpos:cfgNoEdit.endpos,sizerec:cfgNoEdit.sizerec,srecIcon:cfgNoEdit.srecIcon,labels:cfgNoEdit.labels,setview:cfgNoEdit.setview,edit:false},'*');
+    const onMsg=e=>{if(e.source!==f.contentWindow)return;if(e.data&&e.data.pdpReady){const cfgNoEdit={...CFG,edit:false};f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:cfgNoEdit.mode,entry:cfgNoEdit.entry,stock:cfgNoEdit.stock,fmt:cfgNoEdit.fmt,gridRows:cfgNoEdit.gridRows,endpos:cfgNoEdit.endpos,sizerec:cfgNoEdit.sizerec,srecIcon:cfgNoEdit.srecIcon,trioAnim:cfgNoEdit.trioAnim,labels:cfgNoEdit.labels,setview:cfgNoEdit.setview,edit:false},'*');
       const id=Math.random().toString(36).slice(2);const onPong=ev=>{if(ev.source===f.contentWindow&&ev.data&&ev.data.pdpPong===id){removeEventListener('message',onPong);removeEventListener('message',onMsg);f.style.height=(ev.data.h+20)+'px';setTimeout(()=>res(f),500);}};addEventListener('message',onPong);setTimeout(()=>f.contentWindow.postMessage({pdpPing:id},'*'),300);}};
     addEventListener('message',onMsg);
   });
@@ -358,7 +362,7 @@ async function doExport(){
     exptxt.textContent='Rendering desktop (1440)…';const d=await shot(1440);
     exptxt.textContent='Packaging code…';
     const zip=new JSZip();const name=`core-pdp-2026-${stamp()}`;const root=zip.folder(name);
-    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,srecIcon:CFG.srecIcon,labels:CFG.labels,copy:CFG.copy||{},added:CFG.added||[],setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
+    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,srecIcon:CFG.srecIcon,trioAnim:CFG.trioAnim,labels:CFG.labels,copy:CFG.copy||{},added:CFG.added||[],setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
     root.file('config.json',JSON.stringify(state,null,2));
     root.file(`${name}-mobile-390.png`,m);root.file(`${name}-desktop-1440.png`,d);
     let html=await (await fetch('pdp.html')).text();
