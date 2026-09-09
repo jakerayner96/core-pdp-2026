@@ -583,9 +583,10 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .sizeg .units .tg.in i{left:25px}
 .sizeg .ttl{display:flex;flex-direction:column;gap:16px;font-size:16px}
 .sizeg .ttl b{font-weight:600}
-.sizeg table{width:100%;border:1px solid var(--grey-2);border-radius:4px;border-collapse:separate;border-spacing:0;overflow:hidden;font-size:14px;text-align:center}
+.sizeg table{width:100%;table-layout:fixed;border:1px solid var(--grey-2);border-radius:4px;border-collapse:separate;border-spacing:0;overflow:hidden;font-size:14px;text-align:center}
 .sizeg th{background:var(--grey-05);padding:24px 8px;font-weight:500;color:#1A1818}
-.sizeg td{padding:16px 8px;color:#565656;font-weight:400}
+.sizeg td{padding:16px 8px;color:#565656;font-weight:400;white-space:nowrap}
+.sizeg .ttl span{display:block;min-height:24px}
 .sizeg tbody tr:nth-child(even) td{background:var(--grey-05)}
 .sizeg .how{display:flex;flex-direction:column;gap:16px;font-size:16px}
 .sizeg .how b{font-weight:600}
@@ -677,6 +678,15 @@ body.editing [data-block][hidden]{display:none!important}
 .ed .mv button{width:24px;height:24px;border-radius:99px;background:#0A0A0A;color:#FFF;display:grid;place-items:center;font-size:12px;line-height:1}
 .ed .mv button:disabled{opacity:.3}
 .ed .mv button.del{background:#D33F3F}
+#addtab{position:fixed;right:0;top:44%;z-index:41;width:44px;height:56px;border:2px dashed #0D99FF;border-right:none;border-radius:12px 0 0 12px;background:rgba(10,10,10,.92);color:#FFF;font-size:26px;line-height:1;font-family:'Google Sans',system-ui,sans-serif;display:grid;place-items:center}
+#addtab[hidden]{display:none}
+#addtab.open{background:#0D99FF;border-color:#0D99FF}
+#addpanel{position:fixed;right:48px;top:calc(44% - 8px);z-index:41;width:240px;max-height:60vh;overflow:auto;background:#0A0A0A;color:#F7F7F7;border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:12px;font-family:'Google Sans',system-ui,sans-serif;font-size:12px}
+#addpanel[hidden]{display:none}
+#addpanel h4{font-size:12px;font-weight:600;color:#0D99FF;margin-bottom:6px}
+#addpanel .it{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-top:1px solid rgba(255,255,255,.08)}
+#addpanel .it button{font-size:11px;font-weight:600;color:#FFF;background:#0D99FF;padding:4px 10px;border-radius:99px}
+#addpanel .empty{color:#9A9A9A;padding:6px 0}
 /* removed tray — sits under the page so removals are visible (and exported) rather than silently gone */
 .removed{background:#F4F5F7;border-top:1px dashed #B5B5B5;padding:20px var(--m) 28px;font-family:'Google Sans',system-ui,sans-serif}
 .removed[hidden]{display:none}
@@ -802,7 +812,7 @@ body.editing{padding-bottom:48px}
 
       <!-- Size recommender — Figma 1060-63028: grey banner (trend arrow · copy · chevron) + model line. Toggled from the panel -->
       <div class="sizerec" id="sizerec" data-block="sizerec" data-label="Size recommender">
-        <button class="srb" aria-label="We recommend sizing up — open the size guide"><img class="ic" src="assets/ds/icons/lib/icon-arrow-increase.svg" alt=""><span class="cp"><b>We recommend sizing up</b><span>Customers say this item fits too small</span></span><img class="ic-12" src="assets/ds/icons/lib/icons-right.svg" alt=""></button>
+        <div class="srb" role="note"><img class="ic" src="assets/ds/icons/lib/icon-arrow-increase.svg" alt=""><span class="cp"><b>We recommend sizing up</b><span>Customers say this item fits too small</span></span></div>
         <p class="model">Model is <b>6’1”</b> and wearing <b>UK size M</b></p>
       </div>
 
@@ -919,6 +929,10 @@ body.editing{padding-bottom:48px}
     </div>
   </div>
 </footer>
+
+<!-- Edit mode: add back a removed block — dashed + tab at the edge (Squarespace-style) → list -->
+<button id="addtab" hidden aria-label="Add a removed block back" title="Add a block back">+</button>
+<div id="addpanel" hidden><h4>Add back</h4><div id="addlist"></div></div>
 
 <!-- Removed tray — every block deleted in edit mode is listed here (restore in edit mode). Exports include it. -->
 <section class="removed" id="removed" hidden><h4><b>Removed from this layout</b> · <span id="removedn">0</span> block(s)</h4><div class="list" id="removedlist"></div><div id="removedstore" hidden></div></section>
@@ -1420,8 +1434,9 @@ function renderSizeGuide(){
   b.appendChild(el(`<div class="how"><b>How to measure</b><span>Chest – Measure at the fullest part of the chest and around the back</span><span>Waist – Measure around the natural waistline</span><span>Hips – Measure around fullest part of your hip</span><span>Inside leg – Measure from top of the inside leg to ankle</span></div>`));
 }
 function openSizeGuide(){renderSizeGuide();const m=$('#sizeg');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';}
+$('#addtab').onclick=()=>{const p=$('#addpanel');p.hidden=!p.hidden;$('#addtab').classList.toggle('open',!p.hidden);};
 document.querySelector('.size-guide').onclick=openSizeGuide;
-$('#sizerec .srb').onclick=openSizeGuide;
+document.querySelectorAll('.fitb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fitb').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
 /* size picker */
 function openPick(p,cb){
   const m=$('#pickmenu');m.innerHTML='<div class="t">Select size</div>';
@@ -1503,6 +1518,8 @@ function restoreBlock(name){
 function applyRemoved(){ // on load (or preset): move listed blocks into the store
   S.removed.forEach(it=>{const b=document.querySelector(`[data-block="${it.name}"]`);if(b&&b.parentElement.id!=='removedstore')$('#removedstore').appendChild(b);});
   const tray=$('#removed');tray.hidden=!S.removed.length;$('#removedn').textContent=S.removed.length;
+  $('#addtab').hidden=!S.edit;if(!S.edit)$('#addpanel').hidden=true;
+  const al=$('#addlist');al.innerHTML='';if(!S.removed.length)al.innerHTML='<div class="empty">Nothing removed yet</div>';S.removed.forEach(it=>{const c=el(`<div class="it"><span>${it.label}</span><button>Add</button></div>`);c.querySelector('button').onclick=()=>restoreBlock(it.name);al.appendChild(c);});
   const l=$('#removedlist');l.innerHTML='';S.removed.forEach(it=>{const c=el(`<span class="it"><s>${it.label}</s><button ${S.edit?'':'hidden'}>Restore</button></span>`);c.querySelector('button').onclick=()=>restoreBlock(it.name);l.appendChild(c);});
 }
 function renderEdit(){

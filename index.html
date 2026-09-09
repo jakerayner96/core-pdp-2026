@@ -95,6 +95,26 @@ a{color:var(--accent)}
 .qty em{font-style:normal;font-size:10.5px;color:var(--dim)}
 .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 2px}
 .foot .rm{font-size:11px}
+/* ---- mobile: the page fills the window; the same panel slides over it from a black settings tab ---- */
+#mtab,.mhead{display:none}
+@media(max-width:760px){
+  body{grid-template-columns:1fr;grid-template-rows:1fr}
+  .top{display:none}
+  .stage{padding:0}
+  .win,.holder,.device{width:100%!important}
+  .device{flex:1}
+  iframe{width:100%!important;box-shadow:none}
+  .handle{display:none}
+  #mtab{display:grid;place-items:center;position:fixed;left:0;top:64px;z-index:70;width:44px;height:44px;background:#000;color:#FFF;border-radius:0 12px 12px 0;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+  #mtab svg{width:22px;height:22px}
+  .panel{position:fixed;inset:0;z-index:80;border-right:none;transform:translateX(-100%);transition:transform .25s ease;padding-top:12px}
+  .panel.open{transform:none}
+  .mhead{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .mhead .chips{flex:1;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .mhead .export{display:flex;align-items:center;gap:6px;background:var(--ink);color:#000;padding:6px 12px;border-radius:99px;font-weight:600;font-size:12px;flex:none}
+  .mhead .export svg{width:13px;height:13px}
+  .mhead .mclose{flex:none;width:32px;height:32px;border-radius:99px;border:1px solid rgba(255,255,255,.3);color:var(--ink)}
+}
 /* ---- fold view: iOS 26 Safari frame (SEEL Enhancements 2026 · 3366-199353) ---- */
 .device{position:relative;display:flex;flex-direction:column;height:100%;background:#FFF}
 .device iframe{flex:1;min-height:0}
@@ -159,7 +179,13 @@ body.dragging iframe{pointer-events:none}
   <button class="export" id="exportbtn" title="Export full-page PNGs (mobile + desktop) and a zip of the code with this configuration"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 12.5h11"/></svg>Export</button>
 </header>
 
+<button id="mtab" aria-label="Open the configurator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
 <aside class="panel">
+  <div class="mhead">
+    <span class="chips" id="brands-m"><button class="chip on">boohooMAN</button><button class="chip" disabled>Debenhams</button><button class="chip" disabled>boohoo</button><button class="chip" disabled>PLT</button><button class="chip" disabled>Karen Millen</button></span>
+    <button class="export" id="exportbtn2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 12.5h11"/></svg>Export</button>
+    <button class="mclose" id="mclose" aria-label="Close">✕</button>
+  </div>
   <div class="ph"><h1>Configure the PDP</h1><button class="editbtn" id="edittgl">Edit layout</button></div>
 
   <div class="card"><h3>Stock</h3><div id="stockopts"></div></div>
@@ -249,6 +275,7 @@ function renderPanel(){
   document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===CFG.mode));
 }
 function apply(){
+  if(matchMedia('(max-width:760px)').matches){frame.style.width='100%';win.style.width='100%';return;}
   const avail=stage.clientWidth-16;
   const w=Math.min(W||avail,avail);
   frame.style.width=w+'px';win.style.width=(w+16)+'px';
@@ -330,6 +357,9 @@ async function doExport(){
   finally{btn.disabled=false;exp.hidden=true;setTimeout(()=>status.textContent='',8000);}
 }
 $('#exportbtn').onclick=doExport;
+$('#exportbtn2').onclick=doExport;
+$('#mtab').onclick=()=>document.querySelector('.panel').classList.add('open');
+$('#mclose').onclick=()=>document.querySelector('.panel').classList.remove('open');
 </script>
 </body>
 </html>
