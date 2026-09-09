@@ -509,21 +509,15 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .img-banner .cap .s{font-size:12px;font-weight:400;opacity:.9}
 .img-banner::after{content:"";position:absolute;inset:0;pointer-events:none}
 .img-banner.pos-bl::after,.img-banner.pos-br::after,.img-banner.marquee::after{background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,0) 62%)}
-.img-banner.pos-tl::after{background:linear-gradient(to bottom,rgba(0,0,0,.7),rgba(0,0,0,0) 62%)}
 .img-banner.pos-bl .cap,.img-banner.marquee .cap{left:12px;bottom:12px}
 .img-banner.pos-br .cap{right:12px;bottom:12px;align-items:flex-end;text-align:right}
-.img-banner.pos-tl .cap{left:12px;top:12px}
-.img-banner.pos-bl .cap,.img-banner.pos-br .cap,.img-banner.pos-tl .cap,.img-banner.marquee .cap{z-index:1}
-.img-banner.pill .cap{left:12px;bottom:12px;z-index:1;flex-direction:row;align-items:center;gap:6px;background:#FFF;color:#000;border-radius:99px;padding:8px 12px;box-shadow:var(--shadow-pill)}
-.img-banner.pill .cap .h{font-size:12px;font-weight:600}
+.img-banner.pos-bl .cap,.img-banner.pos-br .cap,.img-banner.marquee .cap{z-index:1}
+.img-banner.pill,.img-banner.band{height:137px} /* Jake 09 Sep: 20px taller than the other banners */
+.img-banner.pill .cap{left:12px;bottom:12px;z-index:1;flex-direction:row;align-items:center;height:24px;padding:0 8px;background:#FFF;color:#000;border-radius:4px;box-shadow:none} /* = PLP quick-add button (.pc-qa) in white, no icon */
+.img-banner.pill .cap .h{font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase}
 .img-banner.pill .cap .s{display:none}
-.img-banner.pill .cap .chev{width:10px;height:10px}
-.img-banner.band .cap{left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;align-items:center;text-align:center;background:rgba(0,0,0,.6);padding:10px 16px}
-.img-banner.card .cap{left:12px;bottom:12px;z-index:1;background:#FFF;color:#000;border-radius:4px;padding:10px 12px;box-shadow:var(--shadow-pill);max-width:70%}
-.img-banner.card .cap .h{font-size:14px}
-.img-banner.card .cap .s{color:var(--grey-4);opacity:1}
-.img-banner.card .cap .chev{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:10px;height:10px}
-.img-banner.card .cap{padding-right:28px}
+.img-banner.band .cap{left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;align-items:center;text-align:center;background:rgba(255,255,255,.85);color:#000;padding:10px 16px} /* MAN --badge-bg: white 85%, like the PLP quick add / wishlist chip */
+.img-banner.band .cap .s{color:var(--grey-4);opacity:1}
 .img-strip{display:flex;flex-direction:column;gap:8px;width:100%;padding:0;text-align:left}
 .img-strip .row{display:flex;gap:2px;height:140px;border-radius:4px;overflow:hidden}
 .img-strip .row img{flex:1 1 0;min-width:0;height:100%;object-fit:cover}
@@ -1139,16 +1133,13 @@ body.editing{padding-bottom:48px}
 <template id="tpl-04-3"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll three-up"><img src="assets/bundling/om3-1.jpg" alt=""><img src="assets/bundling/om3-2.jpg" alt=""><img src="assets/bundling/om3-3.jpg" alt=""><img data-set="0" alt=""><img data-set="1" alt=""></div><div class="outfit-caption"><div class="l"><span class="h" data-copy="e.04.h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta" data-copy="e.04.cta">LAUNCH SET BUILDER</span></div></div></template>
 <template id="tpl-04-4"><div class="content-slot entry" role="button" tabindex="0"><div class="plp-slot"><img src="assets/bundling/plp-slot.jpg" alt=""><div class="cap"><span class="h" data-copy="e.04-4.h">Shop Matching Sets</span><span class="cta" data-copy="e.04-4.cta">VIEW ALL</span></div></div><div class="scroll" style="padding-left:16px" data-setcards></div></div></template>
 <template id="tpl-07-1"><button class="anchor-link entry"><img class="bi" src="assets/bundling/icons/badge-sets.svg" alt=""><span class="txt" data-copy="e.07-1">SHOP MATCHING SETS</span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
-<template id="tpl-07-2"><button class="price-chip entry"><span class="lead"><img class="bi" src="assets/bundling/icons/badge-sets.svg" alt=""><span class="label" data-copy="e.07.label">More Sets Available</span></span><span class="shop" data-copy="e.07.shop">SHOP NOW</span></button></template>
-<template id="tpl-07-3"><button class="price-chip with-trio entry"><span class="lead"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="label" data-copy="e.07.label">More Sets Available</span></span></button></template>
+<template id="tpl-07-2"><button class="price-chip entry"><span class="lead"><span class="label" data-copy="e.07.label">More Sets Available</span></span><span class="shop" data-copy="e.07.shop">SHOP NOW</span></button></template>
 <template id="tpl-07-4"><button class="price-chip with-trio entry"><span class="lead"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07-4.h">Shop The Full Set</span><span class="s" data-pieces></span></span></span></button></template>
 <template id="tpl-07-5"><button class="price-banner boxed entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07.whole">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 <template id="tpl-08-1"><button class="img-banner pos-bl entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
 <template id="tpl-08-2"><button class="img-banner pos-br entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
-<template id="tpl-08-3"><button class="img-banner pos-tl entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
-<template id="tpl-08-4"><button class="img-banner pill entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08-4.h">Shop The Matching Set</span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></span></button></template>
+<template id="tpl-08-4"><button class="img-banner pill entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08-4.h">Shop The Matching Set</span></span></button></template>
 <template id="tpl-08-5"><button class="img-banner band entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-pieces></span></span></button></template>
-<template id="tpl-08-6"><button class="img-banner card entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></span></button></template>
 <template id="tpl-08-7"><button class="img-banner marquee entry"><span class="row track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
 <template id="tpl-08-8"><button class="img-strip entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""></span><span class="cap"><span class="l"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-pieces></span></span><span class="cta" data-copy="e.08-8.cta">SHOP THE SET</span></span></button></template>
 <template id="tpl-09-1"><button class="range-strip entry"><span class="dots" data-dots></span><span class="copy"><span class="h">Available in <span data-colours></span> colours</span><span class="s" data-copy="e.09-1.s">Matching joggers and tees in every colour</span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
@@ -1662,8 +1653,8 @@ tick();setInterval(tick,1000);
 
 
 function renderAll(){
-  document.body.classList.toggle('trio-anim',!!S.trioAnim);
   document.body.className='mode-'+S.mode;
+  document.body.classList.toggle('trio-anim',!!S.trioAnim); // after the className reset, or it's wiped
   ensureAdded();applyRemoved();applyOrder();
   renderGallery();renderSwatches();renderPrice();renderSizes();renderBuy();renderBoxes();
   renderEntry();renderCYP();renderSimilar();renderRecs();
