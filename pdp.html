@@ -546,12 +546,11 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .range-strip .chev{width:12px;height:12px;flex:none}
 .set-sum{display:flex;flex-direction:column;gap:10px;width:100%;padding:12px;background:var(--grey-05);border-radius:4px;text-align:left} /* Jake 09 Sep: title top-left like the carousels; tiles and copy share one 72px row */
 .set-sum .head .h{font-size:14px;font-weight:600}
-.set-sum .body{display:flex;align-items:center;gap:16px;height:72px}
+.set-sum .body{display:flex;align-items:center;gap:16px;height:90px}
 .set-sum .tiles{display:flex;align-items:center;gap:4px;flex:none}
-.set-sum .tiles img{width:48px;height:72px;object-fit:cover;border-radius:2px;background:var(--surface-media)}
-.set-sum .tiles i{font-style:normal;font-size:14px;font-weight:600;color:var(--grey-4);width:12px;text-align:center}
-.set-sum .copy{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px}
-.set-sum .chev{width:12px;height:12px;flex:none}
+.set-sum .tiles img{width:60px;height:90px;object-fit:cover;border-radius:4px;border:1px solid var(--grey-1);background:var(--surface-media)} /* = the colour swatches above (.sw 60×90) */
+.set-sum .tiles i{font-style:normal;font-size:16px;font-weight:300;color:#000;width:12px;text-align:center}
+.set-sum .copy{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px}
 .set-sum .copy .s{font-size:12px;color:var(--grey-4)}
 .set-sum .copy .p{font-size:14px;font-weight:600}
 .same-colour{display:flex;flex-direction:column;gap:10px;width:100%;padding:12px;background:var(--grey-05);border-radius:4px;text-align:left} /* Jake 09 Sep: the other pieces in this colour — Zara-style carousel, add per piece */
@@ -563,7 +562,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .same-colour .sc img,.colourways .sc img{width:96px;height:144px;object-fit:cover;border-radius:2px;background:var(--surface-media)}
 .same-colour .sc .nm,.colourways .sc .nm{font-size:11px;line-height:1.3;color:#000;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;height:2.6em}
 .same-colour .sc .pr,.colourways .sc .pr{font-size:12px;font-weight:600}
-.same-colour .sc .qa,.colourways .sc .qa{display:inline-flex;align-items:center;height:24px;padding:0 8px;margin-top:2px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
+.same-colour .sc .qa,.colourways .sc .qa,.set-sum .copy .qa,.recs.ms .row .qa{display:inline-flex;align-items:center;height:24px;padding:0 8px;margin-top:2px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
 .colourways{display:flex;flex-direction:column;gap:8px;width:100%;padding:0;text-align:left;cursor:pointer} /* Jake 09 Sep: Explore The Set — tap a colour to reveal that set's pieces below (ASOS-style) */
 .colourways .head{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600}
 .colourways .head .cta{font-size:12px}
@@ -670,6 +669,25 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .lk.on .hint{display:none}
 .recs.hot .btn.s{margin:0 var(--m);width:auto}
 @media(min-width:1024px){.lk{flex:0 0 340px}}
+/* M&S-style 'Shop the outfit' (Jake 09 Sep): look image with a white 'Shop the outfit · N items' pill, the pieces listed beneath as thumb / name / colour / price / Add; everything opens the Complete The Look modal */
+.recs.ms{background:#FFF;padding:16px 0}
+.recs.ms .rail-head{padding:0 var(--m)}
+.recs.ms .wrapms{display:flex;flex-direction:column;gap:12px;padding:0 var(--m)}
+.recs.ms .look{position:relative;aspect-ratio:3/4;background:var(--surface-media);overflow:hidden;border-radius:4px;cursor:pointer}
+.recs.ms .look img{width:100%;height:100%;object-fit:cover;display:block}
+.recs.ms .look .pill{position:absolute;left:12px;bottom:12px;display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;background:#FFF;color:#000;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.recs.ms .look .pill i{font-style:normal;font-weight:400;color:var(--grey-4);text-transform:none;letter-spacing:0}
+.recs.ms .list{display:flex;flex-direction:column}
+.recs.ms .row{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px solid var(--grey-1);text-align:left;cursor:pointer}
+.recs.ms .row:first-child{border-top:none}
+.recs.ms .row img{width:48px;height:72px;object-fit:cover;border-radius:2px;flex:none;background:var(--surface-media)}
+.recs.ms .row .inf{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;font-size:12px;line-height:15px}
+.recs.ms .row .inf .nm{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.recs.ms .row .inf .nm b{font-weight:700}
+.recs.ms .row .inf .at{color:var(--grey-4)}
+.recs.ms .row .inf .pr{font-weight:600;margin-top:2px}
+.recs.ms .row .qa{flex:none}
+@media(min-width:1024px){.recs.ms .wrapms{flex-direction:row;gap:32px;align-items:flex-start}.recs.ms .look{flex:0 0 400px}.recs.ms .list{flex:1;min-width:0}}
 /* look modal — the pieces of the look: switch colour, pick size, add all */
 .lookm .body{padding:0 24px 24px;gap:24px}
 .lm{display:grid;grid-template-columns:99px 1fr;gap:16px}
@@ -1145,7 +1163,7 @@ body.editing{padding-bottom:48px}
 <template id="tpl-08-7"><button class="img-banner marquee entry"><span class="row track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="cap"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-copy="e.08.s">Shop our range of matching sets</span></span></button></template>
 <template id="tpl-08-8"><button class="img-strip entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""></span><span class="cap"><span class="l"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-pieces></span></span><span class="cta" data-copy="e.08-8.cta">SHOP THE SET</span></span></button></template>
 <template id="tpl-09-1"><button class="range-strip entry"><span class="dots" data-dots></span><span class="copy"><span class="h">Available in <span data-colours></span> colours</span><span class="s" data-copy="e.09-1.s">Matching joggers and tees in every colour</span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
-<template id="tpl-09-2"><button class="set-sum entry"><span class="head"><span class="h" data-copy="e.09-2.h">Complete the set</span></span><span class="body"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="s"><span data-count></span> <span data-copy="e.09-2.s">pieces together</span></span><span class="p" data-price></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></span></button></template>
+<template id="tpl-09-2"><button class="set-sum entry"><span class="head"><span class="h" data-copy="e.09-2.h">Complete the set</span></span><span class="body"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="s"><span data-count></span> <span data-copy="e.09-2.s">pieces together</span></span><span class="p" data-price></span><span class="qa" data-copy="e.09-2.cta">Add</span></span></span></button></template>
 <template id="tpl-09-3"><button class="same-colour entry"><span class="head"><span class="h"><span data-copy="e.09-3.h">Also in</span> <span data-colourname></span></span><span class="cta" data-copy="e.09-3.cta">SHOP THE SET</span></span><span class="scroller" data-samecolour></span></button></template>
 <template id="tpl-09-4"><div class="colourways entry" role="button" tabindex="0"><span class="head"><span data-copy="e.09-4.h">Explore The Set</span><span class="cta" data-copy="e.09-4.cta">VIEW ALL</span></span><span class="scroller" data-colourways></span><span class="setrow" data-setrow hidden></span></div></template>
 <template id="tpl-09-5"><button class="addon entry"><img data-set="1" alt=""><span class="copy"><span class="t"><b data-copy="e.09-5.h">Add the matching joggers</b></span><span class="nm" data-addon-name></span><span class="at" data-addon-attr></span><span class="pr" data-addon-price></span></span><span class="qa" data-copy="e.09-5.cta">Add</span></button></template>
@@ -1383,6 +1401,14 @@ function recsModule(key){
     lk.onclick=()=>{HOTOPEN=null;renderRecs();};
     box.appendChild(lk);
     const vb=el(`<button class="btn s">View entire look</button>`);vb.onclick=openLookModal;box.appendChild(vb);
+  }else if(f==='ms'){
+    box.querySelector('.rail-title').textContent='Shop The Look';
+    const L=lookPieces();const pieces=['zip-hoodie','wide-jogger','tee'].map(k=>byId(L[k])).filter(Boolean);const hd=pieces[0];
+    const w=el(`<div class="wrapms"><div class="look"><img src="${fullImg(hd.colour)}" alt="Shop the outfit"><span class="pill">Shop the outfit <i>· ${pieces.length} items</i></span></div><div class="list"></div></div>`);
+    const list=w.querySelector('.list');
+    pieces.forEach(p=>{const r=el(`<div class="row" role="button" tabindex="0"><img src="${p.img}" alt=""><div class="inf"><span class="nm"><b>${p.brand||'boohooMAN'}</b> - ${p.name}</span><span class="at">${p.colour}</span><span class="pr">${fmt2(p)}</span></div><span class="qa">Add</span></div>`);r.onclick=openLookModal;list.appendChild(r);});
+    w.querySelector('.look').onclick=openLookModal;
+    box.appendChild(w);
   }else if(f==='carousel'){
     const sc=el(`<div class="scroll"></div>`);items.forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>open(p)})));box.appendChild(sc);
     box.querySelector('.rail-head').onclick=()=>open();
