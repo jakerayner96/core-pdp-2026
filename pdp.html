@@ -314,7 +314,7 @@ a{color:inherit;text-decoration:none}
 /* ---------- Recs module: ONE component, three formats (Figma 638:56822 grey/no-data · 638:57804 carousel · 638:57872 grid) ---------- */
 .recs{display:flex;flex-direction:column;gap:16px} /* FULL-BLEED: the module (and its grey ground) runs edge to edge; content keeps the page margin */
 .recs.nodata{background:var(--grey-05);padding:16px var(--m);cursor:pointer}
-.recs.nodata .imgs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.recs.nodata .imgs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--m) * -1);padding:0 var(--m);scroll-padding:0 var(--m)} /* scrolls edge to edge, starts on the 16px margin */
 .recs.nodata .imgs::-webkit-scrollbar{display:none}
 .recs.nodata .imgs img{flex:0 0 150px;width:150px;height:225px;object-fit:cover}
 .recs.carousel{background:#FFF;padding:16px 0}
@@ -1039,13 +1039,14 @@ const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k))
 const S={
   mode:q.get('mode')||PRE.mode||'new',          // live | new
   edit:false,                          // edit-layout mode (review tooling)
-  fmt:PRE.fmt||LS('pdp26-fmt')||{look:'nodata',hp:'grid',wtyl:'carousel'}, // recs module formats: nodata | carousel | grid | inline | hot | pairs | off
+  fmt:PRE.fmt||LS('pdp26-fmt')||{look:'nodata',hp:'carousel',wtyl:'carousel'}, // recs module formats: nodata | carousel | grid | inline | hot | pairs | off
   gridRows:PRE.gridRows||LS('pdp26-gridrows')||{look:2,hp:2,wtyl:2}, // rows shown when a module is a grid (3 per row)
   endpos:PRE.endpos||LS('pdp26-endpos')||5, // 06-1 gallery end card: slide position (2..5; past the last image = last)
   order:PRE.order||LS('pdp26-order')||{},         // block order per container (edit mode)
   entry:q.get('entry')||PRE.entry||'03-1',       // set-builder entry point id | none
   stock:q.get('stock')||PRE.stock||'in',         // in | size | oos
   sizerec:PRE.sizerec!==undefined?PRE.sizerec:(LS('pdp26-sizerec')!==null?LS('pdp26-sizerec'):true), // size recommender on/off
+  srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger | info
   added:PRE.added||LS('pdp26-added')||[], // added modules: [{key,container,label}] — repeatable recs blocks created in edit mode
   copy:PRE.copy||LS('pdp26-copy')||{}, // edited copy: key → text (edit mode: tap any title/label/button caption)
   labels:PRE.labels!==undefined?PRE.labels:(LS('pdp26-labels')!==null?LS('pdp26-labels'):false), // builder cards: show 'Size:' / 'Colour:' labels
@@ -1454,7 +1455,7 @@ const SIZES_IN=[['XS','34–36','28–30','34–36'],['S','36–38','30–32','3
 let SG_IN=false;
 function renderSizeGuide(){
   const b=$('#sgbody');b.innerHTML='';
-  if(S.sizerec)b.appendChild(el(`<div class="srb"><img class="ic" src="assets/ds/icons/lib/icon-arrow-increase.svg" alt=""><span class="cp"><b>We recommend sizing up</b><span>Customers say this item fits too small</span></span></div>`));
+  if(S.sizerec)b.appendChild(el(`<div class="srb"><img class="ic" src="assets/ds/icons/lib/${SREC_ICONS[S.srecIcon]||SREC_ICONS.arrow}" alt=""><span class="cp"><b>We recommend sizing up</b><span>Customers say this item fits too small</span></span></div>`));
   const u=el(`<div class="units"><span>CM</span><button class="tg ${SG_IN?'in':''}" role="switch" aria-checked="${SG_IN}" aria-label="Show inches"><i></i></button><span>Inches</span></div>`);u.querySelector('.tg').onclick=()=>{SG_IN=!SG_IN;renderSizeGuide();};b.appendChild(u);
   b.appendChild(el(`<div class="ttl"><b>Men’s tops</b><span>Body measurements in ${SG_IN?'inches':'cm'}</span></div>`));
   const rows=(SG_IN?SIZES_IN:SIZES_CM).map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
@@ -1464,6 +1465,8 @@ function renderSizeGuide(){
 function openSizeGuide(){renderSizeGuide();const m=$('#sizeg');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';}
 document.querySelector('.size-guide').onclick=openSizeGuide;
 document.querySelectorAll('.fitb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fitb').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
+const SREC_ICONS={arrow:'icon-arrow-increase.svg',tape:'icons-measure.svg',size:'icons-size.svg',hanger:'icons-hanger.svg',info:'icons-info.svg'};
+function applySrecIcon(){const src='assets/ds/icons/lib/'+(SREC_ICONS[S.srecIcon]||SREC_ICONS.arrow);document.querySelectorAll('.srb img.ic').forEach(i=>{if(!i.src.endsWith(src))i.src=src;});}
 /* Editable copy — every [data-copy] element takes S.copy overrides; in edit mode it becomes contenteditable */
 function applyCopy(root){(root||document).querySelectorAll('[data-copy]').forEach(el=>{const k=el.dataset.copy;if(S.copy[k]!=null&&el.textContent!==S.copy[k])el.textContent=S.copy[k];if(S.edit){el.setAttribute('contenteditable','true');el.classList.add('copyedit');el.setAttribute('spellcheck','false');}else{el.removeAttribute('contenteditable');el.classList.remove('copyedit');}});}
 document.addEventListener('input',e=>{const el=e.target.closest&&e.target.closest('[data-copy]');if(!el||!S.edit)return;S.copy[el.dataset.copy]=el.textContent;LS('pdp26-copy',S.copy);});
@@ -1512,12 +1515,12 @@ function renderAll(){
   renderGallery();renderSwatches();renderPrice();renderSizes();renderBuy();renderBoxes();
   renderEntry();renderCYP();renderSimilar();renderRecs();
   $('#nddmsg').hidden=S.stock==='oos';
-  $('#sizerec').hidden=!S.sizerec;
+  $('#sizerec').hidden=!S.sizerec;applySrecIcon();
   document.body.classList.toggle('nolabels',!S.labels);
   renderEdit();applyCopy();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1606,6 +1609,7 @@ addEventListener('message',e=>{
   if(d.gridRows){S.gridRows={...S.gridRows,...d.gridRows};LS('pdp26-gridrows',S.gridRows);}
   if(d.endpos){S.endpos=+d.endpos;LS('pdp26-endpos',S.endpos);}
   if(typeof d.sizerec==='boolean'){S.sizerec=d.sizerec;LS('pdp26-sizerec',S.sizerec);}
+  if(d.srecIcon){S.srecIcon=d.srecIcon;LS('pdp26-srecicon',S.srecIcon);}
   if(typeof d.labels==='boolean'){S.labels=d.labels;LS('pdp26-labels',S.labels);}
   if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);if(!$('#sheet').hidden&&SH.kind==='set')renderSheet();}
   if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});LS('pdp26-added',[]);location.reload();return;}
