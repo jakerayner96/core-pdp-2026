@@ -234,13 +234,12 @@ body.dragging iframe{pointer-events:none}
 <div id="hidden"></div>
 
 <script>
-const ENTRIES=[
-  ['Medium banner',[['03-1','Made To Match box'],['03-2','Equation strip']]],
-  ['Large banner',[['04-1','2-up scroll'],['04-2','2×2 grid'],['04-3','3-up scroll'],['04-4','Slot + carousel']]],
-  ['Product image',[['06-1','Gallery end card']]],
-  ['Price banner',[['07-1','Anchor link'],['07-2','Chip'],['07-3','Chip with trio'],['07-4','Chip trio + copy'],['07-5','Banner with trio'],['07-6','Borderless trio']]],
-  ['Image banner (no grey)',[['08-1','Copy bottom-left'],['08-2','Copy bottom-right'],['08-3','Copy top-left'],['08-4','White pill'],['08-5','Centre band'],['08-6','White card'],['08-7','Marquee row'],['08-8','Filmstrip + caption below']]],
-  ['Range ideas',[['09-1','Colour dots strip'],['09-2','Set sum (a + b + c)'],['09-3','Piece chips'],['09-4','Colourway rail'],['09-5','One-tap add-on'],['09-6','Fan deck'],['09-7','Text link'],['09-8','Split tile']]],
+const ENTRIES=[ // listed in page order, top to bottom (Jake 09 Sep)
+  ['In the gallery',[['06-1','Gallery end card (last slide)']]],
+  ['Under the colours · grey boxes',[['03-1','Made To Match box (marquee + copy)'],['03-2','Equation strip (images + SHOP SETS)'],['07-2','Badge chip (More Sets Available · SHOP NOW)'],['07-3','Trio chip'],['07-4','Trio chip + copy'],['07-5','Trio banner + chevron']]],
+  ['Under the colours · image banners (no grey)',[['08-1','Overlay bottom-left'],['08-2','Overlay bottom-right'],['08-3','Overlay top-left'],['08-4','White pill'],['08-5','Centre band'],['08-6','White card'],['08-7','Marquee row'],['08-8','Filmstrip + caption below']]],
+  ['Under the colours · no box',[['07-1','Anchor link (badge + SHOP MATCHING SETS)'],['07-6','Trio banner, borderless'],['09-6','Fan deck'],['09-1','Colour dots strip'],['09-2','Set sum (a + b + c = £)'],['09-3','Piece chips'],['09-4','Colourway rail'],['09-5','One-tap add-on (matching joggers)'],['09-8','Split tile (hoodie | joggers)'],['09-7','Text link line']]],
+  ['Under the pay box · large banners',[['04-1','2-up scroll'],['04-2','2×2 grid'],['04-3','3-up scroll'],['04-4','PLP slot + set carousel']]],
   ['',[['none','None']]],
 ];
 const FMT_BUNDLE=[['nodata','Grey background'],['carousel','Carousel'],['grid','Grid'],['inline','Inline band'],['hot','Hotspot imagery'],['off','Off']];
