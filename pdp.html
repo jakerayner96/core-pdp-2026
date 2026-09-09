@@ -490,10 +490,19 @@ b.lnk,.ft .news small b{font-weight:600}
 .trio{position:relative;width:108px;height:98px;flex:none} /* stacked images = colour-swatch size (60×89) */
 .trio img{position:absolute;width:60px;height:90px;object-fit:cover;border-radius:2px;box-shadow:var(--shadow-pill)}
 .trio img:nth-child(1){left:0;top:8px}.trio img:nth-child(2){left:24px;top:4px}.trio img:nth-child(3){left:48px;top:0}
-/* shuffle (configurator toggle): the front card lifts, slides to the back, the others step forward — a deck being cut */
+/* shuffle (configurator toggle): solitaire deal — the front card lifts a touch, slips behind the pile to the back slot, the other two step forward one slot. Three simultaneous moves per beat, 1.5s a beat */
 body.trio-anim .trio img{animation:trio-shuffle 4.5s ease-in-out infinite}
-body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio img:nth-child(2){animation-delay:-3s}body.trio-anim .trio img:nth-child(1){animation-delay:-1.8s}
-@keyframes trio-shuffle{0%,24%{left:48px;top:0;z-index:3}32%{left:66px;top:-8px;z-index:3}40%,58%{left:0;top:8px;z-index:1}66%,92%{left:24px;top:4px;z-index:2}100%{left:48px;top:0;z-index:3}}
+body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio img:nth-child(1){animation-delay:-1.5s}body.trio-anim .trio img:nth-child(2){animation-delay:-3s}
+@keyframes trio-shuffle{
+  0%,7%{left:48px;top:0;z-index:3}          /* front, resting */
+  9%{left:48px;top:-3px;z-index:3}          /* tiny lift */
+  10%{left:47px;top:-2px;z-index:0}         /* drops behind the pile… */
+  18%,41.3%{left:0;top:8px;z-index:0}       /* …and lands in the back slot */
+  41.4%{left:0;top:8px;z-index:2}
+  51.3%,74.6%{left:24px;top:4px;z-index:2}  /* back → middle */
+  74.7%{left:24px;top:4px;z-index:3}
+  84.6%,100%{left:48px;top:0;z-index:3}     /* middle → front */
+}
 
 /* ---------- 08: image banners — no grey, a row of set images with the copy overlaid (Jake 09 Sep) ---------- */
 .img-banner{position:relative;display:block;width:100%;height:117px;border-radius:4px;overflow:hidden;padding:0;text-align:left;background:var(--surface-media)}
