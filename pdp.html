@@ -563,10 +563,12 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .same-colour .sc .nm{font-size:11px;line-height:1.3;color:#000;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;height:2.6em}
 .same-colour .sc .pr{font-size:12px;font-weight:600}
 .same-colour .sc .qa,.set-sum .copy .qa,.recs.ms .row .qa{display:inline-flex;align-items:center;height:24px;padding:0 8px;margin-top:2px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
-.addon{display:flex;align-items:flex-start;gap:16px;width:100%;padding:12px;background:var(--grey-05);border-radius:4px;text-align:left} /* Jake 09 Sep: grey card; copy formatted like the bag line-item card (CartLineItemV2Card) */
+.addon-set{display:flex;flex-direction:column;gap:12px;width:100%;text-align:left;cursor:pointer} /* Jake 09 Sep: 'Shop The Set' label (colour-label style) + the other pieces side by side as bag-format cards */
+.addon-set .cards{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
+.addon-set .cards::-webkit-scrollbar{display:none}
+.addon{flex:none;width:250px;display:flex;align-items:flex-start;gap:12px;padding:12px;background:var(--grey-05);border-radius:4px;text-align:left} /* copy formatted like the bag line-item card (CartLineItemV2Card) */
 .addon img{width:68px;height:102px;object-fit:cover;border-radius:2px;flex:none;background:var(--surface-media)}
-.addon .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;font-size:12px;line-height:15px}
-.addon .copy .t{font-size:14px;line-height:18px;margin-bottom:2px}
+.addon .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;font-size:12px;line-height:15px;height:102px}
 .addon .copy .nm{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .addon .copy .nm b{font-weight:700}
 .addon .copy .at{color:var(--grey-4)}
@@ -574,7 +576,8 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .addon .copy .pr .now{font-weight:600}
 .addon .copy .pr .now.sale{color:var(--red)}
 .addon .copy .pr .was{text-decoration:line-through}
-.addon .qa{flex:none;align-self:flex-end;display:inline-flex;align-items:center;height:24px;padding:0 8px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
+.addon .qa{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;height:24px;padding:0 8px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
+@media(min-width:1024px){.addon-set .cards{margin:0;padding:0}}
 .split-tile{position:relative;display:flex;width:100%;height:170px; /* 3 tiles at 390 ≈ 118×170, near 2:3 */border-radius:4px;overflow:hidden;padding:0;gap:2px}
 .split-tile img{flex:1 1 0;min-width:0;height:100%;object-fit:cover}
 .split-tile .cap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;background:#FFF;border-radius:4px;padding:10px 14px;box-shadow:var(--shadow-pill);white-space:nowrap}
@@ -1154,7 +1157,7 @@ body.editing{padding-bottom:48px}
 <template id="tpl-09-1"><button class="range-strip entry"><span class="dots" data-setgrid></span><span class="copy"><span class="h"><span data-setcount></span> <span data-copy="e.09-1.h">pieces in</span> <span data-colourname></span></span><span class="s" data-copy="e.09-1.s">Shop the whole set in this colour</span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 <template id="tpl-09-2"><button class="set-sum entry"><span class="head"><span class="h" data-copy="e.09-2.h">Complete the set</span></span><span class="body"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="s"><span data-count></span> <span data-copy="e.09-2.s">pieces together</span></span><span class="p" data-price></span><span class="qa" data-copy="e.09-2.cta">Add</span></span></span></button></template>
 <template id="tpl-09-3"><button class="same-colour entry"><span class="head"><span class="h"><span data-copy="e.09-3.h">Also in</span> <span data-colourname></span></span><span class="cta" data-copy="e.09-3.cta">SHOP THE SET</span></span><span class="scroller" data-samecolour></span></button></template>
-<template id="tpl-09-5"><button class="addon entry"><img data-set="1" alt=""><span class="copy"><span class="t"><b data-copy="e.09-5.h">Add the matching joggers</b></span><span class="nm" data-addon-name></span><span class="at" data-addon-attr></span><span class="pr" data-addon-price></span></span><span class="qa" data-copy="e.09-5.cta">Add</span></button></template>
+<template id="tpl-09-5"><div class="addon-set entry" role="button" tabindex="0"><span class="colour-lbl"><b data-copy="e.09-5.h">Shop The Set</b></span><span class="cards" data-addon-cards></span></div></template>
 <template id="tpl-09-8"><button class="split-tile entry"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><span class="cap"><span class="h" data-copy="e.09-8.h">Wear it as a set</span><span class="s" data-copy="e.09-8.s">Complete the look</span></span></button></template>
 <template id="tpl-07-6"><button class="price-banner bare entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07.whole">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 
@@ -1466,7 +1469,7 @@ function renderEntry(){
   node.querySelectorAll('[data-colours]').forEach(s=>s.textContent=hs.length);
   {const setIn=['zip-hoodie','wide-jogger','tee','sweatshirt','quarter-zip','ls-tee','oth-hoodie','straight-jogger'].map(f=>partner(f,hh.colour)).filter(q=>q&&q.colour===hh.colour);node.querySelectorAll('[data-setcount]').forEach(s=>s.textContent=setIn.length);node.querySelectorAll('[data-setgrid]').forEach(d=>{setIn.slice(0,8).forEach(q=>{const im=document.createElement('img');im.src=q.img;im.alt='';d.appendChild(im);});if(setIn.length>8){const i=document.createElement('i');i.textContent='+'+(setIn.length-8);d.appendChild(i);}});}
   {const it=lookItems();node.querySelectorAll('[data-count]').forEach(s=>s.textContent=it.length);node.querySelectorAll('[data-price]').forEach(s=>s.textContent=`£${it.reduce((a,x)=>a+(+x.price||0),0).toFixed(2)}`);}
-  {const j=lookItems()[1];if(j){node.querySelectorAll('[data-addon-name]').forEach(s=>{s.innerHTML='<b></b> - ';s.querySelector('b').textContent=j.brand||'boohooMAN';s.appendChild(document.createTextNode(j.name));});node.querySelectorAll('[data-addon-attr]').forEach(s=>s.textContent=j.colour||hh.colour);node.querySelectorAll('[data-addon-price]').forEach(s=>s.innerHTML=setPrice(j));}}
+    node.querySelectorAll('[data-addon-cards]').forEach(r=>{['wide-jogger','tee','sweatshirt','quarter-zip','ls-tee','oth-hoodie','straight-jogger'].map(f=>partner(f,hh.colour)).filter(q=>q&&q.colour===hh.colour).forEach(q=>{const c=document.createElement('span');c.className='addon';c.innerHTML=`<img alt=""><span class="copy"><span class="nm"><b></b> - </span><span class="at"></span><span class="pr"></span><span class="qa">Add</span></span>`;c.querySelector('img').src=q.img;c.querySelector('.nm b').textContent=q.brand||'boohooMAN';c.querySelector('.nm').appendChild(document.createTextNode(q.name));c.querySelector('.at').textContent=q.colour;c.querySelector('.pr').innerHTML=setPrice(q);r.appendChild(c);});});
   node.querySelectorAll('[data-colourname]').forEach(s=>s.textContent=hh.colour);
   node.querySelectorAll('[data-samecolour]').forEach(r=>{['wide-jogger','tee','sweatshirt','quarter-zip','ls-tee','oth-hoodie','straight-jogger'].forEach(f=>{const q=partner(f,hh.colour);if(!q||q.colour!==hh.colour)return;const w=document.createElement('span');w.className='sc';w.innerHTML=`<img alt=""><span class="nm"></span><span class="pr"></span><span class="qa">Add</span>`;w.querySelector('img').src=q.img;w.querySelector('.nm').textContent=q.name;w.querySelector('.pr').textContent=`£${(+q.price).toFixed(2)}`;r.appendChild(w);});});
   const FAMS=['zip-hoodie','wide-jogger','tee','sweatshirt','quarter-zip','ls-tee','oth-hoodie','straight-jogger'];
