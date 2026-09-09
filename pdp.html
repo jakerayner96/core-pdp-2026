@@ -550,21 +550,22 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .same-colour .head .cta{font-size:12px}
 .same-colour .scroller{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -12px;padding:0 12px}
 .same-colour .scroller::-webkit-scrollbar{display:none}
-.same-colour .sc{flex:none;width:96px;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
-.same-colour .sc img{width:96px;height:144px;object-fit:cover;border-radius:2px;background:var(--surface-media)}
-.same-colour .sc .nm{font-size:11px;line-height:1.3;color:#000;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;height:2.6em}
-.same-colour .sc .pr{font-size:12px;font-weight:600}
-.same-colour .sc .qa{display:inline-flex;align-items:center;height:24px;padding:0 8px;margin-top:2px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
-.colourways{display:flex;flex-direction:column;gap:8px;width:100%;padding:0;text-align:left}
+.same-colour .sc,.colourways .sc{flex:none;width:96px;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.same-colour .sc img,.colourways .sc img{width:96px;height:144px;object-fit:cover;border-radius:2px;background:var(--surface-media)}
+.same-colour .sc .nm,.colourways .sc .nm{font-size:11px;line-height:1.3;color:#000;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;height:2.6em}
+.same-colour .sc .pr,.colourways .sc .pr{font-size:12px;font-weight:600}
+.same-colour .sc .qa,.colourways .sc .qa{display:inline-flex;align-items:center;height:24px;padding:0 8px;margin-top:2px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
+.colourways{display:flex;flex-direction:column;gap:8px;width:100%;padding:0;text-align:left;cursor:pointer} /* Jake 09 Sep: Explore The Set — tap a colour to reveal that set's pieces below (ASOS-style) */
 .colourways .head{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600}
 .colourways .head .cta{font-size:12px}
-.colourways .scroller{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
-.colourways .scroller::-webkit-scrollbar{display:none}
-.colourways .cw{flex:none;width:72px;display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--grey-4)}
-.colourways .cw img{width:72px;height:96px;object-fit:cover;border-radius:2px}
+.colourways .scroller,.colourways .setrow{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.colourways .scroller::-webkit-scrollbar,.colourways .setrow::-webkit-scrollbar{display:none}
+.colourways .cw{flex:none;width:72px;display:flex;flex-direction:column;gap:4px;font-size:11px;line-height:1.3;color:var(--grey-4)}
+.colourways .cw img{width:72px;height:108px;object-fit:cover;border-radius:2px;background:var(--surface-media)} /* 2:3, nothing cropped */
 .colourways .cw.on{color:#000;font-weight:600}
 .colourways .cw.on img{outline:1.5px solid #000;outline-offset:1px}
-.colourways .cw span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.colourways .cw span{white-space:normal} /* names wrap, never truncate */
+.colourways .setrow{padding:12px;margin-top:4px;background:var(--grey-05);border-radius:4px}
 .addon{display:flex;align-items:center;gap:12px;width:100%;padding:8px;border:1px solid var(--grey-2);border-radius:4px;text-align:left}
 .addon img{width:40px;height:60px;object-fit:cover;border-radius:2px;flex:none}
 .addon .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
@@ -1134,7 +1135,7 @@ body.editing{padding-bottom:48px}
 <template id="tpl-09-1"><button class="range-strip entry"><span class="dots" data-dots></span><span class="copy"><span class="h">Available in <span data-colours></span> colours</span><span class="s" data-copy="e.09-1.s">Matching joggers and tees in every colour</span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 <template id="tpl-09-2"><button class="set-sum entry"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.09-2.h">Complete the set</span><span class="s"><span data-count></span> <span data-copy="e.09-2.s">pieces together</span></span><span class="p" data-price></span><span class="qa" data-copy="e.09-2.cta">Add to bag</span></span></button></template>
 <template id="tpl-09-3"><button class="same-colour entry"><span class="head"><span class="h"><span data-copy="e.09-3.h">Also in</span> <span data-colourname></span></span><span class="cta" data-copy="e.09-3.cta">SHOP THE SET</span></span><span class="scroller" data-samecolour></span></button></template>
-<template id="tpl-09-4"><button class="colourways entry"><span class="head"><span data-copy="e.09-4.h">This set in every colour</span><span class="cta" data-copy="e.09-4.cta">VIEW ALL</span></span><span class="scroller" data-colourways></span></button></template>
+<template id="tpl-09-4"><div class="colourways entry" role="button" tabindex="0"><span class="head"><span data-copy="e.09-4.h">Explore The Set</span><span class="cta" data-copy="e.09-4.cta">VIEW ALL</span></span><span class="scroller" data-colourways></span><span class="setrow" data-setrow hidden></span></div></template>
 <template id="tpl-09-5"><button class="addon entry"><img data-set="1" alt=""><span class="copy"><span class="h" data-copy="e.09-5.h">Add the matching joggers</span><span class="s" data-addon></span></span><span class="plus">+</span></button></template>
 <template id="tpl-09-7"><button class="range-link entry"><span>Also in <b><span data-colours></span> colours</b> · <b data-copy="e.09-7.b">matching set available</b></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 <template id="tpl-09-8"><button class="split-tile entry"><img data-set="0" alt=""><img data-set="1" alt=""><span class="cap"><span class="h" data-copy="e.09-8.h">Wear it with the joggers</span><span class="s" data-copy="e.09-8.s">Complete the look</span></span></button></template>
@@ -1443,7 +1444,11 @@ function renderEntry(){
   node.querySelectorAll('[data-addon]').forEach(s=>{const j=lookItems()[1];s.textContent=j?`£${j.price} · ${j.colour||hh.colour}`:'';});
   node.querySelectorAll('[data-colourname]').forEach(s=>s.textContent=hh.colour);
   node.querySelectorAll('[data-samecolour]').forEach(r=>{['wide-jogger','tee','sweatshirt','quarter-zip','ls-tee','oth-hoodie','straight-jogger'].forEach(f=>{const q=partner(f,hh.colour);if(!q||q.colour!==hh.colour)return;const w=document.createElement('span');w.className='sc';w.innerHTML=`<img alt=""><span class="nm"></span><span class="pr"></span><span class="qa">Add</span>`;w.querySelector('img').src=q.img;w.querySelector('.nm').textContent=q.name;w.querySelector('.pr').textContent=`£${(+q.price).toFixed(2)}`;r.appendChild(w);});});
-  node.querySelectorAll('[data-colourways]').forEach(r=>{hs.forEach(c=>{const w=document.createElement('span');w.className='cw'+(c.id===hh.id?' on':'');w.innerHTML=`<img alt=""><span></span>`;w.querySelector('img').src=c.img;w.querySelector('span').textContent=c.colour;r.appendChild(w);});});
+  const FAMS=['zip-hoodie','wide-jogger','tee','sweatshirt','quarter-zip','ls-tee','oth-hoodie','straight-jogger'];
+  const miniCard=q=>{const w=document.createElement('span');w.className='sc';w.innerHTML=`<img alt=""><span class="nm"></span><span class="pr"></span><span class="qa">Add</span>`;w.querySelector('img').src=q.img;w.querySelector('.nm').textContent=q.name;w.querySelector('.pr').textContent=`£${(+q.price).toFixed(2)}`;return w;};
+  node.querySelectorAll('[data-colourways]').forEach(r=>{const panel=r.parentElement.querySelector('[data-setrow]');hs.forEach(c=>{const w=document.createElement('span');w.className='cw'+(c.id===hh.id?' on':'');w.innerHTML=`<img alt=""><span></span>`;w.querySelector('img').src=c.img;w.querySelector('span').textContent=c.colour;
+    w.addEventListener('click',e=>{e.stopPropagation();const open=w.classList.contains('open');r.querySelectorAll('.cw').forEach(x=>x.classList.remove('open','on'));panel.innerHTML='';if(open){panel.hidden=true;r.querySelector(`.cw[data-id="${hh.id}"]`)?.classList.add('on');return;}w.classList.add('open','on');FAMS.map(f=>partner(f,c.colour)).filter(q=>q&&q.colour===c.colour).forEach(q=>panel.appendChild(miniCard(q)));panel.hidden=false;});
+    w.dataset.id=c.id;r.appendChild(w);});});
   const sc=node.querySelector('[data-setcards]');if(sc){lookItems().forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>openSheet('set')})));}
   node.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',()=>openSheet('set')));
   slot.appendChild(node);applyCopy(slot);
