@@ -571,17 +571,6 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .addon .copy .h{font-size:14px;font-weight:600}
 .addon .copy .s{font-size:12px;color:var(--grey-4)}
 .addon .plus{flex:none;width:32px;height:32px;border-radius:99px;background:#000;color:#FFF;display:grid;place-items:center;font-size:18px;line-height:1}
-.fan-deck{display:flex;align-items:center;gap:12px;width:100%;padding:8px 0;text-align:left}
-.fan-deck .fan{position:relative;width:156px;height:104px;flex:none}
-.fan-deck .fan img{position:absolute;left:50px;bottom:0;width:56px;height:84px;object-fit:cover;border-radius:2px;box-shadow:var(--shadow-pill);transform-origin:50% 130%}
-.fan-deck .fan img:nth-child(1){transform:rotate(-28deg)}.fan-deck .fan img:nth-child(2){transform:rotate(-14deg)}.fan-deck .fan img:nth-child(3){transform:rotate(0)}.fan-deck .fan img:nth-child(4){transform:rotate(14deg)}.fan-deck .fan img:nth-child(5){transform:rotate(28deg)}
-body.trio-anim .fan-deck .fan img{animation:fan-riffle 5s ease-in-out infinite}
-body.trio-anim .fan-deck .fan img:nth-child(1){--r:-28deg;animation-delay:0s}body.trio-anim .fan-deck .fan img:nth-child(2){--r:-14deg;animation-delay:.25s}body.trio-anim .fan-deck .fan img:nth-child(3){--r:0deg;animation-delay:.5s}body.trio-anim .fan-deck .fan img:nth-child(4){--r:14deg;animation-delay:.75s}body.trio-anim .fan-deck .fan img:nth-child(5){--r:28deg;animation-delay:1s}
-@keyframes fan-riffle{0%,70%,100%{transform:rotate(var(--r)) translateY(0)}78%{transform:rotate(var(--r)) translateY(-10px)}}
-.fan-deck .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-.fan-deck .copy .h{font-size:14px;font-weight:600}
-.fan-deck .copy .s{font-size:12px;color:var(--grey-4)}
-.fan-deck .chev{width:12px;height:12px;flex:none}
 .range-link{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:400;padding:4px 0;text-align:left}
 .range-link b{font-weight:600}
 .range-link .chev{width:12px;height:12px}
@@ -1147,7 +1136,6 @@ body.editing{padding-bottom:48px}
 <template id="tpl-09-3"><button class="piece-chips entry"><span class="chips"><span class="pc on"><img data-set="0" alt=""><span data-copy="e.09-3.a">Hoodie</span></span><span class="pc"><img data-set="1" alt=""><span data-copy="e.09-3.b">Joggers</span><i>+</i></span><span class="pc"><img data-set="2" alt=""><span data-copy="e.09-3.c">Tee</span><i>+</i></span></span><span class="foot"><span class="s" data-copy="e.09-3.s">Sold separately · same colour</span><span class="cta" data-copy="e.09-3.cta">SHOP THE SET</span></span></button></template>
 <template id="tpl-09-4"><button class="colourways entry"><span class="head"><span data-copy="e.09-4.h">This set in every colour</span><span class="cta" data-copy="e.09-4.cta">VIEW ALL</span></span><span class="scroller" data-colourways></span></button></template>
 <template id="tpl-09-5"><button class="addon entry"><img data-set="1" alt=""><span class="copy"><span class="h" data-copy="e.09-5.h">Add the matching joggers</span><span class="s" data-addon></span></span><span class="plus">+</span></button></template>
-<template id="tpl-09-6"><button class="fan-deck entry"><span class="fan"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="copy"><span class="h" data-copy="e.09-6.h">Part of a set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 <template id="tpl-09-7"><button class="range-link entry"><span>Also in <b><span data-colours></span> colours</b> · <b data-copy="e.09-7.b">matching set available</b></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 <template id="tpl-09-8"><button class="split-tile entry"><img data-set="0" alt=""><img data-set="1" alt=""><span class="cap"><span class="h" data-copy="e.09-8.h">Wear it with the joggers</span><span class="s" data-copy="e.09-8.s">Complete the look</span></span></button></template>
 <template id="tpl-07-6"><button class="price-banner bare entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07.whole">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
