@@ -3,6 +3,7 @@
 Master PDP prototype for the boohooMAN ask: **Shop The Look recommendations → Create The Look**, **advanced bundling → Shop The Set builder** on the Premium Essentials collection, **complete-the-look patterns** (Pairs well with, inline band, hotspot look), and **OOS notify me**. Packaged as a **configurator** stakeholders can drive themselves and export from.
 
 - **Configurator:** `index.html` (serve from repo root: `python3 -m http.server 3010`, assets need HTTP)
+- **Other fascias (live recreation):** `live.html?brand=debenhams|boohoo|plt|karenmillen|dorothyperkins|coast` — the brand chips in the configurator load it. Built by the shared **live-PDP module** (`live-pdp.css` + `live-pdp.js` + `brands-live.js`, assets under `assets/live/`), identical copies of which power the PDP in the Virtual Stylist prototype (jakerayner96/vto-prototype). It recreates what is live today (10 Sep 2026 captures): header + USP strips, gallery, buy block with edge-to-edge size row, membership box (Premier / Premier Club / Royalty / Debenhams Unlimited), Deliver+, delivery & returns, BNPL, recommendation grid + carousels, description, footer. No new-format or bundling options for those fascias — boohooMAN stays the configurable page.
 - **Page:** `pdp.html` — single file, no build. `data.js` = the live Premium Essentials catalogue (40 SKUs, 8 families).
 - **Repo:** github.com/jakerayner96/core-pdp-2026 · **Pages:** jakerayner96.github.io/core-pdp-2026
 

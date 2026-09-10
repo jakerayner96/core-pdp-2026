@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Live PDP</title>
+<link rel="stylesheet" href="live-pdp.css">
+<style>html,body{margin:0;background:#fff}</style>
+</head>
+<body>
+<!-- Live PDP recreation for the fascias that are not boohooMAN (whose live mode is pdp.html).
+     Shared module: live-pdp.css + live-pdp.js + brands-live.js — identical copies live in vto-prototype. -->
+<div id="root"></div>
+<script src="brands-live.js"></script>
+<script src="live-pdp.js"></script>
+<script>
+  var q = new URLSearchParams(location.search);
+  var brand = q.get('brand') || 'debenhams';
+  function show(b){
+    brand = LIVE_BRANDS[b] ? b : 'debenhams';
+    LivePDP.render(document.getElementById('root'), brand, { onAddToBag: function(){ var t = document.getElementById('toast'); t.textContent = 'Added to bag'; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1600); } });
+    document.title = 'Live PDP · ' + LIVE_BRANDS[brand].name;
+    if (parent !== window) parent.postMessage({ pdpCfg: 'live · ' + LIVE_BRANDS[brand].name + ' · ' + LIVE_BRANDS[brand].product.title, pdpState: { mode: 'live', brand: brand, live: true } }, '*');
+  }
+  addEventListener('message', function(e){ var d = e.data; if (!d) return; if (d.pdpSet && d.brand && d.brand !== brand && LIVE_BRANDS[d.brand]) show(d.brand); if (d.pdpPing) parent.postMessage({ pdpPong: d.pdpPing, h: document.documentElement.scrollHeight }, '*'); });
+  show(brand);
+  if (parent !== window) parent.postMessage({ pdpReady: 1 }, '*');
+</script>
+<div id="toast" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#000;color:#fff;padding:10px 16px;border-radius:99px;font:14px/1 system-ui;opacity:0;transition:.25s;pointer-events:none"></div>
+<style>#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}</style>
+</body>
+</html>

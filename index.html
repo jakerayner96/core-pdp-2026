@@ -107,6 +107,9 @@ a{color:var(--accent)}
 .foot .rm{font-size:11px}
 /* ---- mobile: the page fills the window; the same panel slides over it from a black settings tab ---- */
 #mtab,.mhead{display:none}
+.livenote{display:none}
+body.livebrand .livenote{display:block}
+body.livebrand .panel .card:not(.livenote),body.livebrand .panel .foot,body.livebrand .panel .sum,body.livebrand .editbtn,body.livebrand #mode{display:none}
 @media(max-width:760px){
   body{grid-template-columns:1fr;grid-template-rows:1fr}
   .top{display:none}
@@ -173,10 +176,7 @@ body.dragging iframe{pointer-events:none}
 <header class="top">
   <span class="ttl">PDP 2026 · boohooMAN</span>
   <div class="mid">
-    <span class="chips" id="brands">
-      <button class="chip on" data-b="boohooman">boohooMAN</button>
-      <button class="chip" disabled title="Not built yet">Debenhams</button><button class="chip" disabled title="Not built yet">boohoo</button><button class="chip" disabled title="Not built yet">PLT</button><button class="chip" disabled title="Not built yet">Karen Millen</button>
-    </span>
+    <span class="chips" id="brands"><button class="chip on" data-b="boohooman">boohooMAN</button><button class="chip" data-b="debenhams">Debenhams</button><button class="chip" data-b="boohoo">boohoo</button><button class="chip" data-b="plt">PLT</button><button class="chip" data-b="karenmillen">Karen Millen</button><button class="chip" data-b="dorothyperkins">Dorothy Perkins</button><button class="chip" data-b="coast">Coast</button></span>
     <span class="div"></span>
     <span class="seg" id="dev"><button data-w="0">Desktop</button><button data-w="390" class="on">Mobile</button></span>
     <select id="preset" aria-label="Width preset" title="Exact width — or drag the handle on the preview">
@@ -192,11 +192,12 @@ body.dragging iframe{pointer-events:none}
 <button id="mtab" aria-label="Open the configurator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
 <aside class="panel">
   <div class="mhead">
-    <span class="chips" id="brands-m"><button class="chip on">boohooMAN</button><button class="chip" disabled>Debenhams</button><button class="chip" disabled>boohoo</button><button class="chip" disabled>PLT</button><button class="chip" disabled>Karen Millen</button></span>
+    <span class="chips" id="brands-m"><button class="chip on" data-b="boohooman">boohooMAN</button><button class="chip" data-b="debenhams">Debenhams</button><button class="chip" data-b="boohoo">boohoo</button><button class="chip" data-b="plt">PLT</button><button class="chip" data-b="karenmillen">Karen Millen</button><button class="chip" data-b="dorothyperkins">Dorothy Perkins</button><button class="chip" data-b="coast">Coast</button></span>
     <button class="export" id="exportbtn2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 12.5h11"/></svg>Export</button>
     <button class="mclose" id="mclose" aria-label="Close">✕</button>
   </div>
   <div class="ph"><h1>Configure the PDP</h1><button class="editbtn" id="edittgl">Edit layout</button></div>
+  <div class="card livenote"><h3>Live recreation <span class="tag alt">read only</span></h3><p>This fascia shows today's production PDP rebuilt from the live site (10 Sep 2026): header and USP strips, gallery, buy block, membership box, Deliver+, delivery &amp; returns, BNPL, recommendation modules, description, footer. The new-format and bundling options are boohooMAN only for now — pick boohooMAN to configure them.</p><p>Same module (<b>live-pdp.js</b> · <b>brands-live.js</b>) powers the PDP under the Virtual Stylist prototype.</p></div>
 
   <div class="card"><h3>Pricing</h3><div class="sub">Figma Sale-Pricing-2026</div><div id="pricingopts"></div></div>
   <div class="card"><h3>Stock</h3><div id="stockopts"></div></div>
@@ -258,7 +259,8 @@ const SETVIEWS=[['large','Large cards'],['cards','Cards'],['compact','Compact th
 const STOCKS=[['in','In stock'],['size','Some sizes out'],['oos','Out of stock']];
 const ROWS=[[1,'1 row'],[2,'2 rows'],[3,'3 rows']];
 
-let FOLD=false;const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com'};
+let FOLD=false;const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com',dorothyperkins:'dorothyperkins.com',coast:'coastfashion.com'};
+let BRAND=new URLSearchParams(location.search).get('brand')||localStorage.getItem('pdp26-brand')||'boohooman';if(!DOMAIN[BRAND])BRAND='boohooman';
 let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'carousel',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,sizerec:true,srecIcon:'arrow',trioAnim:false,ptabs:false,pricing:'full',labels:false,setview:'cards',edit:false,removed:[]};
 const $=s=>document.querySelector(s);
 const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
@@ -313,7 +315,7 @@ function apply(){
   frame.style.width=w+'px';win.style.width=(w+16)+'px';
   const mobile=w<600;document.body.classList.toggle('fold',FOLD&&mobile);document.documentElement.style.setProperty('--k',(w/390).toFixed(4));
   document.querySelectorAll('#fold button').forEach(b=>{b.classList.toggle('on',(+b.dataset.f===1)===(FOLD&&mobile));b.disabled=!mobile;});
-  $('#urltxt').textContent=DOMAIN['boohooman'];
+  $('#urltxt').textContent=DOMAIN[BRAND];
   sizebox.textContent=`${Math.round(w)}px`;
   document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',(b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600)));
 }
@@ -338,8 +340,18 @@ $('#hr').addEventListener('pointerdown',e=>{
   addEventListener('pointermove',move);addEventListener('pointerup',up);
 });
 addEventListener('resize',apply);
-frame.addEventListener('load',()=>send());
-frame.src='pdp.html?brand=boohooman&mode=new&_='+Date.now(); // always a fresh copy of the page (Pages/browser cache bit us once)
+frame.addEventListener('load',()=>{if(BRAND==='boohooman')send();});
+function pageSrc(){return BRAND==='boohooman'?'pdp.html?brand=boohooman&mode='+CFG.mode+'&_='+Date.now():'live.html?brand='+BRAND+'&_='+Date.now();}
+/* Brand chips (Jake 10 Sep): boohooMAN = this configurator (pdp.html, live ⇄ new). Every other fascia = the shared live-PDP module (live.html) —
+   a recreation of what is live today, no new-format / bundling options, so the page controls hide. */
+function setBrand(b){BRAND=DOMAIN[b]?b:'boohooman';localStorage.setItem('pdp26-brand',BRAND);history.replaceState(null,'','?brand='+BRAND);
+  document.querySelectorAll('#brands .chip,#brands-m .chip').forEach(c=>c.classList.toggle('on',c.dataset.b===BRAND));
+  const live=BRAND!=='boohooman';document.body.classList.toggle('livebrand',live);
+  document.querySelector('.top .ttl').textContent='PDP 2026 · '+{boohooman:'boohooMAN',debenhams:'Debenhams',boohoo:'boohoo',plt:'PrettyLittleThing',karenmillen:'Karen Millen',dorothyperkins:'Dorothy Perkins',coast:'Coast'}[BRAND];
+  $('#exportbtn').disabled=live;$('#exportbtn').title=live?'Export is boohooMAN only for now':'Export full-page PNGs (mobile + desktop) and a zip of the code with this configuration';
+  frame.src=pageSrc();apply();}
+document.querySelectorAll('#brands .chip,#brands-m .chip').forEach(c=>c.onclick=()=>setBrand(c.dataset.b));
+setBrand(BRAND);
 renderPanel();apply();
 
 /* ---------- Export: full-page PNGs (390 + 1440) + zip of the code with this configuration baked in ---------- */
