@@ -1203,7 +1203,7 @@ body.editing{padding-bottom:48px}
 const q=new URLSearchParams(location.search);
 const PRE=window.PDP_PRESET||{}; // exported configuration (see index.html → Export)
 const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}};
-if(LS('pdp26-v')!==2){LS('pdp26-setview','compact');LS('pdp26-ptabs',true);LS('pdp26-v',2);} // 15 Sep defaults: compact set builder, product tabs on — applied once over anything an earlier session left in this browser
+if(LS('pdp26-v')!==3){LS('pdp26-setview','compact');LS('pdp26-ptabs',true);LS('pdp26-pricing','code');LS('pdp26-labels',false);LS('pdp26-v',3);} // 15 Sep defaults: compact set builder, product tabs on, markdown + code pricing, no card labels — applied once over anything an earlier session left in this browser
 const S={
   mode:q.get('mode')||PRE.mode||'new',          // live | new
   edit:false,                          // edit-layout mode (review tooling)
@@ -1218,7 +1218,7 @@ const S={
   glanceOff:PRE.glanceOff||LS('pdp26-glanceoff')||[], // hidden At a Glance items (indexes) // accordion default open/closed by block name
   trioAnim:PRE.trioAnim!=null?!!PRE.trioAnim:LS('pdp26-trioanim')===true,
   ptabs:PRE.ptabs!=null?!!PRE.ptabs:LS('pdp26-ptabs')!==false, // product tabs under the colours (on by default)
-  pricing:PRE.pricing||LS('pdp26-pricing')||'full', // full | markdown | code // on the product image: off | look (Create The Look) | set (Shop Sets) — exclusive // chip trio / fan deck shuffle animation (configurator toggle)
+  pricing:PRE.pricing||LS('pdp26-pricing')||'code', // full | markdown | code — code (markdown + code banner) is the fixed default since 15 Sep // on the product image: off | look (Create The Look) | set (Shop Sets) — exclusive // chip trio / fan deck shuffle animation (configurator toggle)
   srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger (size + hanger carry a small + badge)
   added:PRE.added||LS('pdp26-added')||[], // added modules: [{key,container,label}] — repeatable recs blocks created in edit mode
   copy:PRE.copy||LS('pdp26-copy')||{}, // edited copy: key → text (edit mode: tap any title/label/button caption)

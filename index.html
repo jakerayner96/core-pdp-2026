@@ -199,10 +199,9 @@ body.dragging iframe{pointer-events:none}
   <div class="ph"><h1>Configure the PDP</h1><button class="editbtn" id="edittgl">Edit layout</button></div>
   <div class="card livenote"><h3>Live recreation <span class="tag alt">read only</span></h3><p>This fascia shows today's production PDP rebuilt from the live site (10 Sep 2026): header and USP strips, gallery, buy block, membership box, Deliver+, delivery &amp; returns, BNPL, recommendation modules, description, footer. The new-format and bundling options are boohooMAN only for now — pick boohooMAN to configure them.</p><p>Same module (<b>live-pdp.js</b> · <b>brands-live.js</b>) powers the PDP under the Virtual Stylist prototype.</p></div>
 
-  <div class="card"><h3>Pricing</h3><div class="sub">Figma Sale-Pricing-2026</div><div id="pricingopts"></div></div>
   <div class="card"><h3>Stock</h3><div id="stockopts"></div></div>
   <div class="card"><h3>Size recommender</h3><div id="srecopts"></div><div class="sub second">Icon</div><div id="srecicon"></div></div>
-  <div class="card"><h3>Advanced bundling</h3><div class="sub">Entry point</div><div id="entryopts"></div><div class="sub second">Modal</div><div id="setviewopts"></div><div class="sub second">Size / Colour labels on cards</div><div id="labelopts"></div></div>
+  <div class="card"><h3>Advanced bundling</h3><div class="sub">Entry point</div><div id="entryopts"></div></div>
   <div class="card"><h3>Hero product tabs</h3><div class="sub">Pills under the colours — Zip Up Hoodie · Hoodie · 1/4 Zip… switch the whole PDP to that product in this colour</div><div id="ptabsopts"></div></div>
   <div class="card"><h3>Create the look</h3><div id="lookopts"></div></div>
   <div class="card"><h3>Handpicked For You</h3><div id="hpopts"></div></div>
@@ -245,18 +244,16 @@ const FMT_BUNDLE=[['nodata','Grey background'],['carousel','Carousel'],['grid','
 const FMT_RECS=[['carousel','Carousel'],['grid','Grid'],['off','Off']];
 const FMT_ADDED=[['carousel','Carousel'],['grid','Grid'],['nodata','Image carousel (grey)'],['inline','Complete The Look band'],['hot','Hotspot look'],['ms','Outfit list'],['collage','Flat-lay collage'],['off','Off']];
 const SREC=[[true,'On'],[false,'Off']];
-const PRICING=[['full','Full price'],['markdown','Markdown (was · -%)'],['code','Markdown + code banner (£ with code 40OFF)']];
+// Jake 15 Sep: pricing fixed to markdown + code banner, set builder fixed to compact thumbs, card labels fixed hidden — the controls are gone from the panel
 const PTABS=[[false,'Off'],[true,'On']];
 const TRIO_ANIM=[[false,'Static'],[true,'Shuffle']];const TRIO_ENTRIES=['07-4','07-5','07-6']; // entries that stack cards → animation toggle
 const SREC_ICON=[['arrow','Trend arrow'],['tape','Measuring tape'],['size','Size / garment +'],['hanger','Hanger +']];
-const LABELS=[[false,'Hidden'],[true,'Shown']];
-const SETVIEWS=[['large','Large cards'],['cards','Cards'],['compact','Compact thumbs']];
 const STOCKS=[['in','In stock'],['size','Some sizes out'],['oos','Out of stock']];
 const ROWS=[[1,'1 row'],[2,'2 rows'],[3,'3 rows']];
 
 let FOLD=false;const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com',dorothyperkins:'dorothyperkins.com',coast:'coastfashion.com'};
 let BRAND=new URLSearchParams(location.search).get('brand')||localStorage.getItem('pdp26-brand')||'boohooman';if(!DOMAIN[BRAND])BRAND='boohooman';
-let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'carousel',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,sizerec:true,srecIcon:'arrow',trioAnim:false,ptabs:true,pricing:'full',labels:false,setview:'compact',edit:false,removed:[]};
+let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'carousel',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,sizerec:true,srecIcon:'arrow',trioAnim:false,ptabs:true,pricing:'code',labels:false,setview:'compact',edit:false,removed:[]};
 const $=s=>document.querySelector(s);
 const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
 
@@ -283,7 +280,6 @@ function renderPanel(){
   if(TRIO_ENTRIES.includes(CFG.entry)){const opt=[...eh.querySelectorAll('.opt.on')][0];if(opt){const r=document.createElement('div');r.className='rows';opt.after(r);radios(r,TRIO_ANIM,()=>CFG.trioAnim,v=>CFG.trioAnim=v,true,'entry');}}
   if(CFG.entry==='06-1'){const opt=[...eh.querySelectorAll('.opt')].find(o=>o.textContent.trim().startsWith('Gallery end card'));if(opt){const r=document.createElement('div');r.className='rows';opt.after(r);radios(r,[[2,'Slide 2'],[3,'Slide 3'],[4,'Slide 4'],[5,'Slide 5']],()=>+CFG.endpos,v=>CFG.endpos=v,true,'entry');}}
   fmtCard($('#lookopts'),FMT_BUNDLE,'look');
-  radios($('#setviewopts'),SETVIEWS,()=>CFG.setview,v=>CFG.setview=v,false,'setview');
   fmtCard($('#hpopts'),FMT_RECS,'hp');
   fmtCard($('#wtylopts'),FMT_RECS,'wtyl');
   const ao=$('#accopts');ao.innerHTML='';(CFG.desc||[]).forEach(r=>{const row=document.createElement('div');row.className='arow'+(r.removed?' gone':'');
@@ -295,10 +291,8 @@ function renderPanel(){
   const ac=$('#addedcards');ac.innerHTML='';(CFG.added||[]).forEach(a=>{const card=document.createElement('div');card.className='card';card.innerHTML=`<h3>${a.label}</h3><div></div>`;ac.appendChild(card);fmtCard(card.lastElementChild,FMT_ADDED,a.key);});
   radios($('#stockopts'),STOCKS,()=>CFG.stock,v=>CFG.stock=v,false,'stock');
   radios($('#srecopts'),SREC,()=>CFG.sizerec,v=>CFG.sizerec=v,false,'sizerec');
-  radios($('#pricingopts'),PRICING,()=>CFG.pricing,v=>CFG.pricing=v,false,'price');
   radios($('#ptabsopts'),PTABS,()=>CFG.ptabs,v=>CFG.ptabs=v,false,'entry');
   radios($('#srecicon'),SREC_ICON,()=>CFG.srecIcon,v=>CFG.srecIcon=v,false,'sizerec');
-  radios($('#labelopts'),LABELS,()=>CFG.labels,v=>CFG.labels=v,false,'setview');
   $('#edittgl').classList.toggle('on',CFG.edit);$('#edittgl').textContent=CFG.edit?'Done editing':'Edit layout';
   $('#removedsum').innerHTML=CFG.removed.length?'Removed: '+CFG.removed.map(r=>`<s>${r.label}</s>`).join(', '):'';
   document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===CFG.mode));
