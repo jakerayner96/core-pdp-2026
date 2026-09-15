@@ -152,6 +152,7 @@ a{color:inherit;text-decoration:none}
 .title-row{display:flex;gap:8px;align-items:flex-start}
 .title-text{flex:1;display:flex;flex-direction:column;gap:4px}
 .brand{font-size:16px;font-weight:600}
+.mode-new .brand{display:none} /* Jake 15 Sep: MAN new format — product name only, no brand line */
 .pname{font-size:16px;font-weight:400}
 .mode-live .pname{font-weight:300}
 .wish{position:relative;width:44px;height:44px;flex:none;border-radius:99px;border:none;display:grid;place-items:center;background:#FFF;box-shadow:var(--shadow-pill);transition:transform .2s ease-out} /* production wishlist-button: 44, shadow 0 0 14px -4px */
@@ -566,6 +567,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .same-colour .sc .nm{font-size:11px;line-height:1.3;color:#000;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;height:2.6em}
 .same-colour .sc .pr{font-size:12px;font-weight:600}
 .same-colour .sc .qa,.set-sum .copy .qa,.recs.ms .row .qa{display:inline-flex;align-items:center;height:24px;padding:0 8px;margin-top:2px;background:#000;color:#FFF;border-radius:4px;font-size:11px;line-height:1;font-weight:600;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap} /* = PLP quick-add button (.pc-qa) */
+.same-colour .sc .qa{background:#FFF;color:#000;border:1px solid var(--grey-3)} /* Jake 15 Sep: no black fill on the same-colour carousel — white keyline button */
 .addon-set{display:flex;flex-direction:column;gap:12px;width:100%;text-align:left;cursor:pointer} /* Jake 09 Sep: 'Shop The Set' label (colour-label style) + the other pieces side by side as bag-format cards */
 .addon-set .cards{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
 .addon-set .cards::-webkit-scrollbar{display:none}
@@ -682,11 +684,11 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .recs.collage .btn.s{margin:12px var(--m) 0;width:auto}
 @media(min-width:1024px){.recs.collage .board{width:480px;margin:0 auto}.recs.collage .btn.s{width:480px;margin:12px auto 0;display:block}}
 /* master product tabs (Reiss-style, Jake 09 Sep): above the brand line, below the gallery pagination — switch the whole PDP to another piece of the set in this colour */
-.ptabs{display:flex;gap:24px;border-bottom:1px solid var(--grey-1);overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px;scroll-padding-right:16px} /* runs off the right edge (iceberg) so more tabs are visibly waiting */
+.ptabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px;scroll-padding-right:16px} /* runs off the right edge (iceberg) so more tabs are visibly waiting */
 @media(min-width:1024px){.ptabs{margin-right:calc(var(--m) * -1);padding-right:var(--m)}}
 .ptabs::-webkit-scrollbar{display:none}
-.ptabs button{padding:10px 0;font-size:14px;font-weight:400;color:var(--grey-4);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
-.ptabs button.on{color:#000;font-weight:600;border-bottom-color:#000}
+.ptabs button{flex:none;height:36px;padding:0 16px;border-radius:99px;background:var(--grey-05);border:1px solid var(--grey-1);font-size:14px;font-weight:400;color:#000;white-space:nowrap} /* Jake 15 Sep: solid pills (was an underline tab bar at the top of the buy block) */
+.ptabs button.on{background:#000;border-color:#000;color:#FFF;font-weight:600}
 /* M&S-style 'Shop the outfit' (Jake 09 Sep): look image with a white 'Shop the outfit · N items' pill, the pieces listed beneath as thumb / name / colour / price / Add; everything opens the Complete The Look modal */
 .recs.ms{background:#FFF;padding:16px 0}
 .recs.ms .rail-head{padding:0 var(--m)}
@@ -939,7 +941,6 @@ body.editing{padding-bottom:48px}
   </div>
 
   <div class="buy">
-    <div class="ptabs" id="ptabs" data-block="ptabs" data-label="Product tabs" role="tablist" hidden></div><!-- master toggle: switches the PDP to the joggers / tee / … in this colour (Jake 09 Sep) -->
     <div class="brand-product" data-block="title" data-label="Title &amp; wishlist">
       <div class="slot" id="slot-pill"></div>
       <div class="title-row">
@@ -955,18 +956,6 @@ body.editing{padding-bottom:48px}
     <div class="slot" id="slot-price"></div>
 
     <div class="icon-msg" id="nddmsg" data-block="ndd" data-label="Delivery promise"><img src="assets/bundling/icons/badge-nextday.svg" alt=""><span>Order in <b id="ndd">12 hrs 28 mins</b> for Next Day Delivery</span></div>
-
-      <div class="colour" data-block="colour" data-label="Colour">
-        <span class="colour-lbl">Colour: <b id="colourname">Washed Navy</b></span>
-        <div class="swatches" id="swatches"></div>
-      </div>
-
-      <div class="slot" id="slot-colour" data-block="entry" data-label="Set entry point"></div>
-
-      <div class="fit" data-block="fit" data-label="Body Fit">
-        <span class="lbl" data-copy="fit.lbl">Body Fit:</span>
-        <div class="size-btns"><button class="sz fitb on">Regular</button><button class="sz fitb">Tall</button></div>
-      </div>
 
       <div class="sizes" data-block="size" data-label="Size">
         <div class="size-head">
@@ -984,6 +973,22 @@ body.editing{padding-bottom:48px}
 
       <!-- Model line (Figma 753-16995): 14px, light with the height and size in semibold; 16px above and below (column gap) -->
       <p class="model" data-block="model" data-label="Model info" data-copy="srec.model">Model is <b>6’1”</b> and wearing <b>UK size M</b></p>
+
+      <div class="fit" data-block="fit" data-label="Body Fit">
+        <span class="lbl" data-copy="fit.lbl">Body Fit:</span>
+        <div class="size-btns"><button class="sz fitb on">Regular</button><button class="sz fitb">Tall</button></div>
+      </div>
+
+      <div class="colour" data-block="colour" data-label="Colour">
+        <span class="colour-lbl">Colour: <b id="colourname">Washed Navy</b></span>
+        <div class="swatches" id="swatches"></div>
+      </div>
+
+      <!-- Product tabs (Jake 15 Sep): pills under the colours — Zip Up Hoodie · Hoodie · 1/4 Zip… switch the whole PDP to that piece in this colour -->
+      <div class="ptabs" id="ptabs" data-block="ptabs" data-label="Product tabs" role="tablist" hidden></div>
+
+      <div class="slot" id="slot-colour" data-block="entry" data-label="Set entry point"></div>
+
 
       <div class="buyblock" data-block="buy" data-label="Buy buttons / notify me">
       <div class="buy-btns" id="buybtns">
@@ -1185,7 +1190,7 @@ body.editing{padding-bottom:48px}
 <template id="tpl-08-8"><button class="img-strip entry"><span class="row"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""></span><span class="cap"><span class="l"><span class="h" data-copy="e.08.h">Made To Match</span><span class="s" data-pieces></span></span><span class="cta" data-copy="e.08-8.cta">SHOP THE SET</span></span></button></template>
 <template id="tpl-09-1"><button class="range-strip entry"><span class="dots" data-setgrid></span><span class="copy"><span class="h"><span data-setcount></span> <span data-copy="e.09-1.h">pieces in</span> <span data-colourname></span></span><span class="s" data-copy="e.09-1.s">Shop the whole set in this colour</span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 <template id="tpl-09-2"><button class="set-sum entry"><span class="head"><span class="h" data-copy="e.09-2.h">Complete the set</span></span><span class="body"><span class="tiles"><img data-set="0" alt=""><i>+</i><img data-set="1" alt=""><i>+</i><img data-set="2" alt=""></span><span class="copy"><span class="s"><span data-count></span> <span data-copy="e.09-2.s">pieces together</span></span><span class="p" data-price></span><span class="qa" data-copy="e.09-2.cta">Add</span></span></span></button></template>
-<template id="tpl-09-3"><button class="same-colour entry"><span class="head"><span class="h"><span data-copy="e.09-3.h">Also in</span> <span data-colourname></span></span><span class="cta" data-copy="e.09-3.cta">SHOP THE SET</span></span><span class="scroller" data-samecolour></span></button></template>
+<template id="tpl-09-3"><button class="same-colour entry"><span class="head"><span class="h"><span data-copy="e.09-3.h">Also in</span> <span data-colourname></span></span><span class="cta" data-copy="e.09-3.cta">SHOP THE EDIT</span></span><span class="scroller" data-samecolour></span></button></template>
 <template id="tpl-09-5"><div class="addon-set entry" role="button" tabindex="0"><span class="colour-lbl"><b data-copy="e.09-5.h">Shop The Set</b></span><span class="cards" data-addon-cards></span></div></template>
 <template id="tpl-09-8"><button class="split-tile entry"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><span class="cap"><span class="h" data-copy="e.09-8.h">Wear it as a set</span><span class="s" data-copy="e.09-8.s">Complete the look</span></span></button></template>
 <template id="tpl-07-6"><button class="price-banner bare entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07.whole">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
@@ -1198,6 +1203,7 @@ body.editing{padding-bottom:48px}
 const q=new URLSearchParams(location.search);
 const PRE=window.PDP_PRESET||{}; // exported configuration (see index.html → Export)
 const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}};
+if(LS('pdp26-v')!==2){LS('pdp26-setview','compact');LS('pdp26-ptabs',true);LS('pdp26-v',2);} // 15 Sep defaults: compact set builder, product tabs on — applied once over anything an earlier session left in this browser
 const S={
   mode:q.get('mode')||PRE.mode||'new',          // live | new
   edit:false,                          // edit-layout mode (review tooling)
@@ -1211,7 +1217,7 @@ const S={
   accOpen:PRE.accOpen||LS('pdp26-acc')||{'acc-desc':true},
   glanceOff:PRE.glanceOff||LS('pdp26-glanceoff')||[], // hidden At a Glance items (indexes) // accordion default open/closed by block name
   trioAnim:PRE.trioAnim!=null?!!PRE.trioAnim:LS('pdp26-trioanim')===true,
-  ptabs:PRE.ptabs!=null?!!PRE.ptabs:LS('pdp26-ptabs')===true, // master product tabs above the brand line
+  ptabs:PRE.ptabs!=null?!!PRE.ptabs:LS('pdp26-ptabs')!==false, // product tabs under the colours (on by default)
   pricing:PRE.pricing||LS('pdp26-pricing')||'full', // full | markdown | code // on the product image: off | look (Create The Look) | set (Shop Sets) — exclusive // chip trio / fan deck shuffle animation (configurator toggle)
   srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger (size + hanger carry a small + badge)
   added:PRE.added||LS('pdp26-added')||[], // added modules: [{key,container,label}] — repeatable recs blocks created in edit mode
@@ -1281,11 +1287,13 @@ $('#arrR').onclick=()=>{const gal=$('#gal'),slides=visibleSlides();const w=slide
 
 const FAM_SINGULAR={'zip-hoodie':'Zip Up Hoodie','oth-hoodie':'Hoodie','quarter-zip':'1/4 Zip','sweatshirt':'Sweatshirt','ls-tee':'Long Sleeve Tee','tee':'T-Shirt','straight-jogger':'Straight Leg Jogger','wide-jogger':'Wide Leg Jogger'}; // tab = the single product, not the family
 function renderPTabs(){ // hero product tabs: every family with a piece in the hero's colour; the hero's family is active
-  const t=$('#ptabs');t.innerHTML='';const h=hero();
+  const t=$('#ptabs');const keep=t.scrollLeft;t.innerHTML='';const h=hero(); // keep: a re-render used to rebuild the bar at scrollLeft 0, so tapping a tab off to the right snapped the row back to the start
   if(!S.ptabs||S.mode!=='new'){t.hidden=true;return;}
   const pcs=FAM.map(f=>partner(f.id,h.colour)).filter(q=>q&&q.colour===h.colour);
   pcs.forEach(q=>{const f=FAM.find(x=>x.id===q.fam);const b=el(`<button role="tab" aria-selected="${q.fam===h.fam}" class="${q.fam===h.fam?'on':''}">${FAM_SINGULAR[q.fam]||(f&&f.label)||q.fam}</button>`);b.onclick=()=>{if(q.id===h.id)return;S.colour=q.id;S.size=null;S.notified=false;renderAll();};t.appendChild(b);});
   t.hidden=pcs.length<2;
+  t.scrollLeft=keep;
+  const on=t.querySelector('.on');if(on){const tr=t.getBoundingClientRect(),br=on.getBoundingClientRect();if(br.left<tr.left)t.scrollLeft+=br.left-tr.left;else if(br.right>tr.right-16)t.scrollLeft+=br.right-(tr.right-16);} // nudge only if the active pill is clipped
 }
 function renderSwatches(){
   const h=hero();const sw=$('#swatches');sw.innerHTML='';
@@ -1569,7 +1577,7 @@ function openSheet(kind,preselectId){
   document.body.style.overflow='hidden';
 }
 function closeSheet(){const sh=$('#sheet');sh.classList.remove('open');setTimeout(()=>{sh.hidden=true;document.body.style.overflow='';},250);}
-let SETVIEW=PRE.setview||LS('pdp26-setview')||'cards';
+let SETVIEW=PRE.setview||LS('pdp26-setview')||'compact'; // Jake 15 Sep: compact thumbs by default
 document.querySelectorAll('#setview button').forEach(bt=>bt.onclick=()=>{SETVIEW=bt.dataset.v;LS('pdp26-setview',SETVIEW);renderSheet();parent.postMessage({pdpState:{setview:SETVIEW}},'*');});
 const rowHasSel=r=>r.items.some(p=>SH.sel[p.id]);
 let JUST=null; // the item just tapped — only its tick animates on re-render (Jake 09 Sep)

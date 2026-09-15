@@ -203,7 +203,7 @@ body.dragging iframe{pointer-events:none}
   <div class="card"><h3>Stock</h3><div id="stockopts"></div></div>
   <div class="card"><h3>Size recommender</h3><div id="srecopts"></div><div class="sub second">Icon</div><div id="srecicon"></div></div>
   <div class="card"><h3>Advanced bundling</h3><div class="sub">Entry point</div><div id="entryopts"></div><div class="sub second">Modal</div><div id="setviewopts"></div><div class="sub second">Size / Colour labels on cards</div><div id="labelopts"></div></div>
-  <div class="card"><h3>Hero product tabs</h3><div class="sub">Above the brand line — Hoodie · Zip Up Hoodie · 1/4 Zip… switches the whole PDP to that product in this colour</div><div id="ptabsopts"></div></div>
+  <div class="card"><h3>Hero product tabs</h3><div class="sub">Pills under the colours — Zip Up Hoodie · Hoodie · 1/4 Zip… switch the whole PDP to that product in this colour</div><div id="ptabsopts"></div></div>
   <div class="card"><h3>Create the look</h3><div id="lookopts"></div></div>
   <div class="card"><h3>Handpicked For You</h3><div id="hpopts"></div></div>
   <div class="card"><h3>We Think You'll Like</h3><div id="wtylopts"></div></div>
@@ -237,13 +237,8 @@ body.dragging iframe{pointer-events:none}
 <div id="hidden"></div>
 
 <script>
-const ENTRIES=[ // listed in page order, top to bottom (Jake 09 Sep)
-  ['In the gallery',[['06-1','Gallery end card (last slide)']]],
-  ['Under the colours · grey boxes',[['03-1','Made To Match box (marquee + copy)'],['03-2','Equation strip (images + SHOP SETS)'],['07-2','Chip (More Sets Available · SHOP NOW)'],['09-2','Set sum card (a + b + c · total · add to bag)'],['09-3','Same-colour carousel (other pieces in this colour, add each)']]],
-  ['Under the colours · trio (stacked cards — Static / Shuffle)',[['07-4','Trio chip + copy (grey)'],['07-5','Trio banner + chevron (grey)'],['07-6','Trio banner, borderless']]],
-  ['Under the colours · image banners (no grey)',[['08-1','Overlay bottom-left'],['08-2','Overlay bottom-right'],['08-4','White pill'],['08-5','Centre band'],['08-7','Marquee row'],['08-8','Filmstrip + caption below']]],
-  ['Under the colours · no box',[['07-1','Anchor link (SHOP MATCHING SETS ›)'],['09-1','Set swatch grid (every piece in this colour)'],['09-5','Shop The Set cards (bag-card format, side by side)'],['09-8','Split tile (hoodie | joggers | tee)']]],
-  ['Under the pay box · large banners',[['04-1','2-up scroll'],['04-2','2×2 grid'],['04-3','3-up scroll'],['04-4','PLP slot + set carousel']]],
+const ENTRIES=[ // Jake 15 Sep: down to the two shortlisted entry points (the other templates are still in pdp.html)
+  ['Under the colours (after the product tabs)',[['03-1','Made To Match box (marquee + copy)'],['09-3','Same-colour carousel (other pieces in this colour · SHOP THE EDIT)']]],
   ['',[['none','None']]],
 ];
 const FMT_BUNDLE=[['nodata','Grey background'],['carousel','Carousel'],['grid','Grid'],['inline','Inline band'],['hot','Hotspot imagery'],['ms','Outfit list'],['collage','Flat-lay collage'],['off','Off']];
@@ -261,7 +256,7 @@ const ROWS=[[1,'1 row'],[2,'2 rows'],[3,'3 rows']];
 
 let FOLD=false;const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com',dorothyperkins:'dorothyperkins.com',coast:'coastfashion.com'};
 let BRAND=new URLSearchParams(location.search).get('brand')||localStorage.getItem('pdp26-brand')||'boohooman';if(!DOMAIN[BRAND])BRAND='boohooman';
-let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'carousel',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,sizerec:true,srecIcon:'arrow',trioAnim:false,ptabs:false,pricing:'full',labels:false,setview:'cards',edit:false,removed:[]};
+let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'carousel',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,sizerec:true,srecIcon:'arrow',trioAnim:false,ptabs:true,pricing:'full',labels:false,setview:'compact',edit:false,removed:[]};
 const $=s=>document.querySelector(s);
 const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
 
