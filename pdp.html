@@ -1220,7 +1220,7 @@ const S={
   ptabs:PRE.ptabs!=null?!!PRE.ptabs:LS('pdp26-ptabs')!==false, // product tabs under the colours (on by default)
   pricing:PRE.pricing||LS('pdp26-pricing')||'code', // full | markdown | code — code (markdown + code banner) is the fixed default since 15 Sep // on the product image: off | look (Create The Look) | set (Shop Sets) — exclusive // chip trio / fan deck shuffle animation (configurator toggle)
   srecDir:PRE.srecDir||LS('pdp26-srecdir')||'up', // recommender direction: up (fits small) | down (fits large) — swaps copy and icon
-  srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger (size + hanger carry a small + badge)
+  srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger (size + hanger carry a small ↑/↓ badge)
   added:PRE.added||LS('pdp26-added')||[], // added modules: [{key,container,label}] — repeatable recs blocks created in edit mode
   copy:PRE.copy||LS('pdp26-copy')||{}, // edited copy: key → text (edit mode: tap any title/label/button caption)
   labels:PRE.labels!==undefined?PRE.labels:(LS('pdp26-labels')!==null?LS('pdp26-labels'):false), // builder cards: show 'Size:' / 'Colour:' labels
@@ -1693,9 +1693,9 @@ function renderSizeGuide(){
 function openSizeGuide(){renderSizeGuide();const m=$('#sizeg');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';}
 document.querySelector('.size-guide').onclick=openSizeGuide;
 document.querySelectorAll('.fitb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fitb').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
-const SREC_ICONS={ // Jake 15 Sep: per direction — Up = increase arrow / + badges, Down = decrease arrow / − badges; the measuring tape is universal
-  up:{arrow:'assets/ds/icons/lib/icon-arrow-increase.svg',tape:'assets/ds/icons/lib/icons-measure.svg',size:'assets/icons/icons-size-plus.svg',hanger:'assets/icons/icons-hanger-plus.svg'},
-  down:{arrow:'assets/icons/icon-arrow-decrease.svg',tape:'assets/ds/icons/lib/icons-measure.svg',size:'assets/icons/icons-size-minus.svg',hanger:'assets/icons/icons-hanger-minus.svg'}};
+const SREC_ICONS={ // Jake 15 Sep: per direction — Up = increase arrow / ↑ badges, Down = decrease arrow / ↓ badges on the garment and hanger; the measuring tape is universal
+  up:{arrow:'assets/ds/icons/lib/icon-arrow-increase.svg',tape:'assets/ds/icons/lib/icons-measure.svg',size:'assets/icons/icons-size-up.svg',hanger:'assets/icons/icons-hanger-up.svg'},
+  down:{arrow:'assets/icons/icon-arrow-decrease.svg',tape:'assets/ds/icons/lib/icons-measure.svg',size:'assets/icons/icons-size-down.svg',hanger:'assets/icons/icons-hanger-down.svg'}};
 const SREC_COPY={up:['We recommend sizing up','Customers say this item fits too small'],down:['We recommend sizing down','Customers say this item fits too large']};
 if(!SREC_ICONS.up[S.srecIcon]){S.srecIcon='arrow';LS('pdp26-srecicon','arrow');}
 if(!SREC_COPY[S.srecDir]){S.srecDir='up';LS('pdp26-srecdir','up');}
