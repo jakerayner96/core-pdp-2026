@@ -1219,6 +1219,7 @@ const S={
   trioAnim:PRE.trioAnim!=null?!!PRE.trioAnim:LS('pdp26-trioanim')===true,
   ptabs:PRE.ptabs!=null?!!PRE.ptabs:LS('pdp26-ptabs')!==false, // product tabs under the colours (on by default)
   pricing:PRE.pricing||LS('pdp26-pricing')||'code', // full | markdown | code — code (markdown + code banner) is the fixed default since 15 Sep // on the product image: off | look (Create The Look) | set (Shop Sets) — exclusive // chip trio / fan deck shuffle animation (configurator toggle)
+  srecDir:PRE.srecDir||LS('pdp26-srecdir')||'up', // recommender direction: up (fits small) | down (fits large) — swaps copy and icon
   srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger (size + hanger carry a small + badge)
   added:PRE.added||LS('pdp26-added')||[], // added modules: [{key,container,label}] — repeatable recs blocks created in edit mode
   copy:PRE.copy||LS('pdp26-copy')||{}, // edited copy: key → text (edit mode: tap any title/label/button caption)
@@ -1316,7 +1317,7 @@ function renderPrice(){
   const was=md?Math.ceil(h.price*1.25):h.was, now=h.price;
   const sale=was&&was>now;
   r.appendChild(el(`<div class="price-vals"><span class="price-now ${sale?'sale':''}">${fmt(now)}</span>${sale?`<span class="price-was">${fmt(was)}</span>`:''}</div>`));
-  if(sale) r.appendChild(el(md?`<span class="pct">-${Math.round((1-now/was)*100)}%</span>`:`<span class="save">Save ${Math.round((1-now/was)*100)}%</span>`));
+  if(sale&&!md) r.appendChild(el(`<span class="save">Save ${Math.round((1-now/was)*100)}%</span>`)); // Jake 15 Sep: no -% badge on the new-format price — now · was · code line only
   if(md&&S.pricing==='code'){const code='40OFF';const cb=el(`<button class="code-line" aria-label="Copy code ${code}">${fmt(now*0.6)} with code: ${code}<i></i></button>`);cb.onclick=()=>{try{navigator.clipboard&&navigator.clipboard.writeText(code);}catch(e){}toast('Code '+code+' copied');};r.appendChild(cb);}
   if(S.stock==='oos'&&S.mode==='live') r.appendChild(el(`<span class="oos-lbl">Out of Stock</span>`));
 }
@@ -1682,7 +1683,7 @@ const SIZES_IN=[['XS','34–36','28–30','34–36'],['S','36–38','30–32','3
 let SG_IN=false;
 function renderSizeGuide(){
   const b=$('#sgbody');b.innerHTML='';
-  if(S.sizerec)b.appendChild(el(`<div class="srb"><img class="ic" src="${SREC_ICONS[S.srecIcon]||SREC_ICONS.arrow}" alt=""><span class="cp"><b>We recommend sizing up</b><span>Customers say this item fits too small</span></span></div>`));
+  if(S.sizerec)b.appendChild(el(`<div class="srb"><img class="ic" src="${srecSrc()}" alt=""><span class="cp"><b>${SREC_COPY[S.srecDir][0]}</b><span>${SREC_COPY[S.srecDir][1]}</span></span></div>`));
   const u=el(`<div class="units"><span>CM</span><button class="tg ${SG_IN?'in':''}" role="switch" aria-checked="${SG_IN}" aria-label="Show inches"><i></i></button><span>Inches</span></div>`);u.querySelector('.tg').onclick=()=>{SG_IN=!SG_IN;renderSizeGuide();};b.appendChild(u);
   b.appendChild(el(`<div class="ttl"><b>Men’s tops</b><span>Body measurements in ${SG_IN?'inches':'cm'}</span></div>`));
   const rows=(SG_IN?SIZES_IN:SIZES_CM).map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
@@ -1692,9 +1693,15 @@ function renderSizeGuide(){
 function openSizeGuide(){renderSizeGuide();const m=$('#sizeg');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';}
 document.querySelector('.size-guide').onclick=openSizeGuide;
 document.querySelectorAll('.fitb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fitb').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
-const SREC_ICONS={arrow:'assets/ds/icons/lib/icon-arrow-increase.svg',tape:'assets/ds/icons/lib/icons-measure.svg',size:'assets/icons/icons-size-plus.svg',hanger:'assets/icons/icons-hanger-plus.svg'}; // info variant retired 09 Sep
-if(!SREC_ICONS[S.srecIcon]){S.srecIcon='arrow';LS('pdp26-srecicon','arrow');}
-function applySrecIcon(){const src=SREC_ICONS[S.srecIcon]||SREC_ICONS.arrow;document.querySelectorAll('.srb img.ic').forEach(i=>{if(!i.src.endsWith(src))i.src=src;});}
+const SREC_ICONS={ // Jake 15 Sep: per direction — Up = increase arrow / + badges, Down = decrease arrow / − badges; the measuring tape is universal
+  up:{arrow:'assets/ds/icons/lib/icon-arrow-increase.svg',tape:'assets/ds/icons/lib/icons-measure.svg',size:'assets/icons/icons-size-plus.svg',hanger:'assets/icons/icons-hanger-plus.svg'},
+  down:{arrow:'assets/icons/icon-arrow-decrease.svg',tape:'assets/ds/icons/lib/icons-measure.svg',size:'assets/icons/icons-size-minus.svg',hanger:'assets/icons/icons-hanger-minus.svg'}};
+const SREC_COPY={up:['We recommend sizing up','Customers say this item fits too small'],down:['We recommend sizing down','Customers say this item fits too large']};
+if(!SREC_ICONS.up[S.srecIcon]){S.srecIcon='arrow';LS('pdp26-srecicon','arrow');}
+if(!SREC_COPY[S.srecDir]){S.srecDir='up';LS('pdp26-srecdir','up');}
+function srecSrc(){return SREC_ICONS[S.srecDir][S.srecIcon]||SREC_ICONS.up.arrow;}
+function applySrecIcon(){const src=srecSrc();document.querySelectorAll('.srb img.ic').forEach(i=>{if(!i.src.endsWith(src))i.src=src;});
+  const [h,sub]=SREC_COPY[S.srecDir];document.querySelectorAll('.srb .cp b').forEach(b=>{if(!(b.dataset.copy&&S.copy[b.dataset.copy]!=null))b.textContent=h;});document.querySelectorAll('.srb .cp span').forEach(x=>{if(!(x.dataset.copy&&S.copy[x.dataset.copy]!=null))x.textContent=sub;});} // edited copy (edit mode) still wins
 function descState(){const rows=[...document.querySelectorAll('.desc>[data-block]')].map(b=>({name:b.dataset.block,label:b.dataset.label,acc:b.classList.contains('acc'),open:!!S.accOpen[b.dataset.block],removed:false,glance:b.dataset.block==='glance'?[...document.querySelectorAll('.glance li[data-gl]')].map(li=>({i:+li.dataset.gl,text:li.textContent.trim(),off:S.glanceOff.includes(+li.dataset.gl)})):null}));S.removed.filter(r=>r.container==='desc').forEach(r=>rows.push({name:r.name,label:r.label,acc:r.name.startsWith('acc-'),open:!!S.accOpen[r.name],removed:true}));return rows;}
 addEventListener('message',e=>{const d=e.data;if(!d||!d.pdpDesc)return;const {op,name}=d.pdpDesc;const b=document.querySelector(`.desc>[data-block="${name}"]`);
   if(op==='toggle'){S.accOpen[name]=!S.accOpen[name];LS('pdp26-acc',S.accOpen);renderAll();flash(b);return;}
@@ -1764,7 +1771,7 @@ function renderAll(){
   renderEdit();applyCopy();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,trioAnim:S.trioAnim,ptabs:S.ptabs,pricing:S.pricing,desc:descState(),edit:S.edit,hero:hero().id}},'*');
+    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,srecDir:S.srecDir,trioAnim:S.trioAnim,ptabs:S.ptabs,pricing:S.pricing,desc:descState(),edit:S.edit,hero:hero().id}},'*');
 }
 
 /* ============================================================
@@ -1855,6 +1862,7 @@ addEventListener('message',e=>{
   if(d.endpos){S.endpos=+d.endpos;LS('pdp26-endpos',S.endpos);}
   if(typeof d.sizerec==='boolean'){S.sizerec=d.sizerec;LS('pdp26-sizerec',S.sizerec);}
   if(d.srecIcon){S.srecIcon=d.srecIcon;LS('pdp26-srecicon',S.srecIcon);}
+  if(d.srecDir){S.srecDir=d.srecDir;LS('pdp26-srecdir',S.srecDir);}
   if(typeof d.labels==='boolean'){S.labels=d.labels;LS('pdp26-labels',S.labels);}
   if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);if(!$('#sheet').hidden&&SH.kind==='set')renderSheet();}
   if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});LS('pdp26-added',[]);LS('pdp26-acc',{'acc-desc':true});LS('pdp26-glanceoff',[]);location.reload();return;}
