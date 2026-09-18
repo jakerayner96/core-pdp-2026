@@ -17,6 +17,23 @@ Dark Group-UX chrome. Layout/logic model = PayPal's Checkout demo: **window** co
 - **Export** (top left): renders full-page PNGs at 390 and 1440 via html2canvas and builds a zip: `config.json` (the decision record: mode, entry, stock, recs formats, set builder layout, block order, removed blocks), `pdp.html` with that configuration baked in as `window.PDP_PRESET`, `data.js`, `README.txt`, the two PNGs and every asset. Open the zipped `pdp.html` over HTTP and you see exactly what was exported.
 - State persists per browser (localStorage); the shell and the page keep each other in sync via postMessage.
 
+## Figma export — all screens, all states, as components (`NP51VuDk959arTzzTr9cBo`)
+
+https://www.figma.com/design/NP51VuDk959arTzzTr9cBo — built 18 Sep 2026 straight from the rendered DOM of `pdp.html` (Playwright → node tree → Figma Plugin API), so every frame is pixel-exact to the code at 390 and 1440: Montserrat, real product imagery, DS icons as components. Pages: **Screens — Mobile** / **Screens — Desktop** (19 states each: default, entry 09-3, entry off, OOS notify, some sizes OOS, size selected, recommender down/off, tabs off, six Shop The Look layouts, Pairs well with, look off, Handpicked grid, WTYL grid), **Overlays** (Shop The Set compact + cards, Complete The Look, Pairs well with, Size Guide, Added to Bag — `Device = Mobile / Desktop` variant sets), **Components — Mobile / Desktop** (one component per block; blocks with states are `State = …` variant sets), **Icons**, **README**.
+
+Regenerate after a code change (`python3 -m http.server 3010` in the repo root first):
+
+```
+PW=<path to playwright> node figma/extract.mjs 390 all && node figma/extract.mjs 1440 all   # DOM → figma/out/<width>/*.json
+node figma/build.mjs icons                    # SVG icon list → upload_assets → figma/chunks/icons.json
+node figma/build.mjs plan 390 --limit 34000   # → figma/chunks/390/components-*.js, overlays-*.js, manifest.json
+node figma/build.mjs plan 1440 --limit 34000
+node figma/build.mjs componentise "Components — Mobile"   # prints the use_figma code
+node figma/build.mjs screens 390 / 1440                    # assembles the screens from component instances
+```
+
+Each chunk is a self-contained `use_figma` script (runtime + data); run them in order on the named page, then componentise, then screens, then upload the `img: <file> · <fit>` placeholder rectangles with `upload_assets` and copy the image hashes to the same-named rectangles. `figma/out/` is derived and not committed.
+
 ## Figma source — Core PDP 2026 (`vVJJ1bgaTGCbGd68bsNiVT`)
 
 | Node | What | Used for |
