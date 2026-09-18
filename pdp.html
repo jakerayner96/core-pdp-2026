@@ -683,7 +683,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .recs.collage .chip .swl img{width:100%;height:100%;object-fit:cover}
 .recs.collage .btn.s{margin:12px var(--m) 0;width:auto}
 @media(min-width:1024px){.recs.collage .board{width:480px;margin:0 auto}.recs.collage .btn.s{width:480px;margin:12px auto 0;display:block}}
-/* master product tabs (Reiss-style, Jake 09 Sep): above the brand line, below the gallery pagination — switch the whole PDP to another piece of the set in this colour */
+/* master product tabs (Reiss-style, Jake 09 Sep; back at the top 18 Sep): first thing in the buy block, below the gallery pagination — switch the whole PDP to another piece of the set in this colour */
 .ptabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px;scroll-padding-right:16px} /* runs off the right edge (iceberg) so more tabs are visibly waiting */
 @media(min-width:1024px){.ptabs{margin-right:calc(var(--m) * -1);padding-right:var(--m)}}
 .ptabs::-webkit-scrollbar{display:none}
@@ -941,6 +941,9 @@ body.editing{padding-bottom:48px}
   </div>
 
   <div class="buy">
+    <!-- Product tabs (Jake 18 Sep): back at the top of the buy block, below the gallery pagination — Zip Up Hoodie · Hoodie · 1/4 Zip… pills switch the whole PDP to that piece in this colour -->
+    <div class="ptabs" id="ptabs" data-block="ptabs" data-label="Product tabs" role="tablist" hidden></div>
+
     <div class="brand-product" data-block="title" data-label="Title &amp; wishlist">
       <div class="slot" id="slot-pill"></div>
       <div class="title-row">
@@ -956,6 +959,12 @@ body.editing{padding-bottom:48px}
     <div class="slot" id="slot-price"></div>
 
     <div class="icon-msg" id="nddmsg" data-block="ndd" data-label="Delivery promise"><img src="assets/bundling/icons/badge-nextday.svg" alt=""><span>Order in <b id="ndd">12 hrs 28 mins</b> for Next Day Delivery</span></div>
+
+      <!-- Body Fit (Jake 18 Sep): above Size -->
+      <div class="fit" data-block="fit" data-label="Body Fit">
+        <span class="lbl" data-copy="fit.lbl">Body Fit:</span>
+        <div class="size-btns"><button class="sz fitb on">Regular</button><button class="sz fitb">Tall</button></div>
+      </div>
 
       <div class="sizes" data-block="size" data-label="Size">
         <div class="size-head">
@@ -974,21 +983,10 @@ body.editing{padding-bottom:48px}
       <!-- Model line (Figma 753-16995): 14px, light with the height and size in semibold; 16px above and below (column gap) -->
       <p class="model" data-block="model" data-label="Model info" data-copy="srec.model">Model is <b>6’1”</b> and wearing <b>UK size M</b></p>
 
-      <div class="fit" data-block="fit" data-label="Body Fit">
-        <span class="lbl" data-copy="fit.lbl">Body Fit:</span>
-        <div class="size-btns"><button class="sz fitb on">Regular</button><button class="sz fitb">Tall</button></div>
-      </div>
-
       <div class="colour" data-block="colour" data-label="Colour">
         <span class="colour-lbl">Colour: <b id="colourname">Washed Navy</b></span>
         <div class="swatches" id="swatches"></div>
       </div>
-
-      <!-- Product tabs (Jake 15 Sep): pills under the colours — Zip Up Hoodie · Hoodie · 1/4 Zip… switch the whole PDP to that piece in this colour -->
-      <div class="ptabs" id="ptabs" data-block="ptabs" data-label="Product tabs" role="tablist" hidden></div>
-
-      <div class="slot" id="slot-colour" data-block="entry" data-label="Set entry point"></div>
-
 
       <div class="buyblock" data-block="buy" data-label="Buy buttons / notify me">
       <div class="buy-btns" id="buybtns">
@@ -1006,6 +1004,9 @@ body.editing{padding-bottom:48px}
       </div>
 
       </div>
+
+      <!-- Set entry point (Jake 18 Sep): under the buy buttons, above Premier (was under the colours). Slot id kept — 01/03/07/08/09 templates mount here -->
+      <div class="slot" id="slot-colour" data-block="entry" data-label="Set entry point"></div>
 
       <div class="premier" data-block="premier" data-label="Premier"><div class="t"><img src="assets/bundling/premier-logo.png" alt="Premier"><span data-copy="premier.t">Enjoy unlimited delivery for an entire year from just £9.99</span></div><button class="add" data-copy="premier.cta">Add</button></div>
 
@@ -1203,7 +1204,7 @@ body.editing{padding-bottom:48px}
 const q=new URLSearchParams(location.search);
 const PRE=window.PDP_PRESET||{}; // exported configuration (see index.html → Export)
 const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}};
-if(LS('pdp26-v')!==3){LS('pdp26-setview','compact');LS('pdp26-ptabs',true);LS('pdp26-pricing','code');LS('pdp26-labels',false);LS('pdp26-v',3);} // 15 Sep defaults: compact set builder, product tabs on, markdown + code pricing, no card labels — applied once over anything an earlier session left in this browser
+if(LS('pdp26-v')!==4){LS('pdp26-setview','compact');LS('pdp26-ptabs',true);LS('pdp26-pricing','code');LS('pdp26-labels',false);LS('pdp26-order',{});LS('pdp26-v',4);} // 18 Sep: v4 also clears any saved block order so the new default (tabs top, entry point under the buttons) shows // 15 Sep defaults: compact set builder, product tabs on, markdown + code pricing, no card labels — applied once over anything an earlier session left in this browser
 const S={
   mode:q.get('mode')||PRE.mode||'new',          // live | new
   edit:false,                          // edit-layout mode (review tooling)
@@ -1217,7 +1218,7 @@ const S={
   accOpen:PRE.accOpen||LS('pdp26-acc')||{'acc-desc':true},
   glanceOff:PRE.glanceOff||LS('pdp26-glanceoff')||[], // hidden At a Glance items (indexes) // accordion default open/closed by block name
   trioAnim:PRE.trioAnim!=null?!!PRE.trioAnim:LS('pdp26-trioanim')===true,
-  ptabs:PRE.ptabs!=null?!!PRE.ptabs:LS('pdp26-ptabs')!==false, // product tabs under the colours (on by default)
+  ptabs:PRE.ptabs!=null?!!PRE.ptabs:LS('pdp26-ptabs')!==false, // product tabs at the top of the buy block (on by default)
   pricing:PRE.pricing||LS('pdp26-pricing')||'code', // full | markdown | code — code (markdown + code banner) is the fixed default since 15 Sep // on the product image: off | look (Create The Look) | set (Shop Sets) — exclusive // chip trio / fan deck shuffle animation (configurator toggle)
   srecDir:PRE.srecDir||LS('pdp26-srecdir')||'up', // recommender direction: up (fits small) | down (fits large) — swaps copy and icon
   srecIcon:PRE.srecIcon||LS('pdp26-srecicon')||'arrow', // recommender banner icon: arrow | tape | size | hanger (size + hanger carry a small ↑/↓ badge)
@@ -1523,7 +1524,7 @@ const WTYL=[
 /* ============================================================
    Entry points (new format only)
    ============================================================ */
-const SLOT={'01':'slot-colour','03':'slot-colour','04':'slot-rail','07':'slot-colour','08':'slot-colour','09':'slot-colour'}; // Jake 08 Sep: 03/07 sit directly under the colours; 04 large banners sit under the BNPL box
+const SLOT={'01':'slot-colour','03':'slot-colour','04':'slot-rail','07':'slot-colour','08':'slot-colour','09':'slot-colour'}; // Jake 18 Sep: slot-colour now sits under the buy buttons (was under the colours); 04 large banners sit under the BNPL box
 function renderEntry(){
   ['slot-pill','slot-price','slot-buttons','slot-colour','slot-rail'].forEach(id=>$('#'+id).innerHTML='');
   if(S.mode!=='new'||S.stock==='oos')return;
@@ -1877,7 +1878,7 @@ function flash(el){if(!el)return;el.scrollIntoView({behavior:'smooth',block:'cen
 var PENDING_FOCUS=null; // hoisted — renderAll runs before this line
 function doFocus(k){
   if(k==='setview'){if($('#sheet').hidden)openSheet('set');else renderSheet();return;}
-  if(k==='entry'){if(S.entry==='06-1'){const g=$('#gal');const ec=g.querySelector('.endcard');g.scrollIntoView({behavior:'smooth',block:'center'});if(ec){g.scrollTo({left:ec.offsetLeft,behavior:'smooth'});ec.classList.add('flash');setTimeout(()=>ec.classList.remove('flash'),1400);}else{g.scrollTo({left:g.scrollWidth,behavior:'smooth'});}return;} /* scroll the gallery to wherever the end card now sits */const slot=document.querySelector('#slot-colour .entry,#slot-rail .entry,#slot-buttons .entry');flash(slot?slot.closest('.slot'):$('.colour'));return;}
+  if(k==='entry'){if(S.entry==='06-1'){const g=$('#gal');const ec=g.querySelector('.endcard');g.scrollIntoView({behavior:'smooth',block:'center'});if(ec){g.scrollTo({left:ec.offsetLeft,behavior:'smooth'});ec.classList.add('flash');setTimeout(()=>ec.classList.remove('flash'),1400);}else{g.scrollTo({left:g.scrollWidth,behavior:'smooth'});}return;} /* scroll the gallery to wherever the end card now sits */const slot=document.querySelector('#slot-colour .entry,#slot-rail .entry,#slot-buttons .entry');flash(slot?slot.closest('.slot'):$('.buyblock'));return;}
   if(k==='look'){flash(S.fmt.look==='pairs'?$('#slot-buttons'):$('#recs-look'));return;}
   if(k==='hp'){flash($('#recs-hp'));return;}
   if(k==='wtyl'){flash($('#recs-wtyl'));return;}
