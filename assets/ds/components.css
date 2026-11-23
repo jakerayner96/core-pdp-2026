@@ -2972,8 +2972,8 @@ li[data-k="bf"]>.persona-row>i{background:var(--season-bf)}
    16 lib bell (icons-notification) · "You'll be notified when it's available" 12 / 16 strong, black · gap 1.5 (6px). The PDP, Shop The Set rows and Wishlist share the copy. */
 .ntf-note{display:flex;align-items:center;gap:var(--gap-1_5,6px);margin:0;font-size:12px;line-height:16px;font-weight:var(--w-strong);color:var(--text-primary)}
 .ntf-note::before{content:"";width:16px;height:16px;flex:none;background:var(--text-primary);-webkit-mask:url("icons/lib/icons-notification.svg") center/16px 16px no-repeat;mask:url("icons/lib/icons-notification.svg") center/16px 16px no-repeat}
-.ntf-note--size{position:relative;align-self:flex-end;max-width:100%;box-sizing:border-box;padding:8px 12px;background:var(--surface-sunken,#FAFAFA);border:1px solid var(--border-subtle,#E7E7E7);border-radius:var(--radius-default);font-weight:var(--w-regular)} /* under a size picker (Shop The Set): regular, in a box right aligned under the size it belongs to, nib pointing up at it */
-.ntf-note--size::after{content:"";position:absolute;top:-5px;right:var(--ntf-nib,20px);width:8px;height:8px;background:inherit;border-left:1px solid var(--border-subtle,#E7E7E7);border-top:1px solid var(--border-subtle,#E7E7E7);transform:rotate(45deg)}
+.ntf-note--size{align-self:flex-start;gap:0;font-size:10px;line-height:normal;font-weight:var(--w-regular);color:var(--text-secondary)} /* under a size picker (Shop The Set, Figma 1394:53193): a 10 caption (Mobile/micro) under the colour · price line, 2px down, left aligned — no bell, no box */
+.ntf-note--size::before{display:none}
 .ntf-legal a{color:inherit;text-decoration:underline}
 /* Wishlist modals layer (.wl-layer / --up: with the delivery, S&S, VS and bag layers above): leaving slides back down (fades on desktop) */
 .wl-layer>.mdl.mdl-anim-down{animation:mdldown .3s ease-in forwards}.wl-layer>.mdl.mdl-anim-fade-out{animation:mdlfadeout .3s ease-in forwards}

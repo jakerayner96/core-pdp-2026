@@ -900,7 +900,7 @@ body.pdp-oos .below{padding-top:8px}
 .crow .cs-grp{display:flex;flex-direction:column}
 .crow .cs .c--sw{display:inline-flex;align-items:center;gap:8px} /* DS PLP swatch (.pc-swatch, 20 rounded square) before the colour */
 .sheet .body.compact>.crow--colour:first-child{padding-top:4px} /* by colour: rows have no title */
-.crow .cs-grp .ntf-note--size{margin:2px 0 4px} /* DS boxed notified line, nib pointing up at its size */
+.crow .cs-grp .ntf-note--size{margin:-3px 0 4px} /* DS notified caption: 2px under the colour · price text */
 @media(max-width:767px){#sheet .panel{height:100%;border-radius:0}} /* Jake 23 Nov: the set builder is a full-page modal on mobile; guest Notify Me opens on top of it */
 /* second modal over the set builder (logged out): the DS Notify Me modal with the email field */
 .ntf-layer{z-index:90}
@@ -1648,7 +1648,6 @@ function renderSheet(){
   $('#sheettotal').textContent=fmt(ids.reduce((a,id)=>a+setNow(byId(id)),0));
   const btn=$('#sheetatb');btn.innerHTML=`<span data-copy="sheet.atb">Add to bag</span> (${ids.length})`;btn.disabled=!ids.length;
   b.scrollTop=keepScroll;applyCopy($('#sheet'));
-  b.querySelectorAll('.cs-grp').forEach(g=>{const v=g.querySelector('.sz-sel .v'),n=g.querySelector('.ntf-note--size');if(v&&n){const vr=v.getBoundingClientRect(),nr=n.getBoundingClientRect();n.style.setProperty('--ntf-nib',Math.round(nr.right-(vr.left+vr.width/2)-4)+'px');}}); // nib points at the middle of its size
 }
 $('#sheetatb').onclick=()=>{
   const buy=Object.keys(SH.sel).filter(id=>!SH.sel[id].notify);
