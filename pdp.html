@@ -1317,7 +1317,12 @@ function renderPTabs(){ // hero product tabs: every family with a piece in the h
   pcs.forEach(q=>{const f=FAM.find(x=>x.id===q.fam);const b=el(`<button role="tab" aria-selected="${q.fam===h.fam}" class="${q.fam===h.fam?'on':''}">${FAM_SINGULAR[q.fam]||(f&&f.label)||q.fam}</button>`);b.onclick=()=>{if(q.id===h.id)return;S.colour=q.id;S.size=null;S.notified=false;renderAll();};t.appendChild(b);});
   t.hidden=pcs.length<2;
   t.scrollLeft=keep;
-  const on=t.querySelector('.on');if(on){const tr=t.getBoundingClientRect(),br=on.getBoundingClientRect();if(br.left<tr.left)t.scrollLeft+=br.left-tr.left;else if(br.right>tr.right-16)t.scrollLeft+=br.right-(tr.right-16);} // nudge only if the active pill is clipped
+  const on=t.querySelector('.on');if(on){ // Jake 23 Nov: a tab tapped near either edge eases the row across (no jump) so it and the next tab both show
+    const tr=t.getBoundingClientRect(),br=on.getBoundingClientRect(),peek=56;let dx=0;
+    if(br.left<tr.left+peek)dx=br.left-(tr.left+peek);else if(br.right>tr.right-peek)dx=br.right-(tr.right-peek);
+    if(dx){const smooth=!matchMedia('(prefers-reduced-motion: reduce)').matches&&renderPTabs.ready;t.scrollTo({left:t.scrollLeft+dx,behavior:smooth?'smooth':'auto'});}
+  }
+  renderPTabs.ready=true;
 }
 function renderSwatches(){
   const h=hero();const sw=$('#swatches');sw.innerHTML='';
@@ -1694,11 +1699,11 @@ function openSizeGuide(){renderSizeGuide();const m=$('#sizeg');m.hidden=false;re
 document.querySelector('.size-guide').onclick=openSizeGuide;
 document.querySelectorAll('.fitb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fitb').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
 const SREC_COPY={up:['We recommend sizing up','Customers say this item fits too small'],down:['We recommend sizing down','Customers say this item fits too large']};
-/* DS Size recommender (.srec, 23 Nov): hanger (lib icons-hanger-size-up / -down, 1pt) or the fit scale (marker at Runs Small / Runs Large — never the middle) */
+/* DS Size recommender (.srec, 23 Nov): hanger (lib icons-hanger-badge-up / -down, 1pt) or the fit scale (marker at Runs Small / Runs Large — never the middle) */
 function srecHTML(){const up=S.srecDir!=='down',[h,sub]=SREC_COPY[up?'up':'down'];
   return S.srecStyle==='scale'
     ?`<div class="srec srec--scale ${up?'srec--small':'srec--large'}" role="note"><span class="srec-cp"><b>${h}</b><span>${sub}</span></span><span class="srec-bar" aria-hidden="true"><i></i></span><span class="srec-lbls"><span>Runs Small</span><span>True To Size</span><span>Runs Large</span></span></div>`
-    :`<div class="srec" role="note"><img class="srec-ic" src="assets/ds/icons/lib/icons-hanger-size-${up?'up':'down'}.svg" alt=""><span class="srec-cp"><b>${h}</b><span>${sub}</span></span></div>`;}
+    :`<div class="srec" role="note"><img class="srec-ic" src="assets/ds/icons/lib/icons-hanger-badge-${up?'up':'down'}.svg" alt=""><span class="srec-cp"><b>${h}</b><span>${sub}</span></span></div>`;}
 
 function descState(){const rows=[...document.querySelectorAll('.desc>[data-block]')].map(b=>({name:b.dataset.block,label:b.dataset.label,acc:b.classList.contains('acc'),open:!!S.accOpen[b.dataset.block],removed:false,glance:b.dataset.block==='glance'?[...document.querySelectorAll('.glance li[data-gl]')].map(li=>({i:+li.dataset.gl,text:li.textContent.trim(),off:S.glanceOff.includes(+li.dataset.gl)})):null}));S.removed.filter(r=>r.container==='desc').forEach(r=>rows.push({name:r.name,label:r.label,acc:r.name.startsWith('acc-'),open:!!S.accOpen[r.name],removed:true}));return rows;}
 addEventListener('message',e=>{const d=e.data;if(!d||!d.pdpDesc)return;const {op,name}=d.pdpDesc;const b=document.querySelector(`.desc>[data-block="${name}"]`);
