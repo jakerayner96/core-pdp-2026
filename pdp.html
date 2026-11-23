@@ -618,7 +618,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .scard .im{position:relative;aspect-ratio:170/255;overflow:hidden;background:var(--surface-media);cursor:pointer;transition:opacity .15s}
 .scard .im img{width:100%;height:100%;object-fit:cover}
 .scard.on .im{box-shadow:var(--shadow-pill)}
-.scard .im::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px var(--border-subtle,#E7E7E7);pointer-events:none}.scard.on .im::after{box-shadow:inset 0 0 0 1px #000,inset 0 0 0 2px #FFF} /* same selected look as the tiles, no checkbox */
+.scard .im::after{content:"";position:absolute;inset:0;pointer-events:none}.scard.on .im::after{box-shadow:inset 0 0 0 1px #000,inset 0 0 0 2px #FFF} /* same selected look as the tiles, no checkbox */
 .scard .pr{display:flex;flex-wrap:wrap;gap:4px 8px;font-size:14px;align-items:center}
 .scard .pr .now{font-weight:600}
 .scard .pr .now.sale{color:var(--red)}
@@ -767,7 +767,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .th::-webkit-scrollbar{display:none}
 .crow .th button{flex:0 0 84px;width:84px;height:126px;padding:0;border:none;background:var(--grey-05);overflow:hidden;position:relative} /* 2:3 tiles */
 .crow .th button img{width:100%;height:100%;object-fit:cover}
-.crow .th button::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--border-subtle,#E7E7E7);pointer-events:none}
+.crow .th button::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none} /* Jake 23 Nov: no outline until picked */
 .crow .th button.on::after{box-shadow:inset 0 0 0 1px #000,inset 0 0 0 2px #FFF}
 /* Jake 23 Nov (Figma 1375:51992): no checkboxes — a picked tile grows 4px (84×126 → 88×132, still 2:3) with a 1px black outline + 1px white line inside; tiles 4px apart, centred in the row */
 .crow .th{align-items:center;min-height:132px}
@@ -1374,12 +1374,12 @@ function renderBuy(){
   const show=st!=='gone'&&selOOS; // restocking product or an out-of-stock size: the notify box shows once a size is picked (Jake 23 Nov)
   $('#buybtns').hidden=show||st!=='in';
   const n=$('#notify');n.hidden=!show;const done=S.notified;
-  n.querySelector('.ntf-h').hidden=done;n.querySelectorAll('[data-guest]').forEach(x=>x.hidden=done||S.login);$('#nbtn').hidden=done;$('#nnote').hidden=!done;
+  n.querySelector('.ntf-h').hidden=done;n.querySelectorAll('[data-guest]').forEach(x=>x.hidden=done||knownEmail());$('#nbtn').hidden=done;$('#nnote').hidden=!done;
   const cb=$('#ncb');cb.classList.toggle('on',S.consent);cb.setAttribute('aria-checked',S.consent);
 }
 $('#ncb').onclick=()=>{S.consent=!S.consent;renderBuy();};
 /* logged in: NOTIFY ME sets the alert straight away (no email to enter) · logged out: email + consent first */
-$('#nbtn').onclick=()=>{if(!S.login){const f=$('#nemail'),v=f.value.trim();f.closest('.fld').classList.toggle('invalid',!/.+@.+\..+/.test(v));if(!/.+@.+\..+/.test(v)){toast('Enter a valid email address');f.focus();return;}if(!S.consent){toast('Tick the box to consent');return;}}S.notified=true;renderBuy();};
+$('#nbtn').onclick=()=>{if(!knownEmail()){const f=$('#nemail'),v=f.value.trim();f.closest('.fld').classList.toggle('invalid',!/.+@.+\..+/.test(v));if(!/.+@.+\..+/.test(v)){toast('Enter a valid email address');f.focus();return;}if(!S.consent){toast('Tick the box to consent');return;}setNtfEmail(v);}S.notified=true;renderBuy();};
 $('#atbbtn').onclick=()=>{if(!S.size){toast('Select a size');return;}openATB([{p:hero(),size:S.size}]);};
 
 /* ============================================================
@@ -1569,10 +1569,14 @@ const SET_SIZES=ALL_SIZES;
 function sizeLine(p){const st=SH.sel[p.id]||{},have=sizesOf(p);
   const v=st.size?(st.notify?st.size+' - Notify Me':st.size):'Select size'; // Jake 23 Nov: an out-of-stock pick reads "3XL - Notify Me", same as its option
   return `<label class="sz-sel"><span>Size:</span><span class="v ${st.size?'set':''} ${st.err?'err':''}">${v}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""><select aria-label="Size for ${p.name}, ${p.colour}"><option value="">Select size</option>${SET_SIZES.map(z=>{const ok=have.includes(z);return `<option value="${z}"${st.size===z?' selected':''}${ok?'':' class="nm"'}>${ok?z:z+' - Notify Me'}</option>`;}).join('')}</select></label>`;}
+/* Jake 23 Nov: a guest gives their email once — it's kept for the session (sessionStorage) and used for every Notify Me after, on any product: no modal, no email field */
+let NTF_EMAIL=(()=>{try{return sessionStorage.getItem('pdp26-ntf-email')}catch(e){return null}})();
+function setNtfEmail(v){NTF_EMAIL=v||null;try{v?sessionStorage.setItem('pdp26-ntf-email',v):sessionStorage.removeItem('pdp26-ntf-email')}catch(e){}}
+const knownEmail=()=>!!S.login||!!NTF_EMAIL;
 function pickSize(p,z){
   if(!z){SH.sel[p.id]={size:null};renderSheet();return;}
   if(sizesOf(p).includes(z)){SH.sel[p.id]={size:z};renderSheet();return;}
-  if(S.login){SH.sel[p.id]={size:z,notify:true};renderSheet();return;}
+  if(knownEmail()){SH.sel[p.id]={size:z,notify:true};renderSheet();return;} // logged in, or a guest who already gave an email this session → no modal
   SH.sel[p.id]={size:z,notify:true,pending:true};renderSheet();
   openNotify(p,z,ok=>{if(!SH.sel[p.id])return;if(ok)delete SH.sel[p.id].pending;else SH.sel[p.id]={size:null};renderSheet();});}
 function wireSize(node,p){const sel=node.querySelector('.sz-sel select');if(sel){sel.onclick=e=>e.stopPropagation();sel.onchange=()=>pickSize(p,sel.value);}}
@@ -1656,7 +1660,7 @@ function openNotify(p,z,done){
   L.querySelectorAll('[data-nx]').forEach(b=>b.onclick=()=>close(false));
   chk.onclick=()=>{const on=!chk.classList.contains('on');chk.classList.toggle('on',on);chk.setAttribute('aria-checked',on);};
   L.querySelector('[data-nok]').onclick=()=>{const v=inp.value.trim(),ok=/.+@.+\..+/.test(v);inp.closest('.fld').classList.toggle('invalid',!ok);
-    if(!ok){toast('Enter a valid email address');inp.focus();return;}if(!chk.classList.contains('on')){toast('Tick the box to consent');return;}close(true);};
+    if(!ok){toast('Enter a valid email address');inp.focus();return;}if(!chk.classList.contains('on')){toast('Tick the box to consent');return;}setNtfEmail(v);close(true);};
   setTimeout(()=>inp.focus({preventScroll:true}),320);
 }
 /* Complete The Look modal (hotspot format): each piece can switch colour within its family and pick a size; Add all */
@@ -1866,7 +1870,7 @@ function renderEdit(){
 }
 addEventListener('message',e=>{
   const d=e.data;if(!d||!d.pdpSet)return;
-  if(typeof d.login==='boolean'){S.login=d.login;LS('pdp26-login',S.login);S.notified=false;}
+  if(typeof d.login==='boolean'){S.login=d.login;LS('pdp26-login',S.login);S.notified=false;setNtfEmail(null);}
   if(d.srecStyle){S.srecStyle=d.srecStyle==='scale'?'scale':'hanger';LS('pdp26-srecstyle',S.srecStyle);}
   if(d.srecDir){S.srecDir=d.srecDir==='down'?'down':'up';LS('pdp26-srecdir',S.srecDir);}
   if(d.scene){scene(d.scene);return;}
@@ -1877,13 +1881,14 @@ addEventListener('message',e=>{
 const HERO_ID='CMM29598';
 function closeAll(){document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');sh.hidden=true;});document.querySelectorAll('.ntf-layer').forEach(x=>x.remove());$('#pick').hidden=true;document.body.style.overflow='';}
 function scene(k){
-  closeAll();
+  closeAll();setNtfEmail(null); // every scene starts as a fresh session (no guest email yet) — set-notify-again sets one
   const pdp=id=>{S.colour=id||HERO_ID;S.size=null;S.notified=false;renderAll();scrollTo({top:0,behavior:'auto'});};
   if(k==='pdp'){pdp();return;}
   if(k==='tabs'){pdp();setTimeout(()=>flash($('#ptabs')),60);return;}
   if(k==='srec'){pdp();setTimeout(()=>flash($('#sizerec')),60);return;}
   if(k==='set'){pdp();openSheet('set');return;}
   if(k==='set-notify'){pdp();const t=byId('CMM29620');openSheet('set',t.id);setTimeout(()=>{pickSize(t,'M');const tr=[...document.querySelectorAll('#sheetbody .crow')].find(r=>/T-Shirt/i.test(r.querySelector('.lbl').textContent));if(tr)$('#sheetbody').scrollTo({top:tr.offsetTop-80,behavior:'smooth'});},320);return;}
+  if(k==='set-notify-again'){pdp();setNtfEmail('name@example.com');const t=byId('CMM29620'),h=hero();openSheet('set',t.id);setTimeout(()=>{pickSize(t,'M');pickSize(h,'3XL');$('#sheetbody').scrollTo({top:0,behavior:'smooth'});},320);return;} // guest, email already given on the tee → the hoodie's 3XL alert is set with no modal
   if(k==='look'){pdp();setTimeout(()=>flash($('#recs-look')),60);return;}
   if(k==='oos-gone'){pdp('CMM29657');return;}
   if(k==='oos-restock'){pdp('CMM29620');return;}

@@ -18,6 +18,7 @@ The options are gone: the page is what was decided, the left panel is a **showca
 | `srec` | Size recommender (DS `.srec`): hanger (`icons-hanger-size-up/-down`) or fit scale (`.srec--scale`, marker at Runs Small / Runs Large, never the middle) |
 | `set` | Shop The Set (Figma 1319:20398): Made To Match → compact set builder; the size is a **native select** |
 | `set-notify` | An out-of-stock size reads **“M - Notify Me”**. Logged in: the row says “You’ll be notified when it’s available” (DS `.ntf-note`) straight away. Logged out: the DS **Notify Me** modal opens over the set builder with the email field. A notify pick stays ticked but isn’t counted in the total / Add to bag |
+| `set-notify-again` | Guest who already gave an email this session (on any product): the email is kept (sessionStorage) and used for every later Notify Me — no modal in Shop The Set, no email field on the PDP. Shown on the zip hoodie in **“3XL - Notify Me”** after the tee in M |
 | `look` | Shop The Look: a normal recs carousel of the pieces in the product image (DS Product carousel); a tap opens that product’s PDP (in the colour its swatch shows) |
 | `oos-gone` | Out of stock, not being reordered (Figma 1368:47272) — Washed Navy Wide Leg Jogger: name · price · **Out Of Stock**, then an endless grid of similar items |
 | `oos-restock` | Out of stock, being reordered (Figma 1368:47445) — Washed Navy T-Shirt: every size carries the bell |
