@@ -898,7 +898,7 @@ body.pdp-oos .below{padding-top:8px}
 .crow .cs .sz-sel select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px;-webkit-appearance:none;appearance:none}
 .crow .cs .sz-sel select option.nm{color:#767676}
 .crow .cs-grp{display:flex;flex-direction:column}
-.crow .cs-grp .ntf-note{padding:0 4px 4px;margin-top:-4px} /* hangs off its size select */
+.crow .cs-grp .ntf-note--size{margin:2px 0 4px} /* DS boxed notified line, nib pointing up at its size */
 @media(max-width:767px){#sheet .panel{height:100%;border-radius:0}} /* Jake 23 Nov: the set builder is a full-page modal on mobile; guest Notify Me opens on top of it */
 /* second modal over the set builder (logged out): the DS Notify Me modal with the email field */
 .ntf-layer{z-index:90}
@@ -1567,7 +1567,7 @@ const setPrice=p=>`<span class="now sale">${fmt(setNow(p))}</span><span class="w
    A notify pick stays ticked but is not counted in the total or Add to bag. */
 const SET_SIZES=ALL_SIZES;
 function sizeLine(p){const st=SH.sel[p.id]||{},have=sizesOf(p);
-  const v=st.size?st.size:'Select size';
+  const v=st.size?(st.notify?st.size+' - Notify Me':st.size):'Select size'; // Jake 23 Nov: an out-of-stock pick reads "3XL - Notify Me", same as its option
   return `<label class="sz-sel"><span>Size:</span><span class="v ${st.size?'set':''} ${st.err?'err':''}">${v}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""><select aria-label="Size for ${p.name}, ${p.colour}"><option value="">Select size</option>${SET_SIZES.map(z=>{const ok=have.includes(z);return `<option value="${z}"${st.size===z?' selected':''}${ok?'':' class="nm"'}>${ok?z:z+' - Notify Me'}</option>`;}).join('')}</select></label>`;}
 function pickSize(p,z){
   if(!z){SH.sel[p.id]={size:null};renderSheet();return;}
@@ -1629,6 +1629,7 @@ function renderSheet(){
   $('#sheettotal').textContent=fmt(ids.reduce((a,id)=>a+setNow(byId(id)),0));
   const btn=$('#sheetatb');btn.innerHTML=`<span data-copy="sheet.atb">Add to bag</span> (${ids.length})`;btn.disabled=!ids.length;
   b.scrollTop=keepScroll;applyCopy($('#sheet'));
+  b.querySelectorAll('.cs-grp').forEach(g=>{const v=g.querySelector('.sz-sel .v'),n=g.querySelector('.ntf-note--size');if(v&&n){const vr=v.getBoundingClientRect(),nr=n.getBoundingClientRect();n.style.setProperty('--ntf-nib',Math.round(nr.right-(vr.left+vr.width/2)-4)+'px');}}); // nib points at the middle of its size
 }
 $('#sheetatb').onclick=()=>{
   const buy=Object.keys(SH.sel).filter(id=>!SH.sel[id].notify);
