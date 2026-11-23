@@ -1334,7 +1334,7 @@ function renderSwatches(){
   const h=hero();const sw=$('#swatches');sw.innerHTML='';
   fam(h.fam).forEach(p=>{
     const b=el(`<button class="sw ${p.id===h.id?'on':''}" title="${p.colour}" aria-label="${p.colour}"><img src="${p.img}" alt=""></button>`);
-    b.onclick=()=>{S.colour=p.id;S.size=null;S.notified=false;renderAll();};
+    b.onclick=()=>{S.colour=p.id;S.notified=false;renderAll();}; // Jake 23 Nov: same product, another colour → keep the size you picked
     sw.appendChild(b);
   });
   $('#colourname').textContent=h.colour;
@@ -1544,10 +1544,10 @@ function sheetRows(kind){
   return S.rows.map(f=>{const F=FAM.find(x=>x.id===f);return F?{label:F.label,items:sortByColour(fam(f).filter(p=>stockOf(p)!=='gone'),h.colour)}:null;}).filter(Boolean); // not being reordered → not in the set builder
 }
 function openSheet(kind,preselectId){
-  SH={kind,rows:sheetRows(kind),sel:{},view:{}};
+  SH={kind,rows:sheetRows(kind),sel:{},view:{},famSize:S.size?{[hero().fam]:S.size}:{}}; // a size picked on the PDP comes with you
   const all=SH.rows.flatMap(r=>r.items);
-  if(all.find(p=>p.id===hero().id))SH.sel[hero().id]={size:null}; // the product you came from is ticked on open (Figma)
-  [].concat(preselectId||[]).forEach(id=>{if(all.find(p=>p.id===id))SH.sel[id]={size:null};}); // one id or a list
+  if(all.find(p=>p.id===hero().id))SH.sel[hero().id]=autoSize(hero()); // the product you came from is ticked on open (Figma)
+  [].concat(preselectId||[]).forEach(id=>{const q=all.find(p=>p.id===id);if(q)SH.sel[id]=autoSize(q);}); // one id or a list
   const st=$('#sheettitle');st.dataset.copy='sheet.'+kind;st.textContent=S.copy['sheet.'+kind]||(kind==='look'?'Shop The Look':'Shop The Set');
   renderSheet();
   const sh=$('#sheet');sh.hidden=false;requestAnimationFrame(()=>sh.classList.add('open'));
@@ -1558,7 +1558,11 @@ let SETVIEW=PRE.setview||LS('pdp26-setview')||'compact'; // Jake 15 Sep: compact
 document.querySelectorAll('#setview button').forEach(bt=>bt.onclick=()=>{SETVIEW=bt.dataset.v;LS('pdp26-setview',SETVIEW);renderSheet();parent.postMessage({pdpState:{setview:SETVIEW}},'*');});
 const rowHasSel=r=>r.items.some(p=>SH.sel[p.id]);
 let JUST=null; // the item just tapped — only its tick animates on re-render (Jake 09 Sep)
-function toggleSel(p){if(SH.sel[p.id])delete SH.sel[p.id];else SH.sel[p.id]={size:null};JUST=p.id;renderSheet();JUST=null;}
+function toggleSel(p){if(SH.sel[p.id])delete SH.sel[p.id];else SH.sel[p.id]=autoSize(p);JUST=p.id;renderSheet();JUST=null;}
+/* Jake 23 Nov: a size you've already picked for this product carries over to every other colour you tick — you only change it if you want to.
+   In stock → set · out of stock → a Notify Me alert if we already have your email (logged in / given this session), else left for you to pick (no surprise modal). */
+function autoSize(p){const z=SH.famSize&&SH.famSize[p.fam];if(!z)return {size:null};
+  if(sizesOf(p).includes(z))return {size:z};return knownEmail()?{size:z,notify:true}:{size:null};}
 const SET_OFF=0.2; // bundle incentive shown in the builder: 20% off each piece
 const setNow=p=>Math.round(p.price*(1-SET_OFF)*100)/100;
 const setPrice=p=>`<span class="now sale">${fmt(setNow(p))}</span><span class="was">${fmt(p.price)}</span>`;
@@ -1575,6 +1579,7 @@ function setNtfEmail(v){NTF_EMAIL=v||null;try{v?sessionStorage.setItem('pdp26-nt
 const knownEmail=()=>!!S.login||!!NTF_EMAIL;
 function pickSize(p,z){
   if(!z){SH.sel[p.id]={size:null};renderSheet();return;}
+  (SH.famSize=SH.famSize||{})[p.fam]=z; // remembered for the other colours of this product
   if(sizesOf(p).includes(z)){SH.sel[p.id]={size:z};renderSheet();return;}
   if(knownEmail()){SH.sel[p.id]={size:z,notify:true};renderSheet();return;} // logged in, or a guest who already gave an email this session → no modal
   SH.sel[p.id]={size:z,notify:true,pending:true};renderSheet();
