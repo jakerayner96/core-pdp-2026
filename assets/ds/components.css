@@ -883,8 +883,8 @@ a.hd-usp:hover .usp-t{text-decoration:underline;text-underline-offset:2px}
 /* Size recommender (.srec, 23 Nov 2026 — Core PDP 2026, Figma 1340:20272): under the size buttons, one direction only (sizing up = runs small, sizing down = runs large).
    Box: --surface-sunken, radius --radius-default · title 14 strong · line 12 regular, black (never grey).
    .srec (Icon):  24 lib hanger with the 1pt ↑ / ↓ badge (icons-hanger-badge-up / -down) · padding 12 · gap 3 (12px) · min height 58.
-   .srec--scale (Fit scale, the alternative): copy, then a 4px --border-subtle track with a black 28% marker centred halfway between the middle and the end the item runs to
-   (.srec--small = 25%, .srec--large = 75% — never the middle, never the edge) and Runs Small · True To Size · Runs Large under it (12, the marked end strong) · padding 16 · gap 3 (12px). */
+   .srec--scale (Fit scale, the alternative): copy, then a 4px --border-subtle track with a black 62px marker 50px in from the end the item runs to
+   (.srec--small = left, .srec--large = right — never the middle, never the edge) and Runs Small · True To Size · Runs Large under it (12, the marked end strong) · padding 16 · gap 3 (12px). */
 .srec{display:flex;align-items:center;gap:var(--gap-3,12px);min-height:58px;padding:var(--gap-3,12px);background:var(--surface-sunken,#FAFAFA);border-radius:var(--radius-default);font-family:var(--font-family-base);color:var(--text-primary);box-sizing:border-box;width:100%}
 .srec-ic{width:24px;height:24px;flex:none;display:block}
 .srec-cp{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
@@ -892,8 +892,8 @@ a.hd-usp:hover .usp-t{text-decoration:underline;text-underline-offset:2px}
 .srec-cp span{font-size:12px;line-height:16px;font-weight:var(--w-regular)}
 .srec--scale{flex-direction:column;align-items:stretch;padding:var(--gap-4,16px)}
 .srec-bar{position:relative;height:4px;border-radius:2px;background:var(--border-subtle,#E7E7E7);margin-top:4px}
-.srec-bar i{position:absolute;top:0;bottom:0;width:28%;border-radius:2px;background:var(--surface-action,#000)}
-.srec-bar i{transform:translateX(-50%)}.srec--small .srec-bar i{left:25%}.srec--large .srec-bar i{left:75%} /* centred halfway between True To Size and the end (Jake 23 Nov), not pinned to the edge */
+.srec-bar i{position:absolute;top:0;bottom:0;width:62px;border-radius:2px;background:var(--surface-action,#000)}
+.srec--small .srec-bar i{left:50px}.srec--large .srec-bar i{right:50px} /* Jake 23 Nov: 62 wide, 50px in from the end it runs to */
 .srec-lbls{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--gap-2,8px);font-size:12px;line-height:16px;font-weight:var(--w-regular)}
 .srec-lbls span:nth-child(2){text-align:center}.srec-lbls span:nth-child(3){text-align:right}
 .srec--small .srec-lbls span:first-child,.srec--large .srec-lbls span:last-child{font-weight:var(--w-strong)}
