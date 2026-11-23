@@ -7,15 +7,27 @@ Master PDP prototype for the boohooMAN ask: **Shop The Look recommendations → 
 - **Page:** `pdp.html` — single file, no build. `data.js` = the live Premium Essentials catalogue (40 SKUs, 8 families).
 - **Repo:** github.com/jakerayner96/core-pdp-2026 · **Pages:** jakerayner96.github.io/core-pdp-2026
 
-## The configurator
+## Final designs (23 Nov 2026)
 
-Dark Group-UX chrome. Layout/logic model = PayPal's Checkout demo: **window** controls along the top, **page** controls down the left.
+The options are gone: the page is what was decided, the left panel is a **showcase** of its screens. Three things stay switchable because both are to be shown: the **customer** (logged out / logged in) and the **size recommender** look (hanger icon / fit scale) in each direction. The shell URL holds the state (`?brand=boohooman&w=390&login=0&srec=hanger&dir=up&scene=pdp`), so copy it to share a screen.
 
-- **Top:** Export · Live now ⇄ New format · Desktop / Mobile (plus an exact-width select and a drag handle on the preview edge).
-- **Left panel (cards):** Brand · Set entry point (under the buy buttons since 18 Sep) — shortlisted to two on 15 Sep: 03-1 Made To Match box and 09-3 Same-colour carousel (SHOP THE EDIT, white Add buttons); the other templates (03/04/06/07/08/09) are still in `pdp.html` but no longer offered · Set builder is fixed to **Compact thumbs** and pricing to **markdown + code banner** (now · struck was · code line, no -% badge) (the Pricing, Modal and card-label controls were retired 15 Sep) · Shop The Look module format (Grey / Carousel / Grid / Inline / Hotspot / Off) · Handpicked For You format · We Think You'll Like format · Stock state · Size recommender (On/Off · Direction Up/Down — swaps copy and icon: increase/decrease arrow, ↑ / ↓ arrow badges on the garment and hanger, tape unchanged · Icon) · Layout (edit mode toggle, removed blocks, reset) · Current configuration.
-- **Edit layout (on the page):** every block — title, price, colour, entry point, body fit, size, buy, each below-fold box, each recs module, each description row — gets a label, ▲▼ to move within its column and ✕ to remove. Removed blocks move to a **"Removed from this layout"** tray under the page (Restore in edit mode) so decisions are visible, not silent. Dividers in the description area only ever sit between rows, so a removed row takes its divider with it.
-- **Export** (top left): renders full-page PNGs at 390 and 1440 via html2canvas and builds a zip: `config.json` (the decision record: mode, entry, stock, recs formats, set builder layout, block order, removed blocks), `pdp.html` with that configuration baked in as `window.PDP_PRESET`, `data.js`, `README.txt`, the two PNGs and every asset. Open the zipped `pdp.html` over HTTP and you see exactly what was exported.
-- State persists per browser (localStorage); the shell and the page keep each other in sync via postMessage.
+| Screen (`scene`) | What it shows |
+|---|---|
+| `pdp` | Default PDP — Washed Navy Zip Up Hoodie, in stock |
+| `tabs` | Product tabs (DS `.ptabs`, Figma 1367:35397): 12px chips, 8 / 14 padding, radius 4, black selected, #E7E7E7 keyline, top of the buy block |
+| `srec` | Size recommender (DS `.srec`): hanger (`icons-hanger-size-up/-down`) or fit scale (`.srec--scale`, marker at Runs Small / Runs Large, never the middle) |
+| `set` | Shop The Set (Figma 1319:20398): Made To Match → compact set builder; the size is a **native select** |
+| `set-notify` | An out-of-stock size reads **“M - Notify Me”**. Logged in: the row says “You’ll be notified when it’s available” (DS `.ntf-note`) straight away. Logged out: the DS **Notify Me** modal opens over the set builder with the email field. A notify pick stays ticked but isn’t counted in the total / Add to bag |
+| `look` | Shop The Look: a normal recs carousel of the pieces in the product image (DS Product carousel); a tap opens that product’s PDP (in the colour its swatch shows) |
+| `oos-gone` | Out of stock, not being reordered (Figma 1368:47272) — Washed Navy Wide Leg Jogger: name · price · **Out Of Stock**, then an endless grid of similar items |
+| `oos-restock` | Out of stock, being reordered (Figma 1368:47445) — Washed Navy T-Shirt: every size carries the bell |
+| `oos-restock-size` | …size picked: “Get notified when it’s back in stock?” (logged out: email + NOTIFY ME + consent · logged in: just NOTIFY ME), then the endless similar grid |
+
+- **Stock** is per product now (`OOS` in `pdp.html`: `CMM29657` gone, `CMM29620` restock); sizes come from the live feed (`data.js sizes[]`) — anything else is out of stock with the bell. Products that aren’t coming back leave the set builder.
+- **Shop Similar Items**: its own family first, then the nearest families, then the range; 15 cards at a time as the end comes into view (DS Product carousel grid — 3 across mobile, 5 desktop). Footer and the rest of the PDP are hidden under it.
+- **Rails** (Shop The Look, Handpicked For You grid, We Think You’ll Like, Shop Similar Items) are the DS Product carousel (`assets/ds/carousel.js`), as in debenhamsgroup.design/projects/product-carousel.
+- **DS**: tokens / components / carousel.js / icons/lib copied from debenhamsgroup.design on 23 Nov 2026 (was an 8 Sep snapshot). New in the DS for this: Product tabs, Size recommender, the notified line `.ntf-note`.
+- Still in `pdp.html` but no longer offered: the other entry points and recs formats, edit-layout mode.
 
 ## Figma export — all screens, all states, as components (`NP51VuDk959arTzzTr9cBo`)
 
@@ -58,4 +70,4 @@ Other references: the August advanced-bundling prototype (entry-point families 0
 - **Recs module** = one component, formats per module. Shop The Look is the bundle one: Grey/Carousel/Grid open Create The Look; Inline and Hotspot buy in place. No wishlist on PDP recs cards.
 - **Buy block order (MAN, new format, 18 Sep):** product tabs (solid pills at the top of the buy block, below the gallery pagination; on by default, keep their scroll position) → product name (no brand line) → price → NDD countdown → Body Fit → Size (+ recommender + model line) → Colour → buy buttons → set entry point → Premier. (15 Sep had Size before Body Fit, and the tabs and the entry point between Colour and the buttons.) Live mode still mirrors production.
 - **USP (new format)** = single DS countdown banner (Black/Red variant). Colour scroller runs edge to edge.
-- DS tokens/components are a **snapshot** from `debenhamsgroup.design/assets/ds` — re-copy when the DS moves.
+- DS tokens/components/carousel.js are copied from `debenhamsgroup.design/assets/ds` (23 Nov 2026) — re-copy when the DS moves.

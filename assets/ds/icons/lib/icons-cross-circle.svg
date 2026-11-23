@@ -1,3 +1,5 @@
-<svg overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle id="Ellipse 1149" cx="12" cy="12" r="11.5" fill="black" stroke="black"/>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Figma DS 6035:15916 Icons / Cross Circle · single colour: the glyph is a hole in the disc, not a white shape on top -->
+<defs><mask id="crossc-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24"><rect width="24" height="24" fill="white"/><path d="M16.5833 7.41667L7.41667 16.5833M7.41667 7.41667L16.5833 16.5833" stroke="black" stroke-width="1.2" stroke-linecap="round"/></mask></defs>
+<circle cx="12" cy="12" r="12" fill="black" mask="url(#crossc-cut)"/>
 </svg>

@@ -74,6 +74,7 @@ a{color:var(--accent)}
 .link{color:var(--accent);font-size:11.5px;text-decoration:underline;padding:0}
 .sum{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;color:var(--dim);line-height:1.5;word-break:break-all;margin-top:4px}
 .rm{font-size:11.5px;color:var(--muted);line-height:1.5}
+.opt .go{flex:none;align-self:center;color:var(--dim);font-size:13px}.opt.on .go{color:var(--accent)}
 .rm s{color:#FF6B6B}
 
 /* simple panel */
@@ -196,20 +197,16 @@ body.dragging iframe{pointer-events:none}
     <button class="export" id="exportbtn2"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 12.5h11"/></svg>Export</button>
     <button class="mclose" id="mclose" aria-label="Close">✕</button>
   </div>
-  <div class="ph"><h1>Configure the PDP</h1><button class="editbtn" id="edittgl">Edit layout</button></div>
-  <div class="card livenote"><h3>Live recreation <span class="tag alt">read only</span></h3><p>This fascia shows today's production PDP rebuilt from the live site (10 Sep 2026): header and USP strips, gallery, buy block, membership box, Deliver+, delivery &amp; returns, BNPL, recommendation modules, description, footer. The new-format and bundling options are boohooMAN only for now — pick boohooMAN to configure them.</p><p>Same module (<b>live-pdp.js</b> · <b>brands-live.js</b>) powers the PDP under the Virtual Stylist prototype.</p></div>
+  <div class="ph"><h1>Core PDP 2026</h1></div>
+  <div class="note"><b>Final designs · 23 Nov 2026.</b> No options any more — this is what we decided. Everything on the page is live; tap a screen to jump straight to it.</div>
+  <div class="card livenote"><h3>Live recreation <span class="tag alt">read only</span></h3><p>This fascia shows today's production PDP rebuilt from the live site (10 Sep 2026). The Core PDP 2026 designs are boohooMAN — pick boohooMAN to see them.</p></div>
 
-  <div class="card"><h3>Stock</h3><div id="stockopts"></div></div>
-  <div class="card"><h3>Size recommender</h3><div id="srecopts"></div><div class="sub second">Direction</div><div id="srecdir"></div><div class="sub second">Icon</div><div id="srecicon"></div></div>
-  <div class="card"><h3>Advanced bundling</h3><div class="sub">Entry point</div><div id="entryopts"></div></div>
-  <div class="card"><h3>Product tabs</h3><div class="sub">Pills at the top of the buy block, below the gallery — Zip Up Hoodie · Hoodie · 1/4 Zip… switch the whole PDP to that product in this colour</div><div id="ptabsopts"></div></div>
-  <div class="card"><h3>Create the look</h3><div id="lookopts"></div></div>
-  <div class="card"><h3>Handpicked For You</h3><div id="hpopts"></div></div>
-  <div class="card"><h3>We Think You'll Like</h3><div id="wtylopts"></div></div>
-  <div id="addedcards"></div>
-  <div class="card"><h3>Accordions</h3><div id="accopts"></div></div>
+  <div class="card"><h3>Customer</h3><div id="loginopts"></div><p>Back-in-stock alerts: logged in sets the alert straight away · logged out asks for an email first.</p></div>
+  <div class="card"><h3>PDP</h3><div id="sc-pdp"></div></div>
+  <div class="card"><h3>Size recommender <span class="tag">2 to show</span></h3><div id="srecstyle"></div><div class="sub second">Direction</div><div id="srecdir"></div></div>
+  <div class="card"><h3>Shop The Set</h3><div id="sc-set"></div></div>
+  <div class="card"><h3>Shop The Look · out of stock</h3><div id="sc-look"></div></div>
 
-  <div class="foot"><span class="rm" id="removedsum"></span><button class="link" id="resetorder">Reset layout</button></div>
   <div class="sum" id="cfg"></div>
 </aside>
 
@@ -236,69 +233,37 @@ body.dragging iframe{pointer-events:none}
 <div id="hidden"></div>
 
 <script>
-const ENTRIES=[ // Jake 15 Sep: down to the two shortlisted entry points (the other templates are still in pdp.html)
-  ['Under the buy buttons (above Premier)',[['03-1','Made To Match box (marquee + copy)'],['09-3','Same-colour carousel (other pieces in this colour · SHOP THE EDIT)']]],
-  ['',[['none','None']]],
-];
-const FMT_BUNDLE=[['nodata','Grey background'],['carousel','Carousel'],['grid','Grid'],['inline','Inline band'],['hot','Hotspot imagery'],['ms','Outfit list'],['collage','Flat-lay collage'],['off','Off']];
-const FMT_RECS=[['carousel','Carousel'],['grid','Grid'],['off','Off']];
-const FMT_ADDED=[['carousel','Carousel'],['grid','Grid'],['nodata','Image carousel (grey)'],['inline','Complete The Look band'],['hot','Hotspot look'],['ms','Outfit list'],['collage','Flat-lay collage'],['off','Off']];
-const SREC=[[true,'On'],[false,'Off']];
-const SREC_DIR=[['up','Up (fits small)'],['down','Down (fits large)']]; // Jake 15 Sep: swaps the copy and the icon (increase/decrease arrow, ↑ / ↓ badges; tape unchanged)
-// Jake 15 Sep: pricing fixed to markdown + code banner, set builder fixed to compact thumbs, card labels fixed hidden — the controls are gone from the panel
-const PTABS=[[false,'Off'],[true,'On']];
-const TRIO_ANIM=[[false,'Static'],[true,'Shuffle']];const TRIO_ENTRIES=['07-4','07-5','07-6']; // entries that stack cards → animation toggle
-const SREC_ICON=[['arrow','Trend arrow'],['tape','Measuring tape'],['size','Size / garment ↑ / ↓'],['hanger','Hanger ↑ / ↓']];
-const STOCKS=[['in','In stock'],['size','Some sizes out'],['oos','Out of stock']];
-const ROWS=[[1,'1 row'],[2,'2 rows'],[3,'3 rows']];
+/* Jake 23 Nov 2026: final designs — the panel is a showcase of the decided screens, not options. Three things stay switchable because they are
+   ours to show: the customer (logged in / out), and the two size recommender looks (hanger, fit scale) in each direction. */
+const SCENES={
+  pdp:[['pdp','Default PDP','Washed Navy Zip Up Hoodie, in stock'],['tabs','Product tabs','Top of the buy block: every piece of the set in this colour'],['srec','Size recommender','Under the size buttons, above the model line']],
+  set:[['set','Shop The Set','Made To Match → the set builder: tick pieces, pick sizes, add to bag'],['set-notify','Out-of-stock size → Notify Me','T-Shirt in M: “M - Notify Me”. Logged out opens the email modal on top; logged in, the row just says you’ll be notified']],
+  look:[['look','Shop The Look','The pieces in the product image, a normal recs carousel; a tap opens that PDP'],['oos-gone','Out of stock · not restocking','Wide Leg Jogger: Out Of Stock, then an endless grid of similar items'],['oos-restock','Out of stock · restocking','T-Shirt: every size carries the bell'],['oos-restock-size','Restocking · size picked','Get notified when it’s back in stock, then similar items']]};
+const LOGIN=[[false,'Logged out'],[true,'Logged in']];
+const SREC_STYLE=[['hanger','Hanger icon'],['scale','Fit scale (Runs Small · True To Size · Runs Large)']];
+const SREC_DIR=[['up','Sizing up (runs small)'],['down','Sizing down (runs large)']];
 
 let FOLD=false;const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com',dorothyperkins:'dorothyperkins.com',coast:'coastfashion.com'};
-let BRAND=new URLSearchParams(location.search).get('brand')||localStorage.getItem('pdp26-brand')||'boohooman';if(!DOMAIN[BRAND])BRAND='boohooman';
-let W=390, CFG={mode:'new',entry:'03-1',stock:'in',fmt:{look:'nodata',hp:'carousel',wtyl:'carousel'},gridRows:{look:2,hp:2,wtyl:2},endpos:5,sizerec:true,srecIcon:'arrow',srecDir:'up',trioAnim:false,ptabs:true,pricing:'code',labels:false,setview:'compact',edit:false,removed:[]};
+const Q=new URLSearchParams(location.search);const LSG=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},LSS=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
+let BRAND=Q.get('brand')||LSG('pdp26-brand-v2','boohooman');if(!DOMAIN[BRAND])BRAND='boohooman';
+let W=Q.has('w')?+Q.get('w'):390;
+let CFG={login:Q.has('login')?Q.get('login')==='1':LSG('pdp26-login',false)===true,srecStyle:(Q.get('srec')||LSG('pdp26-srecstyle','hanger'))==='scale'?'scale':'hanger',srecDir:(Q.get('dir')||LSG('pdp26-srecdir','up'))==='down'?'down':'up',scene:Q.get('scene')||'pdp'};
 const $=s=>document.querySelector(s);
 const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
 
-function radios(host,list,get,set,inline,focusKey){
-  host.innerHTML='';
-  if(inline){host.className='rows';}
-  list.forEach(([v,label])=>{
-    const o=document.createElement('button');o.className=(inline?'rw':'opt')+(get()===v?' on':'');o.setAttribute('role','radio');o.setAttribute('aria-checked',get()===v);
-    o.innerHTML=inline?label:`<span class="r"></span><span class="t"><b>${label}</b></span>`;
-    o.onclick=()=>{set(v);send(frame,focusKey);renderPanel();};host.appendChild(o);
-  });
-}
-function focus(k){setTimeout(()=>frame.contentWindow.postMessage({pdpFocus:k},'*'),80);}
-function fmtCard(host,list,key){
-  radios(host,list,()=>CFG.fmt[key],v=>CFG.fmt[key]=v,false,key);
-  if(CFG.fmt[key]==='grid'){const opt=[...host.querySelectorAll('.opt')].find(o=>o.textContent.trim()==='Grid');if(opt){const n=+CFG.gridRows[key]||2;const q=document.createElement('span');q.className='qty';q.innerHTML=`<button aria-label="Fewer rows">−</button><input type="number" min="1" max="20" value="${n}" aria-label="Rows"><button aria-label="More rows">+</button><em>rows</em>`;
-    const set=v=>{CFG.gridRows[key]=Math.min(20,Math.max(1,v));send(frame,key);renderPanel();};
-    q.children[0].onclick=e=>{e.stopPropagation();set(n-1);};q.children[2].onclick=e=>{e.stopPropagation();set(n+1);};q.children[1].onclick=e=>e.stopPropagation();q.children[1].onchange=e=>{e.stopPropagation();set(+e.target.value||1);};
-    opt.appendChild(q);}}
-}
+function radios(host,list,get,set){host.innerHTML='';
+  list.forEach(([v,label])=>{const o=document.createElement('button');o.className='opt'+(get()===v?' on':'');o.setAttribute('role','radio');o.setAttribute('aria-checked',get()===v);
+    o.innerHTML=`<span class="r"></span><span class="t"><b>${label}</b></span>`;o.onclick=()=>{set(v);send();renderPanel();syncURL();};host.appendChild(o);});}
+function scenes(host,list){host.innerHTML='';
+  list.forEach(([k,label,sub])=>{const o=document.createElement('button');o.className='opt'+(CFG.scene===k?' on':'');
+    o.innerHTML=`<span class="t"><b>${label}</b><span>${sub}</span></span><span class="go">→</span>`;o.onclick=()=>{CFG.scene=k;send(k);renderPanel();syncURL();document.querySelector('.panel').classList.remove('open');};host.appendChild(o);});}
 function renderPanel(){
-  const eh=$('#entryopts');eh.innerHTML='';
-  ENTRIES.forEach(([g,items])=>{if(g){const h=document.createElement('div');h.className='grp';h.textContent=g;eh.appendChild(h);}const d=document.createElement('div');eh.appendChild(d);radios(d,items,()=>CFG.entry,v=>CFG.entry=v,false,'entry');});
-  if(TRIO_ENTRIES.includes(CFG.entry)){const opt=[...eh.querySelectorAll('.opt.on')][0];if(opt){const r=document.createElement('div');r.className='rows';opt.after(r);radios(r,TRIO_ANIM,()=>CFG.trioAnim,v=>CFG.trioAnim=v,true,'entry');}}
-  if(CFG.entry==='06-1'){const opt=[...eh.querySelectorAll('.opt')].find(o=>o.textContent.trim().startsWith('Gallery end card'));if(opt){const r=document.createElement('div');r.className='rows';opt.after(r);radios(r,[[2,'Slide 2'],[3,'Slide 3'],[4,'Slide 4'],[5,'Slide 5']],()=>+CFG.endpos,v=>CFG.endpos=v,true,'entry');}}
-  fmtCard($('#lookopts'),FMT_BUNDLE,'look');
-  fmtCard($('#hpopts'),FMT_RECS,'hp');
-  fmtCard($('#wtylopts'),FMT_RECS,'wtyl');
-  const ao=$('#accopts');ao.innerHTML='';(CFG.desc||[]).forEach(r=>{const row=document.createElement('div');row.className='arow'+(r.removed?' gone':'');
-    row.innerHTML=`<span class="lb">${r.label}</span>${r.acc&&!r.removed?`<span class="seg mini"><button class="${r.open?'on':''}" data-o="1">Open</button><button class="${r.open?'':'on'}" data-o="0">Closed</button></span>`:''}${r.removed?`<button class="link" data-op="restore">Add back</button>`:`<span class="mv"><button data-op="up" aria-label="Up">▲</button><button data-op="down" aria-label="Down">▼</button><button data-op="remove" class="del" aria-label="Remove">✕</button></span>`}`;
-    row.querySelectorAll('[data-op]').forEach(b=>b.onclick=()=>frame.contentWindow.postMessage({pdpDesc:{op:b.dataset.op,name:r.name}},'*'));
-    row.querySelectorAll('.seg.mini button').forEach(b=>b.onclick=()=>{if((b.dataset.o==='1')!==r.open)frame.contentWindow.postMessage({pdpDesc:{op:'toggle',name:r.name}},'*');});
-    ao.appendChild(row);
-    if(r.glance&&!r.removed){r.glance.forEach(g=>{const gr=document.createElement('div');gr.className='arow sub'+(g.off?' gone':'');gr.innerHTML=`<span class="lb">${g.text}</span>${g.off?'<button class="link">Add back</button>':'<span class="mv"><button class="del" aria-label="Remove">✕</button></span>'}`;gr.querySelector('button').onclick=()=>frame.contentWindow.postMessage({pdpDesc:{op:'glance',name:r.name,i:g.i}},'*');ao.appendChild(gr);});}});
-  const ac=$('#addedcards');ac.innerHTML='';(CFG.added||[]).forEach(a=>{const card=document.createElement('div');card.className='card';card.innerHTML=`<h3>${a.label}</h3><div></div>`;ac.appendChild(card);fmtCard(card.lastElementChild,FMT_ADDED,a.key);});
-  radios($('#stockopts'),STOCKS,()=>CFG.stock,v=>CFG.stock=v,false,'stock');
-  radios($('#srecopts'),SREC,()=>CFG.sizerec,v=>CFG.sizerec=v,false,'sizerec');
-  radios($('#ptabsopts'),PTABS,()=>CFG.ptabs,v=>CFG.ptabs=v,false,'entry');
-  radios($('#srecdir'),SREC_DIR,()=>CFG.srecDir,v=>CFG.srecDir=v,false,'sizerec');
-  radios($('#srecicon'),SREC_ICON,()=>CFG.srecIcon,v=>CFG.srecIcon=v,false,'sizerec');
-  $('#edittgl').classList.toggle('on',CFG.edit);$('#edittgl').textContent=CFG.edit?'Done editing':'Edit layout';
-  $('#removedsum').innerHTML=CFG.removed.length?'Removed: '+CFG.removed.map(r=>`<s>${r.label}</s>`).join(', '):'';
-  document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===CFG.mode));
+  radios($('#loginopts'),LOGIN,()=>CFG.login,v=>{CFG.login=v;LSS('pdp26-login',v);});
+  radios($('#srecstyle'),SREC_STYLE,()=>CFG.srecStyle,v=>{CFG.srecStyle=v;LSS('pdp26-srecstyle',v);});
+  radios($('#srecdir'),SREC_DIR,()=>CFG.srecDir,v=>{CFG.srecDir=v;LSS('pdp26-srecdir',v);});
+  scenes($('#sc-pdp'),SCENES.pdp);scenes($('#sc-set'),SCENES.set);scenes($('#sc-look'),SCENES.look);
 }
+function syncURL(){const u=new URLSearchParams({brand:BRAND});if(BRAND==='boohooman'){u.set('w',String(W));u.set('login',CFG.login?'1':'0');u.set('srec',CFG.srecStyle);u.set('dir',CFG.srecDir);u.set('scene',CFG.scene);}history.replaceState(null,'','?'+u);}
 function apply(){
   if(matchMedia('(max-width:760px)').matches){frame.style.width='100%';win.style.width='100%';return;}
   const avail=stage.clientWidth-16;
@@ -307,22 +272,17 @@ function apply(){
   const mobile=w<600;document.body.classList.toggle('fold',FOLD&&mobile);document.documentElement.style.setProperty('--k',(w/390).toFixed(4));
   document.querySelectorAll('#fold button').forEach(b=>{b.classList.toggle('on',(+b.dataset.f===1)===(FOLD&&mobile));b.disabled=!mobile;});
   $('#urltxt').textContent=DOMAIN[BRAND];
-  sizebox.textContent=`${Math.round(w)}px`;
+  sizebox.textContent=`${Math.round(w)}px`;syncURL();
   document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',(b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600)));
 }
-function send(f=frame,focusKey){ f.contentWindow.postMessage({pdpSet:1,focus:focusKey||null,brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,srecIcon:CFG.srecIcon,srecDir:CFG.srecDir,trioAnim:CFG.trioAnim,ptabs:CFG.ptabs,pricing:CFG.pricing,labels:CFG.labels,setview:CFG.setview,edit:CFG.edit},'*'); }
-addEventListener('message',e=>{
-  const d=e.data;if(!d)return;
-  if(d.pdpCfg&&e.source===frame.contentWindow)cfg.textContent=d.pdpCfg;
-  if(d.pdpState&&e.source===frame.contentWindow){const s=d.pdpState;if(s.fmt)CFG.fmt={...CFG.fmt,...s.fmt};if(s.gridRows)CFG.gridRows={...CFG.gridRows,...s.gridRows};if(s.endpos)CFG.endpos=+s.endpos;if(typeof s.sizerec==='boolean')CFG.sizerec=s.sizerec;if(typeof s.labels==='boolean')CFG.labels=s.labels;if(s.copy)CFG.copy=s.copy;if(s.added)CFG.added=s.added;if(typeof s.trioAnim==='boolean')CFG.trioAnim=s.trioAnim;if(typeof s.ptabs==='boolean')CFG.ptabs=s.ptabs;if(s.pricing)CFG.pricing=s.pricing;if(s.entry&&['07-3','08-3','08-6','09-6','09-7','09-4'].includes(s.entry))CFG.entry='07-4';if(s.srecIcon)CFG.srecIcon=SREC_ICON.some(([k])=>k===s.srecIcon)?s.srecIcon:'arrow';if(s.srecDir)CFG.srecDir=s.srecDir==='down'?'down':'up';if(s.desc)CFG.desc=s.desc;if(s.setview)CFG.setview=s.setview;if(typeof s.edit==='boolean')CFG.edit=s.edit;if(s.removed)CFG.removed=s.removed;renderPanel();}
-  if(typeof d.pdpEdit==='boolean'){CFG.edit=d.pdpEdit;renderPanel();}
-});
-document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{CFG.mode=b.dataset.m;send();renderPanel();});
+function msg(scene){return {pdpSet:1,login:CFG.login,srecStyle:CFG.srecStyle,srecDir:CFG.srecDir,scene:scene||null};}
+function send(scene,f=frame){if(BRAND==='boohooman'&&f.contentWindow)f.contentWindow.postMessage(msg(scene),'*');}
+addEventListener('message',e=>{const d=e.data;if(!d||e.source!==frame.contentWindow)return;
+  if(d.pdpCfg)cfg.textContent=d.pdpCfg;
+  if(d.pdpState){const s=d.pdpState;if(typeof s.login==='boolean')CFG.login=s.login;if(s.srecStyle)CFG.srecStyle=s.srecStyle;if(s.srecDir)CFG.srecDir=s.srecDir;renderPanel();}});
 document.querySelectorAll('#dev button').forEach(b=>b.onclick=()=>{W=+b.dataset.w;preset.value=String(W);apply();});
 preset.onchange=()=>{W=+preset.value;apply();};
 document.querySelectorAll('#fold button').forEach(b=>b.onclick=()=>{FOLD=b.dataset.f==='1';apply();});
-$('#edittgl').onclick=()=>{CFG.edit=!CFG.edit;send();renderPanel();};
-$('#resetorder').onclick=()=>{frame.contentWindow.postMessage({pdpSet:1,resetOrder:1},'*');};
 $('#hr').addEventListener('pointerdown',e=>{
   e.preventDefault();document.body.classList.add('dragging');
   const sx=e.clientX, sw=frame.offsetWidth;
@@ -331,11 +291,11 @@ $('#hr').addEventListener('pointerdown',e=>{
   addEventListener('pointermove',move);addEventListener('pointerup',up);
 });
 addEventListener('resize',apply);
-frame.addEventListener('load',()=>{if(BRAND==='boohooman')send();});
-function pageSrc(){return BRAND==='boohooman'?'pdp.html?brand=boohooman&mode='+CFG.mode+'&_='+Date.now():'live.html?brand='+BRAND+'&_='+Date.now();}
+frame.addEventListener('load',()=>send(CFG.scene));
+function pageSrc(){return BRAND==='boohooman'?'pdp.html?brand=boohooman&_='+Date.now():'live.html?brand='+BRAND+'&_='+Date.now();}
 /* Brand chips (Jake 10 Sep): boohooMAN = this configurator (pdp.html, live ⇄ new). Every other fascia = the shared live-PDP module (live.html) —
    a recreation of what is live today, no new-format / bundling options, so the page controls hide. */
-function setBrand(b){BRAND=DOMAIN[b]?b:'boohooman';localStorage.setItem('pdp26-brand',BRAND);history.replaceState(null,'','?brand='+BRAND);
+function setBrand(b){BRAND=DOMAIN[b]?b:'boohooman';LSS('pdp26-brand-v2',BRAND);syncURL();
   document.querySelectorAll('#brands .chip,#brands-m .chip').forEach(c=>c.classList.toggle('on',c.dataset.b===BRAND));
   const live=BRAND!=='boohooman';document.body.classList.toggle('livebrand',live);
   document.querySelector('.top .ttl').textContent='PDP 2026 · '+{boohooman:'boohooMAN',debenhams:'Debenhams',boohoo:'boohoo',plt:'PrettyLittleThing',karenmillen:'Karen Millen',dorothyperkins:'Dorothy Perkins',coast:'Coast'}[BRAND];
@@ -349,9 +309,9 @@ renderPanel();apply();
 const status=$('#status'),exp=$('#exp'),exptxt=$('#exptxt');
 function loadFrame(w){
   return new Promise(res=>{
-    const f=document.createElement('iframe');f.style.width=w+'px';f.style.height='900px';f.style.border='0';f.src='pdp.html?brand=boohooman&mode='+CFG.mode+'&_='+Date.now();
+    const f=document.createElement('iframe');f.style.width=w+'px';f.style.height='900px';f.style.border='0';f.src='pdp.html?brand=boohooman&_='+Date.now();
     $('#hidden').appendChild(f);
-    const onMsg=e=>{if(e.source!==f.contentWindow)return;if(e.data&&e.data.pdpReady){const cfgNoEdit={...CFG,edit:false};f.contentWindow.postMessage({pdpSet:1,brand:'boohooman',mode:cfgNoEdit.mode,entry:cfgNoEdit.entry,stock:cfgNoEdit.stock,fmt:cfgNoEdit.fmt,gridRows:cfgNoEdit.gridRows,endpos:cfgNoEdit.endpos,sizerec:cfgNoEdit.sizerec,srecIcon:cfgNoEdit.srecIcon,srecDir:cfgNoEdit.srecDir,trioAnim:cfgNoEdit.trioAnim,ptabs:cfgNoEdit.ptabs,pricing:cfgNoEdit.pricing,labels:cfgNoEdit.labels,setview:cfgNoEdit.setview,edit:false},'*');
+    const onMsg=e=>{if(e.source!==f.contentWindow)return;if(e.data&&e.data.pdpReady){f.contentWindow.postMessage(msg(CFG.scene),'*');
       const id=Math.random().toString(36).slice(2);const onPong=ev=>{if(ev.source===f.contentWindow&&ev.data&&ev.data.pdpPong===id){removeEventListener('message',onPong);removeEventListener('message',onMsg);f.style.height=(ev.data.h+20)+'px';setTimeout(()=>res(f),500);}};addEventListener('message',onPong);setTimeout(()=>f.contentWindow.postMessage({pdpPing:id},'*'),300);}};
     addEventListener('message',onMsg);
   });
@@ -371,15 +331,14 @@ async function doExport(){
     exptxt.textContent='Rendering desktop (1440)…';const d=await shot(1440);
     exptxt.textContent='Packaging code…';
     const zip=new JSZip();const name=`core-pdp-2026-${stamp()}`;const root=zip.folder(name);
-    const state={brand:'boohooman',mode:CFG.mode,entry:CFG.entry,stock:CFG.stock,fmt:CFG.fmt,gridRows:CFG.gridRows,endpos:CFG.endpos,sizerec:CFG.sizerec,srecIcon:CFG.srecIcon,srecDir:CFG.srecDir,trioAnim:CFG.trioAnim,ptabs:CFG.ptabs,pricing:CFG.pricing,labels:CFG.labels,copy:CFG.copy||{},added:CFG.added||[],setview:CFG.setview,order:JSON.parse(localStorage.getItem('pdp26-order')||'{}'),removed:CFG.removed,exportedAt:new Date().toISOString()};
+    const state={brand:'boohooman',login:CFG.login,srecStyle:CFG.srecStyle,srecDir:CFG.srecDir,scene:CFG.scene,exportedAt:new Date().toISOString()};
     root.file('config.json',JSON.stringify(state,null,2));
     root.file(`${name}-mobile-390.png`,m);root.file(`${name}-desktop-1440.png`,d);
     let html=await (await fetch('pdp.html')).text();
     const SC='scr'+'ipt'; // never write a literal closing script tag inside this inline script
     html=html.replace(`<${SC} src="data.js"></${SC}>`,`<${SC}>window.PDP_PRESET=${JSON.stringify(state)};</${SC}>\n<${SC} src="data.js"></${SC}>`);
     root.file('pdp.html',html);root.file('data.js',await (await fetch('data.js')).text());
-    const removedTxt=CFG.removed.length?CFG.removed.map(r=>' - '+r.label).join('\n'):' (none)';
-    root.file('README.txt',`Core PDP 2026 — boohooMAN\nExported ${state.exportedAt}\n\nOpen pdp.html over HTTP (e.g. python3 -m http.server) to see this exact configuration.\nconfig.json is the decision record: mode, entry point, stock state, recs module formats, set builder layout, block order, removed blocks.\n\nConfiguration: ${cfg.textContent}\n\nRemoved from the layout:\n${removedTxt}\n`);
+    root.file('README.txt',`Core PDP 2026 — boohooMAN (final designs, 23 Nov 2026)\nExported ${state.exportedAt}\n\nOpen pdp.html over HTTP (e.g. python3 -m http.server) to see this screen.\nconfig.json: the screen (scene), the customer (logged in / out) and the size recommender look + direction.\n\nScreen: ${cfg.textContent}\n`);
     const files=await (await fetch('assets-manifest.json')).json();
     let n=0;for(const fpath of files){exptxt.textContent=`Packaging assets… ${++n}/${files.length}`;const r=await fetch(fpath);if(r.ok)root.file(fpath,await r.blob());}
     exptxt.textContent='Zipping…';

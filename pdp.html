@@ -197,7 +197,7 @@ a{color:inherit;text-decoration:none}
 .fit{display:flex;flex-direction:column;gap:12px}
 .fit .lbl{font-size:16px;font-weight:400}
 .mode-live .fit .lbl{font-weight:300}
-.sz.fitb{width:auto;min-width:60px;padding:0 16px}
+.sz.fitb{width:auto;max-width:none;flex:none;min-width:60px;padding:0 16px}
 .mode-live .sz.fitb{width:auto;min-width:53px}
 
 .sz{width:60px;min-width:60px;height:50px;background:#FFF;border:1px solid var(--grey-3);border-radius:4px;font-size:16px;font-weight:400;display:flex;align-items:center;justify-content:center;position:relative;color:#000}
@@ -209,10 +209,6 @@ a{color:inherit;text-decoration:none}
 .mode-live .sz.oos .bell{display:none}
 .mode-live .sz.oos.bellable .bell{display:block}
 .sizerec{display:flex;flex-direction:column;gap:8px}
-.sizerec .srb{display:flex;align-items:center;gap:12px;background:var(--grey-05);border-radius:4px;padding:12px;width:100%;text-align:left;min-height:58px}
-.sizerec .srb .cp{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
-.sizerec .srb .cp b{font-size:14px;font-weight:600}
-.sizerec .srb .cp span{font-size:12px;color:var(--grey-5)}
 .buy .model{font-size:14px;line-height:18px;font-weight:400;color:#000} /* regular sentence */
 .buy .model b{font-weight:600} /* height + UK size semibold */
 .buy-btns{display:flex;flex-direction:column;gap:8px}
@@ -684,11 +680,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .recs.collage .btn.s{margin:12px var(--m) 0;width:auto}
 @media(min-width:1024px){.recs.collage .board{width:480px;margin:0 auto}.recs.collage .btn.s{width:480px;margin:12px auto 0;display:block}}
 /* master product tabs (Reiss-style, Jake 09 Sep; back at the top 18 Sep): first thing in the buy block, below the gallery pagination — switch the whole PDP to another piece of the set in this colour */
-.ptabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px;scroll-padding-right:16px} /* runs off the right edge (iceberg) so more tabs are visibly waiting */
-@media(min-width:1024px){.ptabs{margin-right:calc(var(--m) * -1);padding-right:var(--m)}}
-.ptabs::-webkit-scrollbar{display:none}
-.ptabs button{flex:none;height:36px;padding:0 16px;border-radius:99px;background:var(--grey-05);border:1px solid var(--grey-1);font-size:14px;font-weight:400;color:#000;white-space:nowrap} /* Jake 15 Sep: solid pills (was an underline tab bar at the top of the buy block) */
-.ptabs button.on{background:#000;border-color:#000;color:#FFF;font-weight:600}
+.buy>.ptabs{margin-right:calc(var(--m) * -1);padding-right:var(--m);scroll-padding-right:var(--m)} /* DS Product tabs (.ptabs, 23 Nov) — the page only lets them run off the right edge */
 /* M&S-style 'Shop the outfit' (Jake 09 Sep): look image with a white 'Shop the outfit · N items' pill, the pieces listed beneath as thumb / name / colour / price / Add; everything opens the Complete The Look modal */
 .recs.ms{background:#FFF;padding:16px 0}
 .recs.ms .rail-head{padding:0 var(--m)}
@@ -726,10 +718,6 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .lm .sz-sel img{width:12px;height:12px}
 /* size guide modal */
 .sizeg .body{padding:0 24px 24px;gap:24px}
-.sizeg .srb{display:flex;align-items:center;gap:12px;background:var(--grey-05);border-radius:4px;padding:12px;width:100%;text-align:left}
-.sizeg .srb .cp{flex:1;display:flex;flex-direction:column;gap:2px}
-.sizeg .srb .cp b{font-size:14px;font-weight:600}
-.sizeg .srb .cp span{font-size:12px;color:var(--grey-5)}
 .sizeg .units{display:flex;align-items:center;gap:12px;font-size:16px;line-height:24px}
 .sizeg .units .tg{width:46px;height:24px;border-radius:99px;background:#000;position:relative;flex:none}
 .sizeg .units .tg i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:99px;background:#FFF;transition:left .15s}
@@ -879,6 +867,38 @@ body.editing{padding-bottom:48px}
   .recs{margin-left:calc(var(--m) * -1);margin-right:calc(var(--m) * -1)} /* .below carries the margin on desktop — pull the module back to the edges */
   .recs.nodata{padding:24px var(--m)}
 }
+
+/* ============================================================
+   FINAL (23 Nov 2026) — the decided designs, built on the DS (assets/ds: Product tabs, Size recommender, Product carousel, Notify Me)
+   ============================================================ */
+.sheet .body{padding:0 0 24px} /* the DS .sheet .body adds 24px sides; the set builder rows carry their own */
+/* recommendation rails: DS Product carousel (.pcar) on the page margin; mobile rails bleed off the right edge */
+.below>.rails{margin:0 var(--m);padding:16px 0}
+.below>#recs-hp.rails{padding:8px 0 16px}
+.ntf-inline [hidden]{display:none!important}
+@media(min-width:1024px){.below>.rails{padding:32px 0}}
+.rails .pc{cursor:pointer}
+/* out of stock — both PDP states keep the gallery, tabs, name and price; under the OOS line / notify box the page is one endless grid of similar products */
+.oos-line{flex-basis:100%;margin:0;font-size:16px;line-height:20px;font-weight:var(--w-regular);color:var(--red)}
+body.pdp-oos :is(#nddmsg,.fit,#sizerec,.model,.colour,#buybtns,#slot-colour,#slot-buttons,.premier,.buy .deskonly),
+body.pdp-oos .below>:not(#similar),body.pdp-oos .ft,body.pdp-oos #removed{display:none!important}
+body.oos-gone .sizes{display:none}
+body.pdp-oos .below{padding-top:8px}
+#similar{margin:0 var(--m);padding:16px 0 48px}
+#similar .sim-more{height:1px}
+/* notify me (PDP, Figma 1368:47445): question 16 · DS text field · NOTIFY ME (.bd.pri.full + bell) · DS consent row · once set, the DS notified line */
+.ntf-inline{display:flex;flex-direction:column;gap:16px}
+.ntf-inline .ntf-h{margin:0;font-size:16px;line-height:20px;font-weight:var(--w-strong)}
+/* Shop The Set: the size is a native select — out-of-stock sizes read "M - Notify Me" */
+.crow .cs .sz-sel{position:relative}
+.crow .cs .sz-sel select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px;-webkit-appearance:none;appearance:none}
+.crow .cs .sz-sel select option.nm{color:#767676}
+.crow .csel .ntf-note{padding:0 0 6px}
+/* second modal over the set builder (logged out): the DS Notify Me modal with the email field */
+.ntf-layer{z-index:90}
+.ntf-layer>.mdl{width:100%}
+.ntf-layer .mdl-bd{gap:16px}
+@media(min-width:768px){.ntf-layer{padding:16px}.ntf-layer>.mdl{width:480px;max-height:calc(100% - 32px)}}
 </style>
 </head>
 <body class="mode-new">
@@ -974,11 +994,7 @@ body.editing{padding-bottom:48px}
         <div class="size-btns" id="sizebtns"></div>
       </div>
 
-      <!-- Size recommender — Figma 1060-63028: grey banner (trend arrow · copy · chevron) + model line. Toggled from the panel -->
-      <!-- Size recommender banner (Figma 1060-63028) — toggled from the panel; sits ABOVE the model line -->
-      <div class="sizerec" id="sizerec" data-block="sizerec" data-label="Size recommender">
-        <div class="srb" role="note"><img class="ic" src="assets/ds/icons/lib/icon-arrow-increase.svg" alt=""><span class="cp"><b data-copy="srec.h">We recommend sizing up</b><span data-copy="srec.s">Customers say this item fits too small</span></span></div>
-      </div>
+      <div class="sizerec" id="sizerec" data-block="sizerec" data-label="Size recommender"></div> <!-- DS Size recommender (.srec): hanger or fit scale, sizing up / down -->
 
       <!-- Model line (Figma 753-16995): 14px, light with the height and size in semibold; 16px above and below (column gap) -->
       <p class="model" data-block="model" data-label="Model info" data-copy="srec.model">Model is <b>6’1”</b> and wearing <b>UK size M</b></p>
@@ -996,11 +1012,12 @@ body.editing{padding-bottom:48px}
       </div>
 
       <!-- Notify me — Figma 1042:66804 / Back-in-stock UX -->
-      <div class="notify" id="notify" hidden>
-        <h4 data-copy="notify.h">Get notified when it’s back in stock?</h4>
-        <div class="inp"><input type="email" id="nemail" placeholder="Email Address" autocomplete="email"></div>
-        <button class="btn p" id="nbtn"><img class="bell" src="assets/ds/icons/lib/icons-notification.svg" alt="">Notify me</button>
-        <div class="consent"><button class="cb" id="ncb" aria-label="Consent"><img src="assets/bundling/icons/tick-white.svg" alt=""></button><span>By ticking the box you confirm that you are aged 16 or over &amp; consent to receiving email alerts about products, offers &amp; marketing communications. Please see our <a href="#">Privacy Policy</a> for more information.</span></div>
+      <div class="ntf-inline" id="notify" hidden>
+        <p class="ntf-h" data-copy="notify.h">Get notified when it’s back in stock?</p>
+        <label class="fld" data-guest><input type="email" id="nemail" placeholder=" " autocomplete="email"><span class="lbl">Email Address</span></label>
+        <button class="bd pri full" id="nbtn"><i class="ico-bell"></i>Notify Me</button>
+        <div class="chk-row chk-row--lg" data-guest><button class="chk on" id="ncb" aria-checked="true" aria-label="I consent to email alerts"></button><p class="ntf-legal">By ticking the box you confirm that you are aged 16 or over &amp; consent to receiving email alerts about products, offers &amp; marketing communications. Please see our <a href="#">Privacy Policy</a> for more information.</p></div>
+        <p class="ntf-note" id="nnote" hidden>You’ll be notified when it’s available</p>
       </div>
 
       </div>
@@ -1033,10 +1050,7 @@ body.editing{padding-bottom:48px}
   <!-- Live: production 'Complete Your Purchase With' -->
   <div class="inset cyp" id="cyp" data-block="cyp" data-label="Complete Your Purchase With (live)"></div>
 
-  <div class="inset rail" id="similar" hidden data-block="similar" data-label="Shop Similar Items (OOS)">
-    <span class="rail-title" data-copy="similar.title">Shop Similar Items</span>
-    <div class="grid3" id="similargrid"></div>
-  </div>
+  <div id="similar" hidden data-block="similar" data-label="Shop Similar Items (OOS)"></div>
 
   <div id="recs-hp" data-block="hp" data-label="Handpicked For You" data-recs="hp"></div>
 
@@ -1197,6 +1211,7 @@ body.editing{padding-bottom:48px}
 <template id="tpl-07-6"><button class="price-banner bare entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07.whole">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 
 <script src="data.js"></script>
+<script src="assets/ds/carousel.js"></script>
 <script>
 /* ============================================================
    State
@@ -1204,7 +1219,8 @@ body.editing{padding-bottom:48px}
 const q=new URLSearchParams(location.search);
 const PRE=window.PDP_PRESET||{}; // exported configuration (see index.html → Export)
 const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}};
-if(LS('pdp26-v')!==4){LS('pdp26-setview','compact');LS('pdp26-ptabs',true);LS('pdp26-pricing','code');LS('pdp26-labels',false);LS('pdp26-order',{});LS('pdp26-v',4);} // 18 Sep: v4 also clears any saved block order so the new default (tabs top, entry point under the buttons) shows // 15 Sep defaults: compact set builder, product tabs on, markdown + code pricing, no card labels — applied once over anything an earlier session left in this browser
+if(LS('pdp26-v')!==5){LS('pdp26-removed',[]);LS('pdp26-added',[]);LS('pdp26-copy',{});LS('pdp26-acc',{'acc-desc':true});LS('pdp26-glanceoff',[]);LS('pdp26-fmt',null);} // 23 Nov: final designs — clear every layout / copy / format experiment an earlier session left in this browser
+if(LS('pdp26-v')!==5){LS('pdp26-setview','compact');LS('pdp26-ptabs',true);LS('pdp26-pricing','code');LS('pdp26-labels',false);LS('pdp26-order',{});LS('pdp26-v',5);} // 18 Sep: v4 also clears any saved block order so the new default (tabs top, entry point under the buttons) shows // 15 Sep defaults: compact set builder, product tabs on, markdown + code pricing, no card labels — applied once over anything an earlier session left in this browser
 const S={
   mode:q.get('mode')||PRE.mode||'new',          // live | new
   edit:false,                          // edit-layout mode (review tooling)
@@ -1229,6 +1245,12 @@ const S={
   colour:'CMM29598',                  // hero SKU (washed navy zip hoodie)
   size:null, notified:false, consent:true,
 };
+/* FINAL (Jake 23 Nov 2026): the decided configuration is fixed — the panel only picks which screen to show, the customer (logged in / out)
+   and the size recommender look (hanger or fit scale, both to show). */
+Object.assign(S,{mode:'new',entry:'03-1',fmt:{look:'carousel',hp:'grid',wtyl:'carousel'},ptabs:true,sizerec:true,pricing:'code',labels:false,order:{},added:[],copy:{},
+  srecStyle:(q.get('srec')||PRE.srecStyle||LS('pdp26-srecstyle'))==='scale'?'scale':'hanger',
+  srecDir:(q.get('dir')||PRE.srecDir||LS('pdp26-srecdir'))==='down'?'down':'up',
+  login:q.has('login')?q.get('login')==='1':(PRE.login!=null?!!PRE.login:LS('pdp26-login')===true)});
 const P=window.PE_PRODUCTS, FAM=window.PE_FAMILIES;
 const byId=id=>P.find(p=>p.id===id);
 const fam=f=>P.filter(p=>p.fam===f);
@@ -1243,13 +1265,13 @@ function hero(){return byId(S.colour);}
 function partner(f,colour){const fs=fam(f);return fs.find(p=>p.colour===colour)||fs[0];}
 function sortByColour(list,colour){return [...list].sort((a,b)=>(a.colour===colour?-1:0)-(b.colour===colour?-1:0));}
 
-/* Stock model. in: 3XL+ unavailable (live truth). size: M + L also OOS. oos: everything OOS. */
-function sizeState(sz){
-  if(S.stock==='oos') return 'oos';
-  if(['3XL','4XL','5XL'].includes(sz)) return 'oos';
-  if(S.stock==='size'&&['M','L'].includes(sz)) return 'oos';
-  return 'in';
-}
+/* Stock model (23 Nov): per product. Sizes come from the live feed (data.js sizes[]; anything else is out of stock, back-in-stock alerts on).
+   Two products in the Washed Navy look are sold out, to show both OOS PDPs (Figma 1368:47272 / 1368:47445):
+   gone = not being reordered (no alerts) · restock = being reordered (every size carries the bell → Notify Me). */
+const OOS={CMM29657:'gone',CMM29620:'restock'}; // Washed Navy Wide Leg Jogger · Washed Navy T-Shirt
+const stockOf=p=>(p&&OOS[p.id])||'in';
+const sizesOf=p=>stockOf(p)!=='in'?[]:(p.sizes&&p.sizes.length?p.sizes:ALL_SIZES.slice(0,6));
+function sizeState(sz){return sizesOf(hero()).includes(sz)?'in':'oos';}
 
 /* ============================================================
    Render: gallery + swatches
@@ -1320,35 +1342,33 @@ function renderPrice(){
   r.appendChild(el(`<div class="price-vals"><span class="price-now ${sale?'sale':''}">${fmt(now)}</span>${sale?`<span class="price-was">${fmt(was)}</span>`:''}</div>`));
   if(sale&&!md) r.appendChild(el(`<span class="save">Save ${Math.round((1-now/was)*100)}%</span>`)); // Jake 15 Sep: no -% badge on the new-format price — now · was · code line only
   if(md&&S.pricing==='code'){const code='40OFF';const cb=el(`<button class="code-line" aria-label="Copy code ${code}">${fmt(now*0.6)} with code: ${code}<i></i></button>`);cb.onclick=()=>{try{navigator.clipboard&&navigator.clipboard.writeText(code);}catch(e){}toast('Code '+code+' copied');};r.appendChild(cb);}
-  if(S.stock==='oos'&&S.mode==='live') r.appendChild(el(`<span class="oos-lbl">Out of Stock</span>`));
+  if(stockOf(h)==='gone') r.appendChild(el(`<p class="oos-line">Out Of Stock</p>`)); // not being reordered: the OOS line replaces sizes, buttons and the rest (Figma 1368:47272)
 }
 function renderSizes(){
   const wrap=$('#sizebtns');wrap.innerHTML='';
   const lbl=$('#sizelbl');
   const selOOS=S.size&&sizeState(S.size)==='oos';
-  if(S.stock==='oos'||selOOS) lbl.innerHTML=`Size: <span class="oos">Out of Stock</span>`;
+  if(stockOf(hero())!=='in'||selOOS) lbl.innerHTML=`Size: <span class="oos">Out of Stock</span>`;
   else if(S.size) lbl.innerHTML=`Size: <b>${S.size}</b>`;
   else lbl.innerHTML=S.mode==='live'?'Size : <b>Select a Size</b>':'Select a size:';
   ALL_SIZES.forEach(sz=>{
     const st=sizeState(sz);
-    const b=el(`<button class="sz ${st} ${S.size===sz?'on':''} ${['3XL','4XL','5XL'].includes(sz)&&S.stock==='in'?'':'bellable'}">${sz}${st==='oos'?'<img class="bell" src="assets/ds/icons/lib/icons-notification.svg" alt="">':''}</button>`);
+    const b=el(`<button class="sz ${st}${st==='oos'?' oos--notify':''} ${S.size===sz?'on':''}"${st==='oos'?` aria-label="${sz}, out of stock, notify me"`:''}>${sz}${st==='oos'?'<img class="bell" src="assets/ds/icons/lib/icons-notification.svg" alt="">':''}</button>`); // DS .sz.oos.oos--notify
     b.onclick=()=>{S.size=sz;S.notified=false;renderSizes();renderBuy();};
     wrap.appendChild(b);
   });
 }
 function renderBuy(){
-  const showNotify=(S.size&&sizeState(S.size)==='oos')||(S.stock==='oos'&&S.mode==='new'&&!S.size);
-  $('#buybtns').hidden=!!showNotify||(S.stock==='oos'&&S.mode==='live');
-  const n=$('#notify');n.hidden=!showNotify;
-  if(S.stock==='oos'&&S.mode==='live'&&!showNotify){n.hidden=false;}
-  n.querySelector('h4').textContent=S.notified?'You’ll be notified when it’s back in stock':'Get notified when it’s back in stock?';
-  n.querySelector('.inp').hidden=S.notified;n.querySelector('#nbtn').hidden=S.notified;n.querySelector('.consent').hidden=S.notified;
-  let done=n.querySelector('.done');if(done)done.remove();
-  if(S.notified) n.appendChild(el(`<div class="done"><img class="ic-16" src="assets/ds/icons/lib/icons-tick-circle-fill.svg" alt="">Stock alert enabled for size ${S.size||'—'}</div>`));
-  $('#ncb').classList.toggle('off',!S.consent);
+  const st=stockOf(hero()),selOOS=!!S.size&&sizeState(S.size)==='oos';
+  const show=st!=='gone'&&selOOS; // restocking product or an out-of-stock size: the notify box shows once a size is picked (Jake 23 Nov)
+  $('#buybtns').hidden=show||st!=='in';
+  const n=$('#notify');n.hidden=!show;const done=S.notified;
+  n.querySelector('.ntf-h').hidden=done;n.querySelectorAll('[data-guest]').forEach(x=>x.hidden=done||S.login);$('#nbtn').hidden=done;$('#nnote').hidden=!done;
+  const cb=$('#ncb');cb.classList.toggle('on',S.consent);cb.setAttribute('aria-checked',S.consent);
 }
 $('#ncb').onclick=()=>{S.consent=!S.consent;renderBuy();};
-$('#nbtn').onclick=()=>{const v=$('#nemail').value.trim();if(!/.+@.+\..+/.test(v)){toast('Enter a valid email address');$('#nemail').focus();return;}if(!S.consent){toast('Tick the box to consent');return;}S.notified=true;renderBuy();toast('Stock Alert Enabled');};
+/* logged in: NOTIFY ME sets the alert straight away (no email to enter) · logged out: email + consent first */
+$('#nbtn').onclick=()=>{if(!S.login){const f=$('#nemail'),v=f.value.trim();f.closest('.fld').classList.toggle('invalid',!/.+@.+\..+/.test(v));if(!/.+@.+\..+/.test(v)){toast('Enter a valid email address');f.focus();return;}if(!S.consent){toast('Tick the box to consent');return;}}S.notified=true;renderBuy();};
 $('#atbbtn').onclick=()=>{if(!S.size){toast('Select a size');return;}openATB([{p:hero(),size:S.size}]);};
 
 /* ============================================================
@@ -1396,98 +1416,29 @@ function lookItems(){const L=lookPieces();return ['zip-hoodie','wide-jogger','te
 /* full-length front shot of the set in a given hoodie colour: image[3] of the zip hoodie (navy's is a torso crop → its jogger's) */
 function fullImg(colour){const j=fam('wide-jogger').concat(fam('straight-jogger')).find(p=>p.colour===colour);const hd=fam('zip-hoodie').find(p=>p.colour===colour);const k=(['Washed Navy','Light Blue'].includes(colour)&&j)?j.id:(hd||j||hero()).id; /* navy + light blue hoodie shots are torso crops → use the jogger set shot */ return `img/products/${k.toLowerCase()}_full.jpg`;}
 function lookMore(){const c=hero().colour;const h=hero();const same=P.filter(p=>p.colour===c&&p.id!==h.id&&!['wide-jogger','tee'].includes(p.fam));const rest=P.filter(p=>p.colour!==c&&p.fam!=='zip-hoodie');return [...same,...rest].slice(0,9);}
-/* Recs module — one component, three formats. bundle:true = the Create The Look one (always opens the sheet). */
-const RECS={
-  look:{title:'Shop The Look',bundle:true,items:()=>[...lookItems(),...lookMore()],onlyNew:true},
-  hp:{title:'Handpicked For You',items:()=>[...HP,...P.filter(p=>p.fam==='quarter-zip').slice(0,3)]},
-  wtyl:{title:"We Think You'll Like",items:()=>[...WTYL,...P.filter(p=>p.fam==='oth-hoodie'||p.fam==='sweatshirt').slice(0,4)]},
-  // hp pads the same way when 3 rows are asked for
-};
-function recsModule(key){
-  const R=RECS[key]||addedRecs(key),host=$('#recs-'+key);host.innerHTML='';host.className='';
-  const f=S.fmt[key]||'carousel';
-  const off=f==='off'||f==='pairs'||(R.onlyNew&&S.mode!=='new')||(key==='look'&&S.stock==='oos'); // 'pairs' renders under the buy buttons instead (renderEntry)
-  host.hidden=off;if(off)return;
-  const items=R.items();
-  const open=p=>R.bundle?openSheet('look',p&&p.id):(p&&p.id&&byId(p.id)?(S.colour=p.id,S.size=null,renderAll(),scrollTo({top:0,behavior:'smooth'})):toast(R.title+' — View All'));
-  const box=el(`<div class="recs ${f}"><div class="rail-head"><span class="rail-title" data-copy="recs.${key}.${f}">${R.title}</span>${f==='nodata'?'<span class="all" data-copy="recs.viewall">View All</span>':''}</div></div>`); // View All belongs to the visual (no data) carousel only
-  if(f==='nodata'){
-    const imgs=el(`<div class="imgs"></div>`);items.slice(0,R.bundle?3:6).forEach(p=>imgs.appendChild(el(`<img src="${p.img}" alt="${p.name}" loading="lazy">`)));box.appendChild(imgs);
-    box.onclick=()=>open();
-  }else if(f==='inline'){
-    box.querySelector('.rail-title').textContent='Complete The Look';
-    const h=hero();const range=P.filter(p=>p.colour===h.colour&&p.id!==h.id).sort((a,b)=>FAM.findIndex(f=>f.id===a.fam)-FAM.findIndex(f=>f.id===b.fam));
-    const sc=el(`<div class="ctl"></div>`);
-    range.forEach(p=>{
-      const st=CTL[p.id]||(CTL[p.id]={size:null});
-      const c=el(`<div class="ctlc"><div class="im"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
-        <div class="row"><span class="rng">Premium Essentials</span><span class="pr">${fmt2(p)}</span></div>
-        <div class="nm">${p.name}</div>
-        <div class="col">Colour: <b>${p.colour}</b></div>
-        <div class="sz-sel"><span>Size:</span><span class="v ${st.size?'set':''}">${st.size||'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>
-        <button class="btn s">Add to bag</button></div>`);
-      c.querySelector('.sz-sel').onclick=e=>{e.stopPropagation();openPick(p,sz=>{st.size=sz;renderRecs();});}; // size = the modal's small 'Size:' line + chevron → picker (Jake 09 Sep)
-      c.querySelector('.btn').onclick=()=>{if(!st.size){toast('Select a size');return;}openATB([{p,size:st.size}]);};
-      sc.appendChild(c);
-    });
-    box.appendChild(sc);
-  }else if(f==='hot'){
-    box.querySelector('.rail-title').textContent='Complete The Look';
-    const L=lookPieces();const hd=byId(L['zip-hoodie']);
-    const SPOTS=[['zip-hoodie',50,30],['tee',52,46],['wide-jogger',48,70]];
-    const lk=el(`<div class="lk one on"><img src="${fullImg(hd.colour)}" alt="Complete the look"></div>`);
-    SPOTS.forEach(([fm,x,y])=>{const p=byId(L[fm]);if(!p)return;
-      const d=el(`<button class="dot" style="left:${x}%;top:${y}%" aria-label="${p.name}"></button>`);
-      const ch=el(`<div class="chip ${HOTOPEN===fm?'on':''} ${y>60?'up':''}" style="left:${x}%;top:${y}%"><b>${p.name}</b><span>${p.colour} · ${fmt(p.price)}</span><div class="swl"></div></div>`);
-      const sw=ch.querySelector('.swl');fam(p.fam).forEach(c=>{const bt=el(`<button class="${c.id===p.id?'on':''}" title="${c.colour}" aria-label="${c.colour}"><img src="${c.img}" alt=""></button>`);bt.onclick=e=>{e.stopPropagation();LOOKSEL[fm]=c.id;renderRecs();};sw.appendChild(bt);});
-      d.onclick=e=>{e.stopPropagation();HOTOPEN=HOTOPEN===fm?null:fm;renderRecs();};
-      ch.onclick=e=>e.stopPropagation();lk.appendChild(d);lk.appendChild(ch);});
-    lk.onclick=()=>{HOTOPEN=null;renderRecs();};
-    box.appendChild(lk);
-    const vb=el(`<button class="btn s">View entire look</button>`);vb.onclick=openLookModal;box.appendChild(vb);
-  }else if(f==='collage'){
-    box.querySelector('.rail-title').textContent='Complete The Look';
-    const L=lookPieces();const pcs=[['zip-hoodie','a'],['wide-jogger','b'],['tee','c']].map(([fm,cls])=>[fm,cls,byId(L[fm])]).filter(x=>x[2]);
-    const board=el(`<div class="board"></div>`);
-    pcs.forEach(([fm,cls,p])=>{
-      const t=el(`<button class="tile ${cls} ${HOTOPEN===fm?'on':''}" aria-label="${p.name}"><img src="${p.img}" alt=""><span class="dot">${HOTOPEN===fm?'–':'+'}</span></button>`);
-      t.onclick=e=>{e.stopPropagation();HOTOPEN=HOTOPEN===fm?null:fm;renderRecs();};board.appendChild(t);
-      if(HOTOPEN===fm){const ch=el(`<div class="chip"><b>${p.name}</b><span>${p.colour} · ${fmt(p.price)}</span><div class="swl"></div></div>`);
-        const sw=ch.querySelector('.swl');fam(p.fam).forEach(c=>{const bt=el(`<button class="${c.id===p.id?'on':''}" title="${c.colour}" aria-label="${c.colour}"><img src="${c.img}" alt=""></button>`);bt.onclick=e=>{e.stopPropagation();LOOKSEL[fm]=c.id;renderRecs();};sw.appendChild(bt);});
-        ch.onclick=e=>e.stopPropagation();
-        ch.style.cssText=cls==='a'?'left:12px;top:12px':cls==='b'?'right:12px;top:40%':'left:12px;bottom:12px';board.appendChild(ch);}
-    });
-    board.onclick=()=>{HOTOPEN=null;renderRecs();};
-    box.appendChild(board);
-    const vb=el(`<button class="btn s">View entire look</button>`);vb.onclick=openLookModal;box.appendChild(vb);
-  }else if(f==='ms'){
-    box.querySelector('.rail-title').textContent='Shop The Look';
-    const L=lookPieces();const pieces=['zip-hoodie','wide-jogger','tee'].map(k=>byId(L[k])).filter(Boolean);const hd=pieces[0];
-    const w=el(`<div class="wrapms"><div class="look"><img src="${fullImg(hd.colour)}" alt="Shop the outfit"><span class="pill">Shop the outfit <i>· ${pieces.length} items</i></span></div><div class="list"></div></div>`);
-    const list=w.querySelector('.list');
-    pieces.forEach(p=>{const st=CTL[p.id]||(CTL[p.id]={size:null});
-      const r=el(`<div class="row" role="button" tabindex="0"><img src="${p.img}" alt=""><div class="inf"><span class="nm"><b>${p.brand||'boohooMAN'}</b> - ${p.name}</span><span class="pr">${fmt2(p)}</span>
-        <div class="sels"><div class="sz-sel" data-k="size"><span>Size:</span><span class="v ${st.size?'set':''}">${st.size||'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div><div class="sz-sel nochev"><span>Colour:</span><span class="v set">${p.colour}</span></div></div><span class="qa">Add</span></div></div>`);
-      r.querySelector('[data-k="size"]').onclick=e=>{e.stopPropagation();openPick(p,sz=>{st.size=sz;renderRecs();});};
-      r.querySelector('.qa').onclick=e=>{e.stopPropagation();if(!st.size){openPick(p,sz=>{st.size=sz;renderRecs();openATB([{p,size:sz}]);});return;}openATB([{p,size:st.size}]);};
-      r.onclick=openLookModal;list.appendChild(r);});
-    w.querySelector('.look').onclick=openLookModal;
-    box.appendChild(w);
-  }else if(f==='carousel'){
-    const sc=el(`<div class="scroll"></div>`);items.forEach(p=>sc.appendChild(card(p,{pct:true,onclick:()=>open(p)})));box.appendChild(sc);
-    box.querySelector('.rail-head').onclick=()=>open();
-  }else{
-    const rows=Math.min(20,Math.max(1,+(S.gridRows[key]||2)));const g=el(`<div class="grid3"></div>`);const pool=items.length?Array.from({length:3*rows},(_,i)=>items[i%items.length]):[];pool.forEach(p=>g.appendChild(card(p,{pct:S.mode==='new',onclick:()=>open(p)})));box.appendChild(g);
-    box.querySelector('.rail-head').onclick=()=>open();
-  }
-  host.appendChild(box);applyCopy(host);
-}
-const CTL={}; // inline bundling: per-SKU size picks
+/* Recommendation rails — the DS Product carousel (assets/ds/carousel.js DG_pcarHTML / DG_pcarCard, product-carousel project, 2 Nov 2026):
+   DS card (brand · 2-line name · now · was · -X% · colour swatches that swap the image), 4px gap, 2:3, free scroll on mobile, desktop arrows page by in view − 1.
+   A tap opens that product's PDP (in the colour its swatch shows). */
+const CTL={}; // inline bundling: per-SKU size picks (retired formats)
 const fmt2=p=>(p.was&&p.was>p.price)?`<span style="color:var(--red)">${fmt(p.price)}</span> <s style="font-weight:400">${fmt(p.was)}</s>`:fmt(p.price);
-function ensureAdded(){S.added.forEach(a=>{if(!document.getElementById('recs-'+a.key)){const parent=document.getElementById(a.container)||document.querySelector('.'+a.container)||document.querySelector('.below');parent.appendChild(el(`<div id="recs-${a.key}" data-block="${a.key}" data-label="${a.label}" data-recs="${a.key}"></div>`));}});}
-function poolFor(key){const i=Math.max(0,S.added.findIndex(a=>a.key===key));const fams=FAM.map(f=>f.id);let out=[];for(let k=0;k<fams.length&&out.length<9;k++)out=out.concat(fam(fams[(i+2+k)%fams.length]));return out.slice(0,9);}
-function addedRecs(key){return {title:'You might also like',items:()=>poolFor(key)};}
-function renderRecs(){ensureAdded();Object.keys(RECS).concat(S.added.map(a=>a.key)).forEach(k=>{if(document.getElementById('recs-'+k))recsModule(k);});}
+const swList=p=>p&&p.fam?[p,...fam(p.fam).filter(c=>c.id!==p.id)]:[];
+function pcItem(p,i){const sale=p.was&&p.was>p.price,sw=swList(p);
+  return {img:p.img,brand:p.brand||'boohooMAN',name:p.name,price:fmt(p.price),was:sale?fmt(p.was):'',pct:sale?'-'+Math.round((1-p.price/p.was)*100)+'%':'',i,
+    swatches:sw.length>1?sw.map(c=>({c:`url(${c.sw}) center/cover`,name:c.colour,img:c.img})):null};}
+const RAILS={}; // host id → the products behind its cards (data-i)
+function rail(id,o,list){const host=$('#'+id);if(!host)return;RAILS[id]=list;host.className='rails';host.hidden=!list.length;
+  host.innerHTML=list.length?DG_pcarHTML(Object.assign({size:'md',per:5},o,{items:list.map(pcItem)})):'';}
+function goPDP(p,instant){S.colour=p.id;S.size=null;S.notified=false;renderAll();scrollTo({top:0,behavior:instant?'auto':'smooth'});}
+document.addEventListener('click',e=>{const c=e.target.closest('.rails .pc');if(!c||e.target.closest('.pc-swatch,.pcar-arr'))return;
+  const list=RAILS[c.closest('.rails').id],p=list&&list[+c.dataset.i];if(!p)return;
+  const on=c.querySelector('.pc-swatch.on'),pick=on?swList(p)[+on.dataset.sw]||p:p;
+  if(pick.id&&byId(pick.id))goPDP(pick);else toast('That product page is out of scope here');});
+function renderRecs(){
+  if(stockOf(hero())!=='in'){['recs-look','recs-hp','recs-wtyl'].forEach(id=>{const h=$('#'+id);if(h){h.innerHTML='';h.hidden=true;}});return;}
+  rail('recs-look',{full:true,title:'Shop The Look'},lookItems()); // Jake 23 Nov: a normal recs carousel of the pieces in the product image — a tap opens that PDP
+  rail('recs-hp',{size:'sm',grid:true,per:6,bleed:false,title:'Handpicked For You'},[...HP,...P.filter(p=>p.fam==='quarter-zip')].slice(0,6));
+  rail('recs-wtyl',{full:true,title:'We Think You’ll Like'},[...WTYL,...P.filter(p=>p.fam==='oth-hoodie'||p.fam==='sweatshirt')].slice(0,10));
+}
 function renderCYP(){
   const c=$('#cyp');c.innerHTML='';if(S.mode!=='live'||S.stock==='oos')return;
   const h=hero();const items=[h,partner('tee',h.colour),partner('wide-jogger',h.colour),partner('wide-jogger',h.colour)];
@@ -1498,11 +1449,24 @@ function renderCYP(){
   const b=el(`<button class="btn s">Add to Bag (${items.length})</button>`);b.onclick=()=>toast('Select sizes first');box.appendChild(b);
   c.appendChild(box);
 }
+/* Shop Similar Items (both OOS PDPs, Jake 23 Nov): under the OOS line / notify box the rest of the PDP is one endless grid of products like this one —
+   its own family first, then the nearest families, then the range — so the customer finds an alternative, not something less relevant.
+   DS Product carousel grid (3 across on mobile, 5 on desktop); 15 more cards load as the end comes into view. */
+const NEAR={'tee':['tee','ls-tee','sweatshirt'],'ls-tee':['ls-tee','tee','sweatshirt'],'wide-jogger':['wide-jogger','straight-jogger'],'straight-jogger':['straight-jogger','wide-jogger'],
+  'zip-hoodie':['zip-hoodie','oth-hoodie','quarter-zip'],'oth-hoodie':['oth-hoodie','zip-hoodie','sweatshirt'],'sweatshirt':['sweatshirt','oth-hoodie','quarter-zip'],'quarter-zip':['quarter-zip','sweatshirt','zip-hoodie']};
+let SIM={io:null,n:0,pool:[],list:[]};
 function renderSimilar(){
-  const s=$('#similar');const on=S.stock==='oos';s.hidden=!on;if(!on)return;
-  const g=$('#similargrid');g.innerHTML='';
-  const h=hero();[...fam(h.fam).filter(p=>p.id!==h.id),...fam('oth-hoodie'),...fam('sweatshirt')].slice(0,12).forEach(p=>g.appendChild(card(p)));
+  const s=$('#similar'),h=hero(),on=stockOf(h)!=='in';if(SIM.io){SIM.io.disconnect();SIM.io=null;}
+  s.hidden=!on;if(!on){s.innerHTML='';return;}
+  const pool=[],add=p=>{if(p.id!==h.id&&stockOf(p)==='in'&&!pool.includes(p))pool.push(p);};
+  (NEAR[h.fam]||[h.fam]).forEach(f=>fam(f).forEach(add));P.forEach(add);
+  SIM={io:null,n:0,pool,list:[]};RAILS.similar=SIM.list;s.className='rails';
+  s.innerHTML=DG_pcarHTML({size:'sm',grid:true,per:5,bleed:false,title:'Shop Similar Items',items:[]})+'<div class="sim-more" aria-hidden="true"></div>';
+  moreSimilar(15);
+  if(window.IntersectionObserver){SIM.io=new IntersectionObserver(es=>{if(es.some(x=>x.isIntersecting))moreSimilar(15);},{rootMargin:'800px 0px'});SIM.io.observe(s.querySelector('.sim-more'));}
 }
+function moreSimilar(k){const tr=document.querySelector('#similar .pcar-track');if(!tr||!SIM.pool.length)return;let out='';
+  for(let j=0;j<k;j++){const p=SIM.pool[SIM.n%SIM.pool.length];SIM.list.push(p);out+=DG_pcarCard(pcItem(p,SIM.n),{});SIM.n++;}tr.insertAdjacentHTML('beforeend',out);}
 
 /* Handpicked (live names/prices from the 08 Sep capture) + We Think You'll Like */
 const HP=[
@@ -1527,7 +1491,7 @@ const WTYL=[
 const SLOT={'01':'slot-colour','03':'slot-colour','04':'slot-rail','07':'slot-colour','08':'slot-colour','09':'slot-colour'}; // Jake 18 Sep: slot-colour now sits under the buy buttons (was under the colours); 04 large banners sit under the BNPL box
 function renderEntry(){
   ['slot-pill','slot-price','slot-buttons','slot-colour','slot-rail'].forEach(id=>$('#'+id).innerHTML='');
-  if(S.mode!=='new'||S.stock==='oos')return;
+  if(S.mode!=='new'||stockOf(hero())!=='in')return;
   if(S.fmt.look==='pairs'){const t=document.getElementById('tpl-03-3').content.cloneNode(true);const imgs=setImages(5);t.querySelectorAll('img[data-set]').forEach(im=>im.src=imgs[+im.dataset.set]||imgs[0]);t.querySelectorAll('.entry').forEach(e=>e.addEventListener('click',openPairs));$('#slot-buttons').appendChild(t);}
   if(S.entry==='none'||S.entry==='06-1')return;
   const tpl=document.getElementById('tpl-'+S.entry);if(!tpl)return;
@@ -1566,7 +1530,7 @@ function sheetRows(kind){
       {label:'T-Shirts',items:sortByColour(fam('tee'),h.colour)},
     ];
   }
-  return S.rows.map(f=>{const F=FAM.find(x=>x.id===f);return F?{label:F.label,items:sortByColour(fam(f),h.colour)}:null;}).filter(Boolean);
+  return S.rows.map(f=>{const F=FAM.find(x=>x.id===f);return F?{label:F.label,items:sortByColour(fam(f).filter(p=>stockOf(p)!=='gone'),h.colour)}:null;}).filter(Boolean); // not being reordered → not in the set builder
 }
 function openSheet(kind,preselectId){
   SH={kind,rows:sheetRows(kind),sel:{},view:{}};
@@ -1587,8 +1551,20 @@ function toggleSel(p){if(SH.sel[p.id])delete SH.sel[p.id];else SH.sel[p.id]={siz
 const SET_OFF=0.2; // bundle incentive shown in the builder: 20% off each piece
 const setNow=p=>Math.round(p.price*(1-SET_OFF)*100)/100;
 const setPrice=p=>`<span class="now sale">${fmt(setNow(p))}</span><span class="was">${fmt(p.price)}</span>`;
-function sizeLine(p){const st=SH.sel[p.id];return `<div class="sz-sel"><span>Size:</span><span class="v ${st&&st.size?'set':''} ${st&&st.err?'err':''}">${st&&st.size?st.size:'Select size'}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></div>`;}
-function wireSize(node,p){node.querySelector('.sz-sel').onclick=e=>{e.stopPropagation();openPick(p,sz=>{SH.sel[p.id]={size:sz};renderSheet();});};}
+/* Size (Jake 23 Nov): a native select. Out-of-stock sizes read "M - Notify Me" (greyed where the browser allows). Picking one sets a back-in-stock alert instead of adding:
+   logged in → the row says "You'll be notified when it's available" straight away · logged out → the DS Notify Me modal opens over the set builder for the email.
+   A notify pick stays ticked but is not counted in the total or Add to bag. */
+const SET_SIZES=ALL_SIZES;
+function sizeLine(p){const st=SH.sel[p.id]||{},have=sizesOf(p);
+  const v=st.size?st.size:'Select size';
+  return `<label class="sz-sel"><span>Size:</span><span class="v ${st.size?'set':''} ${st.err?'err':''}">${v}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""><select aria-label="Size for ${p.name}, ${p.colour}"><option value="">Select size</option>${SET_SIZES.map(z=>{const ok=have.includes(z);return `<option value="${z}"${st.size===z?' selected':''}${ok?'':' class="nm"'}>${ok?z:z+' - Notify Me'}</option>`;}).join('')}</select></label>`;}
+function pickSize(p,z){
+  if(!z){SH.sel[p.id]={size:null};renderSheet();return;}
+  if(sizesOf(p).includes(z)){SH.sel[p.id]={size:z};renderSheet();return;}
+  if(S.login){SH.sel[p.id]={size:z,notify:true};renderSheet();return;}
+  SH.sel[p.id]={size:z,notify:true,pending:true};renderSheet();
+  openNotify(p,z,ok=>{if(!SH.sel[p.id])return;if(ok)delete SH.sel[p.id].pending;else SH.sel[p.id]={size:null};renderSheet();});}
+function wireSize(node,p){const sel=node.querySelector('.sz-sel select');if(sel){sel.onclick=e=>e.stopPropagation();sel.onchange=()=>pickSize(p,sel.value);}}
 /* row as product cards (Figma 1038:45022) */
 /* View All ⇄ Zoom In: swap ONLY this row, in place. Outgoing size → incoming size is continuous (140→84 or back) and the row height eases, so nothing below jumps */
 function growIn(row,targets,hPrev){targets=targets.filter(Boolean);if(!targets.length)return;const nat=targets.map(t=>t.offsetHeight);targets.forEach(t=>{t.style.height='0px';t.style.overflow='hidden';t.style.opacity='0';});void row.offsetHeight;const start=Math.max(0,hPrev-row.offsetHeight);targets.forEach(t=>{t.style.height=start+'px';});void row.offsetHeight;targets.forEach((t,i)=>{t.style.transition='height 220ms ease,opacity 220ms ease';t.style.height=nat[i]+'px';t.style.opacity='1';});setTimeout(()=>targets.forEach(t=>{t.style.cssText='';}),260);}
@@ -1628,7 +1604,8 @@ function rowThumbs(r,ri,back){
   const th=row.querySelector('.th');
   r.items.forEach(p=>{const on=!!SH.sel[p.id];const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""><span class="cb ${on?'':'off'}${JUST===p.id?' pop':''}" aria-hidden="true"></span></button>`);bt.setAttribute('aria-pressed',on);bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
   const cs=row.querySelector('.csel');
-  r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const line=el(`<div class="cs"><span class="c">${p.colour} · <b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span>${sizeLine(p)}</div>`);wireSize(line,p);cs.appendChild(line);});
+  r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const line=el(`<div class="cs"><span class="c">${p.colour} · <b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span>${sizeLine(p)}</div>`);wireSize(line,p);cs.appendChild(line);
+    const st=SH.sel[p.id];if(st.notify&&!st.pending)cs.appendChild(el(`<p class="ntf-note">You’ll be notified when it’s available</p>`));});
   return row;
 }
 function renderSheet(){
@@ -1637,17 +1614,39 @@ function renderSheet(){
   const compact=SH.kind==='set'&&SETVIEW==='compact'; // Compact = every row as thumbnails, no hero (the product you came from is already ticked in its row)
   if(SH.kind==='look') b.appendChild(el(`<div class="filters"><span>Price <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Body Fit <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span><span>Style <img src="assets/ds/icons/lib/icons-down.svg" alt=""></span></div>`));
   SH.rows.forEach((r,ri)=>b.appendChild((compact||SH.view[ri]==='thumbs')?rowThumbs(r,ri,!compact):rowCards(r,ri)));
-  const ids=Object.keys(SH.sel);
+  const ids=Object.keys(SH.sel).filter(id=>!SH.sel[id].notify); // a Notify Me pick is an alert, not a purchase
   $('#sheettotal').textContent=fmt(ids.reduce((a,id)=>a+setNow(byId(id)),0));
   const btn=$('#sheetatb');btn.innerHTML=`<span data-copy="sheet.atb">Add to bag</span> (${ids.length})`;btn.disabled=!ids.length;
   b.scrollTop=keepScroll;applyCopy($('#sheet'));
 }
 $('#sheetatb').onclick=()=>{
-  let bad=false;Object.keys(SH.sel).forEach(id=>{if(!SH.sel[id].size){SH.sel[id].err=true;bad=true;}});
+  const buy=Object.keys(SH.sel).filter(id=>!SH.sel[id].notify);
+  let bad=false;buy.forEach(id=>{if(!SH.sel[id].size){SH.sel[id].err=true;bad=true;}});
   if(bad){renderSheet();toast('Select a size for each item');return;}
-  const items=Object.keys(SH.sel).map(id=>({p:byId(id),size:SH.sel[id].size}));
+  const items=buy.map(id=>({p:byId(id),size:SH.sel[id].size}));
   closeSheet();setTimeout(()=>openATB(items),200);
 };
+/* Notify Me over the set builder (logged out, Jake 23 Nov) — the DS Notify Me modal (.ntf-prod · .ntf-q · NOTIFY ME · consent) with the DS email field;
+   slides up over the sheet on mobile, centred 480 on desktop. done(true) = alert set, done(false) = closed without one (the size clears). */
+function openNotify(p,z,done){
+  const L=el(`<div class="wl-layer ntf-layer ${innerWidth<768?'wl-layer--up':''}"><div class="mdl-scrim" data-nx></div>
+    <div class="mdl ${innerWidth<768?'mdl--up':''}" role="dialog" aria-modal="true" aria-labelledby="ntft">
+      <div class="modal-hd"><div class="mt"><span id="ntft">Notify Me</span></div><button class="modal-x" aria-label="Close" data-nx></button></div>
+      <div class="mdl-bd">
+        <div class="ntf-prod"><img src="${p.img}" alt=""><div class="ntf-tx"><b>${p.brand||'boohooMAN'}</b><span>${p.name}</span><span>${fmt(setNow(p))}</span><span>Size: <b>${z}</b></span><span>Colour: <b>${p.colour}</b></span></div></div>
+        <p class="ntf-q">Get notified when it’s back in stock?</p>
+        <div><label class="fld"><input type="email" placeholder=" " autocomplete="email"><span class="lbl">Email Address</span></label></div>
+        <button class="bd pri full" data-nok><i class="ico-bell"></i>Notify Me</button>
+        <div class="chk-row chk-row--lg"><button class="chk on" aria-checked="true" aria-label="I consent to email alerts"></button><p class="ntf-legal">By ticking the box you confirm that you are aged 16 or over &amp; consent to receiving email alerts about products, offers &amp; marketing communications. Please see our <a href="#">Privacy Policy</a> for more information.</p></div>
+      </div></div></div>`);
+  document.body.appendChild(L);const inp=L.querySelector('input'),chk=L.querySelector('.chk');
+  const close=ok=>{const m=L.querySelector('.mdl');m.classList.add(m.classList.contains('mdl--up')?'mdl-anim-down':'mdl-anim-fade-out');L.querySelector('.mdl-scrim').classList.add('mdl-scrim--out');setTimeout(()=>L.remove(),300);done(ok);};
+  L.querySelectorAll('[data-nx]').forEach(b=>b.onclick=()=>close(false));
+  chk.onclick=()=>{const on=!chk.classList.contains('on');chk.classList.toggle('on',on);chk.setAttribute('aria-checked',on);};
+  L.querySelector('[data-nok]').onclick=()=>{const v=inp.value.trim(),ok=/.+@.+\..+/.test(v);inp.closest('.fld').classList.toggle('invalid',!ok);
+    if(!ok){toast('Enter a valid email address');inp.focus();return;}if(!chk.classList.contains('on')){toast('Tick the box to consent');return;}close(true);};
+  setTimeout(()=>inp.focus({preventScroll:true}),320);
+}
 /* Complete The Look modal (hotspot format): each piece can switch colour within its family and pick a size; Add all */
 let LM=[]; // [{id,size,err}]
 function openLookModal(){
@@ -1684,7 +1683,7 @@ const SIZES_IN=[['XS','34–36','28–30','34–36'],['S','36–38','30–32','3
 let SG_IN=false;
 function renderSizeGuide(){
   const b=$('#sgbody');b.innerHTML='';
-  if(S.sizerec)b.appendChild(el(`<div class="srb"><img class="ic" src="${srecSrc()}" alt=""><span class="cp"><b>${SREC_COPY[S.srecDir][0]}</b><span>${SREC_COPY[S.srecDir][1]}</span></span></div>`));
+  if(S.sizerec)b.appendChild(el(srecHTML()));
   const u=el(`<div class="units"><span>CM</span><button class="tg ${SG_IN?'in':''}" role="switch" aria-checked="${SG_IN}" aria-label="Show inches"><i></i></button><span>Inches</span></div>`);u.querySelector('.tg').onclick=()=>{SG_IN=!SG_IN;renderSizeGuide();};b.appendChild(u);
   b.appendChild(el(`<div class="ttl"><b>Men’s tops</b><span>Body measurements in ${SG_IN?'inches':'cm'}</span></div>`));
   const rows=(SG_IN?SIZES_IN:SIZES_CM).map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
@@ -1694,15 +1693,13 @@ function renderSizeGuide(){
 function openSizeGuide(){renderSizeGuide();const m=$('#sizeg');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';}
 document.querySelector('.size-guide').onclick=openSizeGuide;
 document.querySelectorAll('.fitb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fitb').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
-const SREC_ICONS={ // Jake 15 Sep: per direction — Up = increase arrow / ↑ badges, Down = decrease arrow / ↓ badges on the garment and hanger; the measuring tape is universal
-  up:{arrow:'assets/ds/icons/lib/icon-arrow-increase.svg',tape:'assets/ds/icons/lib/icons-measure.svg',size:'assets/icons/icons-size-up.svg',hanger:'assets/icons/icons-hanger-up.svg'},
-  down:{arrow:'assets/icons/icon-arrow-decrease.svg',tape:'assets/ds/icons/lib/icons-measure.svg',size:'assets/icons/icons-size-down.svg',hanger:'assets/icons/icons-hanger-down.svg'}};
 const SREC_COPY={up:['We recommend sizing up','Customers say this item fits too small'],down:['We recommend sizing down','Customers say this item fits too large']};
-if(!SREC_ICONS.up[S.srecIcon]){S.srecIcon='arrow';LS('pdp26-srecicon','arrow');}
-if(!SREC_COPY[S.srecDir]){S.srecDir='up';LS('pdp26-srecdir','up');}
-function srecSrc(){return SREC_ICONS[S.srecDir][S.srecIcon]||SREC_ICONS.up.arrow;}
-function applySrecIcon(){const src=srecSrc();document.querySelectorAll('.srb img.ic').forEach(i=>{if(!i.src.endsWith(src))i.src=src;});
-  const [h,sub]=SREC_COPY[S.srecDir];document.querySelectorAll('.srb .cp b').forEach(b=>{if(!(b.dataset.copy&&S.copy[b.dataset.copy]!=null))b.textContent=h;});document.querySelectorAll('.srb .cp span').forEach(x=>{if(!(x.dataset.copy&&S.copy[x.dataset.copy]!=null))x.textContent=sub;});} // edited copy (edit mode) still wins
+/* DS Size recommender (.srec, 23 Nov): hanger (lib icons-hanger-size-up / -down, 1pt) or the fit scale (marker at Runs Small / Runs Large — never the middle) */
+function srecHTML(){const up=S.srecDir!=='down',[h,sub]=SREC_COPY[up?'up':'down'];
+  return S.srecStyle==='scale'
+    ?`<div class="srec srec--scale ${up?'srec--small':'srec--large'}" role="note"><span class="srec-cp"><b>${h}</b><span>${sub}</span></span><span class="srec-bar" aria-hidden="true"><i></i></span><span class="srec-lbls"><span>Runs Small</span><span>True To Size</span><span>Runs Large</span></span></div>`
+    :`<div class="srec" role="note"><img class="srec-ic" src="assets/ds/icons/lib/icons-hanger-size-${up?'up':'down'}.svg" alt=""><span class="srec-cp"><b>${h}</b><span>${sub}</span></span></div>`;}
+
 function descState(){const rows=[...document.querySelectorAll('.desc>[data-block]')].map(b=>({name:b.dataset.block,label:b.dataset.label,acc:b.classList.contains('acc'),open:!!S.accOpen[b.dataset.block],removed:false,glance:b.dataset.block==='glance'?[...document.querySelectorAll('.glance li[data-gl]')].map(li=>({i:+li.dataset.gl,text:li.textContent.trim(),off:S.glanceOff.includes(+li.dataset.gl)})):null}));S.removed.filter(r=>r.container==='desc').forEach(r=>rows.push({name:r.name,label:r.label,acc:r.name.startsWith('acc-'),open:!!S.accOpen[r.name],removed:true}));return rows;}
 addEventListener('message',e=>{const d=e.data;if(!d||!d.pdpDesc)return;const {op,name}=d.pdpDesc;const b=document.querySelector(`.desc>[data-block="${name}"]`);
   if(op==='toggle'){S.accOpen[name]=!S.accOpen[name];LS('pdp26-acc',S.accOpen);renderAll();flash(b);return;}
@@ -1760,19 +1757,20 @@ tick();setInterval(tick,1000);
 
 function renderAll(){
   document.body.className='mode-'+S.mode;
-  document.body.classList.toggle('trio-anim',!!S.trioAnim); // after the className reset, or it's wiped
-  ensureAdded();applyRemoved();applyOrder();
+  {const st=stockOf(hero());document.body.classList.toggle('pdp-oos',st!=='in');document.body.classList.toggle('oos-gone',st==='gone');document.body.classList.toggle('oos-restock',st==='restock');document.body.classList.toggle('in',!!S.login);}
+  applyRemoved();applyOrder();
   renderGallery();renderPTabs();renderSwatches();renderPrice();renderSizes();renderBuy();renderBoxes();
   renderEntry();renderCYP();renderSimilar();renderRecs();
   $('#nddmsg').hidden=S.stock==='oos';
-  $('#sizerec').hidden=!S.sizerec;applySrecIcon();
+  $('#sizerec').innerHTML=srecHTML();
   document.querySelectorAll('.drow.acc[data-block]').forEach(a=>a.classList.toggle('open',!!S.accOpen[a.dataset.block]));
   document.querySelectorAll('.glance li[data-gl]').forEach(li=>{li.hidden=S.glanceOff.includes(+li.dataset.gl);});
   document.body.classList.toggle('nolabels',!S.labels);
   renderEdit();applyCopy();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
-  parent.postMessage({pdpCfg:`${S.mode} · entry:${S.entry} · stock:${S.stock} · look=${S.fmt.look}${S.fmt.look==='grid'?'×'+S.gridRows.look:''} hp=${S.fmt.hp}${S.fmt.hp==='grid'?'×'+S.gridRows.hp:''} wtyl=${S.fmt.wtyl}${S.fmt.wtyl==='grid'?'×'+S.gridRows.wtyl:''} · set:${typeof SETVIEW!=='undefined'?SETVIEW:'cards'} · ${hero().id} ${hero().colour}`,
-    pdpState:{mode:S.mode,entry:S.entry,stock:S.stock,fmt:S.fmt,setview:typeof SETVIEW!=='undefined'?SETVIEW:'cards',order:S.order,removed:S.removed,gridRows:S.gridRows,endpos:S.endpos,sizerec:S.sizerec,labels:S.labels,copy:S.copy,added:S.added,srecIcon:S.srecIcon,srecDir:S.srecDir,trioAnim:S.trioAnim,ptabs:S.ptabs,pricing:S.pricing,desc:descState(),edit:S.edit,hero:hero().id}},'*');
+  const st=stockOf(hero());
+  parent.postMessage({pdpCfg:`${hero().id} ${FAM_SINGULAR[hero().fam]||hero().fam} · ${hero().colour} · ${st==='in'?'in stock':st==='gone'?'OOS, not restocking':'OOS, restocking'} · ${S.login?'logged in':'logged out'} · size rec ${S.srecStyle} ${S.srecDir}`,
+    pdpState:{login:S.login,srecStyle:S.srecStyle,srecDir:S.srecDir,hero:hero().id,stock:st}},'*');
 }
 
 /* ============================================================
@@ -1856,22 +1854,29 @@ function renderEdit(){
 }
 addEventListener('message',e=>{
   const d=e.data;if(!d||!d.pdpSet)return;
-  const stockChanged=d.stock!==S.stock;
-  S.mode=d.mode||S.mode;S.entry=d.entry||S.entry;S.stock=d.stock||S.stock;if(Array.isArray(d.rows))S.rows=d.rows;if(typeof d.edit==='boolean')S.edit=d.edit;if(typeof d.trioAnim==='boolean'){S.trioAnim=d.trioAnim;LS('pdp26-trioanim',S.trioAnim);}if(typeof d.ptabs==='boolean'){S.ptabs=d.ptabs;LS('pdp26-ptabs',S.ptabs);}if(d.pricing){S.pricing=d.pricing;LS('pdp26-pricing',S.pricing);}
-  if(d.fmt){S.fmt={...S.fmt,...d.fmt};LS('pdp26-fmt',S.fmt);}
-  if(d.gridRows){S.gridRows={...S.gridRows,...d.gridRows};LS('pdp26-gridrows',S.gridRows);}
-  if(d.endpos){S.endpos=+d.endpos;LS('pdp26-endpos',S.endpos);}
-  if(typeof d.sizerec==='boolean'){S.sizerec=d.sizerec;LS('pdp26-sizerec',S.sizerec);}
-  if(d.srecIcon){S.srecIcon=d.srecIcon;LS('pdp26-srecicon',S.srecIcon);}
-  if(d.srecDir){S.srecDir=d.srecDir;LS('pdp26-srecdir',S.srecDir);}
-  if(typeof d.labels==='boolean'){S.labels=d.labels;LS('pdp26-labels',S.labels);}
-  if(d.setview){SETVIEW=d.setview;LS('pdp26-setview',SETVIEW);if(!$('#sheet').hidden&&SH.kind==='set')renderSheet();}
-  if(d.resetOrder){S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});LS('pdp26-added',[]);LS('pdp26-acc',{'acc-desc':true});LS('pdp26-glanceoff',[]);location.reload();return;}
-  if(d.focus)PENDING_FOCUS=d.focus;
-  if(stockChanged){S.size=null;S.notified=false;}
-  document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');sh.hidden=true;});document.body.style.overflow='';
-  renderAll();
+  if(typeof d.login==='boolean'){S.login=d.login;LS('pdp26-login',S.login);S.notified=false;}
+  if(d.srecStyle){S.srecStyle=d.srecStyle==='scale'?'scale':'hanger';LS('pdp26-srecstyle',S.srecStyle);}
+  if(d.srecDir){S.srecDir=d.srecDir==='down'?'down':'up';LS('pdp26-srecdir',S.srecDir);}
+  if(d.scene){scene(d.scene);return;}
+  if(!$('#sheet').hidden)renderSheet();
+  renderAll();if(d.focus)doFocus(d.focus);
 });
+/* Screens (the panel's showcase, Jake 23 Nov): put the page into a decided state */
+const HERO_ID='CMM29598';
+function closeAll(){document.querySelectorAll('.sheet:not([hidden])').forEach(sh=>{sh.classList.remove('open');sh.hidden=true;});document.querySelectorAll('.ntf-layer').forEach(x=>x.remove());$('#pick').hidden=true;document.body.style.overflow='';}
+function scene(k){
+  closeAll();
+  const pdp=id=>{S.colour=id||HERO_ID;S.size=null;S.notified=false;renderAll();scrollTo({top:0,behavior:'auto'});};
+  if(k==='pdp'){pdp();return;}
+  if(k==='tabs'){pdp();setTimeout(()=>flash($('#ptabs')),60);return;}
+  if(k==='srec'){pdp();setTimeout(()=>flash($('#sizerec')),60);return;}
+  if(k==='set'){pdp();openSheet('set');return;}
+  if(k==='set-notify'){pdp();const t=byId('CMM29620');openSheet('set',t.id);setTimeout(()=>{pickSize(t,'M');const tr=[...document.querySelectorAll('#sheetbody .crow')].find(r=>/T-Shirt/i.test(r.querySelector('.lbl').textContent));if(tr)$('#sheetbody').scrollTo({top:tr.offsetTop-80,behavior:'smooth'});},320);return;}
+  if(k==='look'){pdp();setTimeout(()=>flash($('#recs-look')),60);return;}
+  if(k==='oos-gone'){pdp('CMM29657');return;}
+  if(k==='oos-restock'){pdp('CMM29620');return;}
+  if(k==='oos-restock-size'){pdp('CMM29620');S.size='M';renderSizes();renderBuy();setTimeout(()=>flash($('#notify')),60);return;}
+}
 renderAll();
 /* panel → page focus: bring the thing being changed into view, or open its modal */
 function flash(el){if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1400);}
@@ -1888,6 +1893,7 @@ function doFocus(k){
 }
 addEventListener('message',e=>{const d=e.data;if(d&&d.pdpFocus)doFocus(d.pdpFocus);});
 parent.postMessage({pdpReady:1},'*');
+if(PRE.scene||q.get('scene'))scene(PRE.scene||q.get('scene'));
 let __imgsDone=()=>[...document.images].every(i=>i.complete);
 addEventListener('message',e=>{if(e.data&&e.data.pdpPing){const t=setInterval(()=>{if(__imgsDone()){clearInterval(t);parent.postMessage({pdpPong:e.data.pdpPing,h:document.documentElement.scrollHeight},'*');}},100);}});
 </script>

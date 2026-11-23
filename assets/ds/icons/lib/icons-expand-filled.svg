@@ -1,7 +1,5 @@
-<svg overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Group 217">
-<circle id="Ellipse 1149" cx="12" cy="12" r="12" fill="black"/>
-<path id="Vector 1" d="M12 6.00001L12 18" stroke="white" stroke-linecap="round"/>
-<path id="Vector 2" d="M18 12H6.00001" stroke="white" stroke-linecap="round"/>
-</g>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Figma DS 3460:230 Icons / Expand Filled · single colour: the glyph is a hole in the disc, not a white shape on top -->
+<defs><mask id="expf-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24"><rect width="24" height="24" fill="white"/><path d="M12 6V18M18 12H6" stroke="black" stroke-width="1.2" stroke-linecap="round"/></mask></defs>
+<circle cx="12" cy="12" r="12" fill="black" mask="url(#expf-cut)"/>
 </svg>

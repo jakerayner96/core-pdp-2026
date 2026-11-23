@@ -1,5 +1,5 @@
-<svg overflow="visible" style="display: block;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Icons / Tick">
-<path id="Vector 7" d="M2.33333 8.66667L5.66667 12L13.6667 4" stroke="black" stroke-linecap="round"/>
-</g>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Figma DS 6305:16697 Icons / Tick Circle Outline · ring + tick (the old copy had lost the ring) -->
+<rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="black" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<path d="M6.33334 12.6667L9.66668 16L17.6667 8" stroke="black" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
 </svg>

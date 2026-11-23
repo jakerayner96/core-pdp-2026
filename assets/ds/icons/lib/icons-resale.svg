@@ -1,3 +1,5 @@
-<svg overflow="visible" style="display: block;" width="10.5002" height="11.7589" viewBox="0 0 10.5002 11.7589" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path id="Vector" d="M7.15189 4.80355V2.40182C7.15189 1.35147 6.30042 0.5 5.25007 0.5C4.19973 0.5 3.34825 1.35147 3.34825 2.40182V4.80355M1.47833 11.2589H9.02184C9.61389 11.2589 10.0702 10.737 9.99117 10.1502L9.05372 3.18972H1.44645L0.509001 10.1502C0.429977 10.737 0.886277 11.2589 1.47833 11.2589Z" stroke="black" stroke-linecap="round"/>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Figma DS 12427:634 Icons / Resale · whole icon on the 24 base (bag + circular arrows; the earlier copy was only the bag) -->
+<path d="M14.1518 10.0885V7.68679C14.1518 6.63645 13.3003 5.78497 12.25 5.78497C11.1996 5.78497 10.3482 6.63645 10.3482 7.68679V10.0885M8.47824 16.5438H16.0218C16.6138 16.5438 17.0701 16.022 16.9911 15.4352L16.0536 8.4747H8.44636L7.50892 15.4352C7.42989 16.022 7.88619 16.5438 8.47824 16.5438Z" stroke="black" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+<path d="M3.53564 22.9974V18.7666H7.76639M22.8106 9.97607C23.8632 15.5741 20.4375 21.124 14.8444 22.6226C10.5636 23.7696 6.19584 22.2268 3.53564 19.03M1.18951 14.0241C0.136833 8.42606 3.56258 2.87621 9.15568 1.37755C13.4361 0.230592 17.8037 1.77325 20.464 4.96956M20.464 1.00293V5.2337H16.2332" stroke="black" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

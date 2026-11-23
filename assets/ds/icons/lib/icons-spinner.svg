@@ -1,13 +1,5 @@
-<svg overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Group 293">
-<circle id="Ellipse 1" cx="12" cy="12" r="10.5" stroke="#B5B5B5" stroke-width="3"/>
-<g id="Mask group">
-<mask id="mask0_0_332" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-<circle id="Ellipse 2" cx="12" cy="12" r="10.5" stroke="#F2F2F2" stroke-width="3"/>
-</mask>
-<g mask="url(#mask0_0_332)">
-<rect id="Rectangle 763" x="12" width="12" height="12" fill="#767676"/>
-</g>
-</g>
-</g>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Figma DS 3:2133 Icons / Spinner · single colour: ring at 30%, the top-right quarter solid -->
+<circle cx="12" cy="12" r="10.5" stroke="black" stroke-opacity="0.3" stroke-width="3"/>
+<path d="M12 1.5A10.5 10.5 0 0 1 22.5 12" stroke="black" stroke-width="3"/>
 </svg>
