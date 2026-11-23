@@ -675,6 +675,8 @@ a.hd-usp:hover .usp-t{text-decoration:underline;text-underline-offset:2px}
 .chk::after{content:"";position:absolute;inset:-1px;background:var(--icon-on-action,#FFF);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.33334 12.6667L9.66668 16L17.6667 8' fill='none' stroke='%23000' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/24px 24px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.33334 12.6667L9.66668 16L17.6667 8' fill='none' stroke='%23000' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/24px 24px no-repeat;opacity:0}
 .chk.on,.chk[aria-checked="true"]{background:var(--icon-action);border-color:var(--icon-action)}
 .chk.on::after,.chk[aria-checked="true"]::after{opacity:1}
+.chk.pop.on::after{animation:chk-pop .16s ease-out} /* .pop: the box just tapped (image pickers) eases its tick in */
+@keyframes chk-pop{from{transform:scale(.85);opacity:.3}to{transform:scale(1);opacity:1}}
 .chk-row{display:flex;align-items:center;gap:var(--gap-2,8px);font-size:14px} /* gap 2 (8px) box → label */
 .chk-row--lg{align-items:flex-start;gap:16px}
 /* Radio — Figma DS 669-2125 (5915-3370 on / 5915-3372 off): 24px, 1px Grey 3 ring on white (it stays Grey 3 when selected);
@@ -2970,6 +2972,7 @@ li[data-k="bf"]>.persona-row>i{background:var(--season-bf)}
    16 lib bell (icons-notification) · "You'll be notified when it's available" 12 / 16 strong, black · gap 1.5 (6px). The PDP, Shop The Set rows and Wishlist share the copy. */
 .ntf-note{display:flex;align-items:center;gap:var(--gap-1_5,6px);margin:0;font-size:12px;line-height:16px;font-weight:var(--w-strong);color:var(--text-primary)}
 .ntf-note::before{content:"";width:16px;height:16px;flex:none;background:var(--text-primary);-webkit-mask:url("icons/lib/icons-notification.svg") center/16px 16px no-repeat;mask:url("icons/lib/icons-notification.svg") center/16px 16px no-repeat}
+.ntf-note--size{justify-content:flex-end;font-weight:var(--w-regular);text-align:right} /* under a size picker (Shop The Set): regular, right aligned under the size it belongs to */
 .ntf-legal a{color:inherit;text-decoration:underline}
 /* Wishlist modals layer (.wl-layer / --up: with the delivery, S&S, VS and bag layers above): leaving slides back down (fades on desktop) */
 .wl-layer>.mdl.mdl-anim-down{animation:mdldown .3s ease-in forwards}.wl-layer>.mdl.mdl-anim-fade-out{animation:mdlfadeout .3s ease-in forwards}

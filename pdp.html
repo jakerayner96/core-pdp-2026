@@ -618,7 +618,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .scard .im{position:relative;aspect-ratio:170/255;overflow:hidden;background:var(--surface-media);cursor:pointer;transition:opacity .15s}
 .scard .im img{width:100%;height:100%;object-fit:cover}
 .scard.on .im{box-shadow:var(--shadow-pill)}
-.scard .cb{position:absolute;right:4px;bottom:4px} /* Jake 09 Sep: one size + position for every card size (= the compact tiles) */
+.scard .im .chk{position:absolute;right:8px;bottom:8px} /* DS checkbox (Figma 1347:39239), 8px in */ /* Jake 09 Sep: one size + position for every card size (= the compact tiles) */
 .scard .pr{display:flex;flex-wrap:wrap;gap:4px 8px;font-size:14px;align-items:center}
 .scard .pr .now{font-weight:600}
 .scard .pr .now.sale{color:var(--red)}
@@ -767,9 +767,9 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .th::-webkit-scrollbar{display:none}
 .crow .th button{flex:0 0 84px;width:84px;height:126px;padding:0;border:none;background:var(--grey-05);overflow:hidden;position:relative} /* 2:3 tiles */
 .crow .th button img{width:100%;height:100%;object-fit:cover}
-.crow .th button.on{box-shadow:inset 0 0 0 1px #000} /* thin keyline when ticked */
-.crow .th button .cb{position:absolute;right:4px;bottom:4px}
-.crow .th button .cb::after{width:10px;height:5px}
+.crow .th button::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--border-subtle,#E7E7E7);pointer-events:none}
+.crow .th button.on::after{box-shadow:inset 0 0 0 1px #000}.crow .th button .chk{z-index:1} /* 1px keyline: #E7E7E7, black when ticked (Figma Shop The Set / Tile) */
+.crow .th button .chk{position:absolute;right:8px;bottom:8px;pointer-events:none} /* DS checkbox (Figma 1347:39239): 24, 8px in from the bottom right */
 .crow .csel{display:flex;flex-direction:column;gap:2px;padding:0 24px}
 .crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;min-height:28px} /* natural rhythm; targets stay ≥24px (WCAG 2.2 AA 2.5.8) */
 .crow .cs .c{color:#000;font-weight:500}
@@ -893,7 +893,9 @@ body.pdp-oos .below{padding-top:8px}
 .crow .cs .sz-sel{position:relative}
 .crow .cs .sz-sel select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px;-webkit-appearance:none;appearance:none}
 .crow .cs .sz-sel select option.nm{color:#767676}
-.crow .csel .ntf-note{padding:0 0 6px}
+.crow .cs-grp{display:flex;flex-direction:column}
+.crow .cs-grp .ntf-note{padding:0 4px 4px;margin-top:-4px} /* hangs off its size select */
+@media(max-width:767px){#sheet .panel{height:100%;border-radius:0}} /* Jake 23 Nov: the set builder is a full-page modal on mobile; guest Notify Me opens on top of it */
 /* second modal over the set builder (logged out): the DS Notify Me modal with the email field */
 .ntf-layer{z-index:90}
 .ntf-layer>.mdl{width:100%}
@@ -1596,7 +1598,7 @@ function rowCards(r,ri){
   r.items.forEach(p=>{
     const on=!!SH.sel[p.id];const sale=p.was&&p.was>p.price;
     const c=el(`<div class="scard ${on?'on':''}">
-      <div class="im"><img src="${p.img}" alt="${p.name} — ${p.colour}"><button class="cb ${on?'':'off'}${JUST===p.id?' pop':''}" aria-label="${on?'Deselect':'Select'} ${p.colour}"></button></div>
+      <div class="im"><img src="${p.img}" alt="${p.name} — ${p.colour}"><button class="chk${on?' on':''}${JUST===p.id?' pop':''}" aria-checked="${on}" aria-label="${on?'Deselect':'Select'} ${p.colour}"></button></div>
       <div class="inf"><div class="pr">${setPrice(p)}</div>${sizeLine(p)}<div class="sz-sel nochev"><span>Colour:</span><span class="v set">${p.colour}</span></div></div></div>`);
     c.querySelector('.im').onclick=()=>toggleSel(p);wireSize(c,p);cards.appendChild(c);
   });
@@ -1607,10 +1609,10 @@ function rowThumbs(r,ri,back){
   const row=el(`<div class="crow"><div class="rh"><span class="lbl">${r.label}</span>${back?'<button class="all"><span data-copy="sheet.zoomin">Zoom In</span></button>':''}</div><div class="th"></div><div class="csel"></div></div>`);
   if(back)row.querySelector('.all').onclick=()=>swapRow(row,ri,false); // Zoom In: thumbnails grow back into cards
   const th=row.querySelector('.th');
-  r.items.forEach(p=>{const on=!!SH.sel[p.id];const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""><span class="cb ${on?'':'off'}${JUST===p.id?' pop':''}" aria-hidden="true"></span></button>`);bt.setAttribute('aria-pressed',on);bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
+  r.items.forEach(p=>{const on=!!SH.sel[p.id];const bt=el(`<button class="${on?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""><span class="chk${on?' on':''}${JUST===p.id?' pop':''}" aria-hidden="true"></span></button>`);bt.setAttribute('aria-pressed',on);bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
   const cs=row.querySelector('.csel');
-  r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const line=el(`<div class="cs"><span class="c">${p.colour} · <b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span>${sizeLine(p)}</div>`);wireSize(line,p);cs.appendChild(line);
-    const st=SH.sel[p.id];if(st.notify&&!st.pending)cs.appendChild(el(`<p class="ntf-note">You’ll be notified when it’s available</p>`));});
+  r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const st=SH.sel[p.id],note=st.notify&&!st.pending; // Jake 23 Nov: the notified line sits right under ITS size (regular, right aligned) — more picks can follow below
+    const g=el(`<div class="cs-grp"><div class="cs"><span class="c">${p.colour} · <b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span>${sizeLine(p)}</div>${note?'<p class="ntf-note ntf-note--size">You’ll be notified when it’s available</p>':''}</div>`);wireSize(g,p);cs.appendChild(g);});
   return row;
 }
 function renderSheet(){
