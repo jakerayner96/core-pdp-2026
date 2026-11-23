@@ -612,7 +612,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .srow .cards{display:flex;gap:4px;padding-left:24px;overflow-x:auto;scrollbar-width:none;padding-right:24px}
 .srow .cards::-webkit-scrollbar{display:none}
 .sheet .body.big .scard{flex:0 0 210px;width:210px} /* Large: cards 1.5× */
-.sheet .body.compact{gap:12px} /* Compact: rows closer, filling the space */
+.sheet .body.compact{gap:4px} /* Compact: rows closer, filling the space */
 .scard{flex:0 0 140px;width:140px;display:flex;flex-direction:column;gap:12px} /* Figma: image → 12 → info */
 .scard .inf{display:flex;flex-direction:column;gap:8px} /* price → 8 → size */
 .scard .im{position:relative;aspect-ratio:170/255;overflow:hidden;background:var(--surface-media);cursor:pointer;transition:opacity .15s}
@@ -765,14 +765,14 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .rh .sz-sel img{width:12px;height:12px}
 .crow .th{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 24px}
 .crow .th::-webkit-scrollbar{display:none}
-.crow .th button{flex:0 0 84px;width:84px;height:126px;padding:0;border:none;background:var(--grey-05);overflow:hidden;position:relative} /* 2:3 tiles */
+.crow .th button{flex:0 0 96px;width:96px;height:144px;padding:0;border:none;background:var(--grey-05);overflow:hidden;position:relative} /* 2:3 tiles */
 .crow .th button img{width:100%;height:100%;object-fit:cover}
 .crow .th button::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none} /* Jake 23 Nov: no outline until picked */
 .crow .th button.on::after{box-shadow:inset 0 0 0 1px #000,inset 0 0 0 2px #FFF}
 /* Jake 23 Nov (Figma 1375:51992): no checkboxes — a picked tile grows 4px (84×126 → 88×132, still 2:3) with a 1px black outline + 1px white line inside; tiles 4px apart, centred in the row */
-.crow .th{align-items:center;min-height:132px}
+.crow .th{align-items:center;min-height:150px} /* Jake 23 Nov: tiles 96×144 (were 84×126), rows 4px apart (were 12) */
 .crow .th button{transition:width .16s ease,height .16s ease,flex-basis .16s ease;border-radius:0}
-.crow .th button.on{flex-basis:88px;width:88px;height:132px} /* 1px keyline: #E7E7E7, black when ticked (Figma Shop The Set / Tile) */
+.crow .th button.on{flex-basis:100px;width:100px;height:150px} /* 1px keyline: #E7E7E7, black when ticked (Figma Shop The Set / Tile) */
 
 .crow .csel{display:flex;flex-direction:column;gap:2px;padding:0 24px}
 .crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;min-height:28px} /* natural rhythm; targets stay ≥24px (WCAG 2.2 AA 2.5.8) */
@@ -1603,7 +1603,7 @@ function swapRow(oldRow,ri,toThumbs){
     const cards=[...oldRow.querySelectorAll('.scard')];
     cards.forEach(c=>{const inf=c.querySelector('.inf');inf.style.height=inf.offsetHeight+'px';inf.style.overflow='hidden';});
     void oldRow.offsetHeight;
-    cards.forEach(c=>{c.style.transition=`width ${D}ms ease,flex-basis ${D}ms ease`;c.style.width='84px';c.style.flexBasis='84px';const inf=c.querySelector('.inf');inf.style.transition=`height ${D}ms ease,opacity 200ms ease`;inf.style.height='0px';inf.style.opacity='0';});
+    cards.forEach(c=>{c.style.transition=`width ${D}ms ease,flex-basis ${D}ms ease`;c.style.width='96px';c.style.flexBasis='96px';const inf=c.querySelector('.inf');inf.style.transition=`height ${D}ms ease,opacity 200ms ease`;inf.style.height='0px';inf.style.opacity='0';});
     setTimeout(()=>{const hPrev=oldRow.offsetHeight;SH.view[ri]='thumbs';const nr=rowThumbs(r,ri,true);oldRow.replaceWith(nr);growIn(nr,[nr.querySelector('.csel')],hPrev);},D+10);
   }else{ // thumbs → cards: tiles grow 84→140 (or 210 in Large) with the aspect locked, picks fade; then the cards' info fades in
     const target=SETVIEW==='large'?210:140;const tiles=[...oldRow.querySelectorAll('.th button')];
