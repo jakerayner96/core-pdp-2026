@@ -898,6 +898,8 @@ body.pdp-oos .below{padding-top:8px}
 .crow .cs .sz-sel select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px;-webkit-appearance:none;appearance:none}
 .crow .cs .sz-sel select option.nm{color:#767676}
 .crow .cs-grp{display:flex;flex-direction:column}
+.crow .cs .c--sw{display:inline-flex;align-items:center;gap:8px} /* DS PLP swatch (.pc-swatch, 20 rounded square) before the colour */
+.sheet .body.compact>.crow--colour:first-child{padding-top:4px} /* by colour: rows have no title */
 .crow .cs-grp .ntf-note--size{margin:2px 0 4px} /* DS boxed notified line, nib pointing up at its size */
 @media(max-width:767px){#sheet .panel{height:100%;border-radius:0}} /* Jake 23 Nov: the set builder is a full-page modal on mobile; guest Notify Me opens on top of it */
 /* second modal over the set builder (logged out): the DS Notify Me modal with the email field */
@@ -1256,7 +1258,9 @@ const S={
 Object.assign(S,{mode:'new',entry:'03-1',fmt:{look:'carousel',hp:'grid',wtyl:'carousel'},ptabs:true,sizerec:true,pricing:'code',labels:false,order:{},added:[],copy:{},
   srecStyle:(q.get('srec')||PRE.srecStyle||LS('pdp26-srecstyle'))==='scale'?'scale':'hanger',
   srecDir:(q.get('dir')||PRE.srecDir||LS('pdp26-srecdir'))==='down'?'down':'up',
-  login:q.has('login')?q.get('login')==='1':(PRE.login!=null?!!PRE.login:LS('pdp26-login')===true)});
+  login:q.has('login')?q.get('login')==='1':(PRE.login!=null?!!PRE.login:LS('pdp26-login')===true),
+  setLayout:(q.get('set')||PRE.setLayout||LS('pdp26-setlayout'))==='colour'?'colour':'product', // Shop The Set rows: by product (title + its colours) or by colour (no title, one of each product in that colour)
+  setSwatch:q.has('sw')?q.get('sw')==='1':(PRE.setSwatch!=null?!!PRE.setSwatch:LS('pdp26-setswatch')===true)}); // by product: DS PLP swatch next to the picked line
 const P=window.PE_PRODUCTS, FAM=window.PE_FAMILIES;
 const byId=id=>P.find(p=>p.id===id);
 const fam=f=>P.filter(p=>p.fam===f);
@@ -1541,6 +1545,11 @@ function sheetRows(kind){
       {label:'T-Shirts',items:sortByColour(fam('tee'),h.colour)},
     ];
   }
+  if(S.setLayout==='colour'){ // Jake 23 Nov: each row is a set — one colour, every product of the set in it, no row title; the hero's colour first
+    const fams=S.rows.filter(f=>FAM.find(x=>x.id===f)),cols=[];
+    [h.colour,...fams.flatMap(f=>fam(f).map(q=>q.colour))].forEach(c=>{if(!cols.includes(c))cols.push(c);});
+    return cols.map(c=>({label:'',colour:c,items:fams.map(f=>fam(f).find(q=>q.colour===c&&stockOf(q)!=='gone')).filter(Boolean)})).filter(r=>r.items.length>1);
+  }
   return S.rows.map(f=>{const F=FAM.find(x=>x.id===f);return F?{label:F.label,items:sortByColour(fam(f).filter(p=>stockOf(p)!=='gone'),h.colour)}:null;}).filter(Boolean); // not being reordered → not in the set builder
 }
 function openSheet(kind,preselectId){
@@ -1619,13 +1628,14 @@ function rowCards(r,ri){
 }
 /* row as small thumbnails — View All (see every item in the row) and the Compact layout. Tap as many as you like; picks list beneath with a size each */
 function rowThumbs(r,ri,back){
-  const row=el(`<div class="crow"><div class="rh"><span class="lbl">${r.label}</span>${back?'<button class="all"><span data-copy="sheet.zoomin">Zoom In</span></button>':''}</div><div class="th"></div><div class="csel"></div></div>`);
+  const row=el(`<div class="crow${r.label?'':' crow--colour'}">${r.label||back?`<div class="rh"><span class="lbl">${r.label}</span>${back?'<button class="all"><span data-copy="sheet.zoomin">Zoom In</span></button>':''}</div>`:''}<div class="th"></div><div class="csel"></div></div>`);
   if(back)row.querySelector('.all').onclick=()=>swapRow(row,ri,false); // Zoom In: thumbnails grow back into cards
   const th=row.querySelector('.th');
   r.items.forEach(p=>{const on=!!SH.sel[p.id],from=JUST===p.id?!on:on;const bt=el(`<button class="${from?'on':''}" title="${p.colour}" aria-label="${p.name} ${p.colour}"><img src="${p.img}" alt=""></button>`);bt.setAttribute('aria-pressed',on);if(from!==on)requestAnimationFrame(()=>requestAnimationFrame(()=>bt.classList.toggle('on',on))); /* the tile just tapped eases 4px up / down */bt.onclick=()=>toggleSel(p);th.appendChild(bt);});
   const cs=row.querySelector('.csel');
   r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const st=SH.sel[p.id],note=st.notify&&!st.pending; // Jake 23 Nov: the notified line sits right under ITS size (regular, right aligned) — more picks can follow below
-    const g=el(`<div class="cs-grp"><div class="cs"><span class="c">${p.colour} · <b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span>${sizeLine(p)}</div>${note?'<p class="ntf-note ntf-note--size">You’ll be notified when it’s available</p>':''}</div>`);wireSize(g,p);cs.appendChild(g);});
+    const byCol=S.setLayout==='colour',sw=!byCol&&S.setSwatch&&p.sw; // by colour the line names the product (T-Shirt, Zip Up Hoodie); by product it names the colour, with the DS PLP swatch when switched on
+    const g=el(`<div class="cs-grp"><div class="cs"><span class="c${sw?' c--sw':''}">${sw?`<span class="pc-swatch" aria-hidden="true"><i style="background:url(${p.sw}) center/cover"></i></span>`:''}<span>${byCol?(FAM_SINGULAR[p.fam]||p.name):p.colour} · <b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span></span>${sizeLine(p)}</div>${note?'<p class="ntf-note ntf-note--size">You’ll be notified when it’s available</p>':''}</div>`);wireSize(g,p);cs.appendChild(g);});
   return row;
 }
 function renderSheet(){
@@ -1878,6 +1888,8 @@ addEventListener('message',e=>{
   if(typeof d.login==='boolean'){S.login=d.login;LS('pdp26-login',S.login);S.notified=false;setNtfEmail(null);}
   if(d.srecStyle){S.srecStyle=d.srecStyle==='scale'?'scale':'hanger';LS('pdp26-srecstyle',S.srecStyle);}
   if(d.srecDir){S.srecDir=d.srecDir==='down'?'down':'up';LS('pdp26-srecdir',S.srecDir);}
+  if(d.setLayout){const v=d.setLayout==='colour'?'colour':'product';if(v!==S.setLayout){S.setLayout=v;LS('pdp26-setlayout',v);if(!$('#sheet').hidden){const keep=SH.sel;SH.rows=sheetRows(SH.kind);SH.view={};const all=SH.rows.flatMap(r=>r.items);SH.sel={};Object.keys(keep).forEach(id=>{if(all.find(q=>q.id===id))SH.sel[id]=keep[id];});}}}
+  if(typeof d.setSwatch==='boolean'){S.setSwatch=d.setSwatch;LS('pdp26-setswatch',S.setSwatch);}
   if(d.scene){scene(d.scene);return;}
   if(!$('#sheet').hidden)renderSheet();
   renderAll();if(d.focus)doFocus(d.focus);

@@ -204,7 +204,7 @@ body.dragging iframe{pointer-events:none}
   <div class="card"><h3>Customer</h3><div id="loginopts"></div><p>Back-in-stock alerts: logged in sets the alert straight away · logged out asks for an email first.</p></div>
   <div class="card"><h3>PDP</h3><div id="sc-pdp"></div></div>
   <div class="card"><h3>Size recommender <span class="tag">2 to show</span></h3><div id="srecstyle"></div><div class="sub second">Direction</div><div id="srecdir"></div></div>
-  <div class="card"><h3>Shop The Set</h3><div id="sc-set"></div></div>
+  <div class="card"><h3>Shop The Set <span class="tag">2 to show</span></h3><div class="sub">Rows</div><div id="setlayout"></div><div class="sub second">Colour swatch (rows by product)</div><div id="setswatch"></div><div class="sub second">Screens</div><div id="sc-set"></div></div>
   <div class="card"><h3>Shop The Look · out of stock</h3><div id="sc-look"></div></div>
 
   <div class="sum" id="cfg"></div>
@@ -241,13 +241,15 @@ const SCENES={
   look:[['look','Shop The Look','The pieces in the product image, a normal recs carousel; a tap opens that PDP'],['oos-gone','Out of stock · not restocking','Wide Leg Jogger: Out Of Stock, then an endless grid of similar items'],['oos-restock','Out of stock · restocking','T-Shirt: every size carries the bell'],['oos-restock-size','Restocking · size picked','Get notified when it’s back in stock, then similar items']]};
 const LOGIN=[[false,'Logged out'],[true,'Logged in']];
 const SREC_STYLE=[['hanger','Hanger icon'],['scale','Fit scale (Runs Small · True To Size · Runs Large)']];
+const SET_LAYOUT=[['product','By product (title, then its colours)'],['colour','By colour (each row a set, no title)']];
+const SET_SWATCH=[[false,'Off'],[true,'On (PLP swatch next to the colour)']];
 const SREC_DIR=[['up','Sizing up (runs small)'],['down','Sizing down (runs large)']];
 
 let FOLD=false;const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com',dorothyperkins:'dorothyperkins.com',coast:'coastfashion.com'};
 const Q=new URLSearchParams(location.search);const LSG=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},LSS=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
 let BRAND=Q.get('brand')||LSG('pdp26-brand-v2','boohooman');if(!DOMAIN[BRAND])BRAND='boohooman';
 let W=Q.has('w')?+Q.get('w'):390;
-let CFG={login:Q.has('login')?Q.get('login')==='1':LSG('pdp26-login',false)===true,srecStyle:(Q.get('srec')||LSG('pdp26-srecstyle','hanger'))==='scale'?'scale':'hanger',srecDir:(Q.get('dir')||LSG('pdp26-srecdir','up'))==='down'?'down':'up',scene:Q.get('scene')||'pdp'};
+let CFG={login:Q.has('login')?Q.get('login')==='1':LSG('pdp26-login',false)===true,srecStyle:(Q.get('srec')||LSG('pdp26-srecstyle','hanger'))==='scale'?'scale':'hanger',srecDir:(Q.get('dir')||LSG('pdp26-srecdir','up'))==='down'?'down':'up',setLayout:(Q.get('set')||LSG('pdp26-setlayout','product'))==='colour'?'colour':'product',setSwatch:Q.has('sw')?Q.get('sw')==='1':LSG('pdp26-setswatch',false)===true,scene:Q.get('scene')||'pdp'};
 const $=s=>document.querySelector(s);
 const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
 
@@ -261,9 +263,11 @@ function renderPanel(){
   radios($('#loginopts'),LOGIN,()=>CFG.login,v=>{CFG.login=v;LSS('pdp26-login',v);});
   radios($('#srecstyle'),SREC_STYLE,()=>CFG.srecStyle,v=>{CFG.srecStyle=v;LSS('pdp26-srecstyle',v);});
   radios($('#srecdir'),SREC_DIR,()=>CFG.srecDir,v=>{CFG.srecDir=v;LSS('pdp26-srecdir',v);});
+  radios($('#setlayout'),SET_LAYOUT,()=>CFG.setLayout,v=>{CFG.setLayout=v;LSS('pdp26-setlayout',v);});
+  radios($('#setswatch'),SET_SWATCH,()=>CFG.setSwatch,v=>{CFG.setSwatch=v;LSS('pdp26-setswatch',v);});
   scenes($('#sc-pdp'),SCENES.pdp);scenes($('#sc-set'),SCENES.set);scenes($('#sc-look'),SCENES.look);
 }
-function syncURL(){const u=new URLSearchParams({brand:BRAND});if(BRAND==='boohooman'){u.set('w',String(W));u.set('login',CFG.login?'1':'0');u.set('srec',CFG.srecStyle);u.set('dir',CFG.srecDir);u.set('scene',CFG.scene);}history.replaceState(null,'','?'+u);}
+function syncURL(){const u=new URLSearchParams({brand:BRAND});if(BRAND==='boohooman'){u.set('w',String(W));u.set('login',CFG.login?'1':'0');u.set('srec',CFG.srecStyle);u.set('dir',CFG.srecDir);u.set('set',CFG.setLayout);u.set('sw',CFG.setSwatch?'1':'0');u.set('scene',CFG.scene);}history.replaceState(null,'','?'+u);}
 function apply(){
   if(matchMedia('(max-width:760px)').matches){frame.style.width='100%';win.style.width='100%';return;}
   const avail=stage.clientWidth-16;
@@ -275,7 +279,7 @@ function apply(){
   sizebox.textContent=`${Math.round(w)}px`;syncURL();
   document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',(b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600)));
 }
-function msg(scene){return {pdpSet:1,login:CFG.login,srecStyle:CFG.srecStyle,srecDir:CFG.srecDir,scene:scene||null};}
+function msg(scene){return {pdpSet:1,login:CFG.login,srecStyle:CFG.srecStyle,srecDir:CFG.srecDir,setLayout:CFG.setLayout,setSwatch:CFG.setSwatch,scene:scene||null};}
 function send(scene,f=frame){if(BRAND==='boohooman'&&f.contentWindow)f.contentWindow.postMessage(msg(scene),'*');}
 addEventListener('message',e=>{const d=e.data;if(!d||e.source!==frame.contentWindow)return;
   if(d.pdpCfg)cfg.textContent=d.pdpCfg;
