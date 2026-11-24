@@ -5,8 +5,8 @@
 <title>Core PDP 2026 — boohooMAN</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- DS snapshot (copied from debenhamsgroup.design/assets/ds on 08 Sep 2026) -->
-<link rel="stylesheet" href="assets/ds/tokens.css?v=20261124">
-<link rel="stylesheet" href="assets/ds/components.css?v=20261124c">
+<link rel="stylesheet" href="assets/ds/tokens.css?v=20261124d">
+<link rel="stylesheet" href="assets/ds/components.css?v=20261124d">
 <style>
 /* ============================================================
    Core PDP 2026 — boohooMAN. Single file, no build.
@@ -791,7 +791,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .cs .c .sale{color:var(--red);font-weight:600}
 .crow .cs .c s{color:var(--grey-4);font-weight:400}
 .crow .cs .sz-sel{display:flex;gap:6px;align-items:center;cursor:pointer;white-space:nowrap;min-height:24px;margin:-3px 0;padding:0 4px}
-.crow .cs .sz-sel .v{color:var(--grey-4)}.crow .cs .sz-sel .v.set{color:#000;font-weight:600}.crow .cs .sz-sel .v.err{color:var(--red)}
+.crow .cs .sz-sel .v{color:var(--grey-4)}.crow .cs .sz-sel .v.set{color:#000;font-weight:600}.crow .cs .sz-sel .v.err{color:var(--red);font-weight:600} /* Jake 24 Nov: missing size = red + bold, like a picked size */
 .crow .cs .sz-sel .chev{width:12px;height:12px;flex:none;background:var(--text-primary,#000);-webkit-mask:url(assets/ds/icons/lib/icons-down.svg) center/12px 12px no-repeat;mask:url(assets/ds/icons/lib/icons-down.svg) center/12px 12px no-repeat} /* lib chevron (1pt) as a mask so it can turn red */
 /* Jake 24 Nov (Figma 603:11979): ADD TO BAG with a piece ticked but no size — no toast: every one missing a size turns “Select size” + arrow red and shakes once */
 .crow .cs .sz-sel.err .chev{background:var(--red)}
@@ -905,7 +905,7 @@ body.exp-look :is(#ptabs,.fit,.model,#sizerec,.premier,#slot-colour,#slot-button
 body.pdp-oos :is(#nddmsg,.fit,#sizerec,.model,.colour,#buybtns,#slot-colour,#slot-buttons,.premier,.buy .deskonly),
 body.pdp-oos .below>:not(#similar),body.pdp-oos .ft,body.pdp-oos #removed{display:none!important}
 body.oos-gone .sizes{display:none}
-body.pdp-oos .buyblock:not(:has(>#notify:not([hidden]))){display:none} /* empty on OOS until the notify box shows: no stray 16px gap above the grey band */
+.buyblock:has(>#buybtns[hidden]){display:none} /* buttons removed (OOS size / OOS product): no empty block, no stray 16px gap */
 body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 1368:47272 / 47445: 8px #FAFAFA band, edge to edge, between the buy box and Shop Similar Items */
 #similar{margin:0 var(--m);padding:16px 0 48px}
 #similar .sim-more{height:1px}
@@ -1431,6 +1431,7 @@ function renderBuy(){
   const show=st!=='gone'&&selOOS; // restocking product or an out-of-stock size: the notify box shows once a size is picked (Jake 23 Nov)
   $('#buybtns').hidden=show||st!=='in';
   const n=$('#notify');n.hidden=!show;const done=S.notified;
+  const sz=document.querySelector('.buy .sizes');if(sz&&sz.nextElementSibling!==n)sz.after(n); // Jake 24 Nov: the email box sits straight under the size buttons (Add to bag etc. removed)
   n.querySelector('.ntf-h').hidden=done;n.querySelectorAll('[data-guest]').forEach(x=>x.hidden=done||knownEmail());$('#nbtn').hidden=done;$('#nnote').hidden=!done;
   const cb=$('#ncb');cb.classList.toggle('on',S.consent);cb.setAttribute('aria-checked',S.consent);
 }
@@ -1621,7 +1622,7 @@ function sheetRows(kind){
   return setFams().map(f=>{const F=FAM.find(x=>x.id===f);return F?{label:F.label,items:sortByColour(fam(f).filter(p=>stockOf(p)!=='gone'),h.colour)}:null;}).filter(Boolean); // not being reordered → not in the set builder
 }
 function openSheet(kind,preselectId){
-  SH={kind,rows:sheetRows(kind),sel:{},view:{},famSize:S.size?{[hero().fam]:S.size}:{}}; // a size picked on the PDP comes with you
+  SH={kind,rows:sheetRows(kind),sel:{},view:{},famSize:S.size?{[hero().fam]:S.size}:{},lastSize:S.size||null}; // a size picked on the PDP comes with you
   const all=SH.rows.flatMap(r=>r.items);
   if(all.find(p=>p.id===hero().id))SH.sel[hero().id]=autoSize(hero()); // the product you came from is ticked on open (Figma)
   [].concat(preselectId||[]).forEach(id=>{const q=all.find(p=>p.id===id);if(q)SH.sel[id]=autoSize(q);}); // one id or a list
@@ -1651,7 +1652,7 @@ function fold(t,shut){const lone=t.classList.contains('csel');const h=t.offsetHe
 let SH_LAST={}; // the picks as last drawn: what changed since is what animates
 /* Jake 23 Nov: a size you've already picked for this product carries over to every other colour you tick — you only change it if you want to.
    In stock → set · out of stock → a Notify Me alert if we already have your email (logged in / given this session), else left for you to pick (no surprise modal). */
-function autoSize(p){const z=SH.famSize&&SH.famSize[p.fam];if(!z)return {size:null};
+function autoSize(p){const z=(SH.famSize&&SH.famSize[p.fam])||(SH.lastSize&&(p.allSizes||SET_SIZES).includes(SH.lastSize)?SH.lastSize:null);if(!z)return {size:null}; // Jake 24 Nov: the last size picked carries to every product you tick next (rows below too), unless that product already has its own
   if(sizesOf(p).includes(z))return {size:z};return knownEmail()?{size:z,notify:true}:{size:null};}
 const SET_OFF=0.2; // bundle incentive shown in the builder: 20% off each piece
 const setNow=p=>Math.round(p.price*(1-SET_OFF)*100)/100;
@@ -1669,7 +1670,7 @@ function setNtfEmail(v){NTF_EMAIL=v||null;try{v?sessionStorage.setItem('pdp26-nt
 const knownEmail=()=>!!S.login||!!NTF_EMAIL;
 function pickSize(p,z){
   if(!z){SH.sel[p.id]={size:null};renderSheet();return;}
-  (SH.famSize=SH.famSize||{})[p.fam]=z; // remembered for the other colours of this product
+  (SH.famSize=SH.famSize||{})[p.fam]=z;SH.lastSize=z; // remembered for the other colours of this product, and the next product ticked
   if(sizesOf(p).includes(z)){SH.sel[p.id]={size:z};renderSheet();return;}
   if(knownEmail()){SH.sel[p.id]={size:z,notify:true};renderSheet();return;} // logged in, or a guest who already gave an email this session → no modal
   SH.sel[p.id]={size:z,notify:true,pending:true};renderSheet();

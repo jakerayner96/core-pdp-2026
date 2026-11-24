@@ -936,7 +936,7 @@ span.bell{display:block;background:var(--text-disabled);-webkit-mask:url(icons/l
   display:flex;flex-direction:column;gap:var(--pcar-hd-gap);font-family:var(--font-family-base);color:var(--text-primary);min-width:0;position:relative}
 .pcar-hd{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--gap-4,16px);padding:0 var(--pcar-pad);min-width:0}
 .pcar-tt{display:flex;flex-direction:column;gap:var(--gap-2,8px);min-width:0;flex:1}
-.pcar-t{margin:0;font-size:18px;line-height:22px;font-weight:var(--w-strong)}
+.pcar-t{margin:0;font-size:18px;line-height:22px;font-weight:var(--w-head,var(--w-strong))} /* --w-head: rail title weight per fascia (MAN = SemiBold 600, Figma 1368:47427) */
 .pcar-sub{margin:0;font-size:14px;line-height:20px;font-weight:var(--w-regular);color:var(--text-primary)}
 .pcar-all{flex:none;font-size:14px;line-height:20px;color:var(--text-primary);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 .pcar-tabs{display:flex;gap:var(--gap-2,8px);overflow-x:auto;scrollbar-width:none;flex:none;max-width:100%}
@@ -952,6 +952,7 @@ span.bell{display:block;background:var(--text-disabled);-webkit-mask:url(icons/l
 .pcar--lg .pcar-hd{flex-direction:column;align-items:stretch}
 .pcar--lg .pcar-t{font-size:24px;line-height:28px}
 .pcar--sm .pcar-t{font-size:16px;line-height:20px}
+.pcar--sm.pcar--grid .pcar-t{font-size:18px;line-height:22px} /* 24 Nov 2026: a grid (OOS Shop Similar Items) keeps the 18 title with small cards (Figma 1368:47427) */
 /* track */
 .pcar-body{position:relative;min-width:0}
 .pcar-track{display:flex;gap:var(--pcar-gap);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:0 var(--pcar-pad);scroll-padding-inline:var(--pcar-pad)}

@@ -123,7 +123,7 @@
   --text-on-action:#FFF; /* golden: primary ink is white */
   --w-btn:600;--btn-outline:#000; /* golden button truth */
   --brand-name:'boohooMAN';--font-family-base:'Montserrat',ui-sans-serif,-apple-system,system-ui,sans-serif;
-  --w-regular:500;--w-mid:400;--w-strong:700;
+  --w-regular:500;--w-mid:400;--w-strong:700;--w-head:600; /* rail / section titles SemiBold (Figma Core PDP 2026 1368:47427, 24 Nov) */
   --usp-a-bg:#000;--usp-a-bg2:#000;--usp-a-fg:#FFF;--usp-b-bg:#D3D3D3;--usp-b-fg:#000; /* grey bar = production #D3D3D3 */
   --badge-bg:rgba(255,255,255,.85);--badge-border:transparent; /* MAN: white 85% badges + wishlist chip, 4px radius */
   --usp-cd-live:#FF0000; /* MAN live countdown runs red */
