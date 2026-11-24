@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- DS snapshot (copied from debenhamsgroup.design/assets/ds on 08 Sep 2026) -->
 <link rel="stylesheet" href="assets/ds/tokens.css?v=20261124d">
-<link rel="stylesheet" href="assets/ds/components.css?v=20261124d">
+<link rel="stylesheet" href="assets/ds/components.css?v=20261124e">
 <style>
 /* ============================================================
    Core PDP 2026 — boohooMAN. Single file, no build.
@@ -774,6 +774,8 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .rh .sz-sel .v{color:var(--grey-4)}.crow .rh .sz-sel .v.set{color:#000;font-weight:600}.crow .rh .sz-sel .v.err{color:var(--red)}
 .crow .rh .sz-sel img{width:12px;height:12px}
 .crow .th{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 24px}
+/* Jake 24 Nov: every sideways scroller only scrolls left / right — none can catch the page's vertical scroll */
+:is(.usp-live .bar,.gal,.swatches,.scroll,.recs.nodata .imgs,.recs.inline .ctl,.equation-strip .imgs,.outfit-scroll,.same-colour .scroller,.addon-set .cards,.sheet .filters,.srow .cards,.recs.hot .looks,.crow .th){overflow-y:hidden;touch-action:pan-x pan-y}
 .crow .th::-webkit-scrollbar{display:none}
 .crow .th button{flex:0 0 96px;width:96px;height:144px;padding:0;border:none;background:var(--grey-05);overflow:hidden;position:relative} /* 2:3 tiles */
 .crow .th button img{width:100%;height:100%;object-fit:cover}

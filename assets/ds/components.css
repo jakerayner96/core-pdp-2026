@@ -880,7 +880,7 @@ span.bell{display:block;background:var(--text-disabled);-webkit-mask:url(icons/l
 /* Product tabs (.ptabs, 23 Nov 2026 — Core PDP 2026, Figma vVJJ1bgaTGCbGd68bsNiVT 1367:35397): one tab per product of the set in this colour, top of the PDP buy block.
    Chips 31 tall · padding 7 / 13 + 1px keyline · radius --radius-default · 12 / 15 · gap 2 (8px) · run off the right edge (iceberg) so more are visibly waiting.
    Default: --surface-raised, --border-subtle keyline, --w-regular · on: --surface-action fill + keyline, --text-on-action, --w-btn. Single select; a tap switches the PDP to that product. */
-.ptabs{display:flex;gap:var(--gap-2,8px);overflow-x:auto;scrollbar-width:none;min-width:0}
+.ptabs{display:flex;gap:var(--gap-2,8px);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;min-width:0}
 .ptabs::-webkit-scrollbar{display:none}
 .ptabs>button{flex:none;margin:0;padding:7px 13px;border:1px solid var(--border-subtle,#E7E7E7);border-radius:var(--radius-default);background:var(--surface-raised,#FFF);font-family:var(--font-family-base);font-size:12px;line-height:15px;font-weight:var(--w-regular);color:var(--text-primary);white-space:nowrap;cursor:pointer}
 .ptabs>button:hover:not(.on){border-color:var(--border-control,#B5B5B5)}
@@ -939,7 +939,7 @@ span.bell{display:block;background:var(--text-disabled);-webkit-mask:url(icons/l
 .pcar-t{margin:0;font-size:18px;line-height:22px;font-weight:var(--w-head,var(--w-strong))} /* --w-head: rail title weight per fascia (MAN = SemiBold 600, Figma 1368:47427) */
 .pcar-sub{margin:0;font-size:14px;line-height:20px;font-weight:var(--w-regular);color:var(--text-primary)}
 .pcar-all{flex:none;font-size:14px;line-height:20px;color:var(--text-primary);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
-.pcar-tabs{display:flex;gap:var(--gap-2,8px);overflow-x:auto;scrollbar-width:none;flex:none;max-width:100%}
+.pcar-tabs{display:flex;gap:var(--gap-2,8px);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;flex:none;max-width:100%}
 .pcar-tabs::-webkit-scrollbar{display:none}
 /* tabs (DS Figma 1676-10372): 36px, 14 sentence case, gap 2 (8px), the fascia button radius; selected = the primary CTA, the rest white + Grey 25 keyline */
 .pcar-tabs .chip{height:36px;padding:0 var(--gap-3,12px);border-radius:var(--radius-default);background:var(--surface-raised);border:1px solid var(--border-default);
@@ -955,7 +955,7 @@ span.bell{display:block;background:var(--text-disabled);-webkit-mask:url(icons/l
 .pcar--sm.pcar--grid .pcar-t{font-size:18px;line-height:22px} /* 24 Nov 2026: a grid (OOS Shop Similar Items) keeps the 18 title with small cards (Figma 1368:47427) */
 /* track */
 .pcar-body{position:relative;min-width:0}
-.pcar-track{display:flex;gap:var(--pcar-gap);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:0 var(--pcar-pad);scroll-padding-inline:var(--pcar-pad)}
+.pcar-track{display:flex;gap:var(--pcar-gap);overflow-x:auto;overflow-y:hidden;touch-action:pan-x pan-y;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:0 var(--pcar-pad);scroll-padding-inline:var(--pcar-pad)}
 .pcar-track::-webkit-scrollbar{display:none}
 .pcar-track>*{flex:0 0 var(--pcar-card);width:auto!important;scroll-snap-align:start;min-width:0}
 .pcar-track>.pc .pc-actions{display:none} /* no wishlist on rail cards (DS rule, 27 Oct) */
