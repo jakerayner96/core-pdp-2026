@@ -1,7 +1,7 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<!-- Hanger with ↑/↓ badge (Core PDP size recommender). 24 Nov (Jake): the arrow sits in a circle, cut out of the hanger through a mask so it reads on any background. -->
+<!-- Hanger with ↑/↓ badge (Core PDP size recommender). 24 Nov (Jake): the arrow (white) sits in a filled black circle, cut out of the hanger through a mask so it reads on any background. -->
 <mask id="hb-up" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24"><rect width="24" height="24" fill="#fff"/><circle cx="18.5" cy="18.5" r="6.5" fill="#000"/></mask>
 <g mask="url(#hb-up)"><path d="M8.78932 2.6C8.78932 1.4402 9.83532 0.5 11.1257 0.5C12.416 0.5 13.4621 1.4402 13.4621 2.6C13.4621 3.14585 13.2649 3.64306 12.9216 4.0165C12.2641 4.73176 11.2815 5.45216 11.2815 6.38004V6.69288M11.2815 6.69288C12.0861 6.68353 12.894 6.90705 13.5728 7.36465L21.7485 12.876C23.1856 13.8446 22.4234 15.9 20.6271 15.9H2.37264C0.595776 15.9 -0.178613 13.8813 1.22069 12.897L9.02594 7.40656C9.68858 6.94049 10.4834 6.70212 11.2815 6.69288Z" transform="translate(0 3.8)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" vector-effect="non-scaling-stroke"/></g>
-<circle cx="18.5" cy="18.5" r="5" stroke="black" stroke-width="1" vector-effect="non-scaling-stroke"/>
-<path d="M18.5 21V16M16.3 18.2L18.5 16L20.7 18.2" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="18.5" cy="18.5" r="5" fill="black"/>
+<path d="M18.5 21V16M16.3 18.2L18.5 16L20.7 18.2" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" vector-effect="non-scaling-stroke"/>
 </svg>
