@@ -1251,7 +1251,7 @@ const S={
   added:PRE.added||LS('pdp26-added')||[], // added modules: [{key,container,label}] — repeatable recs blocks created in edit mode
   copy:PRE.copy||LS('pdp26-copy')||{}, // edited copy: key → text (edit mode: tap any title/label/button caption)
   labels:PRE.labels!==undefined?PRE.labels:(LS('pdp26-labels')!==null?LS('pdp26-labels'):false), // builder cards: show 'Size:' / 'Colour:' labels
-  rows:(q.get('rows')||'zip-hoodie,sweatshirt,tee,wide-jogger').split(',').filter(Boolean),
+  rows:(q.get('rows')||'').split(',').filter(Boolean), // Jake 24 Nov: empty = every product the PDP tabs show in the hero's colour (setFams); ?rows= still pins a list
   colour:'CMM29598',                  // hero SKU (washed navy zip hoodie)
   size:null, notified:false, consent:true,
 };
@@ -1422,7 +1422,12 @@ function setImages(n){
   ['wide-jogger','tee','sweatshirt','quarter-zip','ls-tee','oth-hoodie','straight-jogger'].forEach(f=>{const p=partner(f,h.colour);if(p&&out.length<n)out.push(p.img);});
   return out.slice(0,n);
 }
-function setPieces(){return S.rows.length||3;}
+function setFams(){ // Jake 24 Nov: the set = the PDP tabs: every family with a piece in the hero's colour, the hero's own family first
+  if(S.rows.length)return S.rows.filter(f=>FAM.find(x=>x.id===f));
+  const h=hero(),fs=FAM.map(f=>f.id).filter(f=>fam(f).some(p=>p.colour===h.colour));
+  return [h.fam,...fs.filter(f=>f!==h.fam)].filter(f=>fs.includes(f));
+}
+function setPieces(){return setFams().length||3;}
 
 /* ============================================================
    Shop The Look module (new) / Complete Your Purchase With (live) / Similar (OOS)
@@ -1548,11 +1553,11 @@ function sheetRows(kind){
     ];
   }
   if(S.setLayout==='colour'){ // Jake 23 Nov: each row is a set — one colour, every product of the set in it, no row title; the hero's colour first
-    const fams=S.rows.filter(f=>FAM.find(x=>x.id===f)),cols=[];
+    const fams=setFams(),cols=[];
     [h.colour,...fams.flatMap(f=>fam(f).map(q=>q.colour))].forEach(c=>{if(!cols.includes(c))cols.push(c);});
     return cols.map(c=>({label:'',colour:c,items:fams.map(f=>fam(f).find(q=>q.colour===c&&stockOf(q)!=='gone')).filter(Boolean)})).filter(r=>r.items.length>1);
   }
-  return S.rows.map(f=>{const F=FAM.find(x=>x.id===f);return F?{label:F.label,items:sortByColour(fam(f).filter(p=>stockOf(p)!=='gone'),h.colour)}:null;}).filter(Boolean); // not being reordered → not in the set builder
+  return setFams().map(f=>{const F=FAM.find(x=>x.id===f);return F?{label:F.label,items:sortByColour(fam(f).filter(p=>stockOf(p)!=='gone'),h.colour)}:null;}).filter(Boolean); // not being reordered → not in the set builder
 }
 function openSheet(kind,preselectId){
   SH={kind,rows:sheetRows(kind),sel:{},view:{},famSize:S.size?{[hero().fam]:S.size}:{}}; // a size picked on the PDP comes with you
