@@ -783,7 +783,12 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .cs .c s{color:var(--grey-4);font-weight:400}
 .crow .cs .sz-sel{display:flex;gap:6px;align-items:center;cursor:pointer;white-space:nowrap;min-height:24px;margin:-3px 0;padding:0 4px}
 .crow .cs .sz-sel .v{color:var(--grey-4)}.crow .cs .sz-sel .v.set{color:#000;font-weight:600}.crow .cs .sz-sel .v.err{color:var(--red)}
-.crow .cs .sz-sel img{width:12px;height:12px}
+.crow .cs .sz-sel .chev{width:12px;height:12px;flex:none;background:var(--text-primary,#000);-webkit-mask:url(assets/ds/icons/lib/icons-down.svg) center/12px 12px no-repeat;mask:url(assets/ds/icons/lib/icons-down.svg) center/12px 12px no-repeat} /* lib chevron (1pt) as a mask so it can turn red */
+/* Jake 24 Nov (Figma 603:11979): ADD TO BAG with a piece ticked but no size — no toast: every one missing a size turns “Select size” + arrow red and shakes once */
+.crow .cs .sz-sel.err .chev{background:var(--red)}
+@keyframes sz-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+.crow .cs .sz-sel.shake{animation:sz-shake .42s ease-in-out}
+@media(prefers-reduced-motion:reduce){.crow .cs .sz-sel.shake{animation:none}}
 .crow .rh .all{font-size:12px;font-weight:600}
 .crow .rh .lbl{font-size:16px;font-weight:500;text-transform:capitalize;letter-spacing:0;color:#000} /* same row label as the cards view */
 /* size picker popover */
@@ -1611,7 +1616,7 @@ const setPrice=p=>`<span class="now sale">${fmt(setNow(p))}</span><span class="w
 const SET_SIZES=ALL_SIZES;
 function sizeLine(p){const st=SH.sel[p.id]||{},have=sizesOf(p);
   const v=st.size?(st.notify?st.size+' - Notify Me':st.size):'Select size'; // Jake 23 Nov: an out-of-stock pick reads "3XL - Notify Me", same as its option
-  return `<label class="sz-sel"><span>Size:</span><span class="v ${st.size?'set':''} ${st.err?'err':''}">${v}</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""><select aria-label="Size for ${p.name}, ${p.colour}"><option value="">Select size</option>${SET_SIZES.map(z=>{const ok=have.includes(z);return `<option value="${z}"${st.size===z?' selected':''}${ok?'':' class="nm"'}>${ok?z:z+' - Notify Me'}</option>`;}).join('')}</select></label>`;}
+  return `<label class="sz-sel${st.err?' err':''}"><span>Size:</span><span class="v ${st.size?'set':''} ${st.err?'err':''}">${v}</span><i class="chev" aria-hidden="true"></i><select aria-label="Size for ${p.name}, ${p.colour}"><option value="">Select size</option>${SET_SIZES.map(z=>{const ok=have.includes(z);return `<option value="${z}"${st.size===z?' selected':''}${ok?'':' class="nm"'}>${ok?z:z+' - Notify Me'}</option>`;}).join('')}</select></label>`;}
 /* Jake 23 Nov: a guest gives their email once — it's kept for the session (sessionStorage) and used for every Notify Me after, on any product: no modal, no email field */
 let NTF_EMAIL=(()=>{try{return sessionStorage.getItem('pdp26-ntf-email')}catch(e){return null}})();
 function setNtfEmail(v){NTF_EMAIL=v||null;try{v?sessionStorage.setItem('pdp26-ntf-email',v):sessionStorage.removeItem('pdp26-ntf-email')}catch(e){}}
@@ -1682,7 +1687,9 @@ function renderSheet(){
 $('#sheetatb').onclick=()=>{
   const buy=Object.keys(SH.sel).filter(id=>!SH.sel[id].notify);
   let bad=false;buy.forEach(id=>{if(!SH.sel[id].size){SH.sel[id].err=true;bad=true;}});
-  if(bad){renderSheet();toast('Select a size for each item');return;}
+  if(bad){renderSheet();const errs=[...document.querySelectorAll('#sheetbody .sz-sel.err')];errs.forEach(x=>{x.classList.remove('shake');void x.offsetWidth;x.classList.add('shake');x.addEventListener('animationend',()=>x.classList.remove('shake'),{once:true});}); // red + shake on every one missing a size (no toast)
+    const f=errs[0],body=$('#sheetbody');if(f){const br=body.getBoundingClientRect(),fr=f.getBoundingClientRect();if(fr.top<br.top||fr.bottom>br.bottom)body.scrollTo({top:body.scrollTop+fr.top-br.top-body.clientHeight/2,behavior:'smooth'});} // bring the first one into view
+    return;}
   const items=buy.map(id=>({p:byId(id),size:SH.sel[id].size}));
   closeSheet();setTimeout(()=>openATB(items),200);
 };
