@@ -680,7 +680,8 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .recs.collage .btn.s{margin:12px var(--m) 0;width:auto}
 @media(min-width:1024px){.recs.collage .board{width:480px;margin:0 auto}.recs.collage .btn.s{width:480px;margin:12px auto 0;display:block}}
 /* master product tabs (Reiss-style, Jake 09 Sep; back at the top 18 Sep): first thing in the buy block, below the gallery pagination — switch the whole PDP to another piece of the set in this colour */
-.buy>.ptabs{margin-right:calc(var(--m) * -1);padding-right:var(--m);scroll-padding-right:var(--m)} /* DS Product tabs (.ptabs, 23 Nov) — the page only lets them run off the right edge */
+.buy>.ptabs{margin-right:calc(var(--m) * -1);padding-right:var(--m);scroll-padding-right:var(--m)} /* DS Product tabs (.ptabs, 23 Nov) — the page lets them run off the right edge */
+@media(max-width:1023px){.buy>.ptabs{margin-left:calc(var(--m) * -1);padding-left:var(--m);scroll-padding-left:var(--m)}} /* Jake 24 Nov: on mobile the row scrolls edge to edge of the screen (no clip at the left when scrolling back) and rests on the 16px margins */
 /* M&S-style 'Shop the outfit' (Jake 09 Sep): look image with a white 'Shop the outfit · N items' pill, the pieces listed beneath as thumb / name / colour / price / Add; everything opens the Complete The Look modal */
 .recs.ms{background:#FFF;padding:16px 0}
 .recs.ms .rail-head{padding:0 var(--m)}
