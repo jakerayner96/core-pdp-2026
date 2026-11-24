@@ -439,6 +439,15 @@ b.lnk,.ft .news small b{font-weight:600}
 .buy-set-box .copy{flex:0 0 50%;min-width:0;background:var(--grey-05);display:flex;flex-direction:column;justify-content:center;gap:4px;padding:16px 24px}
 .buy-set-box .copy .h{font-size:16px;font-weight:600;white-space:nowrap}
 .buy-set-box .copy .s{font-size:12px;font-weight:400;color:var(--grey-4)}
+/* Jake 24 Nov: the images blend into the copy side (no hard line); "Shop our range…" black, 4px under the title; optional SHOP SETS button styled like Add to bag (panel toggle) */
+.buy-set-box .imgs{position:relative}
+.buy-set-box .imgs::after{content:"";position:absolute;top:0;bottom:0;right:0;width:32px;background:linear-gradient(to right,rgba(250,250,250,0),var(--grey-05));pointer-events:none}
+.buy-set-box .copy{gap:0;text-align:left;align-items:flex-start}
+.buy-set-box .copy .h{line-height:20px}
+.buy-set-box .copy .s{color:#000;line-height:15px;margin-top:4px}
+.buy-set-box .copy .cta{display:none;margin-top:8px;height:32px;padding:0 16px;border-radius:4px;background:#000;color:#FFF;font-size:12px;font-weight:600;line-height:32px;text-transform:uppercase;white-space:nowrap}
+body.mtm-btn .buy-set-box .copy{padding:12px 16px}
+body.mtm-btn .buy-set-box .copy .cta{display:inline-flex;align-items:center}
 /* 03-3 Pairs well with — thumb row + label, under the buy buttons */
 .pairs{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:8px 0}
 .pairs .thumbs{display:flex;gap:8px}
@@ -786,6 +795,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .cs .sz-sel .chev{width:12px;height:12px;flex:none;background:var(--text-primary,#000);-webkit-mask:url(assets/ds/icons/lib/icons-down.svg) center/12px 12px no-repeat;mask:url(assets/ds/icons/lib/icons-down.svg) center/12px 12px no-repeat} /* lib chevron (1pt) as a mask so it can turn red */
 /* Jake 24 Nov (Figma 603:11979): ADD TO BAG with a piece ticked but no size — no toast: every one missing a size turns “Select size” + arrow red and shakes once */
 .crow .cs .sz-sel.err .chev{background:var(--red)}
+.crow .cs .sz-sel .v,.crow .cs .sz-sel .chev{transition:color .2s ease,background-color .2s ease}
 @keyframes sz-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
 .crow .cs .sz-sel.shake{animation:sz-shake .42s ease-in-out}
 @media(prefers-reduced-motion:reduce){.crow .cs .sz-sel.shake{animation:none}}
@@ -1209,7 +1219,7 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 <template id="tpl-01-1"><div class="pill-row"><button class="chip-entry round entry">SHOP SETS</button></div></template>
 <template id="tpl-01-4"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">Shop The Set</button></div></template>
 <template id="tpl-01-8"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">SET BUILDER</button></div></template>
-<template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><span class="track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span></span><span class="copy"><span class="h" data-copy="e.03-1.h">Made To Match</span><span class="s" data-copy="e.03-1.s">Shop our range of matching sets</span></span></button></template>
+<template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><span class="track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span></span><span class="copy"><span class="h" data-copy="e.03-1.h">Made To Match</span><span class="s" data-copy="e.03-1.s">Shop our range of matching sets</span><span class="cta" data-copy="e.03-1.cta">Shop Sets</span></span></button></template>
 <template id="tpl-03-2"><button class="equation-strip entry"><span class="imgs"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy" data-copy="e.03-2.cta">SHOP SETS</span></button></template>
 <template id="tpl-03-3"><button class="pairs entry"><span class="thumbs"><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="lbl"><span data-copy="e.pairs">Pairs well with</span><img class="chev" src="assets/ds/icons/lib/icons-right.svg" alt=""></span></button></template>
 <template id="tpl-04-1"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll two-up"><img data-full alt=""><img data-set="1" alt=""><img data-set="0" alt=""><img data-set="2" alt=""></div><div class="outfit-caption"><div class="l"><span class="h" data-copy="e.04.h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta" data-copy="e.04.cta">LAUNCH SET BUILDER</span></div></div></template>
@@ -1278,7 +1288,8 @@ Object.assign(S,{mode:'new',entry:'03-1',fmt:{look:'carousel',hp:'grid',wtyl:'ca
   srecDir:(q.get('dir')||PRE.srecDir||LS('pdp26-srecdir'))==='down'?'down':'up',
   login:q.has('login')?q.get('login')==='1':(PRE.login!=null?!!PRE.login:LS('pdp26-login')===true),
   setLayout:(q.get('set')||PRE.setLayout||LS('pdp26-setlayout'))==='colour'?'colour':'product', // Shop The Set rows: by product (title + its colours) or by colour (no title, one of each product in that colour)
-  setSwatch:q.has('sw')?q.get('sw')==='1':(PRE.setSwatch!=null?!!PRE.setSwatch:LS('pdp26-setswatch')===true)}); // by product: DS PLP swatch next to the picked line
+  setSwatch:q.has('sw')?q.get('sw')==='1':(PRE.setSwatch!=null?!!PRE.setSwatch:LS('pdp26-setswatch')===true),
+  mtmBtn:q.has('mtmbtn')?q.get('mtmbtn')==='1':(PRE.mtmBtn!=null?!!PRE.mtmBtn:LS('pdp26-mtmbtn')!==false)}); // Made To Match: SHOP SETS button on / off // by product: DS PLP swatch next to the picked line
 const P=window.PE_PRODUCTS, FAM=window.PE_FAMILIES;
 const CTL_P=window.CTL_PRODUCTS||[], ALLP=P.concat(CTL_P); // Create the Look products (ctl.js) — looked up by id / family, never mixed into the bundles lists (P)
 const CTL_HERO='CTLJ01', CTL_LOOK=['CTLJ01','CTLJ02','CTLT01'];
@@ -1309,15 +1320,30 @@ function sizeState(sz){return sizesOf(hero()).includes(sz)?'in':'oos';}
 /* ============================================================
    Render: gallery + swatches
    ============================================================ */
+/* Jake 24 Nov: product images never flicker when a product tab (or swatch) changes the product. The new slides are built off-screen,
+   every image is decoded first, then the whole gallery swaps in one frame — the old images stay up until then. Tab products are preloaded. */
+const IMG_READY={},IMG_EL={};
+function decodeImg(src){return IMG_READY[src]||(IMG_READY[src]=new Promise(res=>{const i=new Image();i.src=src;IMG_EL[src]=i;(i.decode?i.decode():Promise.reject()).then(res,()=>{i.complete?res():(i.onload=i.onerror=res);});}));}
+/* the decoded element itself goes into the slide (a fresh <img> can paint a blank frame while it decodes) */
+function readyImg(src,alt){const i=IMG_EL[src];if(i&&i.complete&&i.naturalWidth&&!i.isConnected){i.alt=alt;delete IMG_EL[src];delete IMG_READY[src];return i;}const n=new Image();n.src=src;n.alt=alt;return n;}
+function galImgs(h){return h.gallery||[h.img,h.img2].filter(Boolean);}
+function preloadTabs(){try{ALLP.filter(q=>q.colour===hero().colour||q.fam===hero().fam).forEach(q=>galImgs(q).forEach(decodeImg));}catch(e){}}
+let GAL_TOKEN=0,GAL_SHOWN='';
 function renderGallery(){
-  const h=hero();
-  const imgs=h.gallery||[h.img,h.img2].filter(Boolean);
-  const gal=$('#gal');gal.innerHTML='';
+  const h=hero(),imgs=galImgs(h),key=h.id+'|'+imgs.join(',')+'|'+S.mode+S.entry+S.endpos+S.stock;
+  if(key===GAL_SHOWN){updatePag();return;} // same product: leave the gallery exactly as it is
+  const tok=++GAL_TOKEN,first=!GAL_SHOWN;
+  const go=()=>{if(tok!==GAL_TOKEN)return;GAL_SHOWN=key;buildGallery(h,imgs);setTimeout(preloadTabs,50);};
+  if(first)go();else Promise.race([Promise.all(imgs.map(decodeImg)),new Promise(r=>setTimeout(r,1500))]).then(()=>requestAnimationFrame(go));
+}
+function buildGallery(h,imgs){
+  const gal=$('#gal');const frag=document.createDocumentFragment();
   imgs.forEach((src,i)=>{
-    const s=el(`<div class="slide"><img src="${src}" alt="${h.name} — image ${i+1}"></div>`);
+    const s=el(`<div class="slide"></div>`);s.appendChild(readyImg(src,`${h.name} — image ${i+1}`));
     if(i===0) s.appendChild(el(`<div class="tags ${S.mode==='live'?'':'hide'}"><span class="tag">Plus Sizes Available</span><span class="tag">480GSM</span></div>`));
-    gal.appendChild(s);
+    frag.appendChild(s);
   });
+  gal.replaceChildren(frag);
   // 06-1 gallery set end card
   const ec=el(`<div class="slide endcard ${S.mode==='new'&&S.entry==='06-1'&&S.stock!=='oos'?'on':''}" role="button" tabindex="0"><div class="stack"><div class="rows"><div class="row"></div><div class="row"></div></div><span class="cta" data-copy="e.06.cta">SHOP MORE SETS</span></div></div>`);
   const rows=ec.querySelectorAll('.row');
@@ -1325,8 +1351,8 @@ function renderGallery(){
   ec.onclick=()=>openSheet('set');
   const at=gal.children[Math.max(0,(+S.endpos||5)-1)];if(at)gal.insertBefore(ec,at);else gal.appendChild(ec); // position = the slide it becomes
   // thumbs (desktop)
-  const th=$('#thumbs');th.innerHTML='';
-  imgs.forEach((src,i)=>{const b=el(`<button class="${i===0?'on':''}"><img src="${src}" alt=""></button>`);b.onclick=()=>goSlide(i);th.appendChild(b);});
+  const th=$('#thumbs');const tf=document.createDocumentFragment();
+  imgs.forEach((src,i)=>{const b=el(`<button class="${i===0?'on':''}"><img src="${src}" alt=""></button>`);b.onclick=()=>goSlide(i);tf.appendChild(b);});th.replaceChildren(tf);
   gal.scrollLeft=0;updatePag();
 }
 function visibleSlides(){return [...$('#gal').querySelectorAll('.slide')].filter(s=>!s.classList.contains('endcard')||s.classList.contains('on'));}
@@ -1600,6 +1626,7 @@ function openSheet(kind,preselectId){
   if(all.find(p=>p.id===hero().id))SH.sel[hero().id]=autoSize(hero()); // the product you came from is ticked on open (Figma)
   [].concat(preselectId||[]).forEach(id=>{const q=all.find(p=>p.id===id);if(q)SH.sel[id]=autoSize(q);}); // one id or a list
   const st=$('#sheettitle');st.dataset.copy='sheet.'+kind;st.textContent=S.copy['sheet.'+kind]||(kind==='look'?'Shop The Look':'Shop The Set');
+  SH_LAST=JSON.parse(JSON.stringify(SH.sel)); // opening: nothing animates but the sheet itself
   renderSheet();
   const sh=$('#sheet');sh.hidden=false;requestAnimationFrame(()=>sh.classList.add('open'));
   document.body.style.overflow='hidden';
@@ -1609,7 +1636,19 @@ let SETVIEW=PRE.setview||LS('pdp26-setview')||'compact'; // Jake 15 Sep: compact
 document.querySelectorAll('#setview button').forEach(bt=>bt.onclick=()=>{SETVIEW=bt.dataset.v;LS('pdp26-setview',SETVIEW);renderSheet();parent.postMessage({pdpState:{setview:SETVIEW}},'*');});
 const rowHasSel=r=>r.items.some(p=>SH.sel[p.id]);
 let JUST=null; // the item just tapped — only its tick animates on re-render (Jake 09 Sep)
-function toggleSel(p){if(SH.sel[p.id])delete SH.sel[p.id];else SH.sel[p.id]=autoSize(p);JUST=p.id;renderSheet();JUST=null;}
+function toggleSel(p){
+  if(SH.sel[p.id]&&!RM){const g=document.querySelector(`#sheetbody .cs-grp[data-id="${p.id}"]`);
+    if(g){ // Jake 24 Nov: animate between states — the tile eases down now, its size line folds away, then the sheet re-renders
+      document.querySelectorAll('#sheetbody .th button').forEach(bt=>{if(bt.getAttribute('aria-label')===p.name+' '+p.colour){bt.classList.remove('on');bt.setAttribute('aria-pressed','false');}});
+      const cs=g.parentElement,t=cs.children.length===1?cs:g;fold(t,true);delete SH.sel[p.id];setTimeout(()=>renderSheet(),ANI);return;}}
+  if(SH.sel[p.id])delete SH.sel[p.id];else SH.sel[p.id]=autoSize(p);JUST=p.id;renderSheet();JUST=null;}
+const ANI=220,RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* fold a node open (from 0) or shut (to 0): height + opacity + a 4px drop; a lone pick list also eases its 8px row gap */
+function fold(t,shut){const lone=t.classList.contains('csel');const h=t.offsetHeight;t.style.overflow='hidden';
+  const a={height:[0+'px',h+'px'],opacity:[0,1],transform:['translateY(-4px)','none']};if(lone)a.marginTop=['-8px','0px'];
+  const k=Object.keys(a).map(()=>0);const from={},to={};Object.keys(a).forEach(x=>{from[x]=a[x][shut?1:0];to[x]=a[x][shut?0:1];});
+  const an=t.animate([from,to],{duration:ANI,easing:'cubic-bezier(.2,.7,.2,1)',fill:shut?'forwards':'none'});if(!shut)an.onfinish=()=>{t.style.overflow='';};}
+let SH_LAST={}; // the picks as last drawn: what changed since is what animates
 /* Jake 23 Nov: a size you've already picked for this product carries over to every other colour you tick — you only change it if you want to.
    In stock → set · out of stock → a Notify Me alert if we already have your email (logged in / given this session), else left for you to pick (no surprise modal). */
 function autoSize(p){const z=SH.famSize&&SH.famSize[p.fam];if(!z)return {size:null};
@@ -1677,7 +1716,7 @@ function rowThumbs(r,ri,back){
   const cs=row.querySelector('.csel');
   r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const st=SH.sel[p.id],note=st.notify&&!st.pending; // Jake 23 Nov: the notified line sits right under ITS size (regular, right aligned) — more picks can follow below
     const byCol=S.setLayout==='colour',sw=!byCol&&S.setSwatch&&p.sw; // by colour the line names the product (T-Shirt, Zip Up Hoodie); by product it names the colour, with the DS PLP swatch when switched on
-    const g=el(`<div class="cs-grp"><div class="cs"><span class="c${sw?' c--sw':''}">${sw?`<span class="pc-swatch" aria-hidden="true"><i style="background:url(${p.sw}) center/cover"></i></span>`:''}<span>${byCol?(FAM_SINGULAR[p.fam]||p.name):p.colour} · <b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span></span>${sizeLine(p)}</div>${note?'<p class="ntf-note ntf-note--size">You’ll be notified when it’s available</p>':''}</div>`);wireSize(g,p);cs.appendChild(g);});
+    const g=el(`<div class="cs-grp" data-id="${p.id}"><div class="cs"><span class="c${sw?' c--sw':''}">${sw?`<span class="pc-swatch" aria-hidden="true"><i style="background:url(${p.sw}) center/cover"></i></span>`:''}<span>${byCol?(FAM_SINGULAR[p.fam]||p.name):p.colour} · <b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span></span>${sizeLine(p)}</div>${note?'<p class="ntf-note ntf-note--size">You’ll be notified when it’s available</p>':''}</div>`);wireSize(g,p);cs.appendChild(g);});
   return row;
 }
 function renderSheet(){
@@ -1690,6 +1729,14 @@ function renderSheet(){
   const tot=fmt(ids.reduce((a,id)=>a+setNow(byId(id)),0));
   const btn=$('#sheetatb');btn.innerHTML=`<span data-copy="sheet.atb">Add to bag</span>${ids.length?` (${ids.length}) · ${tot}`:''}`;btn.disabled=!ids.length; // count + total in the button (Jake 24 Nov)
   b.scrollTop=keepScroll;applyCopy($('#sheet'));
+  if(!RM){ // Jake 24 Nov: nothing just appears — new pick lines fold open, a new size / notified line eases in, the button total ticks over
+    b.querySelectorAll('.cs-grp[data-id]').forEach(g=>{const id=g.dataset.id,was=SH_LAST[id],now=SH.sel[id]||{};
+      if(!was){const cs=g.parentElement;fold(cs.children.length===1?cs:g,false);return;}
+      if((was.size||null)!==(now.size||null)){const v=g.querySelector('.sz-sel .v');if(v)v.animate([{opacity:0,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:ANI,easing:'ease-out'});}
+      if(was.err&&!now.err){const v=g.querySelector('.sz-sel .v');if(v)v.animate([{color:'#D33F3F'},{color:getComputedStyle(v).color}],{duration:ANI});}
+      const n=g.querySelector('.ntf-note');if(n&&!(was.notify&&!was.pending))fold(n,false);});
+    const lbl=btn.textContent;if(SH_LAST.__btn!=null&&SH_LAST.__btn!==lbl)btn.animate([{opacity:.55},{opacity:1}],{duration:ANI,easing:'ease-out'});}
+  SH_LAST=JSON.parse(JSON.stringify(SH.sel));SH_LAST.__btn=btn.textContent;
 }
 $('#sheetatb').onclick=()=>{
   const buy=Object.keys(SH.sel).filter(id=>!SH.sel[id].notify);
@@ -1836,6 +1883,7 @@ function renderDesc(){const g=document.querySelector('.glance'),b=document.query
   else if(g.innerHTML!==DESC0.g){g.innerHTML=DESC0.g;b.innerHTML=DESC0.b;}}
 function renderAll(){
   document.body.className='mode-'+S.mode;
+  document.body.classList.toggle('mtm-btn',!!S.mtmBtn);
   {const st=stockOf(hero());document.body.classList.toggle('pdp-oos',st!=='in');document.body.classList.toggle('oos-gone',st==='gone');document.body.classList.toggle('oos-restock',st==='restock');document.body.classList.toggle('in',!!S.login);}
   document.body.classList.toggle('exp-look',LOOKX());
   {const rl=$('#recs-look'),anchor=LOOKX()?$('#bnpl-m'):$('#deliver-m');if(rl&&anchor&&anchor.nextElementSibling!==rl)anchor.after(rl);} // Create the Look: Shop The Look under BNPL (Figma) · Bundles: under Deliver+
@@ -1942,6 +1990,7 @@ addEventListener('message',e=>{
   if(d.srecDir){S.srecDir=d.srecDir==='down'?'down':'up';LS('pdp26-srecdir',S.srecDir);}
   if(d.setLayout){const v=d.setLayout==='colour'?'colour':'product';if(v!==S.setLayout){S.setLayout=v;LS('pdp26-setlayout',v);if(!$('#sheet').hidden){const keep=SH.sel;SH.rows=sheetRows(SH.kind);SH.view={};const all=SH.rows.flatMap(r=>r.items);SH.sel={};Object.keys(keep).forEach(id=>{if(all.find(q=>q.id===id))SH.sel[id]=keep[id];});}}}
   if(typeof d.setSwatch==='boolean'){S.setSwatch=d.setSwatch;LS('pdp26-setswatch',S.setSwatch);}
+  if(typeof d.mtmBtn==='boolean'){S.mtmBtn=d.mtmBtn;LS('pdp26-mtmbtn',S.mtmBtn);}
   if(d.teeStock){S.teeStock=d.teeStock==='restock'?'restock':'gone';LS('pdp26-teestock',S.teeStock);S.size=null;S.notified=false;}
   if(d.exp){const v=d.exp==='look'?'look':'set';if(v!==S.exp){S.exp=v;LS('pdp26-exp',v);closeAll();S.colour=v==='look'?CTL_HERO:HERO_ID;S.size=null;S.notified=false;scrollTo({top:0,behavior:'auto'});}}
   if(d.scene){scene(d.scene);return;}

@@ -203,7 +203,7 @@ body.dragging iframe{pointer-events:none}
 
   <div class="card"><h3>Experience</h3><div id="expopts"></div></div>
   <div class="card"><h3>Customer</h3><div id="loginopts"></div><p>Back-in-stock alerts: logged in sets the alert straight away · logged out asks for an email first.</p></div>
-  <div class="card" data-exp="set"><h3>PDP</h3><div id="sc-pdp"></div></div>
+  <div class="card" data-exp="set"><h3>PDP</h3><div id="sc-pdp"></div><div class="sub second">Made To Match · Shop Sets button</div><div id="mtmbtn"></div></div>
   <div class="card" data-exp="set"><h3>Size recommender <span class="tag">2 to show</span></h3><div id="srecstyle"></div><div class="sub second">Direction</div><div id="srecdir"></div></div>
   <div class="card" data-exp="set"><h3>Shop The Set <span class="tag">2 to show</span></h3><div class="sub">Rows</div><div id="setlayout"></div><div class="sub second">Colour swatch (rows by product)</div><div id="setswatch"></div><div class="sub second">Screens</div><div id="sc-set"></div></div>
   <div class="card" data-exp="set"><h3>Shop The Look · out of stock</h3><div id="sc-look"></div></div>
@@ -249,6 +249,7 @@ const LOGIN=[[false,'Logged out'],[true,'Logged in']];
 const SREC_STYLE=[['hanger','Hanger icon'],['scale','Fit scale (Runs Small · True To Size · Runs Large)']];
 const SET_LAYOUT=[['product','By product (title, then its colours)'],['colour','By colour (each row a set, no title)']];
 const SET_SWATCH=[[false,'Off'],[true,'On (PLP swatch next to the colour)']];
+const MTM_BTN=[[true,'On'],[false,'Off']];
 const SREC_DIR=[['up','Sizing up (runs small)'],['down','Sizing down (runs large)']];
 
 let FOLD=new URLSearchParams(location.search).get('fold')!=='0'; // Fold is the default view (Jake 24 Nov); ?fold=0 = full page
@@ -256,7 +257,7 @@ const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo
 const Q=new URLSearchParams(location.search);const LSG=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},LSS=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
 let BRAND=Q.get('brand')||LSG('pdp26-brand-v2','boohooman');if(!DOMAIN[BRAND])BRAND='boohooman';
 let W=Q.has('w')?+Q.get('w'):390;
-let CFG={login:Q.has('login')?Q.get('login')==='1':LSG('pdp26-login',false)===true,srecStyle:(Q.get('srec')||LSG('pdp26-srecstyle','hanger'))==='scale'?'scale':'hanger',srecDir:(Q.get('dir')||LSG('pdp26-srecdir','up'))==='down'?'down':'up',setLayout:(Q.get('set')||LSG('pdp26-setlayout','product'))==='colour'?'colour':'product',setSwatch:Q.has('sw')?Q.get('sw')==='1':LSG('pdp26-setswatch',false)===true,exp:(Q.get('exp')||LSG('pdp26-exp','set'))==='look'?'look':'set',teeStock:(Q.get('tee')||LSG('pdp26-teestock','gone'))==='restock'?'restock':'gone',scene:Q.get('scene')||''};
+let CFG={mtmBtn:Q.has('mtmbtn')?Q.get('mtmbtn')==='1':LSG('pdp26-mtmbtn',true)!==false,login:Q.has('login')?Q.get('login')==='1':LSG('pdp26-login',false)===true,srecStyle:(Q.get('srec')||LSG('pdp26-srecstyle','hanger'))==='scale'?'scale':'hanger',srecDir:(Q.get('dir')||LSG('pdp26-srecdir','up'))==='down'?'down':'up',setLayout:(Q.get('set')||LSG('pdp26-setlayout','product'))==='colour'?'colour':'product',setSwatch:Q.has('sw')?Q.get('sw')==='1':LSG('pdp26-setswatch',false)===true,exp:(Q.get('exp')||LSG('pdp26-exp','set'))==='look'?'look':'set',teeStock:(Q.get('tee')||LSG('pdp26-teestock','gone'))==='restock'?'restock':'gone',scene:Q.get('scene')||''};
 if(!CFG.scene)CFG.scene=CFG.exp==='look'?'ctl':'pdp';else CFG.exp=/^ctl/.test(CFG.scene)?'look':'set'; // the screen decides the experience
 const $=s=>document.querySelector(s);
 const frame=$('#frame'),stage=$('#stage'),win=$('#win'),preset=$('#preset'),sizebox=$('#sizebox'),cfg=$('#cfg');
@@ -276,9 +277,10 @@ function renderPanel(){
   radios($('#srecdir'),SREC_DIR,()=>CFG.srecDir,v=>{CFG.srecDir=v;LSS('pdp26-srecdir',v);});
   radios($('#setlayout'),SET_LAYOUT,()=>CFG.setLayout,v=>{CFG.setLayout=v;LSS('pdp26-setlayout',v);});
   radios($('#setswatch'),SET_SWATCH,()=>CFG.setSwatch,v=>{CFG.setSwatch=v;LSS('pdp26-setswatch',v);});
+  radios($('#mtmbtn'),MTM_BTN,()=>CFG.mtmBtn,v=>{CFG.mtmBtn=v;LSS('pdp26-mtmbtn',v);});
   scenes($('#sc-pdp'),SCENES.pdp);scenes($('#sc-set'),SCENES.set);scenes($('#sc-look'),SCENES.look);scenes($('#sc-ctl'),SCENES.ctl);
 }
-function syncURL(){const u=new URLSearchParams({brand:BRAND});if(!FOLD)u.set('fold','0');if(BRAND==='boohooman'){u.set('w',String(W));u.set('login',CFG.login?'1':'0');u.set('srec',CFG.srecStyle);u.set('dir',CFG.srecDir);u.set('set',CFG.setLayout);u.set('sw',CFG.setSwatch?'1':'0');u.set('exp',CFG.exp);if(CFG.exp==='look')u.set('tee',CFG.teeStock);u.set('scene',CFG.scene);}history.replaceState(null,'','?'+u);}
+function syncURL(){const u=new URLSearchParams({brand:BRAND});if(!FOLD)u.set('fold','0');if(BRAND==='boohooman'){u.set('w',String(W));u.set('login',CFG.login?'1':'0');u.set('srec',CFG.srecStyle);u.set('dir',CFG.srecDir);u.set('set',CFG.setLayout);u.set('sw',CFG.setSwatch?'1':'0');u.set('mtmbtn',CFG.mtmBtn?'1':'0');u.set('exp',CFG.exp);if(CFG.exp==='look')u.set('tee',CFG.teeStock);u.set('scene',CFG.scene);}history.replaceState(null,'','?'+u);}
 function apply(){
   if(matchMedia('(max-width:760px)').matches){frame.style.width='100%';win.style.width='100%';return;}
   const avail=stage.clientWidth-16;
@@ -290,7 +292,7 @@ function apply(){
   sizebox.textContent=`${Math.round(w)}px`;syncURL();
   document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',(b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600)));
 }
-function msg(scene){return {pdpSet:1,login:CFG.login,srecStyle:CFG.srecStyle,srecDir:CFG.srecDir,setLayout:CFG.setLayout,setSwatch:CFG.setSwatch,exp:CFG.exp,teeStock:CFG.teeStock,scene:scene||null};}
+function msg(scene){return {pdpSet:1,login:CFG.login,srecStyle:CFG.srecStyle,srecDir:CFG.srecDir,setLayout:CFG.setLayout,setSwatch:CFG.setSwatch,mtmBtn:CFG.mtmBtn,exp:CFG.exp,teeStock:CFG.teeStock,scene:scene||null};}
 function send(scene,f=frame){if(BRAND==='boohooman'&&f.contentWindow)f.contentWindow.postMessage(msg(scene),'*');}
 addEventListener('message',e=>{const d=e.data;if(!d||e.source!==frame.contentWindow)return;
   if(d.pdpCfg)cfg.textContent=d.pdpCfg;
@@ -307,7 +309,7 @@ $('#hr').addEventListener('pointerdown',e=>{
 });
 addEventListener('resize',apply);
 frame.addEventListener('load',()=>send(CFG.scene));
-function pageSrc(){return BRAND==='boohooman'?'pdp.html?brand=boohooman&login='+(CFG.login?1:0)+'&srec='+CFG.srecStyle+'&dir='+CFG.srecDir+'&set='+CFG.setLayout+'&sw='+(CFG.setSwatch?1:0)+'&exp='+CFG.exp+'&tee='+CFG.teeStock+'&_='+Date.now():'live.html?brand='+BRAND+'&_='+Date.now();}
+function pageSrc(){return BRAND==='boohooman'?'pdp.html?brand=boohooman&login='+(CFG.login?1:0)+'&srec='+CFG.srecStyle+'&dir='+CFG.srecDir+'&set='+CFG.setLayout+'&sw='+(CFG.setSwatch?1:0)+'&mtmbtn='+(CFG.mtmBtn?1:0)+'&exp='+CFG.exp+'&tee='+CFG.teeStock+'&_='+Date.now():'live.html?brand='+BRAND+'&_='+Date.now();}
 /* Brand chips (Jake 10 Sep): boohooMAN = this configurator (pdp.html, live ⇄ new). Every other fascia = the shared live-PDP module (live.html) —
    a recreation of what is live today, no new-format / bundling options, so the page controls hide. */
 function setBrand(b){BRAND=DOMAIN[b]?b:'boohooman';LSS('pdp26-brand-v2',BRAND);syncURL();
@@ -346,7 +348,7 @@ async function doExport(){
     exptxt.textContent='Rendering desktop (1440)…';const d=await shot(1440);
     exptxt.textContent='Packaging code…';
     const zip=new JSZip();const name=`core-pdp-2026-${stamp()}`;const root=zip.folder(name);
-    const state={brand:'boohooman',login:CFG.login,srecStyle:CFG.srecStyle,srecDir:CFG.srecDir,exp:CFG.exp,teeStock:CFG.teeStock,scene:CFG.scene,exportedAt:new Date().toISOString()};
+    const state={brand:'boohooman',login:CFG.login,srecStyle:CFG.srecStyle,srecDir:CFG.srecDir,mtmBtn:CFG.mtmBtn,exp:CFG.exp,teeStock:CFG.teeStock,scene:CFG.scene,exportedAt:new Date().toISOString()};
     root.file('config.json',JSON.stringify(state,null,2));
     root.file(`${name}-mobile-390.png`,m);root.file(`${name}-desktop-1440.png`,d);
     let html=await (await fetch('pdp.html')).text();

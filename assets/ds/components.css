@@ -652,6 +652,9 @@ a.hd-usp:hover .usp-t{text-decoration:underline;text-underline-offset:2px}
 .fld.inactive input,.fld input:disabled,.fld textarea:disabled{color:var(--text-secondary,#767676);-webkit-text-fill-color:var(--text-secondary,#767676)}
 /* floating label: centred while empty and idle; on focus (or once there is a value) it glides to the top and shrinks, and the caret sits beneath it */
 .fld input,.fld textarea{font:inherit;font-size:14px;line-height:18px;color:#000;caret-color:#2797FF;border:0;outline:0;padding:15px 0 0;margin:0;background:none;width:100%}
+/* 24 Nov 2026 (Core PDP 2026, Jake: the Notify Me email field must not zoom the screen): iOS zooms on focus when a field is under 16px, so the text is set at 16
+   and scaled to 14 (× .875) — same look, same 33px box, no zoom. Width / line-height / padding are divided by .875 and the extra layout height is given back. */
+.fld input,.fld textarea{font-size:16px;line-height:20.571px;padding-top:17.143px;width:114.286%;transform:scale(.875);transform-origin:0 0;margin-bottom:-4.714px;margin-right:-14.286%}
 .fld .lbl{position:absolute;left:16px;right:16px;top:50%;transform:translateY(-50%);font-size:14px;line-height:18px;color:var(--text-secondary);pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:top var(--dur-base) var(--ease-standard),transform var(--dur-base) var(--ease-standard),font-size var(--dur-base) var(--ease-standard),line-height var(--dur-base) var(--ease-standard)}
 .fld input::placeholder,.fld textarea::placeholder{color:transparent}
 .fld:focus-within .lbl,.fld input:not(:placeholder-shown)+.lbl,.fld textarea:not(:placeholder-shown)+.lbl{top:8px;transform:none;font-size:12px;line-height:15px}
@@ -1238,6 +1241,7 @@ span.bell{display:block;background:var(--text-disabled);-webkit-mask:url(icons/l
 .mdl--alert{width:calc(100% - 32px);max-width:358px;max-height:calc(100% - 32px)}
 .mdl--alert .mdl-bd,.mdl--up .mdl-bd{overflow-y:auto;margin-inline:-24px;padding-inline:24px} /* the scroll box reaches the window edge, so an edge-to-edge rail inside isn't clipped at the padding (2 Nov) */
 .mdl--up{width:100%;border-radius:var(--radius-default) var(--radius-default) 0 0;max-height:100%}
+.mdl--up::after{content:"";position:absolute;left:0;right:0;top:100%;height:100vh;background:inherit;pointer-events:none} /* 24 Nov 2026: the sheet's white carries on below it, so it continues behind the keyboard as it slides in (no page showing through) */
 .mdl--fs{width:100%;height:100%;border-radius:0}
 .mdl--fs .mdl-bd{flex:1;align-items:center;justify-content:center}
 /* .mdl--side (desktop drawer — mini bag / added to bag, 2 Nov 2026): full height, 480 wide, flush right, square corners, slides in from the right */
