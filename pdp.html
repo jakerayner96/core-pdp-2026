@@ -1729,7 +1729,7 @@ const SREC_COPY={up:['We recommend sizing up','Customers say this item fits too 
 function srecHTML(){const up=S.srecDir!=='down',[h,sub]=SREC_COPY[up?'up':'down'];
   return S.srecStyle==='scale'
     ?`<div class="srec srec--scale ${up?'srec--small':'srec--large'}" role="note"><span class="srec-cp"><b>${h}</b><span>${sub}</span></span><span class="srec-bar" aria-hidden="true"><i></i></span><span class="srec-lbls"><span>Runs Small</span><span>True To Size</span><span>Runs Large</span></span></div>`
-    :`<div class="srec" role="note"><img class="srec-ic" src="assets/ds/icons/lib/icons-hanger-badge-${up?'up':'down'}.svg" alt=""><span class="srec-cp"><b>${h}</b><span>${sub}</span></span></div>`;}
+    :`<div class="srec" role="note"><img class="srec-ic" src="assets/ds/icons/lib/icons-hanger-badge-${up?'up':'down'}.svg?v=20261124b" alt=""><span class="srec-cp"><b>${h}</b><span>${sub}</span></span></div>`;}
 
 function descState(){const rows=[...document.querySelectorAll('.desc>[data-block]')].map(b=>({name:b.dataset.block,label:b.dataset.label,acc:b.classList.contains('acc'),open:!!S.accOpen[b.dataset.block],removed:false,glance:b.dataset.block==='glance'?[...document.querySelectorAll('.glance li[data-gl]')].map(li=>({i:+li.dataset.gl,text:li.textContent.trim(),off:S.glanceOff.includes(+li.dataset.gl)})):null}));S.removed.filter(r=>r.container==='desc').forEach(r=>rows.push({name:r.name,label:r.label,acc:r.name.startsWith('acc-'),open:!!S.accOpen[r.name],removed:true}));return rows;}
 addEventListener('message',e=>{const d=e.data;if(!d||!d.pdpDesc)return;const {op,name}=d.pdpDesc;const b=document.querySelector(`.desc>[data-block="${name}"]`);
