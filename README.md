@@ -24,7 +24,23 @@ The options are gone: the page is what was decided, the left panel is a **showca
 | `look` | Shop The Look: a normal recs carousel of the pieces in the product image (DS Product carousel); a tap opens that product’s PDP (in the colour its swatch shows) |
 | `oos-gone` | Out of stock, not being reordered (Figma 1368:47272) — Washed Navy Wide Leg Jogger: name · price · **Out Of Stock**, then an endless grid of similar items |
 | `oos-restock` | Out of stock, being reordered (Figma 1368:47445) — Washed Navy T-Shirt: every size carries the bell |
-| `oos-restock-size` | …size picked: “Get notified when it’s back in stock?” (logged out: email + NOTIFY ME + consent · logged in: just NOTIFY ME), then the endless similar grid |
+| `oos-restock-size` | …size picked: “Get notified when it’s back in stock?” (logged out: email + NOTIFY ME + consent · logged in: “You’ll be notified when it’s available” straight away, 24 Nov), then the endless similar grid |
+
+## Experiences (24 Nov 2026)
+
+Top of the left panel: **Bundles** (`exp=set`, everything above — the Washed Navy tracksuit, product tabs, Made To Match, Shop The Set) or **Create the Look** (`exp=look`).
+Create the Look is the Figma section *CREATE THE LOOK - OOS* (1368:47152): the **Extreme Washed Bleached Boxy Denim Jacket** PDP (1368:47157) — no product tabs, no Made To Match box, no size recommender / model line / Body Fit / Premier / Student; Colour above the sizes; now · was · Save X%. **Shop The Look** (under BNPL) is the exact pieces in the product image: jacket · jeans · It’s Coming Home tee. A tap opens that PDP: in stock (jacket, jeans) → its PDP; the tee is out of stock — `tee=gone` (not being reordered: Out Of Stock, no alerts, 1368:47272) or `tee=restock` (being reordered: every size carries the bell, pick one → email + NOTIFY ME, or logged in “You’ll be notified”, 1368:47359 / 1368:47445). Both then scroll into the endless Shop Similar Items grid (1368:47342).
+
+| Screen (`scene`) | What it shows |
+|---|---|
+| `ctl` | Denim jacket PDP, in stock (M sold out for good: struck through, no bell) |
+| `ctl-look` | Shop The Look carousel (jacket · jeans · tee) |
+| `ctl-jeans` | Tap a piece in stock → the jeans PDP |
+| `ctl-oos-gone` | Tap the tee, not being reordered |
+| `ctl-oos-restock` | Tap the tee, being reordered |
+| `ctl-oos-size` | …size 8 picked: notify (guest email / logged-in line) |
+
+Data: `ctl.js` (`window.CTL_PRODUCTS`), images `img/ctl/` from the Figma frames. Figma’s cards are placeholders, so the **jeans and the six similar tees have stand-in names and prices** — swap in the real SKUs when we have them.
 
 - **Stock** is per product now (`OOS` in `pdp.html`: `CMM29657` gone, `CMM29620` restock); sizes come from the live feed (`data.js sizes[]`) — anything else is out of stock with the bell. Products that aren’t coming back leave the set builder.
 - **Shop Similar Items**: its own family first, then the nearest families, then the range; 15 cards at a time as the end comes into view (DS Product carousel grid — 3 across mobile, 5 desktop). Footer and the rest of the PDP are hidden under it.
