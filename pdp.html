@@ -612,7 +612,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .srow .cards{display:flex;gap:4px;padding-left:24px;overflow-x:auto;scrollbar-width:none;padding-right:24px}
 .srow .cards::-webkit-scrollbar{display:none}
 .sheet .body.big .scard{flex:0 0 210px;width:210px} /* Large: cards 1.5× */
-.sheet .body.compact{gap:4px} /* Compact: rows closer, filling the space */
+.sheet .body.compact{gap:16px} /* Jake 24 Nov (Figma 1421:75084): 16px between rows */
 .scard{flex:0 0 140px;width:140px;display:flex;flex-direction:column;gap:12px} /* Figma: image → 12 → info */
 .scard .inf{display:flex;flex-direction:column;gap:8px} /* price → 8 → size */
 .scard .im{position:relative;aspect-ratio:170/255;overflow:hidden;background:var(--surface-media);cursor:pointer;transition:opacity .15s}
@@ -755,7 +755,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .cmp-hero img{width:100%;height:100%;object-fit:cover}
 .cmp-hero .cap{position:absolute;left:0;right:0;bottom:0;padding:12px 16px;background:linear-gradient(to top,rgba(255,255,255,.95),rgba(255,255,255,0));font-size:14px}
 .cmp-hero .cap b{font-weight:600;display:block}
-.crow{display:flex;flex-direction:column;gap:6px}
+.crow{display:flex;flex-direction:column;gap:8px} /* Jake 24 Nov: title → 8 → carousel → 8 → size lines */
 .srow,.crow{flex:none} /* rows never shrink inside the modal's flex column (overflow:hidden during the swap would otherwise collapse them) */
 .srow .cards,.crow .th{will-change:transform,opacity} /* View All ⇄ Zoom In is driven in place by swapRow() */
 .crow .rh{display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:12px}
@@ -775,12 +775,13 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .th button{transition:width .16s ease,height .16s ease,flex-basis .16s ease;border-radius:0}
 .crow .th button.on{flex-basis:100px;width:100px;height:150px} /* 1px keyline: #E7E7E7, black when ticked (Figma Shop The Set / Tile) */
 
-.crow .csel{display:flex;flex-direction:column;gap:2px;padding:0 24px}
-.crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;min-height:28px} /* natural rhythm; targets stay ≥24px (WCAG 2.2 AA 2.5.8) */
+.crow .csel{display:flex;flex-direction:column;gap:8px;padding:0 24px} /* 8px between stacked size lines */
+.crow .csel:empty{display:none} /* nothing picked: no extra gap under the carousel */
+.crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;line-height:18px;min-height:18px} /* Figma: 18px lines; the size picker keeps a 24px target (WCAG 2.2 AA 2.5.8) by bleeding 3px above and below */
 .crow .cs .c{color:#000;font-weight:500}
 .crow .cs .c .sale{color:var(--red);font-weight:600}
 .crow .cs .c s{color:var(--grey-4);font-weight:400}
-.crow .cs .sz-sel{display:flex;gap:6px;align-items:center;cursor:pointer;white-space:nowrap;min-height:28px;padding:0 4px}
+.crow .cs .sz-sel{display:flex;gap:6px;align-items:center;cursor:pointer;white-space:nowrap;min-height:24px;margin:-3px 0;padding:0 4px}
 .crow .cs .sz-sel .v{color:var(--grey-4)}.crow .cs .sz-sel .v.set{color:#000;font-weight:600}.crow .cs .sz-sel .v.err{color:var(--red)}
 .crow .cs .sz-sel img{width:12px;height:12px}
 .crow .rh .all{font-size:12px;font-weight:600}
@@ -898,10 +899,10 @@ body.pdp-oos .below{padding-top:8px}
 .crow .cs .sz-sel{position:relative}
 .crow .cs .sz-sel select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px;-webkit-appearance:none;appearance:none}
 .crow .cs .sz-sel select option.nm{color:#767676}
-.crow .cs-grp{display:flex;flex-direction:column}
+.crow .cs-grp{display:flex;flex-direction:column;gap:2px}
 .crow .cs .c--sw{display:inline-flex;align-items:center;gap:8px} /* DS PLP swatch (.pc-swatch, 20 rounded square) before the colour */
 .sheet .body.compact>.crow--colour:first-child{padding-top:4px} /* by colour: rows have no title */
-.crow .cs-grp .ntf-note--size{margin:-3px 0 4px} /* DS notified caption: 2px under the colour · price text */
+.crow .cs-grp .ntf-note--size{margin:0} /* DS notified caption: 2px under the colour · price line (Figma) */
 @media(max-width:767px){#sheet .panel{height:100%;border-radius:0}} /* Jake 23 Nov: the set builder is a full-page modal on mobile; guest Notify Me opens on top of it */
 /* second modal over the set builder (logged out): the DS Notify Me modal with the email field */
 .ntf-layer{z-index:90}
