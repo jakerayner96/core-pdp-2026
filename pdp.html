@@ -1219,7 +1219,7 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 <template id="tpl-01-1"><div class="pill-row"><button class="chip-entry round entry">SHOP SETS</button></div></template>
 <template id="tpl-01-4"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">Shop The Set</button></div></template>
 <template id="tpl-01-8"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">SET BUILDER</button></div></template>
-<template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><span class="track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span></span><span class="copy"><span class="h" data-copy="e.03-1.h">Made To Match</span><span class="s" data-copy="e.03-1.s">Shop our range of matching sets</span><span class="cta" data-copy="e.03-1.cta">Shop Sets</span></span></button></template>
+<template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><span class="track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span></span><span class="copy"><span class="h" data-copy="e.03-1.h">Shop All Sets</span><span class="s" data-copy="e.03-1.s">Made to match</span><span class="cta" data-copy="e.03-1.cta">Shop Sets</span></span></button></template>
 <template id="tpl-03-2"><button class="equation-strip entry"><span class="imgs"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy" data-copy="e.03-2.cta">SHOP SETS</span></button></template>
 <template id="tpl-03-3"><button class="pairs entry"><span class="thumbs"><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="lbl"><span data-copy="e.pairs">Pairs well with</span><img class="chev" src="assets/ds/icons/lib/icons-right.svg" alt=""></span></button></template>
 <template id="tpl-04-1"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll two-up"><img data-full alt=""><img data-set="1" alt=""><img data-set="0" alt=""><img data-set="2" alt=""></div><div class="outfit-caption"><div class="l"><span class="h" data-copy="e.04.h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta" data-copy="e.04.cta">LAUNCH SET BUILDER</span></div></div></template>
@@ -1289,7 +1289,7 @@ Object.assign(S,{mode:'new',entry:'03-1',fmt:{look:'carousel',hp:'grid',wtyl:'ca
   login:q.has('login')?q.get('login')==='1':(PRE.login!=null?!!PRE.login:LS('pdp26-login')===true),
   setLayout:(q.get('set')||PRE.setLayout||LS('pdp26-setlayout'))==='colour'?'colour':'product', // Shop The Set rows: by product (title + its colours) or by colour (no title, one of each product in that colour)
   setSwatch:q.has('sw')?q.get('sw')==='1':(PRE.setSwatch!=null?!!PRE.setSwatch:LS('pdp26-setswatch')===true),
-  mtmBtn:q.has('mtmbtn')?q.get('mtmbtn')==='1':(PRE.mtmBtn!=null?!!PRE.mtmBtn:LS('pdp26-mtmbtn')!==false)}); // Made To Match: SHOP SETS button on / off // by product: DS PLP swatch next to the picked line
+  mtmBtn:q.has('mtmbtn')?q.get('mtmbtn')==='1':(PRE.mtmBtn!=null?!!PRE.mtmBtn:LS('pdp26-mtmbtn2')===true)}); // entry point = Figma 1440:79568 (Shop All Sets · Made to match, no button) — Jake 24 Nov; SHOP SETS button optional // by product: DS PLP swatch next to the picked line
 const P=window.PE_PRODUCTS, FAM=window.PE_FAMILIES;
 const CTL_P=window.CTL_PRODUCTS||[], ALLP=P.concat(CTL_P); // Create the Look products (ctl.js) — looked up by id / family, never mixed into the bundles lists (P)
 const CTL_HERO='CTLJ01', CTL_LOOK=['CTLJ01','CTLJ02','CTLT01'];
@@ -1991,7 +1991,7 @@ addEventListener('message',e=>{
   if(d.srecDir){S.srecDir=d.srecDir==='down'?'down':'up';LS('pdp26-srecdir',S.srecDir);}
   if(d.setLayout){const v=d.setLayout==='colour'?'colour':'product';if(v!==S.setLayout){S.setLayout=v;LS('pdp26-setlayout',v);if(!$('#sheet').hidden){const keep=SH.sel;SH.rows=sheetRows(SH.kind);SH.view={};const all=SH.rows.flatMap(r=>r.items);SH.sel={};Object.keys(keep).forEach(id=>{if(all.find(q=>q.id===id))SH.sel[id]=keep[id];});}}}
   if(typeof d.setSwatch==='boolean'){S.setSwatch=d.setSwatch;LS('pdp26-setswatch',S.setSwatch);}
-  if(typeof d.mtmBtn==='boolean'){S.mtmBtn=d.mtmBtn;LS('pdp26-mtmbtn',S.mtmBtn);}
+  if(typeof d.mtmBtn==='boolean'){S.mtmBtn=d.mtmBtn;LS('pdp26-mtmbtn2',S.mtmBtn);}
   if(d.teeStock){S.teeStock=d.teeStock==='restock'?'restock':'gone';LS('pdp26-teestock',S.teeStock);S.size=null;S.notified=false;}
   if(d.exp){const v=d.exp==='look'?'look':'set';if(v!==S.exp){S.exp=v;LS('pdp26-exp',v);closeAll();S.colour=v==='look'?CTL_HERO:HERO_ID;S.size=null;S.notified=false;scrollTo({top:0,behavior:'auto'});}}
   if(d.scene){scene(d.scene);return;}
