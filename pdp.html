@@ -1670,7 +1670,7 @@ function openNotify(p,z,done){
     <div class="mdl ${innerWidth<768?'mdl--up':''}" role="dialog" aria-modal="true" aria-labelledby="ntft">
       <div class="modal-hd"><div class="mt"><span id="ntft">Notify Me</span></div><button class="modal-x" aria-label="Close" data-nx></button></div>
       <div class="mdl-bd">
-        <div class="ntf-prod"><img src="${p.img}" alt=""><div class="ntf-tx"><b>${p.brand||'boohooMAN'}</b><span>${p.name}</span><span>${fmt(setNow(p))}</span><span>Size: <b>${z}</b></span><span>Colour: <b>${p.colour}</b></span></div></div>
+        <div class="ntf-prod"><img src="${p.img}" alt=""><div class="ntf-tx"><b>${p.brand||'boohooMAN'}</b><span>${p.name}</span><span class="pc-price sale"><span class="now">${fmt(setNow(p))}</span><span class="was">${fmt(p.price)}</span></span><span>Size: <b>${z}</b></span><span>Colour: <b>${p.colour}</b></span></div></div>
         <p class="ntf-q">Get notified when it’s back in stock?</p>
         <div><label class="fld"><input type="email" placeholder=" " autocomplete="email"><span class="lbl">Email Address</span></label></div>
         <button class="bd pri full" data-nok><i class="ico-bell"></i>Notify Me</button>
