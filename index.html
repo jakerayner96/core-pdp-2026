@@ -184,7 +184,7 @@ body.dragging iframe{pointer-events:none}
       <option value="390" selected>390</option><option value="402">402</option><option value="440">440</option><option value="768">768</option><option value="1024">1024</option><option value="1280">1280</option><option value="1440">1440</option><option value="0">Fit</option>
     </select>
     <span class="w" id="sizebox"></span>
-    <span class="seg" id="fold"><button data-f="0" class="on">Full page</button><button data-f="1">Fold</button></span>
+    <span class="seg" id="fold"><button data-f="0">Full page</button><button data-f="1" class="on">Fold</button></span>
   </div>
   <span class="status" id="status"></span>
   <button class="export" id="exportbtn" title="Export full-page PNGs (mobile + desktop) and a zip of the code with this configuration"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 12.5h11"/></svg>Export</button>
@@ -251,7 +251,8 @@ const SET_LAYOUT=[['product','By product (title, then its colours)'],['colour','
 const SET_SWATCH=[[false,'Off'],[true,'On (PLP swatch next to the colour)']];
 const SREC_DIR=[['up','Sizing up (runs small)'],['down','Sizing down (runs large)']];
 
-let FOLD=false;const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com',dorothyperkins:'dorothyperkins.com',coast:'coastfashion.com'};
+let FOLD=new URLSearchParams(location.search).get('fold')!=='0'; // Fold is the default view (Jake 24 Nov); ?fold=0 = full page
+const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com',dorothyperkins:'dorothyperkins.com',coast:'coastfashion.com'};
 const Q=new URLSearchParams(location.search);const LSG=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},LSS=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
 let BRAND=Q.get('brand')||LSG('pdp26-brand-v2','boohooman');if(!DOMAIN[BRAND])BRAND='boohooman';
 let W=Q.has('w')?+Q.get('w'):390;
@@ -277,7 +278,7 @@ function renderPanel(){
   radios($('#setswatch'),SET_SWATCH,()=>CFG.setSwatch,v=>{CFG.setSwatch=v;LSS('pdp26-setswatch',v);});
   scenes($('#sc-pdp'),SCENES.pdp);scenes($('#sc-set'),SCENES.set);scenes($('#sc-look'),SCENES.look);scenes($('#sc-ctl'),SCENES.ctl);
 }
-function syncURL(){const u=new URLSearchParams({brand:BRAND});if(BRAND==='boohooman'){u.set('w',String(W));u.set('login',CFG.login?'1':'0');u.set('srec',CFG.srecStyle);u.set('dir',CFG.srecDir);u.set('set',CFG.setLayout);u.set('sw',CFG.setSwatch?'1':'0');u.set('exp',CFG.exp);if(CFG.exp==='look')u.set('tee',CFG.teeStock);u.set('scene',CFG.scene);}history.replaceState(null,'','?'+u);}
+function syncURL(){const u=new URLSearchParams({brand:BRAND});if(!FOLD)u.set('fold','0');if(BRAND==='boohooman'){u.set('w',String(W));u.set('login',CFG.login?'1':'0');u.set('srec',CFG.srecStyle);u.set('dir',CFG.srecDir);u.set('set',CFG.setLayout);u.set('sw',CFG.setSwatch?'1':'0');u.set('exp',CFG.exp);if(CFG.exp==='look')u.set('tee',CFG.teeStock);u.set('scene',CFG.scene);}history.replaceState(null,'','?'+u);}
 function apply(){
   if(matchMedia('(max-width:760px)').matches){frame.style.width='100%';win.style.width='100%';return;}
   const avail=stage.clientWidth-16;
@@ -296,7 +297,7 @@ addEventListener('message',e=>{const d=e.data;if(!d||e.source!==frame.contentWin
   if(d.pdpState){const s=d.pdpState;if(typeof s.login==='boolean')CFG.login=s.login;if(s.srecStyle)CFG.srecStyle=s.srecStyle;if(s.srecDir)CFG.srecDir=s.srecDir;if(s.exp)CFG.exp=s.exp;if(s.teeStock)CFG.teeStock=s.teeStock;renderPanel();syncURL();}});
 document.querySelectorAll('#dev button').forEach(b=>b.onclick=()=>{W=+b.dataset.w;preset.value=String(W);apply();});
 preset.onchange=()=>{W=+preset.value;apply();};
-document.querySelectorAll('#fold button').forEach(b=>b.onclick=()=>{FOLD=b.dataset.f==='1';apply();});
+document.querySelectorAll('#fold button').forEach(b=>b.onclick=()=>{FOLD=b.dataset.f==='1';apply();syncURL();});
 $('#hr').addEventListener('pointerdown',e=>{
   e.preventDefault();document.body.classList.add('dragging');
   const sx=e.clientX, sw=frame.offsetWidth;
