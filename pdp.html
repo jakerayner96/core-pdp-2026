@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- DS snapshot (copied from debenhamsgroup.design/assets/ds on 08 Sep 2026) -->
 <link rel="stylesheet" href="assets/ds/tokens.css?v=20261124">
-<link rel="stylesheet" href="assets/ds/components.css?v=20261124">
+<link rel="stylesheet" href="assets/ds/components.css?v=20261124c">
 <style>
 /* ============================================================
    Core PDP 2026 — boohooMAN. Single file, no build.
@@ -895,7 +895,8 @@ body.exp-look :is(#ptabs,.fit,.model,#sizerec,.premier,#slot-colour,#slot-button
 body.pdp-oos :is(#nddmsg,.fit,#sizerec,.model,.colour,#buybtns,#slot-colour,#slot-buttons,.premier,.buy .deskonly),
 body.pdp-oos .below>:not(#similar),body.pdp-oos .ft,body.pdp-oos #removed{display:none!important}
 body.oos-gone .sizes{display:none}
-body.pdp-oos .below{padding-top:8px}
+body.pdp-oos .buyblock:not(:has(>#notify:not([hidden]))){display:none} /* empty on OOS until the notify box shows: no stray 16px gap above the grey band */
+body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 1368:47272 / 47445: 8px #FAFAFA band, edge to edge, between the buy box and Shop Similar Items */
 #similar{margin:0 var(--m);padding:16px 0 48px}
 #similar .sim-more{height:1px}
 /* notify me (PDP, Figma 1368:47445): question 16 · DS text field · NOTIFY ME (.bd.pri.full + bell) · DS consent row · once set, the DS notified line */
@@ -909,14 +910,12 @@ body.pdp-oos .below{padding-top:8px}
 .crow .cs .c--sw{display:inline-flex;align-items:center;gap:8px} /* DS PLP swatch (.pc-swatch, 20 rounded square) before the colour */
 .sheet .body.compact>.crow--colour:first-child{padding-top:4px} /* by colour: rows have no title */
 .crow .cs-grp .ntf-note--size{margin:0} /* DS notified caption: 2px under the colour · price line (Figma) */
-/* Jake 24 Nov: the set builder stops at the bottom of the 56px header (header + overlay show behind it); Add to bag floats over the rows
-   with the item count + total in it. Fade (panel toggle): a white gradient behind the button so the bottom of the browser is white too. */
+@media(max-width:767px){#sheet .panel{height:100%;border-radius:0}} /* Jake 24 Nov (again): the set builder is a full-page modal on mobile */
+/* Jake 24 Nov: Add to bag floats over the rows with the item count + total in it; nothing behind it (no gradient). */
 #sheet .panel{overflow:hidden}
 #sheet .body{padding-bottom:96px}
 #sheet .foot{position:absolute;left:0;right:0;bottom:0;background:none;padding:16px 16px calc(16px + env(safe-area-inset-bottom));pointer-events:none}
 #sheet .foot .btn{pointer-events:auto}
-#sheet.fade .foot{background:linear-gradient(to bottom,rgba(255,255,255,0),#FFF 40%);padding-top:32px}
-#sheet.fade .body{padding-bottom:112px}
 @media(min-width:768px){#sheet .foot{padding:16px 24px 24px}}
 /* second modal over the set builder (logged out): the DS Notify Me modal with the email field */
 .ntf-layer{z-index:90}
@@ -1279,8 +1278,7 @@ Object.assign(S,{mode:'new',entry:'03-1',fmt:{look:'carousel',hp:'grid',wtyl:'ca
   srecDir:(q.get('dir')||PRE.srecDir||LS('pdp26-srecdir'))==='down'?'down':'up',
   login:q.has('login')?q.get('login')==='1':(PRE.login!=null?!!PRE.login:LS('pdp26-login')===true),
   setLayout:(q.get('set')||PRE.setLayout||LS('pdp26-setlayout'))==='colour'?'colour':'product', // Shop The Set rows: by product (title + its colours) or by colour (no title, one of each product in that colour)
-  setSwatch:q.has('sw')?q.get('sw')==='1':(PRE.setSwatch!=null?!!PRE.setSwatch:LS('pdp26-setswatch')===true),
-  setFade:q.has('fade')?q.get('fade')==='1':(PRE.setFade!=null?!!PRE.setFade:LS('pdp26-setfade')!==false)}); // white gradient behind the floating Add to bag // by product: DS PLP swatch next to the picked line
+  setSwatch:q.has('sw')?q.get('sw')==='1':(PRE.setSwatch!=null?!!PRE.setSwatch:LS('pdp26-setswatch')===true)}); // by product: DS PLP swatch next to the picked line
 const P=window.PE_PRODUCTS, FAM=window.PE_FAMILIES;
 const CTL_P=window.CTL_PRODUCTS||[], ALLP=P.concat(CTL_P); // Create the Look products (ctl.js) — looked up by id / family, never mixed into the bundles lists (P)
 const CTL_HERO='CTLJ01', CTL_LOOK=['CTLJ01','CTLJ02','CTLT01'];
@@ -1390,14 +1388,14 @@ function renderSizes(){
   const wrap=$('#sizebtns');wrap.innerHTML='';
   const lbl=$('#sizelbl');
   const selOOS=S.size&&sizeState(S.size)==='oos';
-  if(stockOf(hero())!=='in'||selOOS) lbl.innerHTML=`Size: <span class="oos">Out of Stock</span>`;
+  if(selOOS) lbl.innerHTML=`Size: <span class="oos">Out of Stock</span>`; // Figma 1368:47389: before a size is picked an OOS product still reads "Select a size:"
   else if(S.size) lbl.innerHTML=`Size: <b>${S.size}</b>`;
   else lbl.innerHTML=S.mode==='live'?'Size : <b>Select a Size</b>':'Select a size:';
   const hp=hero(),strike=!!hp.strike&&stockOf(hp)==='in'; // a size sold out for good on an in-stock product (the jacket's M): DS .sz.oos.oos--strike, no bell, can't be picked
   allSizes(hp).forEach(sz=>{
     const st=sizeState(sz);
     if(st==='oos'&&strike){wrap.appendChild(el(`<button class="sz oos oos--strike" disabled aria-label="${sz}, out of stock">${sz}</button>`));return;}
-    const b=el(`<button class="sz ${st}${st==='oos'?' oos--notify':''} ${S.size===sz?'on':''}"${st==='oos'?` aria-label="${sz}, out of stock, notify me"`:''}>${sz}${st==='oos'?'<img class="bell" src="assets/ds/icons/lib/icons-notification.svg" alt="">':''}</button>`); // DS .sz.oos.oos--notify
+    const b=el(`<button class="sz ${st}${st==='oos'?' oos--notify':''} ${S.size===sz?'on':''}"${st==='oos'?` aria-label="${sz}, out of stock, notify me"`:''}>${sz}${st==='oos'?'<span class="bell" aria-hidden="true"></span>':''}</button>`); // DS .sz.oos.oos--notify
     b.onclick=()=>{S.size=sz;S.notified=st==='oos'&&knownEmail(); /* Jake 24 Nov: logged in (or the guest's email already given this session) — picking an out-of-stock size just says you’ll be notified */renderSizes();renderBuy();};
     wrap.appendChild(b);
   });
@@ -1691,7 +1689,6 @@ function renderSheet(){
   const ids=Object.keys(SH.sel).filter(id=>!SH.sel[id].notify); // a Notify Me pick is an alert, not a purchase
   const tot=fmt(ids.reduce((a,id)=>a+setNow(byId(id)),0));
   const btn=$('#sheetatb');btn.innerHTML=`<span data-copy="sheet.atb">Add to bag</span>${ids.length?` (${ids.length}) · ${tot}`:''}`;btn.disabled=!ids.length; // count + total in the button (Jake 24 Nov)
-  $('#sheet').classList.toggle('fade',S.setFade);
   b.scrollTop=keepScroll;applyCopy($('#sheet'));
 }
 $('#sheetatb').onclick=()=>{
@@ -1945,7 +1942,6 @@ addEventListener('message',e=>{
   if(d.srecDir){S.srecDir=d.srecDir==='down'?'down':'up';LS('pdp26-srecdir',S.srecDir);}
   if(d.setLayout){const v=d.setLayout==='colour'?'colour':'product';if(v!==S.setLayout){S.setLayout=v;LS('pdp26-setlayout',v);if(!$('#sheet').hidden){const keep=SH.sel;SH.rows=sheetRows(SH.kind);SH.view={};const all=SH.rows.flatMap(r=>r.items);SH.sel={};Object.keys(keep).forEach(id=>{if(all.find(q=>q.id===id))SH.sel[id]=keep[id];});}}}
   if(typeof d.setSwatch==='boolean'){S.setSwatch=d.setSwatch;LS('pdp26-setswatch',S.setSwatch);}
-  if(typeof d.setFade==='boolean'){S.setFade=d.setFade;LS('pdp26-setfade',S.setFade);}
   if(d.teeStock){S.teeStock=d.teeStock==='restock'?'restock':'gone';LS('pdp26-teestock',S.teeStock);S.size=null;S.notified=false;}
   if(d.exp){const v=d.exp==='look'?'look':'set';if(v!==S.exp){S.exp=v;LS('pdp26-exp',v);closeAll();S.colour=v==='look'?CTL_HERO:HERO_ID;S.size=null;S.notified=false;scrollTo({top:0,behavior:'auto'});}}
   if(d.scene){scene(d.scene);return;}

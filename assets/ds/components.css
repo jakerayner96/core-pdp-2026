@@ -869,7 +869,10 @@ a.hd-usp:hover .usp-t{text-decoration:underline;text-underline-offset:2px}
 .sz.oos--strike::after{content:"";position:absolute;left:-20%;right:-20%;top:50%;height:1px;background:var(--text-disabled);transform:rotate(-33deg)}
 /* OOS has two states (Coming Soon - Back in Stock 2ddMaYHCL1pPI00dqPdmNt 344:357437): .oos = just out of stock · .oos.oos--notify = out of stock + the DS notification bell (icons-notification.svg, 14px top-right) — tapping it opens notify-me / back in stock. Never the info "i". */
 .sz .bell,.sz.oos--notify .bell{position:absolute;right:3px;top:3px;width:14px;height:14px}
-.sz.oos--notify{cursor:pointer}
+/* 24 Nov 2026 (Figma Size Button, Core PDP 2026 1368:47389): out of stock + notify = black size text and a light grey (#B5B5B5) bell. The bell is a span
+   masked with the lib icon so it takes the colour (1pt line kept: the lib file is non-scaling-stroke). Plain .oos (no alerts) stays grey text. */
+.sz.oos--notify{cursor:pointer;color:var(--text-primary)}
+span.bell{display:block;background:var(--text-disabled);-webkit-mask:url(icons/lib/icons-notification.svg) center/14px 14px no-repeat;mask:url(icons/lib/icons-notification.svg) center/14px 14px no-repeat}
 .sz--dark{background:#242424;border-color:transparent;color:#FFF}.sz--dark.on{background:var(--surface-action);color:var(--text-on-action);border-color:transparent}
 /* Product tabs (.ptabs, 23 Nov 2026 — Core PDP 2026, Figma vVJJ1bgaTGCbGd68bsNiVT 1367:35397): one tab per product of the set in this colour, top of the PDP buy block.
    Chips 31 tall · padding 7 / 13 + 1px keyline · radius --radius-default · 12 / 15 · gap 2 (8px) · run off the right edge (iceberg) so more are visibly waiting.
