@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- DS snapshot (copied from debenhamsgroup.design/assets/ds on 08 Sep 2026) -->
 <link rel="stylesheet" href="assets/ds/tokens.css?v=20261124d">
-<link rel="stylesheet" href="assets/ds/components.css?v=20261125a">
+<link rel="stylesheet" href="assets/ds/components.css?v=20261125b">
 <style>
 /* ============================================================
    Core PDP 2026 — boohooMAN. Single file, no build.
@@ -1737,7 +1737,7 @@ function renderSheet(){
   SH.rows.forEach((r,ri)=>b.appendChild((compact||SH.view[ri]==='thumbs')?rowThumbs(r,ri,!compact):rowCards(r,ri)));
   const ids=Object.keys(SH.sel).filter(id=>!SH.sel[id].notify); // a Notify Me pick is an alert, not a purchase
   const tot=fmt(ids.reduce((a,id)=>a+setNow(byId(id)),0));
-  const btn=$('#sheetatb');btn.innerHTML=`<span data-copy="sheet.atb">Add to bag</span>${ids.length?`<span class="bd-tag bd-tag--n">${ids.length}</span><span class="bd-tag">${tot}</span>`:''}`;btn.disabled=!ids.length; // count circle + total pill in the button (DS Button tag .bd-tag · Jake 25 Nov)
+  const btn=$('#sheetatb');btn.innerHTML=`<span data-copy="sheet.atb">Add to bag</span>${ids.length?`<span class="bd-tag"><b class="bd-tag-n">${ids.length}</b>${tot}</span>`:''}`;btn.disabled=!ids.length; // count circle + total pill in the button (DS Button tag .bd-tag · Jake 25 Nov)
   b.scrollTop=keepScroll;applyCopy($('#sheet'));
   if(!RM){ // Jake 24 Nov: nothing just appears — new pick lines fold open, a new size / notified line eases in, the button total ticks over
     b.querySelectorAll('.cs-grp[data-id]').forEach(g=>{const id=g.dataset.id,was=SH_LAST[id],now=SH.sel[id]||{};
