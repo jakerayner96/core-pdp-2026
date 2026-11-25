@@ -930,10 +930,6 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 #sheet .atb-wrap .btn{position:relative;z-index:1}
 #sheet .sz-msg{position:absolute;left:0;right:0;bottom:100%;margin-bottom:8px;z-index:0;box-shadow:0 0 20px rgba(0,0,0,.1);transform:translateY(calc(100% + 8px));opacity:0;transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .2s ease}
 #sheet .sz-msg.on{transform:none;opacity:1}
-/* Jake 25 Nov: the list fades into the top of the modal as it scrolls, not chopped under the title */
-#sheet .head{position:relative;z-index:2}
-#sheet .head::after{content:"";position:absolute;left:0;right:0;top:100%;height:24px;background:linear-gradient(#FFF,rgba(255,255,255,0));pointer-events:none;opacity:0;transition:opacity .2s ease}
-#sheet.scrolled .head::after{opacity:1}
 .crow .cs .c .cn{margin-right:8px} /* Jake 25 Nov master rule: no little dots between name and price (or anywhere) — an 8px gap instead */
 @media(min-width:768px){#sheet .atb-wrap{width:auto}#sheet .sz-msg{left:auto;width:max(100%,240px)}}
 @media(prefers-reduced-motion:reduce){#sheet .sz-msg{transition:opacity .2s ease;transform:none}} /* Jake 25 Nov: desktop Made To Match modal = DS Modal / Desktop 960 wide (8084:25026); Add to bag hugs, bottom right */
@@ -1756,7 +1752,6 @@ function focusScroll(el,cb){const b=$('#sheetbody');if(!el||!b){cb&&cb();return;
   const to=Math.max(0,Math.min(b.scrollHeight-b.clientHeight,b.scrollTop+rr.top-br.top-16)),from=b.scrollTop,d=to-from;if(RM||Math.abs(d)<2){b.scrollTop=to;cb&&cb();return;}
   const dur=Math.min(700,Math.max(380,Math.abs(d)*.6)),t0=performance.now(),ease=t=>1-Math.pow(1-t,3);
   const step=now=>{const t=Math.min(1,(now-t0)/dur);b.scrollTop=from+d*ease(t);if(t<1)requestAnimationFrame(step);else cb&&cb();};requestAnimationFrame(step);}
-$('#sheetbody').addEventListener('scroll',e=>$('#sheet').classList.toggle('scrolled',e.target.scrollTop>2),{passive:true});
 function szMsg(on){const m=$('#szmsg');if(!m)return;clearTimeout(szMsg._t);m.classList.toggle('on',on);m.setAttribute('aria-hidden',on?'false':'true');if(on)szMsg._t=setTimeout(()=>szMsg(false),3000);}
 $('#sheetatb').onclick=()=>{
   const buy=Object.keys(SH.sel).filter(id=>!SH.sel[id].notify);
