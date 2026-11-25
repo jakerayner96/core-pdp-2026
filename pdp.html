@@ -934,6 +934,7 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 /* App view (app=1) */
 #apptop{display:none}
 body.app #apptop{display:block}
+.below>.inset.premier{width:auto} /* mobile Premier (below BNPL) sits inside the 16px margins */
 body.app :is(.hdr,.crumb,.ft){display:none!important}
 @media(max-width:767px){body.app #sheet .panel,body.app #lookm .panel{padding-top:calc(24px + 47px)}} /* Jake 25 Nov master rule: no little dots between name and price (or anywhere) — an 8px gap instead */
 @media(min-width:768px){#sheet .atb-wrap{width:auto}#sheet .sz-msg{left:auto;width:max(100%,240px)}}
