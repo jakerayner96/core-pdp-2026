@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- DS snapshot (copied from debenhamsgroup.design/assets/ds on 08 Sep 2026) -->
 <link rel="stylesheet" href="assets/ds/tokens.css?v=20261124d">
-<link rel="stylesheet" href="assets/ds/components.css?v=20261124e">
+<link rel="stylesheet" href="assets/ds/components.css?v=20261125a">
 <style>
 /* ============================================================
    Core PDP 2026 — boohooMAN. Single file, no build.
@@ -607,7 +607,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .sheet .head{display:flex;gap:12px;align-items:center;padding:0 24px 24px;flex:none}
 .sheet .head h2{flex:1;font-size:20px;font-weight:600;color:var(--soft-black);line-height:1}
 .sheet .head button{width:24px;height:24px;display:grid;place-items:center;margin-right:-4px}
-.sheet .body{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:20px;padding-bottom:24px}
+.sheet .panel>.body{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:20px;padding-bottom:24px}
 .sheet .filters{display:flex;gap:8px;padding:0 24px;overflow-x:auto;scrollbar-width:none;flex:none}
 .sheet .filters span{border:1px solid var(--grey-3);border-radius:99px;padding:6px 12px;font-size:12px;display:flex;gap:6px;align-items:center;white-space:nowrap}
 .sheet .filters img{width:10px;height:10px}
@@ -617,8 +617,8 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .srow .rh .all{font-size:12px;font-weight:600}
 .srow .cards{display:flex;gap:4px;padding-left:24px;overflow-x:auto;scrollbar-width:none;padding-right:24px}
 .srow .cards::-webkit-scrollbar{display:none}
-.sheet .body.big .scard{flex:0 0 210px;width:210px} /* Large: cards 1.5× */
-.sheet .body.compact{gap:16px} /* Jake 24 Nov (Figma 1421:75084): 16px between rows */
+.sheet .panel>.body.big .scard{flex:0 0 210px;width:210px} /* Large: cards 1.5× */
+.sheet .panel>.body.compact{gap:16px} /* Jake 24 Nov (Figma 1421:75084): 16px between rows */
 .scard{flex:0 0 140px;width:140px;display:flex;flex-direction:column;gap:12px} /* Figma: image → 12 → info */
 .scard .inf{display:flex;flex-direction:column;gap:8px} /* price → 8 → size */
 .scard .im{position:relative;aspect-ratio:170/255;overflow:hidden;background:var(--surface-media);cursor:pointer;transition:opacity .15s}
@@ -822,9 +822,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .atb .it .p s{margin-left:4px}
 .atb .it .txt{display:flex;flex-direction:column}
 .atb .btns{display:flex;flex-direction:column;gap:8px}
-/* toast */
-.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:#000;color:#FFF;font-size:14px;font-weight:500;padding:12px 20px;border-radius:4px;opacity:0;pointer-events:none;transition:.2s;z-index:70;white-space:nowrap}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* toast = DS Toast (assets/ds/toast.js · .toast--top, Figma DS 13557:10295) — the black bar is retired (Jake 25 Nov) */
 /* focus flash */
 .flash{outline:none} /* Jake 09 Sep: no blue outline on option change — the page just scrolls the changed block into view */
 /* ---------- Edit layout mode (review tooling) ---------- */
@@ -891,7 +889,7 @@ body.editing{padding-bottom:48px}
 /* ============================================================
    FINAL (23 Nov 2026) — the decided designs, built on the DS (assets/ds: Product tabs, Size recommender, Product carousel, Notify Me)
    ============================================================ */
-.sheet .body{padding:0 0 24px} /* the DS .sheet .body adds 24px sides; the set builder rows carry their own */
+.sheet .panel>.body{padding:0 0 24px} /* the DS .sheet .panel>.body adds 24px sides; the set builder rows carry their own */
 /* recommendation rails: DS Product carousel (.pcar) on the page margin; mobile rails bleed off the right edge */
 .below>.rails{margin:0 var(--m);padding:16px 0}
 .below>#recs-hp.rails{padding:8px 0 16px}
@@ -917,15 +915,28 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 .crow .cs .sz-sel select option.nm{color:#767676}
 .crow .cs-grp{display:flex;flex-direction:column;gap:2px}
 .crow .cs .c--sw{display:inline-flex;align-items:center;gap:8px} /* DS PLP swatch (.pc-swatch, 20 rounded square) before the colour */
-.sheet .body.compact>.crow--colour:first-child{padding-top:4px} /* by colour: rows have no title */
+.sheet .panel>.body.compact>.crow--colour:first-child{padding-top:4px} /* by colour: rows have no title */
 .crow .cs-grp .ntf-note--size{margin:0} /* DS notified caption: 2px under the colour · price line (Figma) */
 @media(max-width:767px){#sheet .panel{height:100%;border-radius:0}} /* Jake 24 Nov (again): the set builder is a full-page modal on mobile */
 /* Jake 24 Nov: Add to bag floats over the rows with the item count + total in it; nothing behind it (no gradient). */
 #sheet .panel{overflow:hidden}
-#sheet .body{padding-bottom:96px}
+#sheet .panel>.body{padding-bottom:96px}
 #sheet .foot{position:absolute;left:0;right:0;bottom:0;background:none;padding:16px 16px calc(16px + env(safe-area-inset-bottom));pointer-events:none}
 #sheet .foot .btn{pointer-events:auto}
-@media(min-width:768px){#sheet .foot{padding:16px 24px 24px}}
+@media(min-width:768px){#sheet .foot{padding:16px 24px 24px;flex-direction:row;justify-content:flex-end}#sheet .foot .btn{width:auto;padding:0 24px}}
+@media(min-width:1024px){#sheet .panel{max-width:960px}}
+/* Jake 25 Nov: Add to bag with a size missing → the DS Message banner (error, Figma DS 14555:173218) slides up from behind the CTA like a toast, as well as the red + shake */
+#sheet .atb-wrap{position:relative;width:100%;pointer-events:none}
+#sheet .atb-wrap .btn{position:relative;z-index:1}
+#sheet .sz-msg{position:absolute;left:0;right:0;bottom:100%;margin-bottom:8px;z-index:0;box-shadow:0 0 20px rgba(0,0,0,.1);transform:translateY(calc(100% + 8px));opacity:0;transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .2s ease}
+#sheet .sz-msg.on{transform:none;opacity:1}
+/* Jake 25 Nov: the list fades into the top of the modal as it scrolls, not chopped under the title */
+#sheet .head{position:relative;z-index:2}
+#sheet .head::after{content:"";position:absolute;left:0;right:0;top:100%;height:24px;background:linear-gradient(#FFF,rgba(255,255,255,0));pointer-events:none;opacity:0;transition:opacity .2s ease}
+#sheet.scrolled .head::after{opacity:1}
+.crow .cs .c .cn{margin-right:8px} /* Jake 25 Nov master rule: no little dots between name and price (or anywhere) — an 8px gap instead */
+@media(min-width:768px){#sheet .atb-wrap{width:auto}#sheet .sz-msg{left:auto;width:max(100%,240px)}}
+@media(prefers-reduced-motion:reduce){#sheet .sz-msg{transition:opacity .2s ease;transform:none}} /* Jake 25 Nov: desktop Made To Match modal = DS Modal / Desktop 960 wide (8084:25026); Add to bag hugs, bottom right */
 /* second modal over the set builder (logged out): the DS Notify Me modal with the email field */
 .ntf-layer{z-index:90}
 .ntf-layer>.mdl{width:100%}
@@ -1054,29 +1065,30 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 
       </div>
 
-      <!-- Set entry point (Jake 18 Sep): under the buy buttons, above Premier (was under the colours). Slot id kept — 01/03/07/08/09 templates mount here -->
+      <!-- Set entry point (Jake 18 Sep): under the buy buttons (was under the colours; Premier + Deliver+ moved below BNPL, Jake 25 Nov). Slot id kept — 01/03/07/08/09 templates mount here -->
       <div class="slot" id="slot-colour" data-block="entry" data-label="Set entry point"></div>
 
-      <div class="premier" data-block="premier" data-label="Premier"><div class="t"><img src="assets/bundling/premier-logo.png" alt="Premier"><span data-copy="premier.t">Enjoy unlimited delivery for an entire year from just £9.99</span></div><button class="add" data-copy="premier.cta">Add</button></div>
 
       <div class="slot" id="slot-buttons"></div>
 
     <!-- desktop: these boxes sit in the buy column -->
-    <div class="deliver deskonly" id="deliver-d" data-block="deliver-d" data-label="Deliver+"></div>
     <div class="uspbox deskonly" id="uspbox-d" data-block="uspbox-d" data-label="Delivery &amp; returns"></div>
     <div class="uspbox deskonly" id="student-d" data-block="student-d" data-label="Student"></div>
     <div class="bnpl deskonly" id="bnpl-d" data-block="bnpl-d" data-label="BNPL"></div>
+    <div class="premier deskonly" data-block="premier-d" data-label="Premier"><div class="t"><img src="assets/bundling/premier-logo.png" alt="Premier"><span data-copy="premier.t">Enjoy unlimited delivery for an entire year from just £9.99</span></div><button class="add" data-copy="premier.cta">Add</button></div>
+    <div class="deliver deskonly" id="deliver-d" data-block="deliver-d" data-label="Deliver+"></div>
   </div>
 </section>
 
 <!-- ================= BELOW ================= -->
 <section class="below">
-  <div class="inset buyside deliver" id="deliver-m" data-block="deliver" data-label="Deliver+"></div>
   <!-- Create the look module — one component, several formats. Default position: under the Deliver+ box -->
   <div id="recs-look" data-block="look" data-label="Create the look" data-recs="look"></div>
   <div class="inset buyside uspbox" id="uspbox-m" data-block="uspbox" data-label="Delivery &amp; returns"></div>
   <div class="inset buyside uspbox" id="student-m" data-block="student" data-label="Student"></div>
   <div class="inset buyside bnpl" id="bnpl-m" data-block="bnpl" data-label="BNPL"></div>
+  <div class="inset buyside premier" data-block="premier" data-label="Premier"><div class="t"><img src="assets/bundling/premier-logo.png" alt="Premier"><span data-copy="premier.t">Enjoy unlimited delivery for an entire year from just £9.99</span></div><button class="add" data-copy="premier.cta">Add</button></div>
+  <div class="inset buyside deliver" id="deliver-m" data-block="deliver" data-label="Deliver+"></div>
   <div class="slot" id="slot-rail" data-block="entry04" data-label="Set entry point — 04 large banner"></div>
 
   <!-- Live: production 'Complete Your Purchase With' -->
@@ -1158,15 +1170,15 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 <div id="addmenu" hidden><h4>Add here</h4><div id="addnew"></div><h4 class="second">Add back</h4><div id="addback"></div></div>
 
 <!-- Removed tray — every block deleted in edit mode is listed here (restore in edit mode). Exports include it. -->
-<section class="removed" id="removed" hidden><h4><b>Removed from this layout</b> · <span id="removedn">0</span> block(s)</h4><div class="list" id="removedlist"></div><div id="removedstore" hidden></div></section>
+<section class="removed" id="removed" hidden><h4><b>Removed from this layout</b> <span id="removedn">0</span> block(s)</h4><div class="list" id="removedlist"></div><div id="removedstore" hidden></div></section>
 
 <!-- ================= MODALS ================= -->
 <div class="sheet" id="sheet" hidden>
   <div class="bg" data-close></div>
   <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheettitle">
-    <div class="head"><h2 id="sheettitle" data-copy="sheet.set">Shop The Set</h2><span class="view" id="setview" hidden><button data-v="cards">Cards</button><button data-v="compact">Compact</button></span><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
+    <div class="head"><h2 id="sheettitle" data-copy="sheet.set">Made to Match</h2><span class="view" id="setview" hidden><button data-v="cards">Cards</button><button data-v="compact">Compact</button></span><button aria-label="Close" data-close><img class="ic-16" src="assets/ds/icons/lib/icons-close.svg" alt=""></button></div>
     <div class="body" id="sheetbody"></div>
-    <div class="foot"><button class="btn p" id="sheetatb">Add to bag</button></div>
+    <div class="foot"><div class="atb-wrap"><div class="msg msg--error sz-msg" id="szmsg" role="alert" aria-hidden="true"><i></i><div class="body">Please select a size</div></div><button class="btn p" id="sheetatb">Add to bag</button></div></div>
   </div>
 </div>
 
@@ -1212,7 +1224,6 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
 
 <!-- ================= ENTRY-POINT TEMPLATES ================= -->
 <template id="tpl-01-1"><div class="pill-row"><button class="chip-entry round entry">SHOP SETS</button></div></template>
@@ -1242,6 +1253,7 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 <template id="tpl-09-8"><button class="split-tile entry"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><span class="cap"><span class="h" data-copy="e.09-8.h">Wear it as a set</span><span class="s" data-copy="e.09-8.s">Complete the look</span></span></button></template>
 <template id="tpl-07-6"><button class="price-banner bare entry"><span class="trio"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy"><span class="h" data-copy="e.07.whole">Shop The Whole Set</span><span class="s" data-pieces></span></span><img class="chev" src="assets/bundling/icons/chev-right.svg" alt=""></button></template>
 
+<script src="assets/ds/toast.js?v=20261125"></script>
 <script src="data.js"></script>
 <script src="ctl.js"></script>
 <script src="assets/ds/carousel.js?v=20261124"></script>
@@ -1299,7 +1311,7 @@ const ALL_SIZES=['XS','S','M','L','XL','2XL','3XL','4XL','5XL'];
 const fmt=n=>'£'+Number(n).toFixed(2);
 const $=s=>document.querySelector(s);
 const el=(h)=>{const t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstElementChild;};
-const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),1800);};
+const toast=m=>DG_toast({msg:m,ms:3000}); // DS Toast — white, floats bottom on phones / top under the USP on desktop
 
 function hero(){return byId(S.colour);}
 // colour-matched partner: same colour in another family, else first of that family
@@ -1624,13 +1636,13 @@ function openSheet(kind,preselectId){
   const all=SH.rows.flatMap(r=>r.items);
   if(all.find(p=>p.id===hero().id))SH.sel[hero().id]=autoSize(hero()); // the product you came from is ticked on open (Figma)
   [].concat(preselectId||[]).forEach(id=>{const q=all.find(p=>p.id===id);if(q)SH.sel[id]=autoSize(q);}); // one id or a list
-  const st=$('#sheettitle');st.dataset.copy='sheet.'+kind;st.textContent=S.copy['sheet.'+kind]||(kind==='look'?'Shop The Look':'Shop The Set');
+  const st=$('#sheettitle');st.dataset.copy='sheet.'+kind;st.textContent=S.copy['sheet.'+kind]||(kind==='look'?'Shop The Look':'Made to Match');
   SH_LAST=JSON.parse(JSON.stringify(SH.sel)); // opening: nothing animates but the sheet itself
   renderSheet();
   const sh=$('#sheet');sh.hidden=false;requestAnimationFrame(()=>sh.classList.add('open'));
   document.body.style.overflow='hidden';
 }
-function closeSheet(){const sh=$('#sheet');sh.classList.remove('open');setTimeout(()=>{sh.hidden=true;document.body.style.overflow='';},250);}
+function closeSheet(){const sh=$('#sheet');szMsg(false);sh.classList.remove('open');setTimeout(()=>{sh.hidden=true;document.body.style.overflow='';},250);}
 let SETVIEW=PRE.setview||LS('pdp26-setview')||'compact'; // Jake 15 Sep: compact thumbs by default
 document.querySelectorAll('#setview button').forEach(bt=>bt.onclick=()=>{SETVIEW=bt.dataset.v;LS('pdp26-setview',SETVIEW);renderSheet();parent.postMessage({pdpState:{setview:SETVIEW}},'*');});
 const rowHasSel=r=>r.items.some(p=>SH.sel[p.id]);
@@ -1640,7 +1652,7 @@ function toggleSel(p){
     if(g){ // Jake 24 Nov: animate between states — the tile eases down now, its size line folds away, then the sheet re-renders
       document.querySelectorAll('#sheetbody .th button').forEach(bt=>{if(bt.getAttribute('aria-label')===p.name+' '+p.colour){bt.classList.remove('on');bt.setAttribute('aria-pressed','false');}});
       const cs=g.parentElement,t=cs.children.length===1?cs:g;fold(t,true);delete SH.sel[p.id];setTimeout(()=>renderSheet(),ANI);return;}}
-  if(SH.sel[p.id])delete SH.sel[p.id];else SH.sel[p.id]=autoSize(p);JUST=p.id;renderSheet();JUST=null;}
+  if(SH.sel[p.id])delete SH.sel[p.id];else SH.sel[p.id]=autoSize(p);JUST=p.id;const c=SH.sel[p.id]&&SH.sel[p.id].carry;if(c){delete SH.sel[p.id].carry;renderSheet();JUST=null;pickSize(p,c);return;}renderSheet();JUST=null;}
 const ANI=220,RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* fold a node open (from 0) or shut (to 0): height + opacity + a 4px drop; a lone pick list also eases its 8px row gap */
 function fold(t,shut){const lone=t.classList.contains('csel');const h=t.offsetHeight;t.style.overflow='hidden';
@@ -1651,7 +1663,7 @@ let SH_LAST={}; // the picks as last drawn: what changed since is what animates
 /* Jake 23 Nov: a size you've already picked for this product carries over to every other colour you tick — you only change it if you want to.
    In stock → set · out of stock → a Notify Me alert if we already have your email (logged in / given this session), else left for you to pick (no surprise modal). */
 function autoSize(p){const z=(SH.famSize&&SH.famSize[p.fam])||(SH.lastSize&&(p.allSizes||SET_SIZES).includes(SH.lastSize)?SH.lastSize:null);if(!z)return {size:null}; // Jake 24 Nov: the last size picked carries to every product you tick next (rows below too), unless that product already has its own
-  if(sizesOf(p).includes(z))return {size:z};return knownEmail()?{size:z,notify:true}:{size:null};}
+  if(sizesOf(p).includes(z))return {size:z};return knownEmail()?{size:z,notify:true}:{size:null,carry:z};} // Jake 25 Nov: a guest's carried size still comes across when it's out of stock — "XS - Notify Me" + the email modal, same as picking it
 const SET_OFF=0.2; // bundle incentive shown in the builder: 20% off each piece
 const setNow=p=>Math.round(p.price*(1-SET_OFF)*100)/100;
 const setPrice=p=>`<span class="now sale">${fmt(setNow(p))}</span><span class="was">${fmt(p.price)}</span>`;
@@ -1667,6 +1679,7 @@ let NTF_EMAIL=(()=>{try{return sessionStorage.getItem('pdp26-ntf-email')}catch(e
 function setNtfEmail(v){NTF_EMAIL=v||null;try{v?sessionStorage.setItem('pdp26-ntf-email',v):sessionStorage.removeItem('pdp26-ntf-email')}catch(e){}}
 const knownEmail=()=>!!S.login||!!NTF_EMAIL;
 function pickSize(p,z){
+  if(z)szMsg(false);
   if(!z){SH.sel[p.id]={size:null};renderSheet();return;}
   (SH.famSize=SH.famSize||{})[p.fam]=z;SH.lastSize=z; // remembered for the other colours of this product, and the next product ticked
   if(sizesOf(p).includes(z)){SH.sel[p.id]={size:z};renderSheet();return;}
@@ -1715,7 +1728,7 @@ function rowThumbs(r,ri,back){
   const cs=row.querySelector('.csel');
   r.items.filter(p=>SH.sel[p.id]).forEach(p=>{const st=SH.sel[p.id],note=st.notify&&!st.pending; // Jake 23 Nov: the notified line sits right under ITS size (regular, right aligned) — more picks can follow below
     const byCol=S.setLayout==='colour',sw=!byCol&&S.setSwatch&&p.sw; // by colour the line names the product (T-Shirt, Zip Up Hoodie); by product it names the colour, with the DS PLP swatch when switched on
-    const g=el(`<div class="cs-grp" data-id="${p.id}"><div class="cs"><span class="c${sw?' c--sw':''}">${sw?`<span class="pc-swatch" aria-hidden="true"><i style="background:url(${p.sw}) center/cover"></i></span>`:''}<span>${byCol?(FAM_SINGULAR[p.fam]||p.name):p.colour} · <b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span></span>${sizeLine(p)}</div>${note?'<p class="ntf-note ntf-note--size">You’ll be notified when it’s available</p>':''}</div>`);wireSize(g,p);cs.appendChild(g);});
+    const g=el(`<div class="cs-grp" data-id="${p.id}"><div class="cs"><span class="c${sw?' c--sw':''}">${sw?`<span class="pc-swatch" aria-hidden="true"><i style="background:url(${p.sw}) center/cover"></i></span>`:''}<span><span class="cn">${byCol?(FAM_SINGULAR[p.fam]||p.name):p.colour}</span><b class="sale">${fmt(setNow(p))}</b> <s>${fmt(p.price)}</s></span></span>${sizeLine(p)}</div>${note?'<p class="ntf-note ntf-note--size">You’ll be notified when it’s available</p>':''}</div>`);wireSize(g,p);cs.appendChild(g);});
   return row;
 }
 function renderSheet(){
@@ -1726,7 +1739,7 @@ function renderSheet(){
   SH.rows.forEach((r,ri)=>b.appendChild((compact||SH.view[ri]==='thumbs')?rowThumbs(r,ri,!compact):rowCards(r,ri)));
   const ids=Object.keys(SH.sel).filter(id=>!SH.sel[id].notify); // a Notify Me pick is an alert, not a purchase
   const tot=fmt(ids.reduce((a,id)=>a+setNow(byId(id)),0));
-  const btn=$('#sheetatb');btn.innerHTML=`<span data-copy="sheet.atb">Add to bag</span>${ids.length?` (${ids.length}) · ${tot}`:''}`;btn.disabled=!ids.length; // count + total in the button (Jake 24 Nov)
+  const btn=$('#sheetatb');btn.innerHTML=`<span data-copy="sheet.atb">Add to bag</span>${ids.length?`<span class="bd-tag bd-tag--n">${ids.length}</span><span class="bd-tag">${tot}</span>`:''}`;btn.disabled=!ids.length; // count circle + total pill in the button (DS Button tag .bd-tag · Jake 25 Nov)
   b.scrollTop=keepScroll;applyCopy($('#sheet'));
   if(!RM){ // Jake 24 Nov: nothing just appears — new pick lines fold open, a new size / notified line eases in, the button total ticks over
     b.querySelectorAll('.cs-grp[data-id]').forEach(g=>{const id=g.dataset.id,was=SH_LAST[id],now=SH.sel[id]||{};
@@ -1737,10 +1750,19 @@ function renderSheet(){
     const lbl=btn.textContent;if(SH_LAST.__btn!=null&&SH_LAST.__btn!==lbl)btn.animate([{opacity:.55},{opacity:1}],{duration:ANI,easing:'ease-out'});}
   SH_LAST=JSON.parse(JSON.stringify(SH.sel));SH_LAST.__btn=btn.textContent;
 }
+/* scroll the set builder so el's row sits in view (16 from the top), eased ~450ms; then cb. Already in view → cb straight away */
+function focusScroll(el,cb){const b=$('#sheetbody');if(!el||!b){cb&&cb();return;}const row=el.closest('.crow')||el;const br=b.getBoundingClientRect(),rr=row.getBoundingClientRect(),er=el.getBoundingClientRect(),foot=96;
+  const inView=rr.top>=br.top&&er.bottom<=br.bottom-foot;if(inView){cb&&cb();return;}
+  const to=Math.max(0,Math.min(b.scrollHeight-b.clientHeight,b.scrollTop+rr.top-br.top-16)),from=b.scrollTop,d=to-from;if(RM||Math.abs(d)<2){b.scrollTop=to;cb&&cb();return;}
+  const dur=Math.min(700,Math.max(380,Math.abs(d)*.6)),t0=performance.now(),ease=t=>1-Math.pow(1-t,3);
+  const step=now=>{const t=Math.min(1,(now-t0)/dur);b.scrollTop=from+d*ease(t);if(t<1)requestAnimationFrame(step);else cb&&cb();};requestAnimationFrame(step);}
+$('#sheetbody').addEventListener('scroll',e=>$('#sheet').classList.toggle('scrolled',e.target.scrollTop>2),{passive:true});
+function szMsg(on){const m=$('#szmsg');if(!m)return;clearTimeout(szMsg._t);m.classList.toggle('on',on);m.setAttribute('aria-hidden',on?'false':'true');if(on)szMsg._t=setTimeout(()=>szMsg(false),3000);}
 $('#sheetatb').onclick=()=>{
   const buy=Object.keys(SH.sel).filter(id=>!SH.sel[id].notify);
   let bad=false;buy.forEach(id=>{if(!SH.sel[id].size){SH.sel[id].err=true;bad=true;}});
-  if(bad){renderSheet();const errs=[...document.querySelectorAll('#sheetbody .sz-sel.err')];errs.forEach(x=>{x.classList.remove('shake');void x.offsetWidth;x.classList.add('shake');x.addEventListener('animationend',()=>x.classList.remove('shake'),{once:true});}); // red + shake on every one missing a size (no toast)
+  if(bad){renderSheet();szMsg(true);const errs=[...document.querySelectorAll('#sheetbody .sz-sel.err')];const shake=()=>errs.forEach(x=>{x.classList.remove('shake');void x.offsetWidth;x.classList.add('shake');x.addEventListener('animationend',()=>x.classList.remove('shake'),{once:true});}); // red + shake on every one missing a size
+    focusScroll(errs[0],shake); // Jake 25 Nov: glide back to the first one missing a size (its row in view), then shake
     const f=errs[0],body=$('#sheetbody');if(f){const br=body.getBoundingClientRect(),fr=f.getBoundingClientRect();if(fr.top<br.top||fr.bottom>br.bottom)body.scrollTo({top:body.scrollTop+fr.top-br.top-body.clientHeight/2,behavior:'smooth'});} // bring the first one into view
     return;}
   const items=buy.map(id=>({p:byId(id),size:SH.sel[id].size}));
@@ -1898,7 +1920,7 @@ function renderAll(){
   renderEdit();applyCopy();
   if(PENDING_FOCUS){const k=PENDING_FOCUS;PENDING_FOCUS=null;setTimeout(()=>doFocus(k),50);setTimeout(()=>doFocus(k),450);}
   const st=stockOf(hero());
-  parent.postMessage({pdpCfg:`${hero().id} ${FAM_SINGULAR[hero().fam]||hero().fam} · ${hero().colour} · ${st==='in'?'in stock':st==='gone'?'OOS, not restocking':'OOS, restocking'} · ${S.login?'logged in':'logged out'} · size rec ${S.srecStyle} ${S.srecDir}`,
+  parent.postMessage({pdpCfg:`${hero().id} ${FAM_SINGULAR[hero().fam]||hero().fam}, ${hero().colour}, ${st==='in'?'in stock':st==='gone'?'OOS, not restocking':'OOS, restocking'}, ${S.login?'logged in':'logged out'}, size rec ${S.srecStyle} ${S.srecDir}`,
     pdpState:{login:S.login,srecStyle:S.srecStyle,srecDir:S.srecDir,hero:hero().id,stock:st,exp:S.exp,teeStock:S.teeStock}},'*');
 }
 
@@ -1959,7 +1981,7 @@ function renderEdit(){
   document.body.classList.toggle('editing',S.edit);
   document.querySelectorAll('.ed,.ins').forEach(e=>e.remove());if(!S.edit)$('#addmenu').hidden=true;
   let bar=$('#edbar');
-  if(!bar){bar=el(`<div id="edbar"><b>Edit layout</b><span>▲▼ move · ✕ remove · + add at a boundary · tap text to edit copy</span><button id="edreset">Reset</button><button class="done" id="eddone">Done</button></div>`);document.body.appendChild(bar);
+  if(!bar){bar=el(`<div id="edbar"><b>Edit layout</b><span>▲▼ move, ✕ remove, + add at a boundary, tap text to edit copy</span><button id="edreset">Reset</button><button class="done" id="eddone">Done</button></div>`);document.body.appendChild(bar);
     bar.querySelector('#edreset').onclick=()=>{S.order={};LS('pdp26-order',{});LS('pdp26-removed',[]);LS('pdp26-copy',{});LS('pdp26-added',[]);location.reload();};
     bar.querySelector('#eddone').onclick=()=>{S.edit=false;renderAll();parent.postMessage({pdpEdit:false},'*');};}
   bar.hidden=!S.edit;

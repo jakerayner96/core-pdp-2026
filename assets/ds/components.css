@@ -2773,6 +2773,11 @@ select.rf-input:invalid{color:var(--rf-dim)}
 .alert--text{background:none;border:0;padding:0;display:block;font-size:16px;line-height:normal;letter-spacing:.02em;color:var(--text-error)}
 .alert--text.sm{font-size:14px;letter-spacing:0}
 .alert--text.xs{font-size:12px;line-height:16px;letter-spacing:0;margin:0} /* 12 — Wishlist tile stock line (11 Nov) */
+/* Button tag (.bd-tag) — a count circle + a value pill inside a button, same height (Core PDP 2026 Shop The Set · Jake 25 Nov, after SEEL Enhancements 2026 CQIe2e2c0iagD1T9WjdYsx 820:9829 "+£2.99" overlay).
+   24 tall · pill padding 0 8 · .bd-tag--n = a 24 circle for a count · white 20% on a filled button, black 8% on secondary / text · label weight, 14px, never uppercase-dependent */
+.bd-tag{display:inline-flex;align-items:center;justify-content:center;flex:none;height:24px;min-width:24px;padding:0 8px;box-sizing:border-box;border-radius:9999px;background:rgba(255,255,255,.2);color:inherit;font-size:14px;line-height:1;font-weight:var(--w-regular,400);font-variant-numeric:tabular-nums;letter-spacing:0}
+.bd-tag--n{width:24px;padding:0}
+.bd.sec .bd-tag,.bd.txt .bd-tag,.bd.ter .bd-tag,.bd.xs .bd-tag{background:rgba(0,0,0,.08)}
 /* Button · Added (.bd.done): the primary after it has added — tick + ADDED, no interaction */
 .bd.done{display:inline-flex;align-items:center;justify-content:center;gap:8px;pointer-events:none}
 .bd.done::before{content:"";width:24px;height:24px;flex:none;background:currentColor;-webkit-mask:url("icons/lib/icons-tick.svg") center/24px 24px no-repeat;mask:url("icons/lib/icons-tick.svg") center/24px 24px no-repeat}

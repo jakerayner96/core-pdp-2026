@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Core PDP 2026 · configurator — boohooMAN</title>
+<title>Core PDP 2026, configurator — boohooMAN</title>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -111,6 +111,17 @@ a{color:var(--accent)}
 .livenote{display:none}
 body.livebrand .livenote{display:block}
 body.livebrand .panel .card:not(.livenote),body.livebrand .panel .foot,body.livebrand .panel .sum,body.livebrand .editbtn,body.livebrand #mode{display:none}
+
+/* ---- collapse the whole UI to a small FAB (Jake 25 Nov: view it like a user would, full screen) ---- */
+.top .hide{width:24px;height:24px;flex:none;background:var(--ink);-webkit-mask:url(assets/ds/icons/lib/icons-collapse.svg) center/24px 24px no-repeat;mask:url(assets/ds/icons/lib/icons-collapse.svg) center/24px 24px no-repeat;opacity:.8}
+.top .hide:hover{opacity:1}
+#uifab{display:none;position:fixed;left:8px;top:8px;z-index:90;width:32px;height:32px;border-radius:99px;background:rgba(0,0,0,.72);box-shadow:0 1px 6px rgba(0,0,0,.3);place-items:center;opacity:.6;transition:opacity .15s}
+#uifab:hover{opacity:1}
+#uifab i{width:24px;height:24px;background:#FFF;-webkit-mask:url(assets/ds/icons/lib/icons-settings.svg) center/24px 24px no-repeat;mask:url(assets/ds/icons/lib/icons-settings.svg) center/24px 24px no-repeat}
+body.ui-min{grid-template-columns:1fr;grid-template-rows:1fr}
+body.ui-min .top,body.ui-min .panel,body.ui-min #mtab,body.ui-min .stage .handle{display:none!important}
+body.ui-min #uifab{display:grid}
+body.ui-min iframe{box-shadow:none}
 @media(max-width:760px){
   body{grid-template-columns:1fr;grid-template-rows:1fr}
   .top{display:none}
@@ -129,7 +140,7 @@ body.livebrand .panel .card:not(.livenote),body.livebrand .panel .foot,body.live
   .mhead .export svg{width:13px;height:13px}
   .mhead .mclose{flex:none;width:32px;height:32px;border-radius:99px;border:1px solid rgba(255,255,255,.3);color:var(--ink)}
 }
-/* ---- fold view: iOS 26 Safari frame (SEEL Enhancements 2026 · 3366-199353) ---- */
+/* ---- fold view: iOS 26 Safari frame (SEEL Enhancements 2026, 3366-199353) ---- */
 .device{position:relative;display:flex;flex-direction:column;height:100%;background:#FFF}
 .device iframe{flex:1;min-height:0}
 .device .sb,.device .tb,.device .home,.device .chin{display:none}
@@ -175,7 +186,8 @@ body.dragging iframe{pointer-events:none}
 <body>
 
 <header class="top">
-  <span class="ttl">PDP 2026 · boohooMAN</span>
+  <button class="hide" id="uihide" aria-label="Hide the review UI" title="Hide the review UI — full screen, a small button top left brings it back"></button>
+  <span class="ttl">PDP 2026 boohooMAN</span>
   <div class="mid">
     <span class="chips" id="brands"><button class="chip on" data-b="boohooman">boohooMAN</button><button class="chip" data-b="debenhams">Debenhams</button><button class="chip" data-b="boohoo">boohoo</button><button class="chip" data-b="plt">PLT</button><button class="chip" data-b="karenmillen">Karen Millen</button><button class="chip" data-b="dorothyperkins">Dorothy Perkins</button><button class="chip" data-b="coast">Coast</button></span>
     <span class="div"></span>
@@ -191,6 +203,7 @@ body.dragging iframe{pointer-events:none}
 </header>
 
 <button id="mtab" aria-label="Open the configurator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+<button id="uifab" aria-label="Show the review UI" title="Show the review UI"><i></i></button>
 <aside class="panel">
   <div class="mhead">
     <span class="chips" id="brands-m"><button class="chip on" data-b="boohooman">boohooMAN</button><button class="chip" data-b="debenhams">Debenhams</button><button class="chip" data-b="boohoo">boohoo</button><button class="chip" data-b="plt">PLT</button><button class="chip" data-b="karenmillen">Karen Millen</button><button class="chip" data-b="dorothyperkins">Dorothy Perkins</button><button class="chip" data-b="coast">Coast</button></span>
@@ -198,15 +211,15 @@ body.dragging iframe{pointer-events:none}
     <button class="mclose" id="mclose" aria-label="Close">✕</button>
   </div>
   <div class="ph"><h1>Core PDP 2026</h1></div>
-  <div class="note"><b>Final designs · 23 Nov 2026.</b> No options any more — this is what we decided. Everything on the page is live; tap a screen to jump straight to it.</div>
+  <div class="note"><b>Final designs, 23 Nov 2026.</b> No options any more — this is what we decided. Everything on the page is live; tap a screen to jump straight to it.</div>
   <div class="card livenote"><h3>Live recreation <span class="tag alt">read only</span></h3><p>This fascia shows today's production PDP rebuilt from the live site (10 Sep 2026). The Core PDP 2026 designs are boohooMAN — pick boohooMAN to see them.</p></div>
 
   <div class="card"><h3>Experience</h3><div id="expopts"></div></div>
-  <div class="card"><h3>Customer</h3><div id="loginopts"></div><p>Back-in-stock alerts: logged in sets the alert straight away · logged out asks for an email first.</p></div>
+  <div class="card"><h3>Customer</h3><div id="loginopts"></div><p>Back-in-stock alerts: logged in sets the alert straight away, logged out asks for an email first.</p></div>
   <div class="card" data-exp="set"><h3>PDP</h3><div id="sc-pdp"></div></div>
   <div class="card" data-exp="set"><h3>Size recommender <span class="tag">2 to show</span></h3><div id="srecstyle"></div><div class="sub second">Direction</div><div id="srecdir"></div></div>
-  <div class="card" data-exp="set"><h3>Shop The Set <span class="tag">2 to show</span></h3><div class="sub">Rows</div><div id="setlayout"></div><div class="sub second">Colour swatch (rows by product)</div><div id="setswatch"></div><div class="sub second">Screens</div><div id="sc-set"></div></div>
-  <div class="card" data-exp="set"><h3>Shop The Look · out of stock</h3><div id="sc-look"></div></div>
+  <div class="card" data-exp="set"><h3>Made to Match <span class="tag">2 to show</span></h3><div class="sub">Rows</div><div id="setlayout"></div><div class="sub second">Colour swatch (rows by product)</div><div id="setswatch"></div><div class="sub second">Screens</div><div id="sc-set"></div></div>
+  <div class="card" data-exp="set"><h3>Shop The Look, out of stock</h3><div id="sc-look"></div></div>
   <div class="card" data-exp="look"><h3>Create the Look</h3><div id="sc-ctl"></div></div>
   <div class="card" data-exp="look"><h3>T-Shirt stock <span class="tag">2 to show</span></h3><div id="teestock"></div><p>The It’s Coming Home tee in Shop The Look is sold out. Not being reordered: Out Of Stock, no alerts. Being reordered: pick a size, then email (logged out) or we’ll notify you (logged in). Both then scroll into similar items.</p></div>
 
@@ -240,13 +253,13 @@ body.dragging iframe{pointer-events:none}
    ours to show: the customer (logged in / out), and the two size recommender looks (hanger, fit scale) in each direction. */
 const SCENES={
   pdp:[['pdp','Default PDP','Washed Navy Zip Up Hoodie, in stock'],['tabs','Product tabs','Top of the buy block: every piece of the set in this colour'],['srec','Size recommender','Under the size buttons, above the model line']],
-  set:[['set','Shop The Set','Made To Match → the set builder: tick pieces, pick sizes, add to bag'],['set-notify','Out-of-stock size → Notify Me','T-Shirt in M: “M - Notify Me”. Logged out opens the email modal on top; logged in, the row just says you’ll be notified'],['set-notify-again','Guest · email already given','Logged out, email already given on another product this session: “3XL - Notify Me” sets the alert straight away, no modal']],
-  look:[['look','Shop The Look','The pieces in the product image, a normal recs carousel; a tap opens that PDP'],['oos-gone','Out of stock · not restocking','Wide Leg Jogger: Out Of Stock, then an endless grid of similar items'],['oos-restock','Out of stock · restocking','T-Shirt: every size carries the bell'],['oos-restock-size','Restocking · size picked','Get notified when it’s back in stock, then similar items']],
-  ctl:[['ctl','Default PDP','Extreme Washed Bleached Boxy Denim Jacket, in stock (no product tabs, no Made To Match)'],['ctl-look','Shop The Look','The jacket, jeans and tee in the product image; a tap opens that PDP'],['ctl-jeans','Tap a piece · in stock','The jeans: straight to their PDP'],['ctl-oos-gone','Tap the tee · not being reordered','Out Of Stock, then an endless grid of similar items'],['ctl-oos-restock','Tap the tee · being reordered','Every size carries the bell; similar items underneath'],['ctl-oos-size','Being reordered · size picked','8 picked: email + NOTIFY ME (logged out) or the notified line (logged in), then similar items']]};
-const EXP=[['set','Bundles (matching sets · Shop The Set)'],['look','Create the Look (denim jacket · Shop The Look)']];
+  set:[['set','Made to Match','Made To Match box → the set builder: tick pieces, pick sizes, add to bag'],['set-notify','Out-of-stock size → Notify Me','T-Shirt in M: “M - Notify Me”. Logged out opens the email modal on top; logged in, the row just says you’ll be notified'],['set-notify-again','Guest, email already given','Logged out, email already given on another product this session: “3XL - Notify Me” sets the alert straight away, no modal']],
+  look:[['look','Shop The Look','The pieces in the product image, a normal recs carousel; a tap opens that PDP'],['oos-gone','Out of stock, not restocking','Wide Leg Jogger: Out Of Stock, then an endless grid of similar items'],['oos-restock','Out of stock, restocking','T-Shirt: every size carries the bell'],['oos-restock-size','Restocking, size picked','Get notified when it’s back in stock, then similar items']],
+  ctl:[['ctl','Default PDP','Extreme Washed Bleached Boxy Denim Jacket, in stock (no product tabs, no Made To Match)'],['ctl-look','Shop The Look','The jacket, jeans and tee in the product image; a tap opens that PDP'],['ctl-jeans','Tap a piece, in stock','The jeans: straight to their PDP'],['ctl-oos-gone','Tap the tee, not being reordered','Out Of Stock, then an endless grid of similar items'],['ctl-oos-restock','Tap the tee, being reordered','Every size carries the bell; similar items underneath'],['ctl-oos-size','Being reordered, size picked','8 picked: email + NOTIFY ME (logged out) or the notified line (logged in), then similar items']]};
+const EXP=[['set','Bundles (matching sets, Made to Match)'],['look','Create the Look (denim jacket, Shop The Look)']];
 const TEE=[['gone','Not being reordered (no alerts)'],['restock','Being reordered (Notify Me)']];
 const LOGIN=[[false,'Logged out'],[true,'Logged in']];
-const SREC_STYLE=[['hanger','Hanger icon'],['scale','Fit scale (Runs Small · True To Size · Runs Large)']];
+const SREC_STYLE=[['hanger','Hanger icon'],['scale','Fit scale (Runs Small, True To Size, Runs Large)']];
 const SET_LAYOUT=[['product','By product (title, then its colours)'],['colour','By colour (each row a set, no title)']];
 const SET_SWATCH=[[false,'Off'],[true,'On (PLP swatch next to the colour)']];
 const SREC_DIR=[['up','Sizing up (runs small)'],['down','Sizing down (runs large)']];
@@ -278,10 +291,12 @@ function renderPanel(){
   radios($('#setswatch'),SET_SWATCH,()=>CFG.setSwatch,v=>{CFG.setSwatch=v;LSS('pdp26-setswatch',v);});
   scenes($('#sc-pdp'),SCENES.pdp);scenes($('#sc-set'),SCENES.set);scenes($('#sc-look'),SCENES.look);scenes($('#sc-ctl'),SCENES.ctl);
 }
-function syncURL(){const u=new URLSearchParams({brand:BRAND});if(!FOLD)u.set('fold','0');if(BRAND==='boohooman'){u.set('w',String(W));u.set('login',CFG.login?'1':'0');u.set('srec',CFG.srecStyle);u.set('dir',CFG.srecDir);u.set('set',CFG.setLayout);u.set('sw',CFG.setSwatch?'1':'0');u.set('exp',CFG.exp);if(CFG.exp==='look')u.set('tee',CFG.teeStock);u.set('scene',CFG.scene);}history.replaceState(null,'','?'+u);}
+let UIMIN=new URLSearchParams(location.search).get('ui')==='min';document.body.classList.toggle('ui-min',UIMIN);
+function setUIMin(v){UIMIN=v;document.body.classList.toggle('ui-min',v);apply();}
+function syncURL(){const u=new URLSearchParams({brand:BRAND});if(UIMIN)u.set('ui','min');if(!FOLD)u.set('fold','0');if(BRAND==='boohooman'){u.set('w',String(W));u.set('login',CFG.login?'1':'0');u.set('srec',CFG.srecStyle);u.set('dir',CFG.srecDir);u.set('set',CFG.setLayout);u.set('sw',CFG.setSwatch?'1':'0');u.set('exp',CFG.exp);if(CFG.exp==='look')u.set('tee',CFG.teeStock);u.set('scene',CFG.scene);}history.replaceState(null,'','?'+u);}
 function apply(){
   if(matchMedia('(max-width:760px)').matches){frame.style.width='100%';win.style.width='100%';return;}
-  const avail=stage.clientWidth-16;
+  const avail=stage.clientWidth-(UIMIN?0:16);
   const w=Math.min(W||avail,avail);
   frame.style.width=w+'px';win.style.width=(w+16)+'px';
   const mobile=w<600;document.body.classList.toggle('fold',FOLD&&mobile);document.documentElement.style.setProperty('--k',(w/390).toFixed(4));
@@ -306,6 +321,7 @@ $('#hr').addEventListener('pointerdown',e=>{
   addEventListener('pointermove',move);addEventListener('pointerup',up);
 });
 addEventListener('resize',apply);
+$('#uihide').onclick=()=>setUIMin(true);$('#uifab').onclick=()=>setUIMin(false);addEventListener('keydown',e=>{if(e.key==='Escape'&&UIMIN&&e.target===document.body)setUIMin(false);});
 frame.addEventListener('load',()=>send(CFG.scene));
 function pageSrc(){return BRAND==='boohooman'?'pdp.html?brand=boohooman&login='+(CFG.login?1:0)+'&srec='+CFG.srecStyle+'&dir='+CFG.srecDir+'&set='+CFG.setLayout+'&sw='+(CFG.setSwatch?1:0)+'&exp='+CFG.exp+'&tee='+CFG.teeStock+'&_='+Date.now():'live.html?brand='+BRAND+'&_='+Date.now();}
 /* Brand chips (Jake 10 Sep): boohooMAN = this configurator (pdp.html, live ⇄ new). Every other fascia = the shared live-PDP module (live.html) —
@@ -313,7 +329,7 @@ function pageSrc(){return BRAND==='boohooman'?'pdp.html?brand=boohooman&login='+
 function setBrand(b){BRAND=DOMAIN[b]?b:'boohooman';LSS('pdp26-brand-v2',BRAND);syncURL();
   document.querySelectorAll('#brands .chip,#brands-m .chip').forEach(c=>c.classList.toggle('on',c.dataset.b===BRAND));
   const live=BRAND!=='boohooman';document.body.classList.toggle('livebrand',live);
-  document.querySelector('.top .ttl').textContent='PDP 2026 · '+{boohooman:'boohooMAN',debenhams:'Debenhams',boohoo:'boohoo',plt:'PrettyLittleThing',karenmillen:'Karen Millen',dorothyperkins:'Dorothy Perkins',coast:'Coast'}[BRAND];
+  document.querySelector('.top .ttl').textContent='PDP 2026 '+{boohooman:'boohooMAN',debenhams:'Debenhams',boohoo:'boohoo',plt:'PrettyLittleThing',karenmillen:'Karen Millen',dorothyperkins:'Dorothy Perkins',coast:'Coast'}[BRAND];
   $('#exportbtn').disabled=live;$('#exportbtn').title=live?'Export is boohooMAN only for now':'Export full-page PNGs (mobile + desktop) and a zip of the code with this configuration';
   frame.src=pageSrc();apply();}
 document.querySelectorAll('#brands .chip,#brands-m .chip').forEach(c=>c.onclick=()=>setBrand(c.dataset.b));
