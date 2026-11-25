@@ -1479,7 +1479,7 @@ function card(p,opts={}){
   const c=el(`<div class="card"><div class="img"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
   <div class="info"><div class="titles"><span class="cb-brand">${p.brand||'boohooMAN'}</span><span class="cb-name">${p.name}</span></div>
   <div class="cp"><span class="now ${sale?'sale':''}">${fmt(p.price)}</span>${sale?`<span class="was">${fmt(p.was)}</span>${opts.pct?`<span class="pct">-${Math.round((1-p.price/p.was)*100)}%</span>`:''}`:''}</div></div></div>`);
-  c.onclick=opts.onclick||(()=>{if(p.id&&byId(p.id)){S.colour=p.id;S.size=null;renderAll();scrollTo({top:0,behavior:'smooth'});}});
+  c.onclick=opts.onclick||(()=>{if(p.id&&byId(p.id)){S.colour=p.id;S.size=null;renderAll();landTop();}});
   return c;
 }
 // set imagery: the hero + colour-matched partners (jogger, tee, sweat…)
@@ -1516,7 +1516,9 @@ function pcItem(p,i){const sale=p.was&&p.was>p.price,sw=swList(p);
 const RAILS={}; // host id → the products behind its cards (data-i)
 function rail(id,o,list){const host=$('#'+id);if(!host)return;RAILS[id]=list;host.className='rails';host.hidden=!list.length;
   host.innerHTML=list.length?DG_pcarHTML(Object.assign({size:'md',per:5},o,{items:list.map(pcItem)})):'';}
-function goPDP(p,instant){S.colour=p.id;S.size=null;S.notified=false;renderAll();scrollTo({top:0,behavior:instant?'auto':'smooth'});}
+/* Jake 25 Nov: a product tapped in Shop The Look / a rail = a new page — land at the top of the new PDP instantly, no scroll-up animation */
+function landTop(){scrollTo({top:0,behavior:'instant'});const g=$('#gal');if(g)g.scrollLeft=0;}
+function goPDP(p){S.colour=p.id;S.size=null;S.notified=false;renderAll();landTop();}
 document.addEventListener('click',e=>{const c=e.target.closest('.rails .pc');if(!c||e.target.closest('.pc-swatch,.pcar-arr'))return;
   const list=RAILS[c.closest('.rails').id],p=list&&list[+c.dataset.i];if(!p)return;
   const on=c.querySelector('.pc-swatch.on'),pick=on?swList(p)[+on.dataset.sw]||p:p;
@@ -1810,7 +1812,7 @@ function openPairs(){
     const c=el(`<div class="pg"><div class="im"><img src="${p.img}" alt="${p.name}" loading="lazy"><button class="plus" aria-label="Add ${p.name}">+</button></div>
       <div class="t"><div class="nm">${p.name}</div><div class="cl">${p.colour}</div><div class="cols"><i style="background-image:url(${p.sw})"></i>${n} Colour${n>1?'s':''}</div><div class="pr">${fmt(p.price)}</div></div></div>`);
     c.querySelector('.plus').onclick=e=>{e.stopPropagation();openPick(p,sz=>{const m=$('#pairsm');m.classList.remove('open');setTimeout(()=>{m.hidden=true;openATB([{p,size:sz}]);},200);});};
-    c.querySelector('.im').onclick=()=>{S.colour=p.id;S.size=null;const m=$('#pairsm');m.classList.remove('open');m.hidden=true;document.body.style.overflow='';renderAll();scrollTo({top:0,behavior:'smooth'});};
+    c.querySelector('.im').onclick=()=>{S.colour=p.id;S.size=null;const m=$('#pairsm');m.classList.remove('open');m.hidden=true;document.body.style.overflow='';renderAll();landTop();};
     g.appendChild(c);});
   const m=$('#pairsm');m.hidden=false;requestAnimationFrame(()=>m.classList.add('open'));document.body.style.overflow='hidden';
 }
