@@ -1773,7 +1773,7 @@ $('#sheetatb').onclick=()=>{
 function openNotify(p,z,done){
   const L=el(`<div class="wl-layer ntf-layer ${innerWidth<768?'wl-layer--up':''}"><div class="mdl-scrim" data-nx></div>
     <div class="mdl ${innerWidth<768?'mdl--up':''}" role="dialog" aria-modal="true" aria-labelledby="ntft">
-      <div class="modal-hd"><div class="mt"><span id="ntft">Notify Me</span></div><button class="modal-x" aria-label="Close" data-nx></button></div>
+      <div class="modal-hd"><div class="mt"><span id="ntft">Out Of Stock</span></div><button class="modal-x" aria-label="Close" data-nx></button></div>
       <div class="mdl-bd">
         <div class="ntf-prod"><img src="${p.img}" alt=""><div class="ntf-tx"><b>${p.brand||'boohooMAN'}</b><span>${p.name}</span><span class="pc-price sale"><span class="now">${fmt(setNow(p))}</span><span class="was">${fmt(p.price)}</span></span><span>Size: <b>${z}</b></span><span>Colour: <b>${p.colour}</b></span></div></div>
         <p class="ntf-q">Get notified when it’s back in stock?</p>
