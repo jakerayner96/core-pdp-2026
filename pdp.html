@@ -930,7 +930,12 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 #sheet .atb-wrap .btn{position:relative;z-index:1}
 #sheet .sz-msg{position:absolute;left:0;right:0;bottom:100%;margin-bottom:8px;z-index:0;box-shadow:0 0 20px rgba(0,0,0,.1);transform:translateY(calc(100% + 8px));opacity:0;transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .2s ease}
 #sheet .sz-msg.on{transform:none;opacity:1}
-.crow .cs .c .cn{margin-right:8px} /* Jake 25 Nov master rule: no little dots between name and price (or anywhere) — an 8px gap instead */
+.crow .cs .c .cn{margin-right:8px}
+/* App view (app=1) */
+#apptop{display:none}
+body.app #apptop{display:block}
+body.app :is(.hdr,.crumb,.ft){display:none!important}
+@media(max-width:767px){body.app #sheet .panel,body.app #lookm .panel{padding-top:calc(24px + 47px)}} /* Jake 25 Nov master rule: no little dots between name and price (or anywhere) — an 8px gap instead */
 @media(min-width:768px){#sheet .atb-wrap{width:auto}#sheet .sz-msg{left:auto;width:max(100%,240px)}}
 @media(prefers-reduced-motion:reduce){#sheet .sz-msg{transition:opacity .2s ease;transform:none}} /* Jake 25 Nov: desktop Made To Match modal = DS Modal / Desktop 960 wide (8084:25026); Add to bag hugs, bottom right */
 /* second modal over the set builder (logged out): the DS Notify Me modal with the email field */
@@ -978,6 +983,8 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 </header>
 
 <div class="wrap">
+<!-- App (Jake 25 Nov, app=1): DS App top bar, liquid glass — status row + back / share over the full-bleed gallery; no web header, USP, breadcrumb or footer -->
+<div class="app-top" id="apptop"><div class="sb"><span>9:41</span><span class="sys"><svg width="18" height="12" viewBox="0 0 18 12" fill="#000"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg><svg width="28" height="13" viewBox="0 0 28 13"><rect x=".5" y=".5" width="24" height="12" rx="3.5" fill="none" stroke="#000" stroke-opacity=".4"/><rect x="2" y="2" width="21" height="9" rx="2" fill="#000"/></svg></span></div><div class="nav"><button aria-label="Back"><img src="assets/ds/icons/lib/icons-left.svg" alt=""></button><span><button aria-label="Share"><img src="assets/ds/icons/lib/icons-share.svg" alt=""></button></span></div></div>
 <!-- ================= BREADCRUMB ================= -->
 <nav class="crumb" aria-label="Breadcrumb">
   <a class="desk" href="#">Mens</a><span class="sep desk">/</span>
@@ -1900,7 +1907,7 @@ function renderDesc(){const g=document.querySelector('.glance'),b=document.query
   if(LOOKX()&&h.glance){g.innerHTML=h.glance.map((t,i)=>`<li data-gl="${i}"><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i><span>${t}</span></li>`).join('');b.innerHTML=`<p>${h.desc||''}</p><p class="sku">SKU: ${h.id}</p>`;}
   else if(g.innerHTML!==DESC0.g){g.innerHTML=DESC0.g;b.innerHTML=DESC0.b;}}
 function renderAll(){
-  document.body.className='mode-'+S.mode;
+  document.body.className='mode-'+S.mode+(q.get('app')==='1'?' app':'');
   {const st=stockOf(hero());document.body.classList.toggle('pdp-oos',st!=='in');document.body.classList.toggle('oos-gone',st==='gone');document.body.classList.toggle('oos-restock',st==='restock');document.body.classList.toggle('in',!!S.login);}
   document.body.classList.toggle('exp-look',LOOKX());
   {const rl=$('#recs-look'),anchor=LOOKX()?$('#bnpl-m'):$('#deliver-m');if(rl&&anchor&&anchor.nextElementSibling!==rl)anchor.after(rl);} // Create the Look: Shop The Look under BNPL (Figma) · Bundles: under Deliver+

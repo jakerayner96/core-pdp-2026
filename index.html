@@ -150,6 +150,8 @@ body.fold .device{height:calc(var(--k) * 874px);border-radius:calc(var(--k) * 44
 body.fold .device .sb,body.fold .device .tb,body.fold .device .home{display:flex}
 body.fold .device .chin{display:block;flex:none;height:calc(var(--k) * 82px);background:#FFF} /* Safari viewport ends at the tab bar: pinned page elements sit above it, white fill continues beneath */
 body.fold .device iframe{box-shadow:none}
+/* App (Jake 25 Nov): the page draws its own glass status + nav row (DS .app-top) — no Safari bar, no shell status row */
+body.app.fold .device .sb,body.app.fold .device .tb,body.app.fold .device .chin{display:none}
 .device .sb{height:calc(var(--k) * 62px);flex:none;background:#FFF;position:relative;align-items:center;justify-content:space-between;padding:0 calc(var(--k) * 30px) 0 calc(var(--k) * 48px);font-family:-apple-system,'SF Pro Text',system-ui,sans-serif}
 .device .sb .time{font-size:calc(var(--k) * 17px);font-weight:600;color:#000;letter-spacing:-.02em;width:calc(var(--k) * 54px)}
 .device .sb .island{position:absolute;left:50%;top:calc(var(--k) * 11px);transform:translateX(-50%);width:calc(var(--k) * 124px);height:calc(var(--k) * 36px);background:#000;border-radius:99px}
@@ -191,7 +193,7 @@ body.dragging iframe{pointer-events:none}
   <div class="mid">
     <span class="chips" id="brands"><button class="chip on" data-b="boohooman">boohooMAN</button><button class="chip" data-b="debenhams">Debenhams</button><button class="chip" data-b="boohoo">boohoo</button><button class="chip" data-b="plt">PLT</button><button class="chip" data-b="karenmillen">Karen Millen</button><button class="chip" data-b="dorothyperkins">Dorothy Perkins</button><button class="chip" data-b="coast">Coast</button></span>
     <span class="div"></span>
-    <span class="seg" id="dev"><button data-w="0">Desktop</button><button data-w="390" class="on">Mobile</button></span>
+    <span class="seg" id="dev"><button data-w="0">Desktop</button><button data-w="390" class="on">Mobile</button><button data-w="app">App</button></span>
     <select id="preset" aria-label="Width preset" title="Exact width — or drag the handle on the preview">
       <option value="390" selected>390</option><option value="402">402</option><option value="440">440</option><option value="768">768</option><option value="1024">1024</option><option value="1280">1280</option><option value="1440">1440</option><option value="0">Fit</option>
     </select>
@@ -268,7 +270,7 @@ let FOLD=new URLSearchParams(location.search).get('fold')!=='0'; // Fold is the 
 const DOMAIN={boohooman:'boohooman.com',debenhams:'debenhams.com',boohoo:'boohoo.com',plt:'prettylittlething.com',karenmillen:'karenmillen.com',dorothyperkins:'dorothyperkins.com',coast:'coastfashion.com'};
 const Q=new URLSearchParams(location.search);const LSG=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},LSS=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
 let BRAND=Q.get('brand')||LSG('pdp26-brand-v2','boohooman');if(!DOMAIN[BRAND])BRAND='boohooman';
-let W=Q.has('w')?+Q.get('w'):390;
+let W=Q.has('w')?+Q.get('w'):390;let APP=Q.get('app')==='1';if(APP)W=390;
 let CFG={login:Q.has('login')?Q.get('login')==='1':LSG('pdp26-login',false)===true,srecStyle:(Q.get('srec')||LSG('pdp26-srecstyle','hanger'))==='scale'?'scale':'hanger',srecDir:(Q.get('dir')||LSG('pdp26-srecdir','up'))==='down'?'down':'up',setLayout:(Q.get('set')||LSG('pdp26-setlayout','product'))==='colour'?'colour':'product',setSwatch:Q.has('sw')?Q.get('sw')==='1':LSG('pdp26-setswatch',false)===true,exp:(Q.get('exp')||LSG('pdp26-exp','set'))==='look'?'look':'set',teeStock:(Q.get('tee')||LSG('pdp26-teestock','gone'))==='restock'?'restock':'gone',scene:Q.get('scene')||''};
 if(!CFG.scene)CFG.scene=CFG.exp==='look'?'ctl':'pdp';else CFG.exp=/^ctl/.test(CFG.scene)?'look':'set'; // the screen decides the experience
 const $=s=>document.querySelector(s);
@@ -293,7 +295,7 @@ function renderPanel(){
 }
 let UIMIN=new URLSearchParams(location.search).get('ui')==='min';document.body.classList.toggle('ui-min',UIMIN);
 function setUIMin(v){UIMIN=v;document.body.classList.toggle('ui-min',v);apply();}
-function syncURL(){const u=new URLSearchParams({brand:BRAND});if(UIMIN)u.set('ui','min');if(!FOLD)u.set('fold','0');if(BRAND==='boohooman'){u.set('w',String(W));u.set('login',CFG.login?'1':'0');u.set('srec',CFG.srecStyle);u.set('dir',CFG.srecDir);u.set('set',CFG.setLayout);u.set('sw',CFG.setSwatch?'1':'0');u.set('exp',CFG.exp);if(CFG.exp==='look')u.set('tee',CFG.teeStock);u.set('scene',CFG.scene);}history.replaceState(null,'','?'+u);}
+function syncURL(){const u=new URLSearchParams({brand:BRAND});if(APP)u.set('app','1');if(UIMIN)u.set('ui','min');if(!FOLD)u.set('fold','0');if(BRAND==='boohooman'){u.set('w',String(W));u.set('login',CFG.login?'1':'0');u.set('srec',CFG.srecStyle);u.set('dir',CFG.srecDir);u.set('set',CFG.setLayout);u.set('sw',CFG.setSwatch?'1':'0');u.set('exp',CFG.exp);if(CFG.exp==='look')u.set('tee',CFG.teeStock);u.set('scene',CFG.scene);}history.replaceState(null,'','?'+u);}
 function apply(){
   if(matchMedia('(max-width:760px)').matches){frame.style.width='100%';win.style.width='100%';return;}
   const avail=stage.clientWidth-(UIMIN?0:16);
@@ -303,15 +305,15 @@ function apply(){
   document.querySelectorAll('#fold button').forEach(b=>{b.classList.toggle('on',(+b.dataset.f===1)===(FOLD&&mobile));b.disabled=!mobile;});
   $('#urltxt').textContent=DOMAIN[BRAND];
   sizebox.textContent=`${Math.round(w)}px`;syncURL();
-  document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',(b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600)));
+  document.querySelectorAll('#dev button').forEach(b=>b.classList.toggle('on',APP?b.dataset.w==='app':((b.dataset.w==='390'&&w<600)||(b.dataset.w==='0'&&w>=600))));document.body.classList.toggle('app',APP);
 }
 function msg(scene){return {pdpSet:1,login:CFG.login,srecStyle:CFG.srecStyle,srecDir:CFG.srecDir,setLayout:CFG.setLayout,setSwatch:CFG.setSwatch,exp:CFG.exp,teeStock:CFG.teeStock,scene:scene||null};}
 function send(scene,f=frame){if(BRAND==='boohooman'&&f.contentWindow)f.contentWindow.postMessage(msg(scene),'*');}
 addEventListener('message',e=>{const d=e.data;if(!d||e.source!==frame.contentWindow)return;
   if(d.pdpCfg)cfg.textContent=d.pdpCfg;
   if(d.pdpState){const s=d.pdpState;if(typeof s.login==='boolean')CFG.login=s.login;if(s.srecStyle)CFG.srecStyle=s.srecStyle;if(s.srecDir)CFG.srecDir=s.srecDir;if(s.exp)CFG.exp=s.exp;if(s.teeStock)CFG.teeStock=s.teeStock;renderPanel();syncURL();}});
-document.querySelectorAll('#dev button').forEach(b=>b.onclick=()=>{W=+b.dataset.w;preset.value=String(W);apply();});
-preset.onchange=()=>{W=+preset.value;apply();};
+document.querySelectorAll('#dev button').forEach(b=>b.onclick=()=>{const a=b.dataset.w==='app';W=a?390:+b.dataset.w;preset.value=String(W);if(a!==APP){APP=a;frame.src=pageSrc();}apply();});
+preset.onchange=()=>{W=+preset.value;if(APP&&W>=600){APP=false;frame.src=pageSrc();}apply();};
 document.querySelectorAll('#fold button').forEach(b=>b.onclick=()=>{FOLD=b.dataset.f==='1';apply();syncURL();});
 $('#hr').addEventListener('pointerdown',e=>{
   e.preventDefault();document.body.classList.add('dragging');
@@ -323,7 +325,7 @@ $('#hr').addEventListener('pointerdown',e=>{
 addEventListener('resize',apply);
 $('#uihide').onclick=()=>setUIMin(true);$('#uifab').onclick=()=>setUIMin(false);addEventListener('keydown',e=>{if(e.key==='Escape'&&UIMIN&&e.target===document.body)setUIMin(false);});
 frame.addEventListener('load',()=>send(CFG.scene));
-function pageSrc(){return BRAND==='boohooman'?'pdp.html?brand=boohooman&login='+(CFG.login?1:0)+'&srec='+CFG.srecStyle+'&dir='+CFG.srecDir+'&set='+CFG.setLayout+'&sw='+(CFG.setSwatch?1:0)+'&exp='+CFG.exp+'&tee='+CFG.teeStock+'&_='+Date.now():'live.html?brand='+BRAND+'&_='+Date.now();}
+function pageSrc(){return BRAND==='boohooman'?'pdp.html?brand=boohooman'+(APP?'&app=1':'')+'&login='+(CFG.login?1:0)+'&srec='+CFG.srecStyle+'&dir='+CFG.srecDir+'&set='+CFG.setLayout+'&sw='+(CFG.setSwatch?1:0)+'&exp='+CFG.exp+'&tee='+CFG.teeStock+'&_='+Date.now():'live.html?brand='+BRAND+'&_='+Date.now();}
 /* Brand chips (Jake 10 Sep): boohooMAN = this configurator (pdp.html, live ⇄ new). Every other fascia = the shared live-PDP module (live.html) —
    a recreation of what is live today, no new-format / bundling options, so the page controls hide. */
 function setBrand(b){BRAND=DOMAIN[b]?b:'boohooman';LSS('pdp26-brand-v2',BRAND);syncURL();
