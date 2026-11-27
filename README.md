@@ -4,7 +4,7 @@ Master PDP prototype for the boohooMAN ask: **Shop The Look recommendations → 
 
 - **Configurator:** `index.html` (serve from repo root: `python3 -m http.server 3010`, assets need HTTP)
 - **Other fascias (live recreation):** `live.html?brand=debenhams|boohoo|plt|karenmillen|dorothyperkins|coast` — the brand chips in the configurator load it. Built by the shared **live-PDP module** (`live-pdp.css` + `live-pdp.js` + `brands-live.js`, assets under `assets/live/`), identical copies of which power the PDP in the Virtual Stylist prototype (jakerayner96/vto-prototype). It recreates what is live today (10 Sep 2026 captures): header + USP strips, gallery, buy block with edge-to-edge size row, membership box (Premier / Premier Club / Royalty / Debenhams Unlimited), Deliver+, delivery & returns, BNPL, recommendation grid + carousels, description, footer. No new-format or bundling options for those fascias — boohooMAN stays the configurable page.
-- **Page:** `pdp.html` — single file, no build. `data.js` = the live Premium Essentials catalogue (40 SKUs, 8 families).
+- **Page:** `pdp.html` — single file, no build. `data.js` = the live Premium Essentials catalogue (48 SKUs: 8 families × 6 colours, every colour has every product; 8 added from boohooman.com 27 Nov).
 - **Repo:** github.com/jakerayner96/core-pdp-2026 · **Pages:** jakerayner96.github.io/core-pdp-2026
 
 ## Final designs (23 Nov 2026)
@@ -25,6 +25,12 @@ The options are gone: the page is what was decided, the left panel is a **showca
 | `oos-gone` | Out of stock, not being reordered (Figma 1368:47272) — Washed Navy Wide Leg Jogger: name · price · **Out Of Stock**, then an endless grid of similar items |
 | `oos-restock` | Out of stock, being reordered (Figma 1368:47445) — Washed Navy T-Shirt: every size carries the bell |
 | `oos-restock-size` | …size picked: “Get notified when it’s back in stock?” (logged out: email + NOTIFY ME + consent · logged in: “You’ll be notified when it’s available” straight away, 24 Nov), then the endless similar grid |
+
+## 27 Nov 2026
+
+- **Title** is the DS PDP title (`.pdp-head`): **boohooMAN** SemiBold above the product name Regular on every screen, as live (`--pdp-brand-w` / `--pdp-name-w` tokens).
+- **Ask Jordan AI**: the DS Google PDP prompts (`.ai-prompts`, `assets/ds/ai-prompts.js`) straight under Made To Match on every Bundles PDP; black icon + Montserrat come from the boohooMAN tokens. Live boohooMAN shows no PDP prompts yet, so the three prompts are stand-ins (`ASK_PROMPTS` in `pdp.html`).
+- **Data**: 8 missing SKUs added so every colour has all 8 products (Washed Charcoal: CMM29604, CMM29642, CMM29613, CMM29649; Black: CMM29600, CMM29637, CMM29653; Washed Chocolate: CMM29650). Washed Navy Wide Leg Jogger (CMM29657) stays out of the set builder on purpose: it is the not-being-reordered OOS product.
 
 ## Experiences (24 Nov 2026)
 

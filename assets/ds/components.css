@@ -1592,8 +1592,8 @@ span.bell{display:block;background:var(--text-disabled);-webkit-mask:url(icons/l
 /* PDP title (C-pdp-head) — brand strong over name regular, 16px, with the 44px round wishlist (production shadow) on the right */
 .pdp-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;font-family:var(--font-family-base)}
 .pdp-head .titles{display:flex;flex-direction:column;gap:4px;min-width:0}
-.pdp-head .brand{font-size:16px;line-height:20px;font-weight:var(--w-strong)}
-.pdp-head .name{font-size:16px;line-height:20px;font-weight:var(--w-regular);margin:0}
+.pdp-head .brand{font-size:16px;line-height:20px;font-weight:var(--pdp-brand-w,var(--w-strong))} /* per fascia: --pdp-brand-w / --pdp-name-w (tokens.css) */
+.pdp-head .name{font-size:16px;line-height:20px;font-weight:var(--pdp-name-w,var(--w-regular));margin:0}
 .pdp-head .wish{flex:none;width:44px;height:44px;border-radius:99px;background:var(--surface-raised,#FFF);border:0;box-shadow:var(--shadow-pill,0 1px 6px rgba(0,0,0,.15));display:grid;place-items:center;cursor:pointer}
 .pdp-head .wish img{width:20px;height:20px;display:block}
 /* Delivery countdown (C-ndd) — "Order in 14 hrs 50 mins for Next Day Delivery", 20px delivery icon, gap 2 (8px), time strong. Markup: <div class=ndd><img><span>Order in <b>…</b> for …</span></div> */
