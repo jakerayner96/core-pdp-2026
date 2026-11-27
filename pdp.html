@@ -5,8 +5,8 @@
 <title>Core PDP 2026 — boohooMAN</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- DS snapshot (copied from debenhamsgroup.design/assets/ds on 08 Sep 2026) -->
-<link rel="stylesheet" href="assets/ds/tokens.css?v=20261127b">
-<link rel="stylesheet" href="assets/ds/components.css?v=20261127f">
+<link rel="stylesheet" href="assets/ds/tokens.css?v=20261127g">
+<link rel="stylesheet" href="assets/ds/components.css?v=20261127i">
 <style>
 /* ============================================================
    Core PDP 2026 — boohooMAN. Single file, no build.
@@ -63,7 +63,7 @@ a{color:inherit;text-decoration:none}
   .hdr-search .ic{opacity:.9}
   .hdr-icons button{width:40px}
   .hdr-menu{display:none}
-  .hdr-nav{display:flex;gap:16px;justify-content:center;padding:6px var(--m) 12px;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.01em;flex-wrap:wrap}
+  .hdr-nav{display:flex;gap:16px;justify-content:center;padding:6px var(--m) 12px;font-size:16px;font-weight:var(--w-strong);text-transform:uppercase;letter-spacing:.01em;flex-wrap:wrap}
   .hdr-nav .sale{color:#E30000}
 }
 /* USP — live: black 3-cell bar (red countdown) + grey code bar. new: single DS strip */
@@ -72,7 +72,7 @@ a{color:inherit;text-decoration:none}
 .usp-live .bar{background:#000;color:#FFF;display:flex;overflow-x:auto;scrollbar-width:none;text-align:center}
 .usp-live .bar::-webkit-scrollbar{display:none}
 .usp-live .cell{flex:0 0 100%;padding:8px 16px}
-.usp-live .cell b{display:block;font-size:14px;line-height:21px;font-weight:700}
+.usp-live .cell b{display:block;font-size:14px;line-height:21px;font-weight:var(--w-strong)}
 .usp-live .cell span{display:block;font-size:14px;line-height:12px;padding-bottom:3px;font-weight:400}
 .usp-live .cell .cd{color:#FF0000}
 .usp-live .grey{background:#D3D3D3;color:#000;text-align:center;padding:8px 16px}
@@ -91,7 +91,7 @@ a{color:inherit;text-decoration:none}
 
 /* ---------- Breadcrumb ---------- */
 .crumb{display:flex;align-items:center;gap:8px;padding:8px var(--m);font-size:12px;line-height:18px;white-space:nowrap;overflow:hidden}
-.crumb a{text-transform:capitalize;font-weight:300}
+.crumb a{text-transform:capitalize;font-weight:var(--w-regular)}
 .mode-new .crumb a{font-weight:var(--w-regular)}
 .crumb .sep{padding:0 0}
 .crumb .share{margin-left:auto;flex:none;width:24px;height:24px;display:grid;place-items:center}
@@ -111,7 +111,7 @@ a{color:inherit;text-decoration:none}
 .mode-live .gal{gap:4px}
 .gal .slide img{width:100%;height:100%;object-fit:cover}
 .gal .tags{position:absolute;left:24px;top:24px;display:flex;flex-direction:column;gap:12px}
-.gal .tag{background:rgba(231,231,231,.9);color:#000;font-size:12px;font-weight:300;padding:6px 8px;border-radius:4px;white-space:nowrap}
+.gal .tag{background:rgba(231,231,231,.9);color:#000;font-size:12px;font-weight:var(--w-regular);padding:6px 8px;border-radius:4px;white-space:nowrap}
 .mode-live .gal .tag{font-size:16px;padding:12px 8px}
 .mode-new .gal .tag{background:var(--badge-bg);font-size:12px;font-weight:var(--w-regular);padding:4px 8px}
 .gal .tags.hide{display:none}
@@ -143,7 +143,7 @@ a{color:inherit;text-decoration:none}
 .endcard .rows{display:flex;flex-direction:column;gap:2px;width:100%}
 .endcard .row{display:flex;gap:2px}
 .endcard .row img{flex:1;min-width:0;aspect-ratio:64/96;object-fit:cover;height:auto}
-.endcard .cta{font-size:12px;font-weight:700}
+.endcard .cta{font-size:12px;font-weight:var(--w-strong)}
 
 /* buy block */
 .buy{padding:16px;display:flex;flex-direction:column;gap:16px}
@@ -155,20 +155,20 @@ a{color:inherit;text-decoration:none}
 .price-vals{display:flex;align-items:flex-end;gap:8px;white-space:nowrap}
 .price-now{font-size:24px;font-weight:600;line-height:normal}
 .price-now.sale{color:var(--red)} /* Figma 2898-23506: 24 semibold red */
-.price-was{font-size:20px;font-weight:300;color:var(--grey-5);text-decoration:line-through;text-underline-position:from-font;line-height:normal} /* 20 light, struck */
+.price-was{font-size:20px;font-weight:var(--w-regular);color:var(--grey-5);text-decoration:line-through;text-underline-position:from-font;line-height:normal} /* 20 light, struck */
 .pct{background:#FDE8E8;color:#D00000;font-size:14px;font-weight:400;padding:4px 8px;border-radius:4px;white-space:nowrap} /* Badges / Savings */
 .code-line{flex-basis:100%;display:inline-flex;align-items:center;gap:4px;color:var(--red);font-size:12px;line-height:14px;font-weight:400;text-transform:uppercase;letter-spacing:.02em;padding:0;text-align:left;margin-top:-10px} /* PLP-style '£21.60 WITH CODE: EXTRATEN' — tight under the price */
 .code-line i{width:10px;height:10px;display:block;background:var(--red);-webkit-mask:url(assets/ds/icons/lib/icons-copy.svg) center/contain no-repeat;mask:url(assets/ds/icons/lib/icons-copy.svg) center/contain no-repeat}
-.save{background:var(--sale-badge-bg);color:var(--sale-badge-text);font-size:14px;font-weight:500;padding:4px 8px;border-radius:4px}
-.oos-lbl{color:var(--red);font-size:16px;font-weight:500;letter-spacing:.02em}
-.icon-msg{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
+.save{background:var(--sale-badge-bg);color:var(--sale-badge-text);font-size:14px;font-weight:var(--w-strong);padding:4px 8px;border-radius:4px}
+.oos-lbl{color:var(--red);font-size:16px;font-weight:var(--w-strong);letter-spacing:.02em}
+.icon-msg{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:var(--w-regular)}
 .mode-live .icon-msg{font-weight:400}
 .icon-msg img{width:20px;height:20px}
 .icon-msg b{font-weight:600}
 .buyblock{display:flex;flex-direction:column;gap:16px}
 .colour{display:flex;flex-direction:column;gap:8px}
-.colour-lbl{font-size:16px;font-weight:300}
-.colour-lbl b{font-weight:500}
+.colour-lbl{font-size:16px;font-weight:var(--w-regular)}
+.colour-lbl b{font-weight:var(--w-strong)}
 .swatches{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px} /* one row — scrolls, colours may run off the right edge */
 .swatches::-webkit-scrollbar{display:none}
 @media(min-width:1024px){.swatches{margin-right:0;padding-right:0}}
@@ -181,15 +181,15 @@ a{color:inherit;text-decoration:none}
 .sizes{display:flex;flex-direction:column;gap:12px}
 .size-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .size-head .lbl{font-size:16px;font-weight:400;flex:1}
-.mode-live .size-head .lbl{font-weight:300}
-.size-head .lbl b{font-weight:500}
-.size-head .lbl .oos{color:var(--red);font-weight:500;letter-spacing:.02em}
+.mode-live .size-head .lbl{font-weight:var(--w-regular)}
+.size-head .lbl b{font-weight:var(--w-strong)}
+.size-head .lbl .oos{color:var(--red);font-weight:var(--w-strong);letter-spacing:.02em}
 .size-guide{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;white-space:nowrap} /* styled like the View All action */
 .size-guide img{width:16px;height:16px}
 .size-btns{display:flex;gap:8px;flex-wrap:wrap}
 .fit{display:flex;flex-direction:column;gap:12px}
 .fit .lbl{font-size:16px;font-weight:400}
-.mode-live .fit .lbl{font-weight:300}
+.mode-live .fit .lbl{font-weight:var(--w-regular)}
 .sz.fitb{width:auto;max-width:none;flex:none;min-width:60px;padding:0 16px}
 .mode-live .sz.fitb{width:auto;min-width:53px}
 
@@ -253,7 +253,7 @@ a{color:inherit;text-decoration:none}
 .deliver li{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:18px;font-weight:400}
 .deliver li img{width:16px;height:16px;flex:none;filter:invert(1);margin-top:1px}
 .deliver .more{font-size:14px;font-weight:600}
-.deliver .quote{font-size:12px;font-weight:300;font-style:italic;border-top:1px solid rgba(255,255,255,.25);padding-top:12px}
+.deliver .quote{font-size:12px;font-weight:var(--w-regular);font-style:italic;border-top:1px solid rgba(255,255,255,.25);padding-top:12px}
 .uspbox{background:#FFF;border:1px solid var(--grey-2);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:16px}
 .uspbox .r{display:flex;gap:16px;align-items:center} /* icon centred on the row (Jake 09 Sep) */
 .uspbox .r img{width:24px;height:24px;flex:none;object-fit:none}
@@ -292,7 +292,7 @@ b.lnk,.ft .news small b{font-weight:600}
 .card .cp .now{font-weight:600}
 .card .cp .now.sale{color:var(--red)}
 .card .cp .was{font-weight:400;text-decoration:line-through}
-.card .cp .pct{color:var(--red);font-weight:300}
+.card .cp .pct{color:var(--red);font-weight:var(--w-regular)}
 .rail{display:flex;flex-direction:column;gap:16px}
 .rail-title{font-size:18px;font-weight:600;line-height:1.5}
 .rail-head{display:flex;justify-content:space-between;align-items:center}
@@ -349,16 +349,16 @@ b.lnk,.ft .news small b{font-weight:600}
 .cyp .it .im{position:relative;aspect-ratio:2/3;background:var(--surface-media)}
 .cyp .it .im img{width:100%;height:100%;object-fit:cover}
 .cyp .it .cb{position:absolute;right:4px;bottom:4px}
-.cyp .it .cur{font-size:12px;font-weight:300;color:#777;padding-bottom:4px}
-.cyp .it .b{font-size:14px;font-weight:500}
-.cyp .it .n{font-size:14px;font-weight:300;padding-top:4px}
+.cyp .it .cur{font-size:12px;font-weight:var(--w-regular);color:#777;padding-bottom:4px}
+.cyp .it .b{font-size:14px;font-weight:var(--w-strong)}
+.cyp .it .n{font-size:14px;font-weight:var(--w-regular);padding-top:4px}
 .cyp .it .p{font-size:16px;font-weight:600;padding-top:8px}
-.cyp .it .c{font-size:16px;font-weight:300;padding:8px 0}
+.cyp .it .c{font-size:16px;font-weight:var(--w-regular);padding:8px 0}
 .cyp .it .c b{font-size:14px;font-weight:600}
-.cyp .it .sl{font-size:16px;font-weight:300}
+.cyp .it .sl{font-size:16px;font-weight:var(--w-regular)}
 .cyp .sel{margin-top:8px;height:50px;border:1px solid var(--grey-2);border-radius:4px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;color:var(--grey-4);font-size:16px}
-.cyp .tot{text-align:center;font-size:16px;font-weight:500}
-.cyp .tot span{font-weight:300}
+.cyp .tot{text-align:center;font-size:16px;font-weight:var(--w-strong)}
+.cyp .tot span{font-weight:var(--w-regular)}
 .cyp .btn.s{margin:0 12px}
 .mode-live .cyp .btn.s{width:auto}
 
@@ -366,13 +366,8 @@ b.lnk,.ft .news small b{font-weight:600}
 .desc{padding:0 var(--m);display:flex;flex-direction:column;gap:0}
 .drow{padding:16px 0}
 .drow+.drow{border-top:1px solid var(--grey-2)} /* DIVIDER RULE: between rows only — never above the first, never under the last; a deleted row takes its divider with it */
-.desc .h{font-size:16px;font-weight:500;text-transform:capitalize}
-.glance{display:flex;flex-direction:column;gap:16px;margin-top:16px} /* title → ticks = same 16px as the accordion header → body */
-.glance li{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:300;list-style:none}
-.glance li i{width:24px;height:24px;border-radius:99px;border:1px solid var(--grey-25);display:grid;place-items:center;flex:none}
-.glance li i img{width:12px;height:12px}
-.mode-new .glance{flex-direction:row;flex-wrap:wrap;gap:12px 16px}
-.mode-new .glance li{font-size:14px}
+.desc .h{font-size:16px;font-weight:var(--w-strong);text-transform:capitalize}
+.glance{margin-top:16px} /* DS .glance.glance--chips (wrap) / .glance--scroll on the app (Figma 82:17813, Jake 27 Nov) */
 .divider{height:1px;background:var(--grey-2);width:100%}
 .acc{display:flex;flex-direction:column;gap:16px}
 .drow.acc{gap:0}
@@ -380,19 +375,19 @@ b.lnk,.ft .news small b{font-weight:600}
 .acc-h{display:flex;align-items:center;justify-content:space-between;width:100%}
 .acc-h img{width:16px;height:16px;transition:transform .2s}
 .acc.open .acc-h img{transform:rotate(180deg)}
-.acc-b{display:none;font-size:16px;font-weight:300;line-height:28px}
+.acc-b{display:none;font-size:16px;font-weight:var(--w-regular);line-height:28px}
 .acc.open .acc-b{display:block}
 .acc-b ul{padding-left:24px;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
 .acc-b p{margin-bottom:16px}
 .acc-b .sku{font-size:14px;text-transform:uppercase}
-.share-row{display:flex;justify-content:space-between;align-items:center;font-size:16px;font-weight:500}
+.share-row{display:flex;justify-content:space-between;align-items:center;font-size:16px;font-weight:var(--w-strong)}
 .share-row img{width:16px;height:16px}
 
 /* rec links */
 .reclinks{padding:0 var(--m)}
 /* section/widget titles share one style: .rail-title 18/600 */
 .chips{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center}
-.chips a{font-size:16px;font-weight:300;padding:4px 0}
+.chips a{font-size:16px;font-weight:var(--w-regular);padding:4px 0}
 .mode-new .chips a{background:var(--grey-05);border:none;border-radius:4px;padding:8px 12px;font-size:14px;font-weight:400} /* grey boxes, regular text, no outline */
 
 /* ---------- Footer (live boohooman.com) ---------- */
@@ -414,7 +409,7 @@ b.lnk,.ft .news small b{font-weight:600}
 .ft .misc .h{font-size:16px;font-weight:600}
 .ft .social{display:flex;gap:24px}
 .ft .social img{width:24px;height:24px}
-.ft .copy{font-size:14px;font-weight:300;padding:16px 0 24px}
+.ft .copy{font-size:14px;font-weight:var(--w-regular);padding:16px 0 24px}
 @media(min-width:1024px){.ft .cols{grid-template-columns:repeat(3,1fr);gap:24px}.ft .col{border:none;display:block}.ft .col img{display:none}}
 
 /* ---------- Entry-point templates (advanced-bundling prototype, Aug 2026 + Figma 839/840) ---------- */
@@ -484,7 +479,7 @@ b.lnk,.ft .news small b{font-weight:600}
 .price-chip .lead{display:flex;align-items:center;gap:8px}
 .price-chip.with-trio .lead{gap:12px}
 .price-chip .bi{width:20px;height:20px}
-.price-chip .label{font-size:14px;font-weight:500}
+.price-chip .label{font-size:14px;font-weight:var(--w-strong)}
 .price-chip .shop{font-size:12px;font-weight:600}
 .price-chip .copy{display:flex;flex-direction:column;gap:2px}
 .price-chip .copy .h{font-size:14px;font-weight:600}
@@ -551,7 +546,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .set-sum .body{display:flex;align-items:center;gap:16px;height:90px}
 .set-sum .tiles{display:flex;align-items:center;gap:4px;flex:none}
 .set-sum .tiles img{width:60px;height:90px;object-fit:cover;border-radius:4px;border:1px solid var(--grey-1);background:var(--surface-media)} /* = the colour swatches above (.sw 60×90) */
-.set-sum .tiles i{font-style:normal;font-size:16px;font-weight:300;color:#000;width:12px;text-align:center}
+.set-sum .tiles i{font-style:normal;font-size:16px;font-weight:var(--w-regular);color:#000;width:12px;text-align:center}
 .set-sum .copy{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px}
 .set-sum .copy .s{font-size:12px;color:var(--grey-4)}
 .set-sum .copy .p{font-size:14px;font-weight:600}
@@ -573,7 +568,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .addon img{width:68px;height:102px;object-fit:cover;border-radius:2px;flex:none;background:var(--surface-media)}
 .addon .copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;font-size:12px;line-height:15px;height:102px}
 .addon .copy .nm{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.addon .copy .nm b{font-weight:700}
+.addon .copy .nm b{font-weight:var(--w-strong)}
 .addon .copy .at{color:var(--grey-4)}
 .addon .copy .pr{display:flex;gap:8px;align-items:baseline;margin-top:2px}
 .addon .copy .pr .now{font-weight:600}
@@ -609,7 +604,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .sheet .filters img{width:10px;height:10px}
 .srow{display:flex;flex-direction:column;gap:12px}
 .srow .rh{display:flex;align-items:center;justify-content:space-between;padding:0 24px}
-.srow .rh .lbl{font-size:16px;font-weight:500;text-transform:capitalize}
+.srow .rh .lbl{font-size:16px;font-weight:var(--w-strong);text-transform:capitalize}
 .srow .rh .all{font-size:12px;font-weight:600}
 .srow .cards{display:flex;gap:4px;padding-left:24px;overflow-x:auto;scrollbar-width:none;padding-right:24px}
 .srow .cards::-webkit-scrollbar{display:none}
@@ -624,7 +619,7 @@ body.trio-anim .trio img:nth-child(3){animation-delay:0s}body.trio-anim .trio im
 .scard .pr{display:flex;flex-wrap:wrap;gap:4px 8px;font-size:14px;align-items:center}
 .scard .pr .now{font-weight:600}
 .scard .pr .now.sale{color:var(--red)}
-.scard .pr .was{font-weight:500;text-decoration:line-through}
+.scard .pr .was{font-weight:var(--w-regular);text-decoration:line-through}
 /* Size: / Colour: lines on set cards, Complete The Look cards and the multi-select recs. :is() so each rule targets the .v / img / .nochev part, not the whole line (a bare selector list here shrank the line to the 12px chevron box and painted it red) */
 :is(.scard,.ctlc,.recs.ms) .sz-sel{display:flex;gap:8px;align-items:center;font-size:14px;font-weight:400;cursor:pointer;position:relative;line-height:20px;white-space:nowrap;overflow:hidden}
 :is(.scard,.ctlc,.recs.ms) .sz-sel .v{color:var(--grey-4);overflow:hidden;text-overflow:ellipsis;min-width:0}
@@ -636,7 +631,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .scard .sz-sel:not(.nochev)::before{content:"";position:absolute;inset:-10px 0} /* A11y: 40px touch target, 8px rhythm untouched */
 .scard .nm{font-size:12px;color:var(--grey-4);font-weight:400;margin-top:-4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sheet .foot{flex:none;background:var(--grey-05);padding:24px;display:flex;flex-direction:column;gap:16px}
-.sheet .foot .tot{display:flex;justify-content:space-between;font-size:16px;font-weight:500}
+.sheet .foot .tot{display:flex;justify-content:space-between;font-size:16px;font-weight:var(--w-strong)}
 .sheet .foot .tot b{font-weight:600}
 .sheet .foot .btn.p:disabled{background:var(--grey-3);cursor:not-allowed}
 /* hotspot look — Nike-style 'Complete The Look': big look imagery, tap → hotspots reveal product chips, View entire look → modal */
@@ -671,7 +666,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .recs.collage .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s} /* absolute so intrinsic image size can't stretch the 3:4 board */
 .recs.collage .tile:hover img{transform:scale(1.03)}
 .recs.collage .tile.a{grid-column:1;grid-row:1}.recs.collage .tile.b{grid-column:2;grid-row:1/3}.recs.collage .tile.c{grid-column:1;grid-row:2}
-.recs.collage .tile .dot{position:absolute;right:8px;bottom:8px;width:20px;height:20px;border-radius:4px;background:rgba(255,255,255,.85);backdrop-filter:blur(2px);display:grid;place-items:center;font-size:14px;line-height:1;font-weight:300;color:#000}
+.recs.collage .tile .dot{position:absolute;right:8px;bottom:8px;width:20px;height:20px;border-radius:4px;background:rgba(255,255,255,.85);backdrop-filter:blur(2px);display:grid;place-items:center;font-size:14px;line-height:1;font-weight:var(--w-regular);color:#000}
 .recs.collage .tile.on .dot{background:#000;color:#FFF}
 .recs.collage .chip{position:absolute;z-index:2;background:#FFF;border-radius:4px;padding:8px 10px;box-shadow:var(--shadow-pill);display:flex;flex-direction:column;gap:2px;min-width:190px;font-size:12px}
 .recs.collage .chip b{font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
@@ -700,7 +695,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .recs.ms .row .sels{display:flex;flex-direction:column;gap:4px;margin-top:2px;min-width:0} /* Size then Colour, stacked as in the modal; colour is fixed */
 .recs.ms .row .inf .qa{margin-top:auto;align-self:flex-start}
 .recs.ms .row .inf .nm{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.recs.ms .row .inf .nm b{font-weight:700}
+.recs.ms .row .inf .nm b{font-weight:var(--w-strong)}
 .recs.ms .row .inf .at{color:var(--grey-4)}
 .recs.ms .row .inf .pr{font-weight:600;margin-top:2px}
 
@@ -728,7 +723,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .sizeg .ttl{display:flex;flex-direction:column;gap:16px;font-size:16px}
 .sizeg .ttl b{font-weight:600}
 .sizeg table{width:100%;table-layout:fixed;border:1px solid var(--grey-2);border-radius:4px;border-collapse:separate;border-spacing:0;overflow:hidden;font-size:14px;text-align:center}
-.sizeg th{background:var(--grey-05);padding:24px 8px;font-weight:500;color:#1A1818}
+.sizeg th{background:var(--grey-05);padding:24px 8px;font-weight:var(--w-strong);color:#1A1818}
 .sizeg td{padding:16px 8px;color:#565656;font-weight:400;white-space:nowrap}
 .sizeg .ttl span{display:block;min-height:24px}
 .sizeg tbody tr:nth-child(even) td{background:var(--grey-05)}
@@ -740,7 +735,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .pg{display:flex;flex-direction:column;gap:6px;padding:0 0 0 0}
 .pg .im{position:relative;aspect-ratio:170/255;background:var(--grey-05);overflow:hidden}
 .pg .im img{width:100%;height:100%;object-fit:cover}
-.pg .plus{position:absolute;right:8px;bottom:8px;width:32px;height:32px;border-radius:99px;background:rgba(255,255,255,.85);display:grid;place-items:center;font-size:22px;line-height:1;font-weight:300}
+.pg .plus{position:absolute;right:8px;bottom:8px;width:32px;height:32px;border-radius:99px;background:rgba(255,255,255,.85);display:grid;place-items:center;font-size:22px;line-height:1;font-weight:var(--w-regular)}
 .pg .t{padding:0 16px}
 .pg .nm{font-size:16px;font-weight:600;line-height:1.3}
 .pg .cl{font-size:16px;font-weight:600;color:var(--grey-4)}
@@ -782,7 +777,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .csel{display:flex;flex-direction:column;gap:8px;padding:0 24px} /* 8px between stacked size lines */
 .crow .csel:empty{display:none} /* nothing picked: no extra gap under the carousel */
 .crow .cs{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;line-height:18px;min-height:18px} /* Figma: 18px lines; the size picker keeps a 24px target (WCAG 2.2 AA 2.5.8) by bleeding 3px above and below */
-.crow .cs .c{color:#000;font-weight:500}
+.crow .cs .c{color:#000;font-weight:var(--w-regular)}
 .crow .cs .c .sale{color:var(--red);font-weight:600}
 .crow .cs .c s{color:var(--grey-4);font-weight:400}
 .crow .cs .sz-sel{display:flex;gap:6px;align-items:center;cursor:pointer;white-space:nowrap;min-height:24px;margin:-3px 0;padding:0 4px}
@@ -795,7 +790,7 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .crow .cs .sz-sel.shake{animation:sz-shake .42s ease-in-out}
 @media(prefers-reduced-motion:reduce){.crow .cs .sz-sel.shake{animation:none}}
 .crow .rh .all{font-size:12px;font-weight:600}
-.crow .rh .lbl{font-size:16px;font-weight:500;text-transform:capitalize;letter-spacing:0;color:#000} /* same row label as the cards view */
+.crow .rh .lbl{font-size:16px;font-weight:var(--w-strong);text-transform:capitalize;letter-spacing:0;color:#000} /* same row label as the cards view */
 /* size picker popover */
 .pick{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center}
 .pick .bg{position:absolute;inset:0}
@@ -812,8 +807,8 @@ body.nolabels .scard .sz-sel>span:first-child,body.nolabels .crow .cs .sz-sel>sp
 .atb .it img{width:99px;height:148px;object-fit:cover}
 .atb .it .b{font-size:16px;font-weight:600}
 .atb .it .n{font-size:16px;font-weight:400;line-height:23px}
-.atb .it .v{font-size:16px;font-weight:500;margin-top:auto}
-.atb .it .p{font-size:12px;font-weight:500}
+.atb .it .v{font-size:16px;font-weight:var(--w-strong);margin-top:auto}
+.atb .it .p{font-size:12px;font-weight:var(--w-regular)}
 .atb .it .p .sale{color:var(--red)}
 .atb .it .p s{margin-left:4px}
 .atb .it .txt{display:flex;flex-direction:column}
@@ -935,7 +930,7 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 #sheet .panel>.body{padding-bottom:96px}
 #sheet .foot{position:absolute;left:0;right:0;bottom:0;background:none;padding:16px 16px calc(16px + env(safe-area-inset-bottom));pointer-events:none}
 #sheet .foot .btn{pointer-events:auto}
-@media(min-width:768px){#sheet .foot{padding:16px 24px 24px;flex-direction:row;justify-content:flex-end}#sheet .foot .btn{width:auto;padding:0 24px}}
+@media(min-width:768px){#sheet .foot{padding:16px 24px 24px}} /* Jake 27 Nov (Figma 46:17510): desktop button full width like mobile, 24 left, right and below */
 @media(min-width:1024px){#sheet .panel{max-width:512px}}
 /* Jake 25 Nov: Add to bag with a size missing → the DS Message banner (error, Figma DS 14555:173218) slides up from behind the CTA like a toast, as well as the red + shake */
 #sheet .atb-wrap{position:relative;width:100%;pointer-events:none}
@@ -948,8 +943,13 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 body.app #apptop{display:block}
 .below>.inset.premier{width:auto} /* mobile Premier (below BNPL) sits inside the 16px margins */
 body.app :is(.hdr,.crumb,.ft){display:none!important}
+/* Jake 27 Nov (Figma 11:1470): app = the glass bar in flow (DS .app-top--flow), the USP strip under it (no countdown), bigger slides 267 x 401 */
+body:not(.app) .app-usp{display:none!important}
+.app-usp .usp-cell{padding:8px 16px!important;justify-content:center;font-size:12px;line-height:15px}
+.app-usp .usp-cd{display:none!important}
+body.app .gal .slide{flex:0 0 267px;width:267px;height:401px}
 @media(max-width:767px){body.app #sheet .panel,body.app #lookm .panel{padding-top:calc(24px + 47px)}} /* Jake 25 Nov master rule: no little dots between name and price (or anywhere) — an 8px gap instead */
-@media(min-width:768px){#sheet .atb-wrap{width:auto}#sheet .sz-msg{left:auto;width:max(100%,240px)}}
+/* desktop size message: full width over the button too (Jake 27 Nov) */
 @media(prefers-reduced-motion:reduce){#sheet .sz-msg{transition:opacity .2s ease;transform:none}} /* Jake 25 Nov: desktop Made To Match modal = DS Modal / Desktop 960 wide (8084:25026); Add to bag hugs, bottom right */
 /* second modal over the set builder (logged out): the DS Notify Me modal with the email field */
 .ntf-layer{z-index:90}
@@ -997,7 +997,7 @@ body.app :is(.hdr,.crumb,.ft){display:none!important}
 
 <div class="wrap">
 <!-- App (Jake 25 Nov, app=1): DS App top bar, liquid glass — status row + back / share over the full-bleed gallery; no web header, USP, breadcrumb or footer -->
-<div class="app-top" id="apptop"><div class="sb"><span>9:41</span><span class="sys"><svg width="18" height="12" viewBox="0 0 18 12" fill="#000"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg><svg width="28" height="13" viewBox="0 0 28 13"><rect x=".5" y=".5" width="24" height="12" rx="3.5" fill="none" stroke="#000" stroke-opacity=".4"/><rect x="2" y="2" width="21" height="9" rx="2" fill="#000"/></svg></span></div><div class="nav"><button aria-label="Back"><img src="assets/ds/icons/lib/icons-left.svg" alt=""></button><span><button aria-label="Share"><img src="assets/ds/icons/lib/icons-share.svg" alt=""></button></span></div></div>
+<div class="app-top app-top--flow" id="apptop"><div class="sb"><span>9:41</span><span class="sys"><svg width="18" height="12" viewBox="0 0 18 12" fill="#000"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg><svg width="28" height="13" viewBox="0 0 28 13"><rect x=".5" y=".5" width="24" height="12" rx="3.5" fill="none" stroke="#000" stroke-opacity=".4"/><rect x="2" y="2" width="21" height="9" rx="2" fill="#000"/></svg></span></div><div class="nav"><button aria-label="Back"><img src="assets/ds/icons/lib/icons-left.svg" alt=""></button><span><button aria-label="Share"><img src="assets/ds/icons/lib/icons-share.svg" alt=""></button></span></div></div>
 <!-- ================= BREADCRUMB ================= -->
 <nav class="crumb" aria-label="Breadcrumb">
   <a class="desk" href="#">Mens</a><span class="sep desk">/</span>
@@ -1120,7 +1120,7 @@ body.app :is(.hdr,.crumb,.ft){display:none!important}
   <div class="desc" data-block="desc" data-label="Description area">
     <div class="drow" data-block="glance" data-label="At a Glance">
     <span class="h" data-copy="desc.glance">At a Glance</span>
-    <ul class="glance">
+    <ul class="glance glance--chips">
       <li data-gl="0"><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i><span data-copy="glance.0">Premium heavyweight 480GSM fabric</span></li>
       <li data-gl="1"><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i><span data-copy="glance.1">Trendy oversized boxy fit</span></li>
       <li data-gl="2"><i><img src="assets/ds/icons/lib/icons-tick.svg" alt=""></i><span data-copy="glance.2">Distinctive washed finish</span></li>
@@ -2094,6 +2094,12 @@ addEventListener('message',e=>{if(e.data&&e.data.pdpPing){const t=setInterval(()
 (function(){const d=document.querySelector('.desc'),home=document.createComment('desc-home');d.parentNode.insertBefore(home,d);
   const mq=matchMedia('(min-width:1024px)');const place=()=>{if(mq.matches)document.querySelector('.galcol').appendChild(d);else home.parentNode.insertBefore(d,home.nextSibling);};
   place();mq.addEventListener('change',place);})();
+
+/* app: the USP strip sits under the glass bar (Figma 11:1470) */
+(function(){const a=document.getElementById('apptop'),u=document.querySelector('.hdr .usp-new');if(!a||!u)return;const c=u.cloneNode(true);c.classList.add('app-usp');c.querySelectorAll('[id]').forEach(x=>x.removeAttribute('id'));a.after(c);})();
+
+/* app: At a Glance scrolls sideways (DS .glance--scroll) */
+if(document.body.classList.contains('app'))document.querySelectorAll('.glance').forEach(g=>g.classList.add('glance--scroll'));
 </script>
 </body>
 </html>

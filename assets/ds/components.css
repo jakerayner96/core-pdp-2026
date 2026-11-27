@@ -1167,7 +1167,9 @@ span.bell{display:block;background:var(--text-disabled);-webkit-mask:url(icons/l
 .glance{display:flex;flex-direction:column;gap:16px;list-style:none;margin:0;padding:0}
 .glance li{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:var(--w-regular)}
 .glance li i{width:24px;height:24px;border-radius:99px;border:1px solid var(--border-default);display:grid;place-items:center;flex:none;font-style:normal;font-size:12px}
-.glance--chips{flex-direction:row;flex-wrap:wrap;gap:12px 16px}.glance--chips li{font-size:14px}
+.glance--chips{flex-direction:row;flex-wrap:wrap;gap:12px 16px}.glance--chips li{font-size:14px;line-height:18px}.glance--chips li i img{width:14px;height:14px}
+/* app: the chips run on one line and scroll sideways, bleeding off the right edge (Core PDP 2026, Jake 27 Nov) */
+.glance--scroll{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:calc(var(--gap-4,16px) * -1);padding-right:var(--gap-4,16px)}.glance--scroll::-webkit-scrollbar{display:none}.glance--scroll li{flex:none;white-space:nowrap}
 .acc-b ul.glance--chips{flex-direction:row;padding-left:0;margin:0;gap:12px 16px} /* chips keep wrapping inside an accordion body (.acc-b ul is a column) — Figma PDP At A Glance, 3 Nov */
 .linkchips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .linkchips a{background:var(--surface-sunken);border:1px solid var(--border-subtle);border-radius:var(--radius-default);padding:8px 12px;font-size:14px;color:var(--text-primary);text-decoration:none}
@@ -1801,6 +1803,10 @@ html.exporting .ftr-chev{-webkit-mask:none;mask:none;background:url(icons/lib/ic
    white), 16 from the screen edges; back (22px chevron) left, share (24px) right. The wishlist is on the page (beside the Virtual Stylist chip),
    not in the nav (Jake, 16 Oct). Sticky with no height, so the page starts under it. Pairs with .app-tabbar. */
 .app-top{position:sticky;top:0;z-index:5;height:0;overflow:visible;font-family:-apple-system,'SF Pro Text',system-ui,sans-serif}
+/* In flow (Figma DS App / Top Bar · Glass, 110 tall: status 54 + nav 48 + 8): the bar takes its own space above the page instead of floating over the gallery — Core PDP 2026 app, Jake 27 Nov */
+.app-top.app-top--flow{position:relative;height:auto;padding-bottom:8px;background:var(--surface-page,#FFF)}
+.app-top.app-top--flow .sb{height:54px}
+.app-top.app-top--flow .nav{height:48px}
 .app-top .sb{height:47px;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 40px;font-size:17px;font-weight:600;color:#000}
 .app-top .sb .sys{display:flex;gap:6px;align-items:center}.app-top .sb svg{display:block}
 .app-top .nav{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
