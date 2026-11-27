@@ -5,8 +5,8 @@
 <title>Core PDP 2026 — boohooMAN</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- DS snapshot (copied from debenhamsgroup.design/assets/ds on 08 Sep 2026) -->
-<link rel="stylesheet" href="assets/ds/tokens.css?v=20261127a">
-<link rel="stylesheet" href="assets/ds/components.css?v=20261127a">
+<link rel="stylesheet" href="assets/ds/tokens.css?v=20261127b">
+<link rel="stylesheet" href="assets/ds/components.css?v=20261127c">
 <style>
 /* ============================================================
    Core PDP 2026 — boohooMAN. Single file, no build.
@@ -275,6 +275,7 @@ b.lnk,.ft .news small b{font-weight:600}
 }
 .buy .deskonly{display:none}
 @media(min-width:1024px){.buy .deskonly{display:flex}}
+@media(min-width:1024px){.buy .deskonly.dg-host{display:block}} /* the DS delivery grid fills the buy column */
 
 /* ---------- Product cards (Figma 569:24467 / DS C-02 anatomy) ---------- */
 .card{display:flex;flex-direction:column;gap:12px;min-width:0;cursor:pointer}
@@ -388,7 +389,7 @@ b.lnk,.ft .news small b{font-weight:600}
 .share-row img{width:16px;height:16px}
 
 /* rec links */
-.reclinks{padding:0 var(--m);display:flex;flex-direction:column;gap:16px}
+.reclinks{padding:0 var(--m)}
 /* section/widget titles share one style: .rail-title 18/600 */
 .chips{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center}
 .chips a{font-size:16px;font-weight:300;padding:4px 0}
@@ -438,6 +439,8 @@ b.lnk,.ft .news small b{font-weight:600}
 .buy-set-box .copy{gap:0;text-align:left;align-items:flex-start}
 .buy-set-box .copy .h{line-height:20px}
 .buy-set-box .copy .s{color:#000;line-height:15px;margin-top:4px}
+/* Jake 27 Nov: desktop: the copy hugs its text (24 right, 24 left of it to the image edge + fade); the image window takes the rest and shows more tiles (never scaled) */
+@media(min-width:768px){.buy-set-box .imgs{flex:1 1 auto}.buy-set-box .copy{flex:0 0 auto;padding:16px 24px}}
 /* 03-3 Pairs well with — thumb row + label, under the buy buttons */
 .pairs{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:8px 0}
 .pairs .thumbs{display:flex;gap:8px}
@@ -878,6 +881,8 @@ body.editing{padding-bottom:48px}
   .recs{margin-left:calc(var(--m) * -1);margin-right:calc(var(--m) * -1)} /* .below carries the margin on desktop — pull the module back to the edges */
   .recs.nodata{padding:24px var(--m)}
 }
+/* Jake 27 Nov: desktop: At a Glance + accordions sit under the product images, in the gallery column (as live) */
+@media(min-width:1024px){.galcol{display:flex;flex-direction:column;gap:0;min-width:0}.galcol>.desc{padding:32px 0 0}}
 
 /* ============================================================
    FINAL (23 Nov 2026) — the decided designs, built on the DS (assets/ds: Product tabs, Size recommender, Product carousel, Notify Me)
@@ -897,6 +902,18 @@ body.pdp-oos .below>:not(#similar),body.pdp-oos .ft,body.pdp-oos #removed{displa
 body.oos-gone .sizes{display:none}
 .buyblock:has(>#buybtns[hidden]){display:none} /* buttons removed (OOS size / OOS product): no empty block, no stray 16px gap */
 body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 1368:47272 / 47445: 8px #FAFAFA band, edge to edge, between the buy box and Shop Similar Items */
+/* Jake 27 Nov (Figma 28:20519): desktop out of stock = a compact product card: the first image 232 x 348, the details 446 beside it (32 gap), on the page margin.
+   Restocking keeps the size selectors and the email box in the details column. No tabs, no Ask Jordan, no description. */
+@media(min-width:1024px){
+  body.pdp-oos .hero{grid-template-columns:232px 446px;gap:32px;padding:24px var(--m) 24px;justify-content:start}
+  body.pdp-oos .galwrap{display:block}
+  body.pdp-oos :is(.thumbs,.arrow,.pag,.galcol>.desc,#ptabs,#slot-ask){display:none!important}
+  body.pdp-oos .gal{overflow:hidden}
+  body.pdp-oos .gal .slide{flex:0 0 232px!important;width:232px!important;height:348px!important;aspect-ratio:auto}
+  body.pdp-oos .gal .slide~.slide{display:none}
+  body.pdp-oos .gal .tags{display:none}
+  body.pdp-oos .below>#similar{margin:0} /* Shop Similar on the 48 page margin, 4 across (Figma 22:5321) */
+}
 #similar{margin:0 var(--m);padding:16px 0 48px}
 #similar .sim-more{height:1px}
 /* notify me (PDP, Figma 1368:47445): question 16 · DS text field · NOTIFY ME (.bd.pri.full + bell) · DS consent row · once set, the DS notified line */
@@ -917,7 +934,7 @@ body.pdp-oos .below{padding-top:0;border-top:8px solid var(--grey-05)} /* Figma 
 #sheet .foot{position:absolute;left:0;right:0;bottom:0;background:none;padding:16px 16px calc(16px + env(safe-area-inset-bottom));pointer-events:none}
 #sheet .foot .btn{pointer-events:auto}
 @media(min-width:768px){#sheet .foot{padding:16px 24px 24px;flex-direction:row;justify-content:flex-end}#sheet .foot .btn{width:auto;padding:0 24px}}
-@media(min-width:1024px){#sheet .panel{max-width:720px}}
+@media(min-width:1024px){#sheet .panel{max-width:512px}}
 /* Jake 25 Nov: Add to bag with a size missing → the DS Message banner (error, Figma DS 14555:173218) slides up from behind the CTA like a toast, as well as the red + shake */
 #sheet .atb-wrap{position:relative;width:100%;pointer-events:none}
 #sheet .atb-wrap .btn{position:relative;z-index:1}
@@ -990,6 +1007,7 @@ body.app :is(.hdr,.crumb,.ft){display:none!important}
 
 <!-- ================= HERO ================= -->
 <section class="hero">
+  <div class="galcol">
   <div class="galwrap">
     <div class="thumbs" id="thumbs"></div>
     <div class="galmain">
@@ -1000,6 +1018,7 @@ body.app :is(.hdr,.crumb,.ft){display:none!important}
     <div class="pag"><div class="track"><div class="fill" id="pagfill"></div></div></div>
   </div>
 
+  </div>
   <div class="buy">
     <!-- Product tabs (Jake 18 Sep): back at the top of the buy block, below the gallery pagination — Zip Up Hoodie · Hoodie · 1/4 Zip… pills switch the whole PDP to that piece in this colour -->
     <div class="ptabs" id="ptabs" data-block="ptabs" data-label="Product tabs" role="tablist" hidden></div>
@@ -1081,13 +1100,12 @@ body.app :is(.hdr,.crumb,.ft){display:none!important}
 
 <!-- ================= BELOW ================= -->
 <section class="below">
-  <!-- Create the look module — one component, several formats. Default position: under the Deliver+ box -->
-  <div id="recs-look" data-block="look" data-label="Create the look" data-recs="look"></div>
-  <div class="inset buyside uspbox" id="uspbox-m" data-block="uspbox" data-label="Delivery &amp; returns"></div>
-  <div class="inset buyside uspbox" id="student-m" data-block="student" data-label="Student"></div>
-  <div class="inset buyside bnpl" id="bnpl-m" data-block="bnpl" data-label="BNPL"></div>
+  <!-- Mobile order (Jake 27 Nov): buy buttons, Made to Match, Premier, Deliver+, delivery grid, BNPL, Handpicked, accordions, the two recs carousels, Recommendations -->
   <div class="inset buyside premier" data-block="premier" data-label="Premier"><div class="t"><img src="assets/bundling/premier-logo.png" alt="Premier"><span data-copy="premier.t">Enjoy unlimited delivery for an entire year from just £9.99</span></div><button class="add" data-copy="premier.cta">Add</button></div>
   <div class="inset buyside deliver" id="deliver-m" data-block="deliver" data-label="Deliver+"></div>
+  <div class="inset buyside uspbox" id="uspbox-m" data-block="uspbox" data-label="Delivery grid"></div>
+  <div class="inset buyside uspbox" id="student-m" data-block="student" data-label="Student"></div>
+  <div class="inset buyside bnpl" id="bnpl-m" data-block="bnpl" data-label="BNPL"></div>
   <div class="slot" id="slot-rail" data-block="entry04" data-label="Set entry point — 04 large banner"></div>
 
   <!-- Live: production 'Complete Your Purchase With' -->
@@ -1127,11 +1145,12 @@ body.app :is(.hdr,.crumb,.ft){display:none!important}
     <div class="drow acc" data-block="acc-returns" data-label="Returns"><button class="acc-h"><span class="h" data-copy="desc.returns">Returns</span><img src="assets/ds/icons/lib/icons-down.svg" alt=""></button><div class="acc-b"><p>Eligible for return within 21 days. Exclusions apply — see our returns policy.</p></div></div>
   </div>
 
+  <div id="recs-look" data-block="look" data-label="Create the look" data-recs="look"></div>
   <div id="recs-wtyl" data-block="wtyl" data-label="We Think You'll Like" data-recs="wtyl"></div>
 
-  <div class="reclinks" data-block="reclinks" data-label="Recommendations">
-    <span class="rail-title" data-copy="reclinks.title">Recommendations</span>
-    <div class="chips">
+  <div class="reclinks rec-links" data-block="reclinks" data-label="Recommendations"><!-- DS Recommendations links (Figma 202:6567), boohooMAN light grey chips -->
+    <p class="rec-links-t" data-copy="reclinks.title">Recommendations</p>
+    <div class="rec-links-row">
       <a href="#">Black zip up hoodies</a><a href="#">Oversized jumpers</a><a href="#">Grey zip up hoodies</a><a href="#">Boxy t shirts</a><a href="#">Dark wash jeans</a><a href="#">Black washed jeans</a><a href="#">Zip-Up Cardigan for Men</a><a href="#">Zip t shirts</a><a href="#">Dark Grey Washed Hoodie for Men</a><a href="#">Plus Size Quarter Zip</a>
     </div>
   </div>
@@ -1228,7 +1247,7 @@ body.app :is(.hdr,.crumb,.ft){display:none!important}
 <template id="tpl-01-1"><div class="pill-row"><button class="chip-entry round entry">SHOP SETS</button></div></template>
 <template id="tpl-01-4"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">Shop The Set</button></div></template>
 <template id="tpl-01-8"><div class="pill-row"><button class="chip-entry round entry"><img class="hanger" src="assets/bundling/icons/hanger.svg" alt="">SET BUILDER</button></div></template>
-<template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><span class="track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span></span><span class="copy"><span class="h" data-copy="e.03-1.h">Made To Match</span><span class="s" data-copy="e.03-1.s">Shop sets</span></span></button></template>
+<template id="tpl-03-1"><button class="buy-set-box entry"><span class="imgs"><span class="track"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""><img data-set="5" alt=""><img data-set="6" alt=""><img data-set="7" alt=""></span></span><span class="copy"><span class="h" data-copy="e.03-1.h">Made To Match</span><span class="s" data-copy="e.03-1.s">Shop sets</span></span></button></template>
 <template id="tpl-03-2"><button class="equation-strip entry"><span class="imgs"><img data-set="0" alt=""><img data-set="1" alt=""><img data-set="2" alt=""></span><span class="copy" data-copy="e.03-2.cta">SHOP SETS</span></button></template>
 <template id="tpl-03-3"><button class="pairs entry"><span class="thumbs"><img data-set="1" alt=""><img data-set="2" alt=""><img data-set="3" alt=""><img data-set="4" alt=""></span><span class="lbl"><span data-copy="e.pairs">Pairs well with</span><img class="chev" src="assets/ds/icons/lib/icons-right.svg" alt=""></span></button></template>
 <template id="tpl-04-1"><div class="outfit-module entry" role="button" tabindex="0"><div class="outfit-scroll two-up"><img data-full alt=""><img data-set="1" alt=""><img data-set="0" alt=""><img data-set="2" alt=""></div><div class="outfit-caption"><div class="l"><span class="h" data-copy="e.04.h">Shop Sets</span><span class="s" data-pieces></span></div><span class="cta" data-copy="e.04.cta">LAUNCH SET BUILDER</span></div></div></template>
@@ -1254,7 +1273,8 @@ body.app :is(.hdr,.crumb,.ft){display:none!important}
 
 <script src="assets/ds/toast.js?v=20261125"></script>
 <script src="assets/ds/ai-prompts.js?v=20261127"></script>
-<script src="data.js"></script>
+<script src="data.js?v=20261127b"></script>
+<script src="assets/ds/delivery.js?v=20261127c"></script>
 <script src="ctl.js"></script>
 <script src="assets/ds/carousel.js?v=20261124"></script>
 <script>
@@ -1265,7 +1285,7 @@ const q=new URLSearchParams(location.search);
 const PRE=window.PDP_PRESET||{}; // exported configuration (see index.html → Export)
 const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}};
 if(LS('pdp26-v')!==5){LS('pdp26-removed',[]);LS('pdp26-added',[]);LS('pdp26-copy',{});LS('pdp26-acc',{'acc-desc':true});LS('pdp26-glanceoff',[]);LS('pdp26-fmt',null);} // 23 Nov: final designs — clear every layout / copy / format experiment an earlier session left in this browser
-if(LS('pdp26-v')!==5){LS('pdp26-setview','compact');LS('pdp26-ptabs',true);LS('pdp26-pricing','code');LS('pdp26-labels',false);LS('pdp26-order',{});LS('pdp26-v',5);} // 18 Sep: v4 also clears any saved block order so the new default (tabs top, entry point under the buttons) shows // 15 Sep defaults: compact set builder, product tabs on, markdown + code pricing, no card labels — applied once over anything an earlier session left in this browser
+if(LS('pdp26-v')!==6){LS('pdp26-setview','compact');LS('pdp26-ptabs',true);LS('pdp26-pricing','code');LS('pdp26-labels',false);LS('pdp26-order',{});LS('pdp26-v',6);} // 18 Sep: v4 also clears any saved block order so the new default (tabs top, entry point under the buttons) shows // 15 Sep defaults: compact set builder, product tabs on, markdown + code pricing, no card labels — applied once over anything an earlier session left in this browser
 const S={
   mode:q.get('mode')||PRE.mode||'new',          // live | new
   edit:false,                          // edit-layout mode (review tooling)
@@ -1472,8 +1492,11 @@ const USPBOX_L=`<div class="r"><img src="assets/ds/icons/lib/icons-order.svg" al
 <div class="r"><img src="assets/bundling/icons/calendar.png" alt=""><div class="txt"><span class="t14">Eligible for return within 28 days</span><span class="t12">Exclusions apply. Please see our <b>returns policy</b></span></div></div>`;
 function renderBoxes(){
   const L=LOOKX(); // Create the Look (Figma 1368:47157): Deliver+ without resale / quote, free delivery + 28-day returns
-  ['deliver','uspbox','student','bnpl'].forEach(k=>{const html={deliver:L?DELIVER_L:DELIVER,uspbox:L?USPBOX_L:USPBOX,student:STUDENT,bnpl:BNPL}[k];$('#'+k+'-m').innerHTML=html;$('#'+k+'-d').innerHTML=html;});
+  const G=!L&&window.DG_delivery; // Jake 27 Nov: the delivery box = the DS delivery grid (delivery.js, the 9 Nov default: Delivery / Collection tabs, Get It By rows, returns + seller in the box)
+  ['deliver','uspbox','student','bnpl'].forEach(k=>{const grid=k==='uspbox'&&G;['-m','-d'].forEach(sfx=>{const n=$('#'+k+sfx);if(!n)return;n.classList.toggle('uspbox',k==='uspbox'?!grid:n.classList.contains('uspbox'));n.classList.toggle('dg-host',!!grid);n.innerHTML=grid?DG_delivery.grid(DGO(sfx==='-d')):{deliver:L?DELIVER_L:DELIVER,uspbox:L?USPBOX_L:USPBOX,student:STUDENT,bnpl:BNPL}[k];});});
+  if(G&&!renderBoxes.mounted){DG_delivery.mount(document,DGO(innerWidth>=1024));renderBoxes.mounted=1;}else if(G)DG_delivery.wire(document,DGO(innerWidth>=1024),()=>{});
 }
+const DGO=desk=>({layout:'tabs',tab:'home',retIn:'box',sellerIn:'box',ccLabel:'Collection',scen:'std',badges:true,ni:'split',sort:'price',cut:'midnight',modal:'toggle',ret:true,retDays:28,desk,sheet:'up',brand:'boohooman',seller:S.size?'site':null});
 
 /* ============================================================
    Product card
@@ -1557,7 +1580,7 @@ function renderSimilar(){
   const pool=[],add=p=>{if(p.id!==h.id&&stockOf(p)==='in'&&!pool.includes(p))pool.push(p);};
   (NEAR[h.fam]||[h.fam]).forEach(f=>fam(f).forEach(add));if(!LOOKX())P.forEach(add); // Create the Look: the similar tees only (they repeat as the grid loads, as in Figma)
   SIM={io:null,n:0,pool,list:[]};RAILS.similar=SIM.list;s.className='rails';
-  s.innerHTML=DG_pcarHTML({size:'sm',grid:true,per:5,bleed:false,title:'Shop Similar Items',items:[]})+'<div class="sim-more" aria-hidden="true"></div>';
+  s.innerHTML=DG_pcarHTML({size:'sm',grid:true,per:innerWidth>=1024?4:5,bleed:false,title:'Shop Similar Items',items:[]})+'<div class="sim-more" aria-hidden="true"></div>';
   moreSimilar(15);
   if(window.IntersectionObserver){SIM.io=new IntersectionObserver(es=>{if(es.some(x=>x.isIntersecting))moreSimilar(15);},{rootMargin:'800px 0px'});SIM.io.observe(s.querySelector('.sim-more'));}
 }
@@ -1595,8 +1618,8 @@ function renderEntry(){
   const tpl=document.getElementById('tpl-'+S.entry);if(!tpl)return;
   const slot=$('#'+SLOT[S.entry.slice(0,2)]);
   const node=tpl.content.cloneNode(true);
-  const imgs=setImages(5);
-  node.querySelectorAll('img[data-set]').forEach(im=>im.src=imgs[+im.dataset.set]||imgs[0]);
+  const imgs=setImages(8);
+  node.querySelectorAll('img[data-set]').forEach(im=>im.src=imgs[+im.dataset.set%imgs.length]); // loop the set, never pad with the hero
   node.querySelectorAll('.track').forEach(t=>{t.innerHTML+=t.innerHTML;}); // duplicate for a seamless loop
   node.querySelectorAll('[data-pieces]').forEach(s=>s.textContent=`${setPieces()} matching pieces · ${fam('zip-hoodie').length} colours`);
   // 09 range ideas: colour dots, set total, colourway rail, add-on price
@@ -1909,7 +1932,7 @@ function renderAll(){
   document.body.className='mode-'+S.mode+(q.get('app')==='1'?' app':'');
   {const st=stockOf(hero());document.body.classList.toggle('pdp-oos',st!=='in');document.body.classList.toggle('oos-gone',st==='gone');document.body.classList.toggle('oos-restock',st==='restock');document.body.classList.toggle('in',!!S.login);}
   document.body.classList.toggle('exp-look',LOOKX());
-  {const rl=$('#recs-look'),anchor=LOOKX()?$('#bnpl-m'):$('#deliver-m');if(rl&&anchor&&anchor.nextElementSibling!==rl)anchor.after(rl);} // Create the Look: Shop The Look under BNPL (Figma) · Bundles: under Deliver+
+  {const rl=$('#recs-look');if(LOOKX()){const a=$('#bnpl-m');if(rl&&a&&a.nextElementSibling!==rl)a.after(rl);}else{const a=$('#recs-wtyl');if(rl&&a&&a.previousElementSibling!==rl)a.before(rl);}} // Create the Look: Shop The Look under BNPL (Figma) · Bundles: under Deliver+
   {const co=document.querySelector('.buy>.colour,.buy .colour'),sz=$('.sizes'),sr=$('#sizerec');if(co&&sz&&sr){if(LOOKX()){if(co.nextElementSibling!==$('.fit'))$('.fit').before(co);}else if(sr.nextElementSibling!==co)sr.after(co);}} // Create the Look (Figma 1368:47157): Colour above the sizes · Bundles: under the size recommender
   renderDesc();
   applyRemoved();applyOrder();
@@ -2064,6 +2087,11 @@ parent.postMessage({pdpReady:1},'*');
 if(PRE.scene||q.get('scene'))scene(PRE.scene||q.get('scene'));
 let __imgsDone=()=>[...document.images].every(i=>i.complete);
 addEventListener('message',e=>{if(e.data&&e.data.pdpPing){const t=setInterval(()=>{if(__imgsDone()){clearInterval(t);parent.postMessage({pdpPong:e.data.pdpPing,h:document.documentElement.scrollHeight},'*');}},100);}});
+
+/* Jake 27 Nov: desktop puts the description area under the gallery (live boohooMAN); mobile keeps it below the buy box */
+(function(){const d=document.querySelector('.desc'),home=document.createComment('desc-home');d.parentNode.insertBefore(home,d);
+  const mq=matchMedia('(min-width:1024px)');const place=()=>{if(mq.matches)document.querySelector('.galcol').appendChild(d);else home.parentNode.insertBefore(d,home.nextSibling);};
+  place();mq.addEventListener('change',place);})();
 </script>
 </body>
 </html>

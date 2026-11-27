@@ -1687,10 +1687,9 @@ html.exporting .ftr-chev{-webkit-mask:none;mask:none;background:url(icons/lib/ic
 .dmeth .nw{white-space:nowrap}
 .dmeth-d{margin-top:-2px;font-size:12px;line-height:15px;font-weight:var(--w-regular,300)}
 .dmeth-a{font-size:14px;line-height:18px;font-weight:var(--w-regular,300)}
-/* parts (arrival · cut-off): each part pulls a 12px "·" in front of itself; the one that starts a line has it clipped, so a wrap never starts with a dot */
-.dmeth-a:has(>span+span){display:flex;flex-wrap:wrap;overflow:hidden}
-.dmeth-a:has(>span+span)>span+span{margin-left:-12px;margin-right:12px}.dmeth-a:has(>span+span)>span+span::before{content:"·";display:inline-block;width:12px;text-align:center}
-.dmeth-a:has(>span+span)>span:first-child{margin-right:12px}
+/* parts (arrival, cut-off): separated by a comma, never a dot (master rule 25 Nov 2026); a wrap starts on the next part cleanly */
+.dmeth-a:has(>span+span){display:flex;flex-wrap:wrap;column-gap:4px}
+.dmeth-a:has(>span+span)>span:not(:last-child)::after{content:","}
 .dmeth-p{display:flex;align-items:center;gap:var(--gap-2,8px);flex:none;white-space:nowrap;font-size:16px;line-height:20px}
 .dmeth-p b{font-weight:var(--w-strong,600)}.dmeth-p s{font-weight:var(--w-regular,300)}
 /* --sm = the PDP size (delivery grid box + Delivery Options modal), one step under the 16px box title: name + price 14/18, arrival + descriptor 12/16. 29 Oct 2026 */
@@ -3241,3 +3240,13 @@ button.co-tile,label.co-tile{width:100%;box-sizing:border-box;cursor:pointer;fon
 .help-act img{width:24px;height:24px;flex:none}
 /* bag seller section: the arrival line under "Sold and sent by" (marketplace parcels say when and who sends them) */
 .bag-sec-note{margin:var(--gap-1,4px) 0 0;font-size:14px;line-height:20px;font-weight:var(--w-regular,400);color:var(--text-primary)}
+
+/* Recommendations links (Core PDP 2026, Figma vVJJ1bgaTGCbGd68bsNiVT 202:6567 · Jake 27 Nov): the bottom-of-PDP block of related searches.
+   Centred title (18, fascia head weight) · wrap of chips 40 tall, 10 sides, 8 apart, fascia radius, 14 regular black text.
+   Chip fill per fascia: --rec-chip-bg (Debenhams mint #E8F4F2; everyone else the fascia Neutral, e.g. boohooMAN #F2F2F2). */
+.rec-links{display:flex;flex-direction:column;gap:16px;padding:0 16px;text-align:center;font-family:var(--font-family-base)}
+.rec-links-t{margin:0;font-size:18px;line-height:23px;font-weight:var(--w-head,var(--w-strong));color:var(--text-primary)}
+.rec-links-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.rec-links-row a{display:inline-flex;align-items:center;height:40px;padding:0 10px;border-radius:var(--radius-default,4px);background:var(--rec-chip-bg,var(--neutral,#F2F2F2));color:var(--text-primary);font-size:14px;line-height:18px;font-weight:var(--w-regular);text-decoration:none;white-space:nowrap}
+.rec-links-row a:hover{background:var(--rec-chip-bg-hover,var(--neutral-pressed,#E7E7E7))}
+[data-brand="debenhams"]{--rec-chip-bg:#E8F4F2;--rec-chip-bg-hover:#D9EDE9}
