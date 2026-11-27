@@ -439,8 +439,8 @@ b.lnk,.ft .news small b{font-weight:600}
 .buy-set-box .copy{gap:0;text-align:left;align-items:flex-start}
 .buy-set-box .copy .h{line-height:20px}
 .buy-set-box .copy .s{color:#000;line-height:15px;margin-top:4px}
-/* Jake 27 Nov: desktop: the copy hugs its text (24 right, 24 left of it to the image edge + fade); the image window takes the rest and shows more tiles (never scaled) */
-@media(min-width:768px){.buy-set-box .imgs{flex:1 1 auto}.buy-set-box .copy{flex:0 0 auto;padding:16px 24px}}
+/* Jake 27 Nov: the copy hugs its text (24 right, 24 left of it to the image edge + fade); the image window takes the rest and shows more tiles (never scaled) — one rule at every width so it matches the Figma component */
+.buy-set-box .imgs{flex:1 1 auto}.buy-set-box .copy{flex:0 0 auto;padding:16px 24px}
 /* 03-3 Pairs well with — thumb row + label, under the buy buttons */
 .pairs{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:8px 0}
 .pairs .thumbs{display:flex;gap:8px}
