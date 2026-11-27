@@ -2774,11 +2774,10 @@ select.rf-input:invalid{color:var(--rf-dim)}
 .alert--text.xs{font-size:12px;line-height:16px;letter-spacing:0;margin:0} /* 12 — Wishlist tile stock line (11 Nov) */
 /* Button tag (.bd-tag) — one pill inside a button: the count in a 16 circle, then the value (Core PDP 2026 Figma 1450:35803 · Jake 25 Nov).
    24 tall · padding 4 6 4 4 · gap 4 · 10px in the button weight · white 20% pill + white circle / black count on a filled button; black 8% pill + black circle / white count on secondary / tertiary / text. No brackets, no dots */
-.bd-tag{display:inline-flex;align-items:center;gap:4px;flex:none;height:24px;padding:4px 6px 4px 4px;box-sizing:border-box;border-radius:9999px;background:rgba(255,255,255,.2);color:inherit;font-size:10px;line-height:1;font-weight:var(--w-btn,var(--w-strong));font-variant-numeric:tabular-nums;letter-spacing:0;text-transform:none}
+/* Button tag (Jake 27 Nov, Figma Core PDP 2026 Add to bag · tags 16:3196): solid #D6D6D6 pill, black 12 SemiBold value, black count circle with a white 10 number — the same on every button type */
+.bd-tag{display:inline-flex;align-items:center;gap:4px;flex:none;height:24px;padding:4px 6px 4px 4px;box-sizing:border-box;border-radius:9999px;background:var(--bd-tag-bg,#D6D6D6);color:#000;font-size:12px;line-height:1;font-weight:var(--w-head,600);font-variant-numeric:tabular-nums;letter-spacing:0;text-transform:none}
 .bd-tag:not(:has(.bd-tag-n)){padding:4px 6px}
-.bd-tag-n{display:grid;place-items:center;width:16px;height:16px;flex:none;border-radius:9999px;background:#FFF;color:#000;font:inherit}
-.bd.sec .bd-tag,.bd.txt .bd-tag,.bd.ter .bd-tag,.bd.xs .bd-tag{background:rgba(0,0,0,.08)}
-.bd.sec .bd-tag-n,.bd.txt .bd-tag-n,.bd.ter .bd-tag-n,.bd.xs .bd-tag-n{background:#000;color:#FFF}
+.bd-tag-n{display:grid;place-items:center;width:16px;height:16px;flex:none;border-radius:9999px;background:#000;color:#FFF;font:inherit;font-size:10px}
 /* Button · Added (.bd.done): the primary after it has added — tick + ADDED, no interaction */
 .bd.done{display:inline-flex;align-items:center;justify-content:center;gap:8px;pointer-events:none}
 .bd.done::before{content:"";width:24px;height:24px;flex:none;background:currentColor;-webkit-mask:url("icons/lib/icons-tick.svg") center/24px 24px no-repeat;mask:url("icons/lib/icons-tick.svg") center/24px 24px no-repeat}
